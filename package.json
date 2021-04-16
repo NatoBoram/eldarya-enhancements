@@ -2,18 +2,6 @@
   "name": "eldarya-enhancements",
   "description": "Enhances the user experience of Eldarya",
   "version": "0.0.1",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.22.0",
-    "@typescript-eslint/parser": "^4.22.0",
-    "common-tags": "^1.8.0",
-    "eslint": "^7.24.0",
-    "hogan.js": "^3.0.2",
-    "prettier": "^2.2.1",
-    "ts-loader": "^8.1.0",
-    "typescript": "^4.2.4",
-    "webpack": "^5.33.2",
-    "webpack-cli": "^4.6.0"
-  },
   "scripts": {
     "tsc": "npm run hulk && tsc",
     "hulk": "hulk ./templates/*.mustache --outputdir src/templates/js",
@@ -31,5 +19,17 @@
   "bugs": {
     "url": "https://gitlab.com/NatoBoram/eldarya-enhancements/issues"
   },
-  "homepage": "https://gitlab.com/NatoBoram/eldarya-enhancements"
+  "homepage": "https://gitlab.com/NatoBoram/eldarya-enhancements",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "common-tags": "^1.8.0",
+    "eslint": "^7.24.0",
+    "hogan.js": "^3.0.2",
+    "prettier": "^2.2.1",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.4",
+    "webpack": "^5.33.2",
+    "webpack-cli": "^4.6.0"
+  }
 }
