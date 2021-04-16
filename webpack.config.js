@@ -3,7 +3,7 @@ const stripIndent = require("common-tags").stripIndent;
 const webpack = require("webpack");
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: "./src/main.ts",
   devtool: "inline-source-map",
   module: {
     rules: [
@@ -34,6 +34,7 @@ module.exports = {
 // @author       Nato Boram
 // @icon         https://gitlab.com/NatoBoram/Eldarya-Face-Downloader/raw/master/assets/icon.png
 // @supportURL   https://gitlab.com/NatoBoram/Eldarya-Face-Downloader/issues
+// @require      https://raw.githubusercontent.com/twitter/hogan.js/master/lib/template.js
 //
 // HTTPS
 // @match        https://eldarya.com.br/*
