@@ -15,7 +15,7 @@ module.exports = {
       {
         test: /\.html$/,
         loader: "mustache-loader",
-        options: { minify: true, noShortcut: true, },
+        options: { minify: true, noShortcut: true },
       },
     ],
   },
