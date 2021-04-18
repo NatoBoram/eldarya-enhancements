@@ -1,0 +1,1 @@
+export type StartGameData = string;

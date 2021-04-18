@@ -4,8 +4,8 @@ import { loadMenu } from "./menu";
 import { loadMinigames } from "./minigames";
 
 function load() {
-  loadCarousel();
   loadMenu();
+  loadCarousel();
   loadMinigames();
 
   loadDailies();

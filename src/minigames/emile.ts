@@ -1,3 +1,6 @@
+import { GetPrizesData } from "../api/get_prizes_data";
+import { Packet } from "../api/packet";
+import { StartGameData } from "../api/start_game_data";
 import "../jquery";
 import { flappy } from "./flappy";
 import { hatchlings } from "./hatchlings";
@@ -23,13 +26,18 @@ function execute(minigame: Minigame) {
       type: "post",
       dataType: "json",
       data: { game: minigame.name.toLowerCase(), recaptchaToken: token },
-      success: function (json) {
+      success: (json: Packet<StartGameData>) => {
         if (json.result === "success") {
           const gameToken = json.data;
           const score = randomInt(minigame.min, minigame.max);
 
           getPrizes(minigame, gameToken, score);
         }
+      },
+      error: () => {
+        setTimeout(() => {
+          execute(minigame);
+        }, randomInt(1000, 3000));
       },
     });
   });
@@ -43,14 +51,18 @@ function getPrizes(minigame: Minigame, gameToken: string, score: Number) {
   $.post(
     "/minigames/ajax_getPrizes",
     { game: minigame.name.toLowerCase(), score: score },
-    (json) => {
+    (json: Packet<GetPrizesData>) => {
       var enc_token = xorEncode(gameToken, score.toString());
       send(enc_token, score, minigame.name.toLowerCase());
 
       $.flavrNotif(`Played ${minigame.name} for ${json.data.maana} maanas.`);
     },
     "json"
-  );
+  ).fail(() => {
+    setTimeout(() => {
+      getPrizes(minigame, gameToken, score);
+    }, randomInt(1000, 3000));
+  });
 }
 
 function xorEncode(str: string, key: string) {
@@ -82,6 +94,11 @@ function send(enc_token: string, score: Number, game: string) {
         score: score,
         game: game,
         recaptchaToken: recaptchaToken,
+      },
+      error: () => {
+        setTimeout(() => {
+          send(enc_token, score, game);
+        }, randomInt(1000, 3000));
       },
       complete: () => {},
     });
