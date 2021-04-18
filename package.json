@@ -3,16 +3,16 @@
   "description": "Enhances the user experience of Eldarya",
   "version": "0.0.1",
   "scripts": {
-    "tsc": "npm run hulk && tsc",
-    "hulk": "hulk ./templates/*.mustache --outputdir src/templates/js",
-    "webpack": "npm run hulk && webpack"
+    "tsc": "tsc",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@gitlab.com/NatoBoram/eldarya-enhancements.git"
   },
   "keywords": [
-    "Eldarya"
+    "Eldarya",
+    "Userscript"
   ],
   "author": "Nato Boram",
   "license": "GPL-3.0-or-later",
@@ -27,6 +27,7 @@
     "common-tags": "^1.8.0",
     "eslint": "^7.24.0",
     "hogan.js": "^3.0.2",
+    "mustache-loader": "^1.4.3",
     "prettier": "^2.2.1",
     "ts-loader": "^8.1.0",
     "typescript": "^4.2.4",

@@ -12,6 +12,11 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.html$/,
+        loader: "mustache-loader",
+        options: { minify: true, noShortcut: true, },
+      },
     ],
   },
   resolve: {
