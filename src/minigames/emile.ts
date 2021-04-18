@@ -47,7 +47,7 @@ function getPrizes(minigame: Minigame, gameToken: string, score: Number) {
       var enc_token = xorEncode(gameToken, score.toString());
       send(enc_token, score, minigame.name.toLowerCase());
 
-      $.flavrNotif(`Played ${minigame.name} for ${json.data} maanas.`);
+      $.flavrNotif(`Played ${minigame.name} for ${json.data.maana} maanas.`);
     },
     "json"
   );
