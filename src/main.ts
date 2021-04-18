@@ -1,10 +1,13 @@
 import { loadCarousel } from "./carousel";
 import { loadDailies } from "./daily";
 import { loadMenu } from "./menu";
+import { loadMinigames } from "./minigames";
 
 function load() {
-  loadMenu();
   loadCarousel();
+  loadMenu();
+  loadMinigames();
+
   loadDailies();
 }
 

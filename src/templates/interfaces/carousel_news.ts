@@ -1,10 +1,10 @@
 import { Context } from "hogan.js";
 
 export interface CarouselNews extends Context {
-  id?: String;
-  href?: String;
-  backgroundImage: String;
-  h4: String;
-  h5?: String;
-  p: String;
+  id?: string;
+  href?: string;
+  backgroundImage: string;
+  h4: string;
+  h5?: string;
+  p: string;
 }

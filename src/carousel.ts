@@ -1,5 +1,5 @@
 import { Template } from "hogan.js";
-import { downloadFace } from "./download-face";
+import { downloadFace, downloadGuardian } from "./download-canvas";
 import { CarouselNews } from "./templates/interfaces/carousel_news";
 
 export function loadCarousel() {
@@ -13,17 +13,27 @@ export function loadCarousel() {
 
   // Declare carousel entries
   const news: CarouselNews[] = [
+    // Eldarya Enhancements
     {
       backgroundImage: "",
       h4: "Eldarya Enhancements",
       p: "Enhances the user experience of Eldarya.",
     },
+    // Download your face
     {
       backgroundImage:
-        "https://cdn.discordapp.com/attachments/161636856482496522/833390927569616926/CarrouselDownloadGuardian.png",
+        "https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/carousel_download_face.png",
       id: "carousel-download-face",
       h4: "Download your face!",
       p: "Click here to download your guardian's face.",
+    },
+    // Download your guardian
+    {
+      backgroundImage:
+        "https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/carousel_download_guardian.png",
+      id: "carousel-download-guardian",
+      h4: "Download your guardian!",
+      p: "Click here to download your guardian.",
     },
   ];
 
@@ -34,7 +44,12 @@ export function loadCarousel() {
   );
 
   // Add click events
+
   document
     .getElementById("carousel-download-face")
     ?.addEventListener("click", downloadFace);
+
+  document
+    .getElementById("carousel-download-guardian")
+    ?.addEventListener("click", downloadGuardian);
 }
