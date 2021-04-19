@@ -6,6 +6,7 @@ import { loadMinigames } from "./minigames";
 function load() {
   loadMenu();
   loadCarousel();
+  // loadFavorites();
   loadMinigames();
 
   loadDailies();
