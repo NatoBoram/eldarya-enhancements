@@ -8,47 +8,43 @@ export async function loadMinigames(): Promise<void> {
   ].reduce((previous, current) => previous || current);
 
   if (played) {
-    // setTimeout(() => {
-    //   location.reload();
-    // }, 1000);
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
   }
 }
 
-async function loadPeggle(): Promise<boolean> {
-  const peggleStart = document.querySelector<HTMLSpanElement>(
-    '.minigame-start [href="/minigames/gembomb"] .nl-button'
-  );
-  if (!peggleStart) {
+async function loadMinigame(
+  selector: string,
+  playGame: () => Promise<void>
+): Promise<boolean> {
+  const start = document.querySelector<HTMLSpanElement>(selector);
+  if (!start) {
     return false;
   }
 
-  peggleStart.classList.add("disabled");
-  await playPeggle();
+  start.classList.add("disabled");
+  await playGame();
   return true;
 }
 
-async function loadFlappy(): Promise<boolean> {
-  const flappyStart = document.querySelector<HTMLSpanElement>(
-    '.minigame-start [href="/minigames/bubbltemple"] .nl-button'
+function loadPeggle(): Promise<boolean> {
+  return loadMinigame(
+    '.minigame-start [href="/minigames/gembomb"] .nl-button',
+    playPeggle
   );
-  if (!flappyStart) {
-    return false;
-  }
-
-  flappyStart.classList.add("disabled");
-  await playFlappy();
-  return true;
 }
 
-async function loadHatchlings(): Promise<boolean> {
-  const hatchlingsStart = document.querySelector<HTMLSpanElement>(
-    '.minigame-start [href="/minigames/cocooninpick"] .nl-button'
+function loadFlappy(): Promise<boolean> {
+  return loadMinigame(
+    '.minigame-start [href="/minigames/bubbltemple"] .nl-button',
+    playFlappy
   );
-  if (!hatchlingsStart) {
-    return false;
-  }
+}
 
-  hatchlingsStart.classList.add("disabled");
-  await playHatchlings();
-  return true;
+function loadHatchlings(): Promise<boolean> {
+  return loadMinigame(
+    '.minigame-start [href="/minigames/cocooninpick"] .nl-button',
+    playHatchlings
+  );
 }
