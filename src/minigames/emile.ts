@@ -38,22 +38,18 @@ function randomInt(min: number, max: number): number {
 }
 
 function execute(minigame: Minigame): Promise<Packet<StartGameData>> {
-  return new Promise<Packet<StartGameData>>((resolve) => {
-    Recaptcha.execute(`minigameStart${minigame.name}`, (token) => {
+  return new Promise<Packet<StartGameData>>((resolve, reject) =>
+    Recaptcha.execute(`minigameStart${minigame.name}`, (token) =>
       $.ajax({
         url: "/minigames/ajax_startGame",
         type: "post",
         dataType: "json",
         data: { game: minigame.name.toLowerCase(), recaptchaToken: token },
-        success: (json: Packet<StartGameData>) => {
-          resolve(json);
-        },
-        error: () => {
-          resolve(execute(minigame));
-        },
-      });
-    });
-  });
+        success: (json: Packet<StartGameData>) => resolve(json),
+        error: () => reject(),
+      })
+    )
+  );
 }
 
 function getPrizes(
@@ -61,7 +57,7 @@ function getPrizes(
   gameToken: string,
   score: number
 ): Promise<Packet<GetPrizesData>> {
-  return new Promise<Packet<GetPrizesData>>((resolve) => {
+  return new Promise<Packet<GetPrizesData>>((resolve) =>
     $.post(
       "/minigames/ajax_getPrizes",
       { game: minigame.name.toLowerCase(), score: score },
@@ -73,10 +69,13 @@ function getPrizes(
         );
       },
       "json"
-    ).fail(() => {
-      resolve(getPrizes(minigame, gameToken, score));
-    });
-  });
+    ).fail(() =>
+      setTimeout(
+        () => resolve(getPrizes(minigame, gameToken, score)),
+        randomInt(1000, 3000)
+      )
+    )
+  );
 }
 
 /**
@@ -106,7 +105,7 @@ function xorEncode(str: string, key: string) {
 function send(enc_token: string, score: number, game: string): Promise<void> {
   return new Promise((resolve) => {
     const token = decodeURIComponent(enc_token);
-    Recaptcha.execute("minigameSave" + game, (recaptchaToken) => {
+    Recaptcha.execute("minigameSave" + game, (recaptchaToken) =>
       $.ajax({
         type: "post",
         url: "/minigames/ajax_saveScore",
@@ -116,13 +115,13 @@ function send(enc_token: string, score: number, game: string): Promise<void> {
           game: game,
           recaptchaToken: recaptchaToken,
         },
-        success: () => {
-          resolve();
-        },
-        error: () => {
-          resolve(send(enc_token, score, game));
-        },
-      });
-    });
+        success: () => resolve(),
+        error: () =>
+          setTimeout(
+            () => resolve(send(enc_token, score, game)),
+            randomInt(1000, 3000)
+          ),
+      })
+    );
   });
 }
