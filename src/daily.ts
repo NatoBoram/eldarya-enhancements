@@ -1,10 +1,15 @@
-export function loadDailies() {
+export async function loadDailies() {
   const dailyGiftContainer = document.getElementById("daily-gift-container");
 
   if (dailyGiftContainer) {
     dailyGiftContainer.click();
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     document
-      .querySelector<HTMLElement>(".first-connexion .flavr-button.default")
+      .querySelector<HTMLButtonElement>(
+        ".first-connexion .flavr-button.default"
+      )
       ?.click();
   }
 }
