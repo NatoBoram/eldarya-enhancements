@@ -1,4 +1,4 @@
-export async function loadDailies() {
+export async function loadDailies(): Promise<void> {
   const dailyGiftContainer = document.getElementById("daily-gift-container");
 
   if (dailyGiftContainer) {

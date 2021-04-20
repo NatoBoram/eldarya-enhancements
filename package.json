@@ -3,6 +3,8 @@
   "description": "Enhances the user experience of Eldarya",
   "version": "0.0.1",
   "scripts": {
+    "eslint": "eslint",
+    "prettier": "prettier",
     "tsc": "tsc",
     "webpack": "webpack"
   },
@@ -12,7 +14,7 @@
   },
   "keywords": [
     "Eldarya",
-    "Userscript"
+    "UserScript"
   ],
   "author": "Nato Boram",
   "license": "GPL-3.0-or-later",
@@ -28,6 +30,7 @@
     "@typescript-eslint/parser": "^4.22.0",
     "common-tags": "^1.8.0",
     "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
     "hogan.js": "^3.0.2",
     "mustache-loader": "^1.4.3",
     "prettier": "^2.2.1",

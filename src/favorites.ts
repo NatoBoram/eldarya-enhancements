@@ -1,6 +1,6 @@
 import { LocalStorageKey } from "./local_storage/local_storage.enum";
 
-export function loadFavorites() {
+export function loadFavorites(): void {
   const slots = document.getElementById("mCSB_4_container");
   if (!slots) {
     return;

@@ -3,7 +3,7 @@ import { carousels } from "./carousel/carousels";
 import { downloadFace, downloadGuardian } from "./download-canvas";
 import { CarouselNews } from "./templates/interfaces/carousel_news";
 
-export function loadCarousel() {
+export function loadCarousel(): void {
   const carouselInner = document.querySelector("#carousel-inner");
   if (!carouselInner || document.querySelector(".carousel-ee")) {
     return;

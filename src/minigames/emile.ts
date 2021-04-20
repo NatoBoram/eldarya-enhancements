@@ -105,7 +105,7 @@ function xorEncode(str: string, key: string) {
 
 function send(enc_token: string, score: number, game: string): Promise<void> {
   return new Promise((resolve) => {
-    let token = decodeURIComponent(enc_token);
+    const token = decodeURIComponent(enc_token);
     Recaptcha.execute("minigameSave" + game, (recaptchaToken) => {
       $.ajax({
         type: "post",

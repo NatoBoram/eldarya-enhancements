@@ -1,6 +1,6 @@
 import { playFlappy, playHatchlings, playPeggle } from "./minigames/emile";
 
-export async function loadMinigames() {
+export async function loadMinigames(): Promise<void> {
   const played = [
     await loadPeggle(),
     await loadFlappy(),

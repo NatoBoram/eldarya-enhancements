@@ -14,7 +14,7 @@ interface AvailableItem {
   _hiddenCategories: { [key: string]: number };
   _worn: boolean;
   _animatable: boolean;
-  _renders: any[];
+  _renders: unknown[];
 }
 
 interface AnimationData {

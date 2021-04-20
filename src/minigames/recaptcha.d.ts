@@ -7,7 +7,7 @@ declare const Recaptcha: {
       | "minigameSaveFlappy"
       | "minigameStartHatchlings"
       | "minigameSaveHatchlings"
-      | String,
+      | string,
     callback: (token: string) => void
   ): void;
 };

@@ -1,7 +1,7 @@
 import { Template } from "hogan.js";
 import { MainMenu } from "./templates/interfaces/main_menu";
 
-export function loadMenu() {
+export function loadMenu(): void {
   const menuInnerRight = document.getElementById("menu-inner-right");
   if (!menuInnerRight || document.querySelector(".main-menu-ee")) {
     return;

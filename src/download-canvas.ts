@@ -1,4 +1,4 @@
-function downloadCanvas(canvas: HTMLCanvasElement, name: string) {
+function downloadCanvas(canvas: HTMLCanvasElement, name: string): void {
   // Make it an image
   const image = canvas.toDataURL("image/png");
 
@@ -18,7 +18,7 @@ function downloadCanvas(canvas: HTMLCanvasElement, name: string) {
   document.body.removeChild(a);
 }
 
-export function downloadFace() {
+export function downloadFace(): void {
   const canvas = document.querySelector<HTMLCanvasElement>(
     "#avatar-menu-container canvas"
   );
@@ -30,7 +30,7 @@ export function downloadFace() {
   downloadCanvas(canvas, "face");
 }
 
-export function downloadGuardian() {
+export function downloadGuardian(): void {
   const canvas = document.querySelector<HTMLCanvasElement>(
     "#home-avatar-player canvas"
   );
