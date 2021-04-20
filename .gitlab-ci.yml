@@ -1,0 +1,35 @@
+default:
+  image: node:latest
+
+before_script:
+  - npm ci
+
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - node_modules
+
+webpack:
+  stage: build
+  script:
+    - npx webpack
+  artifacts:
+    paths:
+      - eldarya-enhancements.user.js
+
+eslint:
+  stage: test
+  script:
+    - npx eslint .
+
+prettier:
+  stage: test
+  script:
+    - npx prettier --check .
+
+tsc:
+  stage: test
+  script:
+    - npx tsc --noEmit
