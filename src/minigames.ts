@@ -1,9 +1,11 @@
 import { playFlappy, playHatchlings, playPeggle } from "./minigames/emile";
 
-export function loadMinigames() {
-  const played = [loadPeggle(), loadFlappy(), loadHatchlings()].reduce(
-    (previous, current) => previous || current
-  );
+export async function loadMinigames() {
+  const played = [
+    await loadPeggle(),
+    await loadFlappy(),
+    await loadHatchlings(),
+  ].reduce((previous, current) => previous || current);
 
   if (played) {
     // setTimeout(() => {
@@ -12,7 +14,7 @@ export function loadMinigames() {
   }
 }
 
-function loadPeggle(): boolean {
+async function loadPeggle(): Promise<boolean> {
   const peggleStart = document.querySelector<HTMLSpanElement>(
     '.minigame-start [href="/minigames/gembomb"] .nl-button'
   );
@@ -20,12 +22,12 @@ function loadPeggle(): boolean {
     return false;
   }
 
-  playPeggle();
   peggleStart.classList.add("disabled");
+  await playPeggle();
   return true;
 }
 
-function loadFlappy(): boolean {
+async function loadFlappy(): Promise<boolean> {
   const flappyStart = document.querySelector<HTMLSpanElement>(
     '.minigame-start [href="/minigames/bubbltemple"] .nl-button'
   );
@@ -33,12 +35,12 @@ function loadFlappy(): boolean {
     return false;
   }
 
-  playFlappy();
   flappyStart.classList.add("disabled");
+  await playFlappy();
   return true;
 }
 
-function loadHatchlings(): boolean {
+async function loadHatchlings(): Promise<boolean> {
   const hatchlingsStart = document.querySelector<HTMLSpanElement>(
     '.minigame-start [href="/minigames/cocooninpick"] .nl-button'
   );
@@ -46,7 +48,7 @@ function loadHatchlings(): boolean {
     return false;
   }
 
-  playHatchlings();
   hatchlingsStart.classList.add("disabled");
+  await playHatchlings();
   return true;
 }
