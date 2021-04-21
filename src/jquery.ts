@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface JQueryStatic {
+export interface JQueryStatic {
   flavrNotif(
     content: string,
     options?: Record<string, unknown>,
