@@ -2,23 +2,23 @@ declare const outfits: Array<Outfit>;
 
 interface Outfit {
   id: number;
-  image: ImageWithoutBgClass;
-  imageWithoutBg: ImageWithoutBgClass;
+  image: ImageDefinition;
+  imageWithoutBg: ImageDefinition;
   name: string;
 }
 
-interface ImageWithoutBgClass {
-  type: string;
-  image: ImageImage;
-}
-
-interface ImageImage {
-  sd: ImageDefinition;
-  hd: ImageDefinition;
-  xhd: ImageDefinition;
-}
-
 interface ImageDefinition {
+  type: string;
+  image: ImageSizes;
+}
+
+interface ImageSizes {
+  sd: ImageSource;
+  hd: ImageSource;
+  xhd: ImageSource;
+}
+
+interface ImageSource {
   src: string;
   lastModification: number;
 }
