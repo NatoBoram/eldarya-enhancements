@@ -1,6 +1,6 @@
-import { AnimationData } from "../interfaces/animation_data";
-import { Display } from "../enums/display.enum";
-import { Format } from "../enums/format.enum";
+import type { Display } from "../enums/display.enum";
+import type { Format } from "../enums/format.enum";
+import type { AnimationData } from "../interfaces/animation_data";
 
 declare class Item {
   constructor(
@@ -10,7 +10,7 @@ declare class Item {
     image: string,
     type: string,
     categoryId: number,
-    hiddenCategories: { [key: string]: number },
+    hiddenCategories: Record<string, number>,
     animationData: AnimationData | null,
     locked: number
   );
@@ -23,12 +23,12 @@ declare class Item {
   _categoryId: number;
   _animationData: AnimationData | null;
   _locked: number;
-  _hiddenCategories: { [key: string]: number };
+  _hiddenCategories: Record<string, number>;
   _worn: boolean;
   _animatable: boolean;
   _renders: unknown[];
 
-  setHiddenCategories(hiddenCategories: { [key: string]: number }): void;
+  setHiddenCategories(hiddenCategories: Record<string, number>): void;
   getImage(format: Format): string;
   isAnimatable(): boolean;
   setAnimatable(animatable: boolean): void;

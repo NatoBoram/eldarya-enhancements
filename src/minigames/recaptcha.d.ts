@@ -1,13 +1,13 @@
 declare const Recaptcha: {
-  execute(
+  execute: (
     action:
-      | "minigameStartPeggle"
+      | string
+      | "minigameSaveFlappy"
+      | "minigameSaveHatchlings"
       | "minigameSavePeggle"
       | "minigameStartFlappy"
-      | "minigameSaveFlappy"
       | "minigameStartHatchlings"
-      | "minigameSaveHatchlings"
-      | string,
+      | "minigameStartPeggle",
     callback: (token: string) => void
-  ): void;
+  ) => void;
 };

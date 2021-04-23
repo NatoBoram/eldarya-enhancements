@@ -11,9 +11,9 @@ function load() {
 
   // loadFavorites();
 
-  loadMinigames();
+  void loadMinigames();
 
-  loadDailies();
+  void loadDailies();
 }
 
 new MutationObserver(load).observe(<Node>document.getElementById("container"), {

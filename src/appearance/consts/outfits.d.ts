@@ -1,4 +1,4 @@
-declare const outfits: Array<Outfit>;
+declare const outfits: Outfit[];
 
 interface Outfit {
   id: number;

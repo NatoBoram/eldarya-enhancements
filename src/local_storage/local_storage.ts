@@ -1,16 +1,14 @@
 import { LocalStorageKey } from "./local_storage.enum";
-import { Outfit } from "./outfit";
+import type { Outfit } from "./outfit";
 
 export class LocalStorage {
   get favorites(): Outfit[] {
     const json = localStorage.getItem(LocalStorageKey.favorites);
-    return json ? JSON.parse(json) : [];
+    const outfits: Outfit[] = json != null ? JSON.parse(json) : [];
+    return outfits;
   }
 
   set favorites(clothes: Outfit[]) {
-    localStorage.setItem(
-      LocalStorageKey.favorites,
-      JSON.stringify(clothes ?? [])
-    );
+    localStorage.setItem(LocalStorageKey.favorites, JSON.stringify(clothes));
   }
 }

@@ -1,7 +1,7 @@
-import { Clothing } from "../../local_storage/clothing";
-import { Cookie } from "../enums/cookie.enum";
-import { Format } from "../enums/format.enum";
-import { Item } from "./item";
+import type { Clothing } from "../../local_storage/clothing";
+import type { Cookie } from "../enums/cookie.enum";
+import type { Format } from "../enums/format.enum";
+import type { Item } from "./item";
 
 declare class Avatar extends createjs.Container {
   constructor(format: Format);
@@ -9,7 +9,7 @@ declare class Avatar extends createjs.Container {
   _format: Format;
   _animated: boolean;
 
-  static avatars: { [selector: string]: Avatar };
+  static avatars: Record<string, Avatar>;
 
   // Constante de format d'avatar (correspond au format d'image)
   static FORMAT_NORMAL: Format.FORMAT_NORMAL;

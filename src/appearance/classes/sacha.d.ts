@@ -1,7 +1,7 @@
-import { Avatar } from "./avatar";
+import type { Avatar } from "./avatar";
 
 declare interface SachaExtension {
   Avatar: typeof Avatar;
 }
 
-declare const Sacha: typeof createjs & SachaExtension;
+declare const Sacha: SachaExtension & typeof createjs;

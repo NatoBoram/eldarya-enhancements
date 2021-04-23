@@ -1,4 +1,4 @@
-import { Minigame } from "./minigame";
+import type { Minigame } from "./minigame";
 
 export const flappy: Minigame = {
   name: "Flappy",

@@ -1,4 +1,4 @@
-import { Context } from "hogan.js";
+import type { Context } from "hogan.js";
 
 export interface MainMenu extends Context {
   class: string;

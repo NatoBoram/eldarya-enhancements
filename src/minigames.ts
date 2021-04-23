@@ -28,21 +28,21 @@ async function loadMinigame(
   return true;
 }
 
-function loadPeggle(): Promise<boolean> {
+async function loadPeggle(): Promise<boolean> {
   return loadMinigame(
     '.minigame-start [href="/minigames/gembomb"] .nl-button',
     playPeggle
   );
 }
 
-function loadFlappy(): Promise<boolean> {
+async function loadFlappy(): Promise<boolean> {
   return loadMinigame(
     '.minigame-start [href="/minigames/bubbltemple"] .nl-button',
     playFlappy
   );
 }
 
-function loadHatchlings(): Promise<boolean> {
+async function loadHatchlings(): Promise<boolean> {
   return loadMinigame(
     '.minigame-start [href="/minigames/cocooninpick"] .nl-button',
     playHatchlings

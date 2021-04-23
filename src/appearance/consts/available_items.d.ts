@@ -1,5 +1,3 @@
-import { Item } from "../classes/item";
+import type { Item } from "../classes/item";
 
-declare const availableItems: {
-  [id: number]: Item;
-};
+declare const availableItems: Record<number, Item>;

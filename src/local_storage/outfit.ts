@@ -1,4 +1,4 @@
-import { Clothing } from "./clothing";
+import type { Clothing } from "./clothing";
 
 export interface Outfit {
   name: string;

@@ -1,7 +1,7 @@
-import { Template } from "hogan.js";
+import type { Template } from "hogan.js";
 import { carousels } from "./carousel/carousels";
 import { downloadFace, downloadGuardian } from "./download-canvas";
-import { CarouselNews } from "./templates/interfaces/carousel_news";
+import type { CarouselNews } from "./templates/interfaces/carousel_news";
 
 export function loadCarousel(): void {
   const carouselInner = document.querySelector("#carousel-inner");

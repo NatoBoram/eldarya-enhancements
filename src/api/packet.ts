@@ -1,5 +1,5 @@
-import { Meta } from "./meta";
-import { Result } from "./result.enum";
+import type { Meta } from "./meta";
+import type { Result } from "./result.enum";
 
 export interface Packet<Data> {
   result: Result;

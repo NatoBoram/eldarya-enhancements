@@ -1,5 +1,5 @@
-import { Template } from "hogan.js";
-import { MainMenu } from "./templates/interfaces/main_menu";
+import type { Template } from "hogan.js";
+import type { MainMenu } from "./templates/interfaces/main_menu";
 
 export function loadMenu(): void {
   const menuInnerRight = document.getElementById("menu-inner-right");

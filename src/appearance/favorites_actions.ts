@@ -1,4 +1,4 @@
-import { Clothing } from "../local_storage/clothing";
+import type { Clothing } from "../local_storage/clothing";
 import { Sacha } from "./classes/sacha";
 
 export function downloadOutfit(): void {
