@@ -5,7 +5,7 @@ export function loadMenu(): void {
   const menuInnerRight = document.getElementById("menu-inner-right");
   if (!menuInnerRight || menuInnerRight.querySelector(".main-menu-ee")) return;
 
-  // Remove Recharge
+  // Remove bank
   menuInnerRight.querySelector(".main-menu-bank")?.remove();
 
   // Add Forum
