@@ -1,15 +1,15 @@
 export async function loadDailies(): Promise<void> {
   const dailyGiftContainer = document.getElementById("daily-gift-container");
+  if (
+    !dailyGiftContainer ||
+    getComputedStyle(dailyGiftContainer).display === "none"
+  )
+    return;
 
-  if (dailyGiftContainer) {
-    dailyGiftContainer.click();
+  dailyGiftContainer.click();
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    document
-      .querySelector<HTMLButtonElement>(
-        ".first-connexion .flavr-button.default"
-      )
-      ?.click();
-  }
+  document
+    .querySelector<HTMLButtonElement>(".first-connexion .flavr-button.default")
+    ?.click();
 }
