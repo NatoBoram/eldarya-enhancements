@@ -3,10 +3,12 @@ import { MainMenu } from "./templates/interfaces/main_menu";
 
 export function loadMenu(): void {
   const menuInnerRight = document.getElementById("menu-inner-right");
-  if (!menuInnerRight || document.querySelector(".main-menu-ee")) {
-    return;
-  }
+  if (!menuInnerRight || menuInnerRight.querySelector(".main-menu-ee")) return;
 
+  // Remove Recharge
+  menuInnerRight.querySelector(".main-menu-bank")?.remove();
+
+  // Add Forum
   const menuTemplate: Template = require("./templates/html/main_menu.html");
   const mainMenuForum: MainMenu = {
     class: "forum",

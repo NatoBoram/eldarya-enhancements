@@ -1,12 +1,16 @@
 import { loadCarousel } from "./carousel";
 import { loadDailies } from "./daily";
+import { loadHomeContent } from "./home_content";
 import { loadMenu } from "./menu";
 import { loadMinigames } from "./minigames";
 
 function load() {
   loadMenu();
   loadCarousel();
+  loadHomeContent();
+
   // loadFavorites();
+
   loadMinigames();
 
   loadDailies();
