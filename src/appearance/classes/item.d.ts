@@ -1,6 +1,6 @@
-import { AnimationData } from "./animation_data";
-import { Display } from "./display.enum";
-import { Format } from "./format.enum";
+import { AnimationData } from "../interfaces/animation_data";
+import { Display } from "../enums/display.enum";
+import { Format } from "../enums/format.enum";
 
 declare class Item {
   constructor(

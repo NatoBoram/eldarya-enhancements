@@ -1,14 +1,15 @@
-import { Clothing } from "../local_storage/clothing";
-import { AnimationData } from "./animation_data";
-import { Cookie } from "./cookie.enum";
-import { Format } from "./format.enum";
+import { Clothing } from "../../local_storage/clothing";
+import { Cookie } from "../enums/cookie.enum";
+import { Format } from "../enums/format.enum";
 import { Item } from "./item";
 
-declare class Avatar {
-  constructor(format: string);
+declare class Avatar extends createjs.Container {
+  constructor(format: Format);
 
-  _format: string;
+  _format: Format;
   _animated: boolean;
+
+  static avatars: { [selector: string]: Avatar };
 
   // Constante de format d'avatar (correspond au format d'image)
   static FORMAT_NORMAL: Format.FORMAT_NORMAL;
@@ -62,7 +63,7 @@ declare class Avatar {
   static generateOn(
     containerName: string,
     items: Item[],
-    format: string,
+    format: Format,
     linkUrl: string
   ): Avatar;
 
@@ -70,15 +71,5 @@ declare class Avatar {
   static isAnimated(): boolean;
   static setAnimated(animated: boolean): void;
 
-  static Item: (
-    id: number,
-    group: number,
-    name: string,
-    image: string,
-    type: string,
-    categoryId: number,
-    hiddenCategories: { [key: string]: number },
-    animationData: AnimationData | null,
-    locked: number
-  ) => Item;
+  static Item: typeof Item;
 }
