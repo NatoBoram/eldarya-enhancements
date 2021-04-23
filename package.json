@@ -23,6 +23,7 @@
   },
   "homepage": "https://gitlab.com/NatoBoram/eldarya-enhancements",
   "devDependencies": {
+    "@types/createjs": "^0.0.29",
     "@types/hogan.js": "^3.0.0",
     "@types/jquery": "^3.5.5",
     "@types/jqueryui": "^1.12.15",
