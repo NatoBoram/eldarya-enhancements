@@ -5,11 +5,7 @@
 
 Enhances the user experience of Eldarya.
 
-<center>
-
 ![Eldarya Enhancements Banner](images/carousel_eldarya_enhancements.png)
-
-</center>
 
 This project is in early development. You can install it by downloading it from
 the [pipeline](https://gitlab.com/NatoBoram/eldarya-enhancements/-/pipelines),
