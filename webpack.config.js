@@ -34,25 +34,14 @@ module.exports = {
 // ==UserScript==
 // @name         Eldarya Enhancements
 // @namespace    https://gitlab.com/NatoBoram/eldarya-enhancements
-// @version      0.0.1
-// @description  Enhances the user experience of Eldarya
+// @version      0.0.3
 // @author       Nato Boram
-// @icon         https://gitlab.com/NatoBoram/Eldarya-Face-Downloader/raw/master/assets/icon.png
+// @description  Enhances the user experience of Eldarya.
+// @icon         https://cdn.discordapp.com/attachments/161636856482496522/836010557919330364/AvatarEldaryEnhancements.png
+// @updateURL    https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=webpack
+// @downloadURL  https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=webpack
 // @supportURL   https://gitlab.com/NatoBoram/Eldarya-Face-Downloader/issues
-// @require      https://raw.githubusercontent.com/twitter/hogan.js/master/lib/template.js
 //
-// HTTPS
-// @match        https://eldarya.com.br/*
-// @match        https://eldarya.de/*
-// @match        https://eldarya.es/*
-// @match        https://eldarya.hu/*
-// @match        https://eldarya.it/*
-// @match        https://eldarya.pl/*
-// @match        https://eldarya.ru/*
-// @match        https://eldarya.com/*
-// @match        https://eldarya.fr/*
-//
-// HTTPS WWW
 // @match        https://www.eldarya.com.br/*
 // @match        https://www.eldarya.de/*
 // @match        https://www.eldarya.es/*
@@ -63,7 +52,6 @@ module.exports = {
 // @match        https://www.eldarya.com/*
 // @match        https://www.eldarya.fr/*
 //
-// @run-at       document-end
 // @grant        none
 // ==/UserScript==`,
     }),
