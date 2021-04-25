@@ -1,17 +1,29 @@
-import { LocalStorageKey } from "./local_storage/local_storage.enum";
+import type { Template } from "hogan.js";
+import { exportOutfit, importOutfit } from "./appearance/favorites_actions";
+import type { FavoritesAction } from "./templates/interfaces/favorites_action";
 
-export function loadFavorites(): void {
-  const slots = document.getElementById("mCSB_4_container");
-  if (!slots) {
-    return;
-  }
+export function loadFavoritesActions(): void {
+  const actions = document.getElementById("favorites-actions");
+  if (!actions || document.querySelector(".favorites-action-ee")) return;
 
-  // // Remove locked slots
-  // document
-  //   .querySelectorAll(".slot.locked-slot")
-  //   .forEach((e) => e.parentNode?.removeChild(e));
+  const actionTemplate: Template = require("./templates/html/favorites_action.html");
+  const exportAction: FavoritesAction = {
+    id: "export-outfit",
+    text: "Export",
+  };
+  const importAction: FavoritesAction = {
+    id: "import-outfit",
+    text: "Import",
+  };
 
-  // const available = slots.querySelector(".slot.available-slot");
+  actions.insertAdjacentHTML("beforeend", actionTemplate.render(exportAction));
+  actions.insertAdjacentHTML("beforeend", actionTemplate.render(importAction));
 
-  localStorage.getItem(LocalStorageKey.favorites);
+  document
+    .getElementById(exportAction.id)
+    ?.addEventListener("click", exportOutfit);
+
+  document
+    .getElementById(importAction.id)
+    ?.addEventListener("click", importOutfit);
 }

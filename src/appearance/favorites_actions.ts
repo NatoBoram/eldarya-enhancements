@@ -1,18 +1,39 @@
-import type { Clothing } from "../local_storage/clothing";
-import { Sacha } from "./classes/sacha";
+import type { ShareableOutfit } from "../local_storage/shareable_outfit";
+import type { ParsableItem } from "./interfaces/parsable_item";
 
-export function downloadOutfit(): void {
+export function exportOutfit(): void {
   const avatar = Sacha.Avatar.avatars["#appearance-preview"];
   if (!avatar) return;
-  const items = avatar.getItemsToSave();
-  const itemsWithBackground: Clothing[] = [{ id: backgroundId, wearIndex: 0 }];
 
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    if (!item) continue;
-    item.wearIndex = item.wearIndex + 1;
-    itemsWithBackground.push(item);
-  }
+  const wornItems = Object.values(avatar._wornItems).map<ParsableItem>(
+    (item) => ({
+      id: item._id,
+      group: item._group,
+      name: item._name,
+      image: item._image,
+      type: item._type,
+      categoryId: item._categoryId,
+      hiddenCategories: Object.values(item._hiddenCategories),
+      animationData: item._animationData,
+      locked: item._locked,
+    })
+  );
 
-  console.log({ items });
+  const outfit: ShareableOutfit = { wornItems, backgroundId };
+  console.log(outfit);
+
+  const href =
+    "data:text/json;charset=utf-8," +
+    encodeURIComponent(JSON.stringify(outfit));
+
+  const a = document.createElement("a");
+  a.setAttribute("href", href);
+  a.setAttribute("download", "outfit.json");
+  a.click();
+}
+
+export function importOutfit(): void {
+  const input = document.createElement("input");
+  input.setAttribute("type", "file");
+  input.click();
 }

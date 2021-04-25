@@ -1,13 +1,17 @@
-import type { Clothing } from "../../local_storage/clothing";
-import type { Cookie } from "../enums/cookie.enum";
-import type { Format } from "../enums/format.enum";
+import type { Clothing } from "../local_storage/clothing";
+import type { Cookie } from "../appearance/enums/cookie.enum";
+import type { Format } from "../appearance/enums/format.enum";
 import type { Item } from "./item";
 
 declare class Avatar extends createjs.Container {
   constructor(format: Format);
 
-  _format: Format;
   _animated: boolean;
+  _format: Format;
+  _hiddenCategories: unknown;
+  _originalItems: unknown;
+  _renderApplyCallback: unknown[];
+  _wornItems: Record<number, Item>;
 
   static avatars: Record<string, Avatar>;
 

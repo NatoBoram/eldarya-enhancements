@@ -1,6 +1,6 @@
-import type { Display } from "../enums/display.enum";
-import type { Format } from "../enums/format.enum";
-import type { AnimationData } from "../interfaces/animation_data";
+import type { Display } from "../appearance/enums/display.enum";
+import type { Format } from "../appearance/enums/format.enum";
+import type { AnimationData } from "../appearance/interfaces/animation_data";
 
 declare class Item {
   constructor(
@@ -10,7 +10,7 @@ declare class Item {
     image: string,
     type: string,
     categoryId: number,
-    hiddenCategories: Record<string, number>,
+    hiddenCategories: number[],
     animationData: AnimationData | null,
     locked: number
   );

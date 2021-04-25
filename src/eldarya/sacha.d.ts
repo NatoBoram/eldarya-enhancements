@@ -4,4 +4,6 @@ declare interface SachaExtension {
   Avatar: typeof Avatar;
 }
 
-declare const Sacha: SachaExtension & typeof createjs;
+declare global {
+  const Sacha: SachaExtension & typeof createjs;
+}

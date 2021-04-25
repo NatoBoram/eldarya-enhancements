@@ -1,3 +1,4 @@
+import { loadAppearance } from "./appearance";
 import { loadCarousel } from "./carousel";
 import { loadDailies } from "./daily";
 import { loadHomeContent } from "./home_content";
@@ -8,11 +9,8 @@ function load() {
   loadMenu();
   loadCarousel();
   loadHomeContent();
-
-  // loadFavorites();
-
+  loadAppearance();
   void loadMinigames();
-
   void loadDailies();
 }
 
