@@ -1,1 +1,1 @@
-declare const backgroundId: number;
+declare let backgroundId: number;

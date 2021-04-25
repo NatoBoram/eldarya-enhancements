@@ -1,7 +1,11 @@
-import type { Clothing } from "../local_storage/clothing";
 import type { Cookie } from "../appearance/enums/cookie.enum";
 import type { Format } from "../appearance/enums/format.enum";
+import type { Clothing } from "../local_storage/clothing";
 import type { Item } from "./item";
+
+interface DisplayObject extends createjs.DisplayObject {
+  getItem: () => Item;
+}
 
 declare class Avatar extends createjs.Container {
   constructor(format: Format);
@@ -12,6 +16,7 @@ declare class Avatar extends createjs.Container {
   _originalItems: unknown;
   _renderApplyCallback: unknown[];
   _wornItems: Record<number, Item>;
+  children: DisplayObject[];
 
   static avatars: Record<string, Avatar>;
 
@@ -68,7 +73,7 @@ declare class Avatar extends createjs.Container {
     containerName: string,
     items: Item[],
     format: Format,
-    linkUrl: string
+    linkUrl: string | null
   ): Avatar;
 
   static Cookie: Cookie;
