@@ -1,29 +1,11 @@
-import type { ShareableOutfit } from "../local_storage/shareable_outfit";
-import { Format } from "./enums/format.enum";
-import type { ParsableItem } from "./interfaces/parsable_item";
+import type { Item } from "../eldarya/item";
+import type { Clothing } from "../local_storage/clothing";
 
 export function exportOutfit(): void {
   const avatar = Sacha.Avatar.avatars["#appearance-preview"];
   if (!avatar) return;
 
-  const wornItems = Object.values(avatar.children).map<ParsableItem>(
-    (child) => {
-      const item = child.getItem();
-      return {
-        id: item._id,
-        group: item._group,
-        name: item._name,
-        image: item._image,
-        type: item._type,
-        categoryId: item._categoryId,
-        hiddenCategories: Object.values(item._hiddenCategories),
-        animationData: item._animationData,
-        locked: item._locked,
-      };
-    }
-  );
-
-  const outfit: ShareableOutfit = { wornItems, backgroundId };
+  const outfit = avatar.getItemsToSave();
 
   const href =
     "data:text/json;charset=utf-8," +
@@ -40,6 +22,7 @@ export function importOutfit(): void {
   input.setAttribute("type", "file");
   input.setAttribute("accept", "application/json");
   input.click();
+
   input.addEventListener("input", (event) => {
     if (!event.target) return;
     const files = (<HTMLInputElement>event.target).files;
@@ -48,34 +31,39 @@ export function importOutfit(): void {
     if (!file) return;
     void file.text().then((value) => {
       if (!value) return;
-      const outfit: ShareableOutfit = JSON.parse(value);
-      console.log("outfit:", outfit);
 
-      backgroundId = outfit.backgroundId;
-      const wornItems = outfit.wornItems.map((value) => {
-        return new Sacha.Avatar.Item(
-          value.id,
-          value.group,
-          value.name,
-          value.image,
-          value.type,
-          value.categoryId,
-          value.hiddenCategories,
-          value.animationData,
-          value.locked
-        );
+      const outfit: Clothing[] = JSON.parse(value);
+
+      const avatar = Sacha.Avatar.avatars["#appearance-preview"];
+      if (!avatar) return;
+
+      const wornItems: Item[] = [];
+      outfit.forEach((cloth) => {
+        const item = availableItems[cloth.id];
+        if (item) wornItems.push(item);
       });
 
-      console.log("wornItems:", wornItems);
-      console.log("Sacha:", Sacha);
+      removeClothes();
+      avatar.addItems(wornItems);
+      initializeSelectedItems();
+      initializeHiddenCategories();
 
-      Sacha.Avatar.generateOn(
-        "appearance-preview",
-        wornItems,
-        Format.FORMAT_ZOOM,
-        null
-      );
-      Sacha.Avatar.setAnimated(true);
+      $.flavrNotif("Imported outfit!");
     });
   });
+}
+
+function removeClothes() {
+  const avatar = Sacha.Avatar.avatars["#appearance-preview"];
+  if (!avatar) return;
+
+  for (let i = avatar.children.length - 1; i >= 0; i--) {
+    const itemRender = avatar.children[i];
+    if (!itemRender) continue;
+
+    const item = itemRender.getItem();
+    if (Sacha.Avatar.removeItemFromAllAvatars(item)) {
+      $(`#appearance-item-${item._id}`).removeClass("selected");
+    }
+  }
 }

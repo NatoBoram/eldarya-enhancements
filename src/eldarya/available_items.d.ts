@@ -1,3 +1,5 @@
 import type { Item } from "./item";
 
-declare const availableItems: Record<number, Item>;
+declare global {
+  const availableItems: Record<number, Item>;
+}
