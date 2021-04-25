@@ -34,10 +34,10 @@ module.exports = {
 // ==UserScript==
 // @name         Eldarya Enhancements
 // @namespace    https://gitlab.com/NatoBoram/eldarya-enhancements
-// @version      0.0.3
+// @version      0.0.4
 // @author       Nato Boram
 // @description  Enhances the user experience of Eldarya.
-// @icon         https://cdn.discordapp.com/attachments/161636856482496522/836010557919330364/AvatarEldaryEnhancements.png
+// @icon         https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/avatar.png
 // @updateURL    https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=webpack
 // @downloadURL  https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=webpack
 // @supportURL   https://gitlab.com/NatoBoram/Eldarya-Face-Downloader/issues
