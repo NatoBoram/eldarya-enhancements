@@ -1,4 +1,5 @@
 import type { Avatar } from "../eldarya/avatar";
+import type { Item } from "../eldarya/item";
 import type { ParsableItem } from "./interfaces/parsable_item";
 
 export function exportOutfit(): void {
@@ -29,27 +30,34 @@ export function importOutfit(): void {
     if (!files) return;
     const file = files[0];
     if (!file) return;
-    void file.text().then((value) => {
+    void file.text().then(async (value) => {
       if (!value) return;
 
       const outfit: ParsableItem[] = JSON.parse(value);
       const avatar = Sacha.Avatar.avatars["#appearance-preview"];
       if (!avatar) return;
 
-      const wornItems = outfit.map(
-        (item) =>
-          new Sacha.Avatar.Item(
-            item.id,
-            item.group,
-            item.name,
-            item.image,
-            item.type,
-            item.categoryId,
-            item.hiddenCategories,
-            item.animationData,
-            item.locked
-          )
-      );
+      $.flavrNotif("Importing. Please wait...");
+
+      // Get all categories and groups
+      const groups = new Set<number>();
+      for (const clothing of outfit) {
+        groups.add(clothing.group);
+      }
+
+      // Open them all so they appear in `availableItems`
+      const promises: Promise<void>[] = [];
+      groups.forEach((group) => {
+        promises.push(openGroup(group));
+      });
+      await Promise.all(promises);
+
+      // Get the items from `availableItems`
+      const wornItems: Item[] = [];
+      outfit.forEach((clothing) => {
+        const item = availableItems[clothing.id];
+        if (item) wornItems.push(item);
+      });
 
       removeClothes();
       avatar.addItems(wornItems);
@@ -90,5 +98,29 @@ function getItemsToSave(avatar: Avatar): ParsableItem[] {
       animationData: item._animationData,
       locked: item._locked,
     };
+  });
+}
+
+async function openGroup(group: number) {
+  return new Promise<void>((resolve) => {
+    const categoryContainer = $("#appearance-items-group-" + group.toString());
+
+    if (categoryContainer.hasClass("active")) {
+      resolve();
+      return;
+    }
+
+    if (categoryContainer.length <= 0) {
+      void $.get("/player/openGroup/" + group.toString(), function (view) {
+        $(".appearance-items-category.active").fadeOut("fast", function () {
+          $(view).hide().appendTo("#appearance-items");
+          $("#appearance-items-group-" + group.toString());
+        });
+      }).always(() => {
+        resolve();
+      });
+    } else {
+      resolve();
+    }
   });
 }

@@ -16,7 +16,7 @@ declare function initializeHiddenCategories(): void;
 
 declare function initializeSelectedItems(): void;
 
-declare function openGroup(category: string, group: string): void;
+declare function openGroup(category: string, group: number): void;
 
 declare function selectAppearanceItem(): void;
 
