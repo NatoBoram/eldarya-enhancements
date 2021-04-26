@@ -1,11 +1,11 @@
-import type { Item } from "../eldarya/item";
-import type { Clothing } from "../local_storage/clothing";
+import type { Avatar } from "../eldarya/avatar";
+import type { ParsableItem } from "./interfaces/parsable_item";
 
 export function exportOutfit(): void {
   const avatar = Sacha.Avatar.avatars["#appearance-preview"];
   if (!avatar) return;
 
-  const outfit = avatar.getItemsToSave();
+  const outfit = getItemsToSave(avatar);
 
   const href =
     "data:text/json;charset=utf-8," +
@@ -32,16 +32,24 @@ export function importOutfit(): void {
     void file.text().then((value) => {
       if (!value) return;
 
-      const outfit: Clothing[] = JSON.parse(value);
-
+      const outfit: ParsableItem[] = JSON.parse(value);
       const avatar = Sacha.Avatar.avatars["#appearance-preview"];
       if (!avatar) return;
 
-      const wornItems: Item[] = [];
-      outfit.forEach((cloth) => {
-        const item = availableItems[cloth.id];
-        if (item) wornItems.push(item);
-      });
+      const wornItems = outfit.map(
+        (item) =>
+          new Sacha.Avatar.Item(
+            item.id,
+            item.group,
+            item.name,
+            item.image,
+            item.type,
+            item.categoryId,
+            item.hiddenCategories,
+            item.animationData,
+            item.locked
+          )
+      );
 
       removeClothes();
       avatar.addItems(wornItems);
@@ -66,4 +74,21 @@ function removeClothes() {
       $(`#appearance-item-${item._id}`).removeClass("selected");
     }
   }
+}
+
+function getItemsToSave(avatar: Avatar): ParsableItem[] {
+  return avatar.children.map((child) => {
+    const item = child.getItem();
+    return {
+      id: item._id,
+      group: item._group,
+      name: item._name,
+      image: item._image,
+      type: item._type,
+      categoryId: item._categoryId,
+      hiddenCategories: Object.values(item._hiddenCategories),
+      animationData: item._animationData,
+      locked: item._locked,
+    };
+  });
 }
