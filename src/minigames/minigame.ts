@@ -1,5 +1,7 @@
 export interface Minigame {
   name: string;
-  min: number;
-  max: number;
+  scoreMin: number;
+  scoreMax: number;
+  delayMin: number;
+  delayMax: number;
 }

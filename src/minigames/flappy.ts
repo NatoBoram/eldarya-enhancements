@@ -2,6 +2,8 @@ import type { Minigame } from "./minigame";
 
 export const flappy: Minigame = {
   name: "Flappy",
-  min: 180,
-  max: 200,
+  scoreMin: 180,
+  scoreMax: 200,
+  delayMin: 58_000,
+  delayMax: 65_000,
 };

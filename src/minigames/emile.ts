@@ -22,9 +22,11 @@ export async function playHatchlings(): Promise<void> {
 async function play(minigame: Minigame): Promise<void> {
   const json = await execute(minigame);
   const gameToken = json.data;
-  const score = randomInt(minigame.min, minigame.max);
+  const score = randomInt(minigame.scoreMin, minigame.scoreMax);
   const enc_token = xorEncode(gameToken, score.toString());
-  await new Promise((resolve) => setTimeout(resolve, randomInt(1000, 3000)));
+  await new Promise((resolve) =>
+    setTimeout(resolve, randomInt(minigame.delayMin, minigame.delayMax))
+  );
 
   await getPrizes(minigame, gameToken, score);
   await new Promise((resolve) => setTimeout(resolve, randomInt(1000, 3000)));

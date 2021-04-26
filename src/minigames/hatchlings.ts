@@ -2,6 +2,8 @@ import type { Minigame } from "./minigame";
 
 export const hatchlings: Minigame = {
   name: "Hatchlings",
-  min: 18,
-  max: 20,
+  scoreMin: 18,
+  scoreMax: 20,
+  delayMin: 30_000,
+  delayMax: 30_000,
 };
