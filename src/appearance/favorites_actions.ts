@@ -1,21 +1,9 @@
-import type { Avatar } from "../eldarya/avatar";
 import type { Item } from "../eldarya/item";
+import { exportOutfit } from "../outfit";
 import type { ParsableItem } from "./interfaces/parsable_item";
 
-export function exportOutfit(): void {
-  const avatar = Sacha.Avatar.avatars["#appearance-preview"];
-  if (!avatar) return;
-
-  const outfit = getItemsToSave(avatar);
-
-  const href =
-    "data:text/json;charset=utf-8," +
-    encodeURIComponent(JSON.stringify(outfit));
-
-  const a = document.createElement("a");
-  a.setAttribute("href", href);
-  a.setAttribute("download", "outfit.json");
-  a.click();
+export function exportPreview(): void {
+  exportOutfit("#appearance-preview");
 }
 
 export function importOutfit(): void {
@@ -82,23 +70,6 @@ function removeClothes() {
       $(`#appearance-item-${item._id}`).removeClass("selected");
     }
   }
-}
-
-function getItemsToSave(avatar: Avatar): ParsableItem[] {
-  return avatar.children.map((child) => {
-    const item = child.getItem();
-    return {
-      id: item._id,
-      group: item._group,
-      name: item._name,
-      image: item._image,
-      type: item._type,
-      categoryId: item._categoryId,
-      hiddenCategories: Object.values(item._hiddenCategories),
-      animationData: item._animationData,
-      locked: item._locked,
-    };
-  });
 }
 
 async function openGroup(group: number) {

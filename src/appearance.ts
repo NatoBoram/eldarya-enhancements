@@ -1,5 +1,5 @@
 import type { Template } from "hogan.js";
-import { exportOutfit, importOutfit } from "./appearance/favorites_actions";
+import { exportPreview, importOutfit } from "./appearance/favorites_actions";
 import type { FavoritesAction } from "./templates/interfaces/favorites_action";
 
 let observer: MutationObserver | null;
@@ -38,7 +38,7 @@ function loadFavoritesActions(): void {
 
   document
     .getElementById(exportAction.id)
-    ?.addEventListener("click", exportOutfit);
+    ?.addEventListener("click", exportPreview);
 
   document
     .getElementById(importAction.id)
