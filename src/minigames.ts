@@ -24,6 +24,7 @@ async function loadMinigame(
   }
 
   start.classList.add("disabled");
+  start.textContent = "Playing...";
   await playGame();
   return true;
 }

@@ -21,6 +21,8 @@ export async function playHatchlings(): Promise<void> {
 
 async function play(minigame: Minigame): Promise<void> {
   const json = await execute(minigame);
+  $.flavrNotif(`Playing <strong>${minigame.name}</strong>...`);
+
   const gameToken = json.data;
   const score = randomInt(minigame.scoreMin, minigame.scoreMax);
   const enc_token = xorEncode(gameToken, score.toString());
@@ -41,23 +43,41 @@ function randomInt(min: number, max: number): number {
 
 async function execute(minigame: Minigame): Promise<Packet<StartGameData>> {
   return new Promise<Packet<StartGameData>>((resolve, reject) => {
-    Recaptcha.execute(
-      `minigameStart${minigame.name}`,
-      (token): void =>
-        void $.ajax({
-          url: "/minigames/ajax_startGame",
-          type: "post",
-          dataType: "json",
-          data: { game: minigame.name.toLowerCase(), recaptchaToken: token },
-          success: (json: Packet<StartGameData>): void => {
-            resolve(json);
-          },
-          error: (): void => {
-            reject();
-          },
-        })
-    );
+    if (typeof Recaptcha !== "undefined") {
+      Recaptcha.execute(
+        `minigameStart${minigame.name}`,
+        (token): void =>
+          void startGame(minigame, token).then(resolve).catch(reject)
+      );
+    } else {
+      void startGame(minigame).then(resolve).catch(reject);
+    }
   });
+}
+
+async function startGame(minigame: Minigame, recaptchaToken?: string) {
+  return new Promise<Packet<StartGameData>>(
+    (resolve, reject) =>
+      void $.ajax({
+        url: "/minigames/ajax_startGame",
+        type: "post",
+        dataType: "json",
+        data: recaptchaToken
+          ? {
+              game: minigame.name.toLowerCase(),
+              recaptchaToken: recaptchaToken,
+            }
+          : {
+              game: minigame.name.toLowerCase(),
+            },
+        success: (json: Packet<StartGameData>): void => {
+          resolve(json);
+        },
+        error: (): void => {
+          reject();
+        },
+      })
+  );
 }
 
 async function getPrizes(
@@ -116,27 +136,49 @@ async function send(
   game: string
 ): Promise<void> {
   return new Promise((resolve) => {
+    if (typeof Recaptcha !== "undefined") {
+      Recaptcha.execute(
+        "minigameSave" + game,
+        (recaptchaToken): void =>
+          void saveScore(enc_token, score, game, recaptchaToken).then(resolve)
+      );
+    } else {
+      void saveScore(enc_token, score, game).then(resolve);
+    }
+  });
+}
+
+async function saveScore(
+  enc_token: string,
+  score: number,
+  game: string,
+  recaptchaToken?: string
+): Promise<void> {
+  return new Promise((resolve) => {
     const token = decodeURIComponent(enc_token);
-    Recaptcha.execute(
-      "minigameSave" + game,
-      (recaptchaToken): void =>
-        void $.ajax({
-          type: "post",
-          url: "/minigames/ajax_saveScore",
-          data: {
+
+    void $.ajax({
+      type: "post",
+      url: "/minigames/ajax_saveScore",
+      data: recaptchaToken
+        ? {
             token: token,
             score: score,
             game: game,
             recaptchaToken: recaptchaToken,
+          }
+        : {
+            token: token,
+            score: score,
+            game: game,
           },
-          success: (): void => {
-            resolve();
-          },
-          error: () =>
-            setTimeout((): void => {
-              resolve(send(enc_token, score, game));
-            }, randomInt(1000, 3000)),
-        })
-    );
+      success: (): void => {
+        resolve();
+      },
+      error: () =>
+        setTimeout((): void => {
+          resolve(saveScore(enc_token, score, game));
+        }, randomInt(1000, 3000)),
+    });
   });
 }

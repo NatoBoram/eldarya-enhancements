@@ -43,7 +43,6 @@ module.exports = {
     "@typescript-eslint/prefer-ts-expect-error": "error",
     "@typescript-eslint/promise-function-async": "error",
     "@typescript-eslint/sort-type-union-intersection-members": "error",
-    "@typescript-eslint/strict-boolean-expressions": "error",
     "@typescript-eslint/type-annotation-spacing": "error",
     "@typescript-eslint/prefer-nullish-coalescing": "error",
     // Off
