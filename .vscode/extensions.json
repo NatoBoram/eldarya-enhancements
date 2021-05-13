@@ -8,7 +8,6 @@
     "ms-vscode.vscode-typescript-next",
     "quicktype.quicktype",
     "redhat.vscode-yaml",
-    "sonarsource.sonarlint-vscode",
     "visualstudioexptteam.vscodeintellicode"
   ],
   "unwantedRecommendations": [
