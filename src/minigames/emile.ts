@@ -94,7 +94,7 @@ async function getPrizes(
           resolve(json);
 
           $.flavrNotif(
-            `Played <strong>${minigame.name}</strong> for <strong>${json.data.maana}</strong> maanas.`
+            `Played <strong>${minigame.name}</strong> for <strong class="price-item">${json.data.maana}</strong> <span class="maana-icon"></span>.`
           );
         },
         "json"
