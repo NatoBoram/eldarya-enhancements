@@ -25,20 +25,32 @@ export function importOutfit(): void {
       const avatar = Sacha.Avatar.avatars["#appearance-preview"];
       if (!avatar) return;
 
-      $.flavrNotif("Importing. Please wait...");
+      $.flavrNotif("Importing outfit. Please wait...");
 
-      // Get all categories and groups
-      const groups = new Set<number>();
+      // Get all categories
+      const categories = new Set<string>();
       for (const clothing of outfit) {
-        groups.add(clothing.group);
+        categories.add(clothing.type);
       }
 
-      // Open them all so they appear in `availableItems`
-      const promises: Promise<void>[] = [];
-      groups.forEach((group) => {
-        promises.push(openGroup(group));
-      });
-      await Promise.all(promises);
+      // Open all categories
+      await Promise.all(
+        Array.from(categories.values()).map(async (category) =>
+          openCategory(category)
+        )
+      );
+
+      // Get all groups
+      const groups = new Set<number>();
+      for (const clothing of outfit) {
+        if (document.querySelector(`[data-group="${clothing.group}"]`))
+          groups.add(clothing.group);
+      }
+
+      // Open all groups
+      await Promise.all(
+        Array.from(groups.values()).map(async (group) => openGroup(group))
+      );
 
       // Get the items from `availableItems`
       const wornItems: Item[] = [];
@@ -75,18 +87,37 @@ function removeClothes() {
 async function openGroup(group: number) {
   return new Promise<void>((resolve) => {
     const categoryContainer = $("#appearance-items-group-" + group.toString());
-
     if (categoryContainer.hasClass("active")) {
       resolve();
       return;
     }
 
     if (categoryContainer.length <= 0) {
-      void $.get("/player/openGroup/" + group.toString(), function (view) {
-        $(".appearance-items-category.active").fadeOut("fast", function () {
+      void $.get(
+        "/player/openGroup/" + group.toString(),
+        function (view: string) {
           $(view).hide().appendTo("#appearance-items");
-          $("#appearance-items-group-" + group.toString());
-        });
+        }
+      ).always(() => {
+        resolve();
+      });
+    } else {
+      resolve();
+    }
+  });
+}
+
+async function openCategory(category: string) {
+  return new Promise<void>((resolve) => {
+    const categoryContainer = $("#appearance-items-category-" + category);
+    if (categoryContainer.hasClass("active")) {
+      resolve();
+      return;
+    }
+
+    if (categoryContainer.length <= 0) {
+      void $.post("/player/openCategory/" + category, function (view: string) {
+        $(view).hide().appendTo("#appearance-items");
       }).always(() => {
         resolve();
       });
