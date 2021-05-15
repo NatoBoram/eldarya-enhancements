@@ -20,6 +20,13 @@ export async function playHatchlings(): Promise<void> {
 }
 
 async function play(minigame: Minigame): Promise<void> {
+  // Disable buttons
+  document
+    .querySelectorAll<HTMLButtonElement>(".minigames-rules .flavr-button")
+    .forEach((button) => {
+      button.classList.add("disabled");
+    });
+
   const json = await execute(minigame);
   $.flavrNotif(`Playing <strong>${minigame.name}</strong>...`);
 
