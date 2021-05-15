@@ -1,5 +1,5 @@
 import type { Template } from "hogan.js";
-import type { HomeContentSmall } from "./templates/interfaces/home_content_small";
+import type { HomeContentSmall } from "../templates/interfaces/home_content_small";
 
 export function loadHomeContent(): void {
   const homeContentSmalls = document.getElementById("home-content-smalls");
@@ -13,7 +13,7 @@ export function loadHomeContent(): void {
   document.getElementById("home-bank")?.remove();
 
   // Add forum
-  const smallTemplate: Template = require("./templates/html/home_content_small.html");
+  const smallTemplate: Template = require("../templates/html/home_content_small.html");
   const smallContent: HomeContentSmall = {
     backgroundImage:
       "/assets/img/minigames/treasurehunt/a48bbc4e4849745ebe6dbcf5313eb3f0.jpg",

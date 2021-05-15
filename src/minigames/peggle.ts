@@ -6,4 +6,5 @@ export const peggle: Minigame = {
   scoreMax: 10,
   delayMin: 10_000,
   delayMax: 20_000,
+  buttonSelector: '.minigame-start [href="/minigames/gembomb"] .nl-button',
 };

@@ -4,4 +4,5 @@ export interface Minigame {
   scoreMax: number;
   delayMin: number;
   delayMax: number;
+  buttonSelector: string;
 }

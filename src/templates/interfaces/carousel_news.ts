@@ -1,7 +1,7 @@
 import type { Context } from "hogan.js";
 
 export interface CarouselNews extends Context {
-  id?: string;
+  id: string;
   href?: string;
   backgroundImage: string;
   h4: string;

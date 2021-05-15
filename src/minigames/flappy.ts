@@ -6,4 +6,5 @@ export const flappy: Minigame = {
   scoreMax: 200,
   delayMin: 60_000,
   delayMax: 70_000,
+  buttonSelector: '.minigame-start [href="/minigames/bubbltemple"] .nl-button',
 };

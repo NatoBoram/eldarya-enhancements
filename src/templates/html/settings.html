@@ -1,4 +1,5 @@
-<div class="account-misc-bloc bloc">
+<div class="account-misc-bloc account-ee-bloc bloc">
+  <!--
   <style>
     table {
       width: 100%;
@@ -9,16 +10,26 @@
       padding: 1em;
     }
   </style>
+  -->
 
   <!-- Settings -->
   <h2 class="section-title">Enhancements</h2>
   <ul class="account-misc-actions">
-    <li class="nl-button nl-button-sm active">Minigames</li>
-    <li class="nl-button nl-button-sm active">Explorations</li>
-    <li class="nl-button nl-button-sm active">Market</li>
+    <li id="ee-minigames-enabled"
+      class="nl-button nl-button-sm {{#minigames}}active{{/minigames}}">
+      Minigames
+    </li>
+    <li id="ee-explorations-enabled"
+      class="nl-button nl-button-sm {{#explorations}}active{{/explorations}} disabled">
+      Explorations
+    </li>
+    <li id="ee-market-enabled"
+      class="nl-button nl-button-sm {{#market}}active{{/market}} disabled">
+      Market
+    </li>
   </ul>
 
-  <!-- Explorations -->
+  <!-- Explorations
   <h3 class="section-title">Explorations</h3>
   <table>
     <thead>
@@ -32,4 +43,5 @@
       </td>
     </tbody>
   </table>
+  -->
 </div>

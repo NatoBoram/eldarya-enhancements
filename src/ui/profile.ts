@@ -1,6 +1,6 @@
 import type { Template } from "hogan.js";
-import { exportOutfit } from "./outfit";
-import type { ProfileContactAction } from "./templates/interfaces/profile_contact_action";
+import { exportOutfit } from "../outfit";
+import type { ProfileContactAction } from "../templates/interfaces/profile_contact_action";
 
 export function loadProfile(): void {
   const profileContactActions = document.getElementById(
@@ -13,7 +13,7 @@ export function loadProfile(): void {
     return;
   }
 
-  const template: Template = require("./templates/html/profile_contact_action.html");
+  const template: Template = require("../templates/html/profile_contact_action.html");
   const profileActionExport: ProfileContactAction = {
     id: "profile-contact-action-export",
     actionDescription: "Export outfit",

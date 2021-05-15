@@ -15,8 +15,8 @@ module.exports = {
     "plugin:prettier/recommended",
   ],
   rules: {
-    "prettier/prettier": "warn",
-    // "@typescript-eslint/member-ordering": "error",
+    "prettier/prettier": "off",
+    // "@typescript-eslint/member-ordering": "warn",
     "@typescript-eslint/array-type": "error",
     "@typescript-eslint/class-literal-property-style": "error",
     "@typescript-eslint/consistent-indexed-object-style": "error",

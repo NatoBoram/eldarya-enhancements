@@ -6,4 +6,5 @@ export const hatchlings: Minigame = {
   scoreMax: 20,
   delayMin: 30_000,
   delayMax: 30_000,
+  buttonSelector: '.minigame-start [href="/minigames/cocooninpick"] .nl-button',
 };

@@ -1,7 +1,7 @@
 import type { GetPrizesData } from "../api/get_prizes_data";
 import type { Packet } from "../api/packet";
 import type { StartGameData } from "../api/start_game_data";
-import "../jquery";
+import "../eldarya/jquery";
 import { flappy } from "./flappy";
 import { hatchlings } from "./hatchlings";
 import type { Minigame } from "./minigame";

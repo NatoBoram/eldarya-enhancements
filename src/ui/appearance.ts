@@ -1,6 +1,6 @@
 import type { Template } from "hogan.js";
-import { exportPreview, importOutfit } from "./appearance/favorites_actions";
-import type { FavoritesAction } from "./templates/interfaces/favorites_action";
+import { exportPreview, importOutfit } from "../appearance/favorites_actions";
+import type { FavoritesAction } from "../templates/interfaces/favorites_action";
 
 let observer: MutationObserver | null;
 
@@ -23,7 +23,7 @@ function loadFavoritesActions(): void {
   const actions = document.getElementById("favorites-actions");
   if (!actions || document.querySelector(".favorites-action-ee")) return;
 
-  const actionTemplate: Template = require("./templates/html/favorites_action.html");
+  const actionTemplate: Template = require("../templates/html/favorites_action.html");
   const exportAction: FavoritesAction = {
     id: "export-outfit",
     text: "Export",
