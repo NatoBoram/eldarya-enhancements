@@ -4,5 +4,5 @@ export const carouselTakeover: CarouselNews = {
   backgroundImage: "/static/img/alchemy/background.jpg",
   id: "carousel-takeover",
   h4: "Takeover",
-  p: "Automatically play minigames.",
+  p: "Give up this tab to perform automated actions.",
 };
