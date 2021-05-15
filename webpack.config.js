@@ -34,6 +34,7 @@ module.exports = {
 // ==UserScript==
 // @name         Eldarya Enhancements
 // @namespace    https://gitlab.com/NatoBoram/eldarya-enhancements
+// @license      GPL-3.0-or-later
 // @version      0.0.14
 // @author       Nato Boram
 // @description  Enhances the user experience of Eldarya.
