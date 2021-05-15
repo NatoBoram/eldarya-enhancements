@@ -21,11 +21,23 @@ export async function playHatchlings(): Promise<void> {
 
 async function play(minigame: Minigame): Promise<void> {
   // Disable buttons
-  document
-    .querySelectorAll<HTMLButtonElement>(".minigames-rules .flavr-button")
-    .forEach((button) => {
-      button.classList.add("disabled");
-    });
+  await new Promise<boolean>((resolve) => {
+    const interval = setInterval(() => {
+      const buttons = document.querySelectorAll<HTMLButtonElement>(
+        ".minigames-rules .flavr-button"
+      );
+
+      if (buttons.length) {
+        clearInterval(interval);
+
+        for (const button of buttons) {
+          button.classList.add("disabled");
+        }
+
+        resolve(true);
+      }
+    }, 250);
+  });
 
   const json = await execute(minigame);
   $.flavrNotif(`Playing <strong>${minigame.name}</strong>...`);
