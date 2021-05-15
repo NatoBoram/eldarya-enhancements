@@ -13,7 +13,15 @@ export async function loadMinigames(): Promise<boolean> {
         loadMinigame(flappy) ||
         loadMinigame(hatchlings);
 
-      if (!playing) SessionStorage.minigamesDone = true;
+      if (!playing) {
+        SessionStorage.minigamesDone = true;
+
+        document
+          .querySelector<HTMLButtonElement>(
+            '.minigames-rules [rel="btn-cancel"]'
+          )
+          ?.click();
+      }
       return playing;
     }
 
