@@ -54,10 +54,10 @@ export function importOutfit(): void {
 
       // Get the items from `availableItems`
       const wornItems: Item[] = [];
-      outfit.forEach((clothing) => {
+      for (const clothing of outfit) {
         const item = availableItems[clothing.id];
         if (item) wornItems.push(item);
-      });
+      }
 
       removeClothes();
       avatar.addItems(wornItems);

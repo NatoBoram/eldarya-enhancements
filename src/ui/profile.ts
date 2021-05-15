@@ -40,7 +40,7 @@ function exportProfile() {
     key.startsWith("#playerProfileAvatar")
   );
 
-  keys.forEach((key) => {
+  for (const key of keys) {
     exportOutfit(key, title?.textContent?.trim());
-  });
+  }
 }
