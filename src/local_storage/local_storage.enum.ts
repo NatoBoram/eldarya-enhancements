@@ -3,4 +3,5 @@ export enum LocalStorageKey {
   favorites = "favorites",
   market = "market",
   minigames = "minigames",
+  autoExploreLocations = "autoExploreLocations",
 }

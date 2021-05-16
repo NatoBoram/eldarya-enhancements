@@ -3,6 +3,7 @@ import { loadAppearance } from "./ui/appearance";
 import { loadCarousel } from "./ui/carousel";
 import { loadHomeContent } from "./ui/home_content";
 import { loadMenu } from "./ui/menu";
+import { loadPet } from "./ui/pet";
 import { loadProfile } from "./ui/profile";
 import { loadSettings } from "./ui/settings";
 
@@ -18,6 +19,7 @@ function loadUI() {
   loadAppearance();
   loadProfile();
   loadSettings();
+  loadPet();
 }
 
 new MutationObserver(load).observe(<Node>document.getElementById("container"), {
