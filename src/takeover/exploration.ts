@@ -52,9 +52,10 @@ async function startExploration(): Promise<boolean> {
   );
   if (!regionButton) {
     // Clearing invalid regions is useful to remove finished events.
-    LocalStorage.autoExploreLocations = LocalStorage.autoExploreLocations.filter(
-      (saved) => saved.region.id !== selected.region.toString()
-    );
+    LocalStorage.autoExploreLocations =
+      LocalStorage.autoExploreLocations.filter(
+        (saved) => saved.region.id !== selected.region.toString()
+      );
     SessionStorage.selectedLocation = null;
     location.reload();
     return true;
@@ -142,9 +143,8 @@ async function clickLocation(
 async function clickExplore(): Promise<HTMLButtonElement> {
   return new Promise<HTMLButtonElement>((resolve) => {
     const interval = setInterval(() => {
-      const button = document.querySelector<HTMLButtonElement>(
-        "#explore-button"
-      );
+      const button =
+        document.querySelector<HTMLButtonElement>("#explore-button");
       if (!button) return;
       clearInterval(interval);
 

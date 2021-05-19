@@ -51,9 +51,8 @@ function addAutoExploreButton(
   mapLocation: number,
   observer?: MutationObserver
 ): void {
-  const buttonsContainer = document.querySelector<HTMLDivElement>(
-    "#buttons-container"
-  );
+  const buttonsContainer =
+    document.querySelector<HTMLDivElement>("#buttons-container");
 
   if (!buttonsContainer) return;
   observer?.disconnect();
@@ -86,9 +85,10 @@ function addAutoExploreButton(
 
 async function autoExplore(exploreContext: AutoExploreButton): Promise<void> {
   if (exploreContext.active) {
-    LocalStorage.autoExploreLocations = LocalStorage.autoExploreLocations.filter(
-      (saved) => saved.location.id !== exploreContext.mapLocation.toString()
-    );
+    LocalStorage.autoExploreLocations =
+      LocalStorage.autoExploreLocations.filter(
+        (saved) => saved.location.id !== exploreContext.mapLocation.toString()
+      );
     addAutoExploreButton(exploreContext.mapLocation);
     return;
   }
