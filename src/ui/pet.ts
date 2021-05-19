@@ -1,6 +1,5 @@
 import type { Template } from "hogan.js";
-import type { ChangeRegionData } from "../api/change_region_data";
-import type { Packet } from "../api/packet";
+import { changeRegion } from "../ajax/change_region";
 import type { MapRegion } from "../eldarya/current_region";
 import { LocalStorage } from "../local_storage/local_storage";
 import type { AutoExploreButton } from "../templates/interfaces/auto_explore_button";
@@ -115,30 +114,6 @@ async function getRegion(
   if (exploreContext.currentRegionId.toString() === currentRegion.id)
     return currentRegion;
 
-  return new Promise<MapRegion>((resolve, reject) => {
-    void $.post(
-      "/pet/changeRegion",
-      { newRegionId: exploreContext.currentRegionId },
-      (json: Packet<ChangeRegionData>) => {
-        currentRegion = json.data.currentRegion;
-
-        pendingTreasureHuntLocation =
-          typeof json.data.pendingTreasureHuntLocation == "undefined"
-            ? null
-            : json.data.pendingTreasureHuntLocation;
-
-        timeLeftExploration =
-          typeof json.data.timeLeftExploration == "undefined"
-            ? null
-            : json.data.timeLeftExploration;
-
-        resolve(currentRegion);
-      }
-    ).fail((json) => {
-      $.flavrNotif(
-        (<Packet<ChangeRegionData>>json.responseJSON).data.toString()
-      );
-      reject(json);
-    });
-  });
+  return (await changeRegion(exploreContext.currentRegionId)).data
+    .currentRegion;
 }

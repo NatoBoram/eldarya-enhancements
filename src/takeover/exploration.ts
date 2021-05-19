@@ -159,7 +159,7 @@ function getExplorationStatus(): ExplorationStatus {
     return ExplorationStatus.active;
   else if (document.querySelector("#map-container.pending"))
     return ExplorationStatus.pending;
-  else if (document.querySelector("#capture-pre-timer"))
+  else if (document.querySelector("#capture-interface-outer.active"))
     return ExplorationStatus.capture;
   return ExplorationStatus.idle;
 }
