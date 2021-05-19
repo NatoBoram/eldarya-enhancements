@@ -4,6 +4,7 @@ import { carouselDownloadFace } from "../carousel/carousel_download_face";
 import { carouselDownloadGuardian } from "../carousel/carousel_download_guardian";
 import { carouselTakeover } from "../carousel/carousel_takeover";
 import { downloadFace, downloadGuardian } from "../download-canvas";
+import { SessionStorage } from "../session_storage/session_storage";
 import { toggleTakeover } from "../takeover/brain";
 import type { CarouselNews } from "../templates/interfaces/carousel_news";
 
@@ -32,7 +33,14 @@ export function loadCarousel(): void {
     .getElementById(carouselDownloadGuardian.id)
     ?.addEventListener("click", downloadGuardian);
 
-  document
-    .getElementById(carouselTakeover.id)
-    ?.addEventListener("click", toggleTakeover);
+  const takeoverAnchor = document.getElementById(carouselTakeover.id);
+  takeoverAnchor?.addEventListener("click", toggleTakeover);
+
+  // Custom title
+  const takeoverH4 = takeoverAnchor?.querySelector("h4");
+  if (takeoverH4) {
+    takeoverH4.innerText = `Takeover : ${
+      SessionStorage.takeover ? "Enabled" : "Disabled"
+    }`;
+  }
 }
