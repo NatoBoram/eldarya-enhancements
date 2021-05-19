@@ -36,5 +36,6 @@
   "files.trimTrailingWhitespace": true,
   "html.format.indentHandlebars": true,
   "html.format.maxPreserveNewLines": 1,
-  "html.format.wrapLineLength": 80
+  "html.format.wrapLineLength": 80,
+  "prettier.prettierPath": "./node_modules/.bin/prettier"
 }
