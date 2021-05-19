@@ -41,7 +41,10 @@ export async function loadMinigames(): Promise<boolean> {
       break;
 
     default:
-      return false;
+      document
+        .querySelector<HTMLAnchorElement>(".main-menu-minigames a")
+        ?.click();
+      return true;
   }
 
   document.querySelector<HTMLAnchorElement>(".main-menu-minigames a")?.click();

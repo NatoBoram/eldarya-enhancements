@@ -1,6 +1,5 @@
 declare global {
   let pendingTreasureHuntLocation: PendingTreasureHuntLocation | null;
-  let timeLeftExploration: number | null;
 }
 
 export declare interface PendingTreasureHuntLocation {

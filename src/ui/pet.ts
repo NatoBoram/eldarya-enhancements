@@ -61,7 +61,7 @@ function addAutoExploreButton(
   const exploreContext: AutoExploreButton = {
     mapLocation,
     active: LocalStorage.autoExploreLocations.some(
-      (location) => location.id === mapLocation
+      (saved) => saved.location.id === mapLocation.toString()
     ),
     currentRegionId: Number(
       document
@@ -87,7 +87,7 @@ function addAutoExploreButton(
 async function autoExplore(exploreContext: AutoExploreButton): Promise<void> {
   if (exploreContext.active) {
     LocalStorage.autoExploreLocations = LocalStorage.autoExploreLocations.filter(
-      (location) => location.id !== exploreContext.mapLocation
+      (saved) => saved.location.id !== exploreContext.mapLocation.toString()
     );
     addAutoExploreButton(exploreContext.mapLocation);
     return;
@@ -101,7 +101,6 @@ async function autoExplore(exploreContext: AutoExploreButton): Promise<void> {
 
   const autoExploreLocations = LocalStorage.autoExploreLocations;
   autoExploreLocations.push({
-    id: exploreContext.mapLocation,
     location,
     region,
   });

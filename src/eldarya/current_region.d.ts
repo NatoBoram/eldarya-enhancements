@@ -9,8 +9,10 @@ export declare interface MapRegion {
   image: MapRegionImage;
   nextRegion_id: string;
   locations: Location[];
-  season: string;
+  season: Season;
 }
+
+declare type Season = "s1" | "s2";
 
 interface MapRegionImage {
   type: string;

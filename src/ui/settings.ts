@@ -18,6 +18,20 @@ export function loadSettings(): void {
       LocalStorage.minigames = !LocalStorage.minigames;
       reloadSettings();
     });
+
+  document
+    .getElementById("ee-explorations-enabled")
+    ?.addEventListener("click", () => {
+      LocalStorage.explorations = !LocalStorage.explorations;
+      reloadSettings();
+    });
+
+  document
+    .getElementById("ee-market-enabled")
+    ?.addEventListener("click", () => {
+      LocalStorage.market = !LocalStorage.market;
+      reloadSettings();
+    });
 }
 
 function reloadSettings(): void {

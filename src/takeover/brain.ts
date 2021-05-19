@@ -1,5 +1,6 @@
 import { LocalStorage } from "../local_storage/local_storage";
 import { SessionStorage } from "../session_storage/session_storage";
+import { loadExploration } from "../takeover/exploration";
 import { loadDailies } from "./daily";
 import { loadMinigames } from "./minigames";
 
@@ -33,10 +34,14 @@ async function takeover(): Promise<void> {
 
   if (LocalStorage.minigames && !SessionStorage.minigamesDone)
     if (await loadMinigames()) return;
-    else
-      return document
-        .querySelector<HTMLAnchorElement>(".main-menu-minigames a")
-        ?.click();
+
+  if (
+    LocalStorage.explorations &&
+    !SessionStorage.explorationsDone &&
+    LocalStorage.autoExploreLocations.length
+  ) {
+    if (await loadExploration()) return;
+  }
 
   // Refresh after 1h.
   setTimeout(() => {
