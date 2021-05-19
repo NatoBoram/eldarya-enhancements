@@ -1,6 +1,6 @@
 export enum ExplorationStatus {
-  idle = "idle",
-  pending = "pending",
-  active = "active",
-  capture = "capture",
+  idle,
+  active,
+  capture,
+  pending,
 }
