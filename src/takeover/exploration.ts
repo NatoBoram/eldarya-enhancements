@@ -55,7 +55,7 @@ async function startExploration(): Promise<AutoExploreLocation | null> {
   }
 
   // Go to region
-  if (currentRegion.id != selected.region.id) clickRegion(selected);
+  clickRegion(selected);
 
   // Go to location
   await clickLocation(selected);
@@ -116,30 +116,11 @@ function getSelectedLocation(): AutoExploreLocation | null {
 }
 
 function selectLocation(): AutoExploreLocation | null {
-  // Get a season to explore
   const affordable = LocalStorage.autoExploreLocations.filter(
     (saved) => Number(saved.location.energyRequired) <= petEnergy
   );
-  if (!affordable.length) return null;
-  const season =
-    affordable[Math.floor(Math.random() * affordable.length)]?.region.season;
-  if (!season) return null;
 
-  // Get a region to explore
-  const seasonal = affordable.filter((a) => a.region.season === season);
-  if (!seasonal.length) return null;
-  const region = Number(
-    seasonal[Math.floor(Math.random() * seasonal.length)]?.region.id
-  );
-  if (!region) return null;
-
-  // Get a location to explore
-  const regional = seasonal.filter((s) => s.region.id === region.toString());
-  if (!regional.length) return null;
-  const selected = regional[Math.floor(Math.random() * regional.length)];
-  if (!selected) return null;
-
-  return selected;
+  return affordable[Math.floor(Math.random() * affordable.length)] ?? null;
 }
 
 function getCurrentSeason(): Season {

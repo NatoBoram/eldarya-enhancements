@@ -19,7 +19,11 @@ export async function loadMinigames(): Promise<boolean> {
 
       if (!playing) {
         SessionStorage.minigamesDone = true;
-        await click<HTMLButtonElement>('.minigames-rules [rel="btn-cancel"]');
+        document
+          .querySelector<HTMLButtonElement>(
+            '.minigames-rules [rel="btn-cancel"]'
+          )
+          ?.click();
       }
 
       return playing;
