@@ -5,11 +5,12 @@ import type { Season } from "../eldarya/current_region";
 import type { AutoExploreLocation } from "../local_storage/auto_explore_location";
 import { LocalStorage } from "../local_storage/local_storage";
 import { SessionStorage } from "../session_storage/session_storage";
+import { click } from "./click";
 import { ExplorationStatus } from "./exploration_status.enum";
 
 export async function loadExploration(): Promise<boolean> {
   if (location.pathname !== "/pet") {
-    document.querySelector<HTMLAnchorElement>(".main-menu-pet a")?.click();
+    await click<HTMLAnchorElement>(".main-menu-pet a");
     return true;
   }
 
@@ -184,25 +185,4 @@ async function clickLocation(
 
 async function clickExplore(): Promise<HTMLButtonElement> {
   return click("#explore-button");
-}
-
-async function click<T extends HTMLElement>(selector: string): Promise<T> {
-  return new Promise<T>((resolve) => {
-    const interval = setInterval(() => {
-      const element = document.querySelector<T>(selector);
-      if (!element) return;
-      clearInterval(interval);
-
-      // Some elements don't have their click handlers ready until they're
-      // hovered.
-      const mouseEvent = document.createEvent("MouseEvent");
-      mouseEvent.initEvent("mouseover");
-      element.dispatchEvent(mouseEvent);
-
-      setTimeout(() => {
-        element.click();
-        resolve(element);
-      }, 800);
-    }, 800);
-  });
 }

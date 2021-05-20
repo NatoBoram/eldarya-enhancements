@@ -4,6 +4,7 @@ import { hatchlings } from "../minigames/hatchlings";
 import type { Minigame } from "../minigames/minigame";
 import { peggle } from "../minigames/peggle";
 import { SessionStorage } from "../session_storage/session_storage";
+import { click } from "./click";
 
 /** Determines if the minigames should be played right now.
  * @returns whether the minigames are currently being played.
@@ -18,13 +19,9 @@ export async function loadMinigames(): Promise<boolean> {
 
       if (!playing) {
         SessionStorage.minigamesDone = true;
-
-        document
-          .querySelector<HTMLButtonElement>(
-            '.minigames-rules [rel="btn-cancel"]'
-          )
-          ?.click();
+        await click<HTMLButtonElement>('.minigames-rules [rel="btn-cancel"]');
       }
+
       return playing;
     }
 
@@ -41,13 +38,11 @@ export async function loadMinigames(): Promise<boolean> {
       break;
 
     default:
-      document
-        .querySelector<HTMLAnchorElement>(".main-menu-minigames a")
-        ?.click();
+      await click<HTMLAnchorElement>(".main-menu-minigames a");
       return true;
   }
 
-  document.querySelector<HTMLAnchorElement>(".main-menu-minigames a")?.click();
+  await click<HTMLAnchorElement>(".main-menu-minigames a");
   return true;
 }
 
