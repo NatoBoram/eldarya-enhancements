@@ -81,9 +81,23 @@ interface Result {
   icon: string;
   petMoodIcon: string;
   category: string;
+  tameList?: Tame[];
+  /** Seconds */
+  timeRestCapture?: number;
 }
 
-declare type ResultType = "capture" | "captureCrylasm" | "object";
+interface Tame {
+  item: Item;
+  ownedQuantity: number;
+}
+
+interface Item {
+  icon: string;
+  id: number;
+  name: string;
+}
+
+type ResultType = "capture" | "captureCrylasm" | "object";
 
 /** Item type */
 type ItemType = "Consumable" | "EggItem" | "PlayerWearableItem" | "QuestItem";

@@ -12,6 +12,7 @@ export async function changeRegion(
       function (json: Packet<ChangeRegionData>) {
         SessionStorage.meta = json.meta;
         resolve(json);
+
         if (json.result !== "success") {
           $.flavrNotif(json.data);
           return;

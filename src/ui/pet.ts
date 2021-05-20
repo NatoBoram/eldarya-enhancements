@@ -1,5 +1,6 @@
 import type { Template } from "hogan.js";
 import { changeRegion } from "../ajax/change_region";
+import { Result } from "../api/result.enum";
 import type { MapRegion } from "../eldarya/current_region";
 import { LocalStorage } from "../local_storage/local_storage";
 import type { AutoExploreButton } from "../templates/interfaces/auto_explore_button";
@@ -93,6 +94,8 @@ async function autoExplore(exploreContext: AutoExploreButton): Promise<void> {
   }
 
   const region = await getRegion(exploreContext);
+  if (!region) return;
+
   const location = region.locations.find(
     (location) => location.id === exploreContext.mapLocation.toString()
   );
@@ -110,10 +113,12 @@ async function autoExplore(exploreContext: AutoExploreButton): Promise<void> {
 
 async function getRegion(
   exploreContext: AutoExploreButton
-): Promise<MapRegion> {
+): Promise<MapRegion | null> {
   if (exploreContext.currentRegionId.toString() === currentRegion.id)
     return currentRegion;
 
-  return (await changeRegion(exploreContext.currentRegionId)).data
-    .currentRegion;
+  const json = await changeRegion(exploreContext.currentRegionId);
+  if (json.result === Result.success) return json.data.currentRegion;
+
+  return null;
 }

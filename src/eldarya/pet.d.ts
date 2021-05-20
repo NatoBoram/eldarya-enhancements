@@ -7,7 +7,11 @@ declare global {
   /** PetRace energy of the pet, which therefore corresponds to its maximum energy */
   const petRaceEnergy: number;
 
-  /** Seconds */
+  /**
+   * Seconds. If the time is still ticking but there's no
+   * `pendingTreasureHuntLocation`, then the exploration is in a different
+   * region.
+   */
   let timeLeftExploration: number | null;
 }
 

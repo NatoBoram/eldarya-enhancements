@@ -8,13 +8,13 @@ declare global {
   const petFoodQuantity: number;
 }
 
-declare interface FoodConsumable {
+export declare interface FoodConsumable {
   item: Item;
   maxQuantity: number;
   ownedQuantity: number;
 }
 
-interface Item {
+export interface Item {
   category: string;
   description: string;
   eventName: null;

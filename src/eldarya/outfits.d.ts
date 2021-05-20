@@ -1,24 +1,10 @@
+import type { ImageType } from "./image_type";
+
 declare const outfits: Outfit[];
 
 interface Outfit {
   id: number;
-  image: ImageDefinition;
-  imageWithoutBg: ImageDefinition;
+  image: ImageType;
+  imageWithoutBg: ImageType;
   name: string;
-}
-
-interface ImageDefinition {
-  type: string;
-  image: ImageSizes;
-}
-
-interface ImageSizes {
-  sd: ImageSource;
-  hd: ImageSource;
-  xhd: ImageSource;
-}
-
-interface ImageSource {
-  src: string;
-  lastModification: number;
 }

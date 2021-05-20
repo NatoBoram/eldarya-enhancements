@@ -115,9 +115,11 @@ async function getPrizes(
         (json: Packet<GetPrizesData>): void => {
           resolve(json);
 
-          $.flavrNotif(
-            `Played <strong>${minigame.name}</strong> for <strong class="price-item">${json.data.maana}</strong> <span class="maana-icon"></span>.`
-          );
+          if (json.result === "success")
+            $.flavrNotif(
+              `Played <strong>${minigame.name}</strong> for <strong class="price-item">${json.data.maana}</strong> <span class="maana-icon"></span>.`
+            );
+          else $.flavrNotif(json.data);
         },
         "json"
       ).fail(() =>

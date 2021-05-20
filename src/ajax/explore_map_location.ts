@@ -12,6 +12,7 @@ export async function exploreMapLocation(
       (json: Packet<ExploreMapLocationData>): void => {
         SessionStorage.meta = json.meta;
         resolve(json);
+
         if (json.result !== "success") {
           $.flavrNotif(json.data);
           return;

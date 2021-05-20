@@ -1,3 +1,5 @@
+import type { ImageType } from "./image_type";
+
 declare global {
   /** MapRegion currently displayed in the interface */
   let currentRegion: MapRegion;
@@ -6,29 +8,23 @@ declare global {
 export declare interface MapRegion {
   id: string;
   name: string;
-  image: MapRegionImage;
-  nextRegion_id: string;
+  image: ImageType;
+  /**
+   * ID of the next region in this season.
+   * `0` and `null` means there's no next region.
+   */
+  nextRegion_id?: string;
+  /**
+   * ID of the previous region in this season.
+   * `0` and `null` means there's no previous region.
+   */
+  previousRegion_id?: string;
+  Condition_id?: string;
   locations: Location[];
   season: Season;
 }
 
 declare type Season = "s1" | "s2";
-
-interface MapRegionImage {
-  type: string;
-  image: ImageImage;
-}
-
-interface ImageImage {
-  sd: HD;
-  hd: HD;
-  xhd: HD;
-}
-
-interface HD {
-  src: string;
-  lastModification: number;
-}
 
 export declare interface Location {
   priceToExploreImmediately: number;

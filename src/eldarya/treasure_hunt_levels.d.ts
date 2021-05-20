@@ -1,3 +1,5 @@
+import type { ImageType } from "./image_type";
+
 declare const treasureHuntLevels: TreasureHuntLevels[];
 interface TreasureHuntLevels {
   reward?: Reward;
@@ -16,7 +18,7 @@ interface Reward {
   rarity: string;
   rarityText: string;
   tradable: boolean;
-  icon: Icon;
+  icon: ImageType;
   usable?: boolean;
   categoryId: number;
   eventName?: null;
@@ -29,23 +31,7 @@ interface Reward {
   group?: number;
   wearIndex?: null;
   categoryLimit?: null;
-  image?: Icon;
-}
-
-interface Icon {
-  type: string;
-  image: Image;
-}
-
-interface Image {
-  sd: HD;
-  hd: HD;
-  xhd: HD;
-}
-
-interface HD {
-  src: string;
-  lastModification: number;
+  image?: ImageType;
 }
 
 interface TreasureHuntEventModel {
