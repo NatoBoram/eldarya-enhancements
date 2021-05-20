@@ -41,6 +41,7 @@ export declare interface Location {
   energyRequired: string;
   xp: string;
   description: string;
+  /** Minutes */
   timeToExplore: number;
   MapRegion_id: string;
   playerItems: number;

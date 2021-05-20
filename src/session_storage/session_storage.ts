@@ -1,3 +1,4 @@
+import type { Meta } from "../api/meta";
 import type { AutoExploreLocation } from "../local_storage/auto_explore_location";
 import { SessionStorageKey } from "./session_storage.enum";
 
@@ -10,6 +11,14 @@ export class SessionStorage {
 
   public static set explorationsDone(done: boolean) {
     this.setItem(SessionStorageKey.explorationsDone, done);
+  }
+
+  public static get meta(): Meta | null {
+    return this.getItem(SessionStorageKey.meta, null);
+  }
+
+  public static set meta(meta: Meta | null) {
+    this.setItem(SessionStorageKey.meta, meta);
   }
 
   public static get minigamesDone(): boolean {
@@ -42,7 +51,7 @@ export class SessionStorage {
     );
   }
 
-  private static setItem<T>(key: SessionStorageKey, value: T) {
+  private static setItem<T>(key: SessionStorageKey, value: T): void {
     this.sessionStorage.setItem(key, JSON.stringify(value));
   }
 }

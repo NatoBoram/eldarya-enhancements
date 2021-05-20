@@ -1,6 +1,7 @@
 export enum SessionStorageKey {
-  takeover = "takeover",
-  minigamesDone = "minigamesDone",
   explorationsDone = "explorationsDone",
+  meta = "meta",
+  minigamesDone = "minigamesDone",
   selectedLocation = "selectedLocation",
+  takeover = "takeover",
 }

@@ -7,6 +7,7 @@ declare global {
   /** PetRace energy of the pet, which therefore corresponds to its maximum energy */
   const petRaceEnergy: number;
 
+  /** Seconds */
   let timeLeftExploration: number | null;
 }
 

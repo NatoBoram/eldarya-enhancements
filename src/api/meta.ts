@@ -6,16 +6,18 @@ export interface Meta {
   pet: Pet;
 }
 
-export interface Message {
+interface Message {
   unread: string;
 }
 
-export interface Pet {
+interface Pet {
   portrait: string;
+
+  /** Exploration is finished */
   exploration: boolean;
 }
 
-export interface Player {
+interface Player {
   maana: Currency;
   gold: Currency;
   purropass: Purropass;
@@ -25,29 +27,29 @@ export interface Player {
   unreadNews: null;
 }
 
-export interface Currency {
+interface Currency {
   value: number;
   text: string;
   change: Change;
 }
 
-export interface Change {
+interface Change {
   value: number;
   text: string;
 }
 
-export interface Purropass {
+interface Purropass {
   value: string;
   text: string;
   change: Change;
 }
 
-export interface XP {
+interface XP {
   value: number;
   goal: number;
   level: number;
 }
 
-export interface Purroshop {
+interface Purroshop {
   status: string;
 }
