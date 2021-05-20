@@ -16,11 +16,12 @@ export async function loadExploration(): Promise<boolean> {
       return startExploration();
 
     case ExplorationStatus.pending:
-      return false;
+      await waitExploration();
+      return loadExploration();
 
-    case ExplorationStatus.active:
-      endExploration();
-      return startExploration();
+    case ExplorationStatus.result:
+      await endExploration();
+      return loadExploration();
 
     case ExplorationStatus.capture:
       return false;
@@ -38,40 +39,20 @@ async function startExploration(): Promise<boolean> {
   }
 
   // Go to season
-  const currentSeason = getCurrentSeason();
-  if (currentSeason != selected.region.season) {
-    document
-      .querySelector<HTMLImageElement>("#crystal-images-container")
-      ?.click();
-    return true;
-  }
+  if (getCurrentSeason() != selected.region.season)
+    return Boolean(await clickSeason());
 
   // Go to region
-  const regionButton = document.querySelector<HTMLDivElement>(
-    `.minimap[data-mapid="${selected.region.id}"]`
-  );
-  if (!regionButton) {
-    // Clearing invalid regions is useful to remove finished events.
-    LocalStorage.autoExploreLocations =
-      LocalStorage.autoExploreLocations.filter(
-        (saved) => saved.region.id !== selected.region.toString()
-      );
-    SessionStorage.selectedLocation = null;
-    location.reload();
-    return true;
-  }
-  regionButton.click();
+  if (currentRegion.id != selected.region.id) clickRegion(selected);
 
   // Go to location
   await clickLocation(selected);
   await clickExplore();
 
   // Refresh at the end of the exploration.
-  setTimeout(() => {
-    void loadExploration();
-  }, selected.location.timeToExplore * 60 * 1000);
+  await waitExploration(selected);
 
-  return true;
+  return loadExploration();
 }
 
 function getCurrentSeason(): Season {
@@ -116,54 +97,79 @@ function selectLocation(): AutoExploreLocation | null {
   return selected;
 }
 
+async function clickSeason(): Promise<HTMLImageElement> {
+  return click<HTMLImageElement>("#crystal-images-container");
+}
+
 async function clickLocation(
   selected: AutoExploreLocation
 ): Promise<HTMLDivElement> {
-  return new Promise<HTMLDivElement>((resolve) => {
-    const interval = setInterval(() => {
-      const pending = document
-        .querySelector<HTMLDivElement>("#map-container")
-        ?.classList.contains("pending");
-      const indicator = document.querySelector<HTMLDivElement>(
-        `.map-location[data-id="${selected.location.id}"]`
-      );
-      if (pending || !indicator) return;
-      clearInterval(interval);
-
-      const mouseEvent = document.createEvent("MouseEvent");
-      mouseEvent.initEvent("mouseover");
-      indicator.dispatchEvent(mouseEvent);
-
-      indicator.click();
-      resolve(indicator);
-    }, 250);
-  });
+  const div = await click<HTMLDivElement>(
+    `.map-location[data-id="${selected.location.id}"]`
+  );
+  const mouseEvent = document.createEvent("MouseEvent");
+  mouseEvent.initEvent("mouseover");
+  div.dispatchEvent(mouseEvent);
+  return div;
 }
 
 async function clickExplore(): Promise<HTMLButtonElement> {
-  return new Promise<HTMLButtonElement>((resolve) => {
+  return click("#explore-button");
+}
+
+function clickRegion(selected: AutoExploreLocation): HTMLDivElement | null {
+  const div = document.querySelector<HTMLDivElement>(
+    `.minimap[data-mapid="${selected.region.id}"]`
+  );
+
+  if (!div) {
+    // Clearing invalid regions is useful to remove finished events.
+    LocalStorage.autoExploreLocations =
+      LocalStorage.autoExploreLocations.filter(
+        (saved) => saved.region.id !== selected.region.toString()
+      );
+
+    SessionStorage.selectedLocation = null;
+    location.reload();
+    return null;
+  }
+
+  div.click();
+  return div;
+}
+
+async function click<T extends HTMLElement>(selector: string): Promise<T> {
+  return new Promise<T>((resolve) => {
     const interval = setInterval(() => {
-      const button =
-        document.querySelector<HTMLButtonElement>("#explore-button");
-      if (!button) return;
+      const element = document.querySelector<T>(selector);
+      if (!element) return;
       clearInterval(interval);
 
-      button.click();
-      resolve(button);
-    }, 250);
+      element.click();
+      resolve(element);
+    }, 800);
   });
 }
 
+async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
+  let ms = 800;
+  if (selected) ms = selected.location.timeToExplore * 60 * 1000;
+  else if (timeLeftExploration && timeLeftExploration > 0)
+    ms = timeLeftExploration * 1000;
+
+  await new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
 function getExplorationStatus(): ExplorationStatus {
-  if (document.querySelector("#result-content.active"))
-    return ExplorationStatus.active;
-  else if (document.querySelector("#map-container.pending"))
+  if (document.querySelector("#pending-map-location-data-outer.active"))
     return ExplorationStatus.pending;
+  else if (document.querySelector("#treasure-hunt-result-overlay.active"))
+    return ExplorationStatus.result;
   else if (document.querySelector("#capture-interface-outer.active"))
     return ExplorationStatus.capture;
   return ExplorationStatus.idle;
 }
 
-function endExploration() {
-  document.querySelector<HTMLDivElement>("#close-result")?.click();
+async function endExploration(): Promise<HTMLDivElement> {
+  return click("#close-result");
 }
