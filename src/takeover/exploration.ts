@@ -49,7 +49,7 @@ async function startExploration(): Promise<AutoExploreLocation | null> {
   }
 
   // Go to season
-  if (getCurrentSeason() != selected.region.season) {
+  if (selected.region.season && getCurrentSeason() != selected.region.season) {
     await clickSeason();
     return selected;
   }

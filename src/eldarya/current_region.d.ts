@@ -19,9 +19,10 @@ export declare interface MapRegion {
    * `0` and `null` means there's no previous region.
    */
   previousRegion_id?: string;
+  eventId?: string;
   Condition_id?: string;
   locations: Location[];
-  season: Season;
+  season?: Season;
 }
 
 declare type Season = "s1" | "s2";
