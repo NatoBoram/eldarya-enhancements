@@ -31,7 +31,7 @@ export function loadProfile(): void {
     ?.addEventListener("click", exportProfile);
 }
 
-function exportProfile() {
+function exportProfile(): void {
   const title = document.querySelector<HTMLHeadingElement>(
     "#main-section .section-title"
   );

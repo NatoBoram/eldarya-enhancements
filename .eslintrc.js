@@ -36,6 +36,7 @@ module.exports = {
     "@typescript-eslint/non-nullable-type-assertion-style": "error",
     "@typescript-eslint/prefer-function-type": "error",
     "@typescript-eslint/prefer-includes": "error",
+    "@typescript-eslint/prefer-nullish-coalescing": "error",
     "@typescript-eslint/prefer-optional-chain": "error",
     "@typescript-eslint/prefer-readonly": "error",
     "@typescript-eslint/prefer-reduce-type-parameter": "error",
@@ -44,7 +45,7 @@ module.exports = {
     "@typescript-eslint/promise-function-async": "error",
     "@typescript-eslint/sort-type-union-intersection-members": "error",
     "@typescript-eslint/type-annotation-spacing": "error",
-    "@typescript-eslint/prefer-nullish-coalescing": "error",
+    "@typescript-eslint/explicit-function-return-type": "error",
     // Off
     "@typescript-eslint/no-non-null-assertion": "off", // Breaks code imported from Eldarya.
     "@typescript-eslint/no-unsafe-assignment": "off", // Breaks `= require()`.

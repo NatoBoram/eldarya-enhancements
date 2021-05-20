@@ -74,7 +74,10 @@ async function execute(minigame: Minigame): Promise<Packet<StartGameData>> {
   });
 }
 
-async function startGame(minigame: Minigame, recaptchaToken?: string) {
+async function startGame(
+  minigame: Minigame,
+  recaptchaToken?: string
+): Promise<Packet<StartGameData>> {
   return new Promise<Packet<StartGameData>>(
     (resolve, reject) =>
       void $.ajax({
@@ -130,7 +133,7 @@ async function getPrizes(
  * Basé sur l'encodage XOR : http://en.wikipedia.org/wiki/XOR_cipher
  * Effectue un XOR bit à bit entre une chaine et une clé
  */
-function xorEncode(str: string, key: string) {
+function xorEncode(str: string, key: string): string {
   // Assure que les deux paramètres soient des chaines de caractère
   str = str.toString();
   key = key.toString();

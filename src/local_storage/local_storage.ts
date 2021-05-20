@@ -62,7 +62,7 @@ export class LocalStorage {
     );
   }
 
-  private static setItem<T>(key: LocalStorageKey, value: T) {
+  private static setItem<T>(key: LocalStorageKey, value: T): void {
     this.localStorage.setItem(key, JSON.stringify(value));
   }
 }

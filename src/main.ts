@@ -7,12 +7,12 @@ import { loadPet } from "./ui/pet";
 import { loadProfile } from "./ui/profile";
 import { loadSettings } from "./ui/settings";
 
-function load() {
+function load(): void {
   loadUI();
   loadTakeover();
 }
 
-function loadUI() {
+function loadUI(): void {
   loadMenu();
   loadCarousel();
   loadHomeContent();

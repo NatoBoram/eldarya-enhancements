@@ -69,7 +69,7 @@ export function importOutfit(): void {
   });
 }
 
-function removeClothes() {
+function removeClothes(): void {
   const avatar = Sacha.Avatar.avatars["#appearance-preview"];
   if (!avatar) return;
 
@@ -84,7 +84,7 @@ function removeClothes() {
   }
 }
 
-async function openGroup(group: number) {
+async function openGroup(group: number): Promise<void> {
   return new Promise<void>((resolve) => {
     const categoryContainer = $("#appearance-items-group-" + group.toString());
     if (categoryContainer.hasClass("active")) {
@@ -107,7 +107,7 @@ async function openGroup(group: number) {
   });
 }
 
-async function openCategory(category: string) {
+async function openCategory(category: string): Promise<void> {
   return new Promise<void>((resolve) => {
     const categoryContainer = $("#appearance-items-category-" + category);
     if (categoryContainer.hasClass("active")) {
