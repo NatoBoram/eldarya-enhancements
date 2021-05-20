@@ -24,7 +24,9 @@ export function toggleTakeover(): void {
 }
 
 function resetTakeover(): void {
+  SessionStorage.explorationsDone = false;
   SessionStorage.minigamesDone = false;
+  SessionStorage.selectedLocation = null;
 }
 
 async function takeover(): Promise<void> {
