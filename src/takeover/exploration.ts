@@ -1,3 +1,6 @@
+import { captureEnd } from "../ajax/capture_end";
+import { explorationResults } from "../ajax/exploration_results";
+import { Result } from "../api/result.enum";
 import type { Season } from "../eldarya/current_region";
 import type { AutoExploreLocation } from "../local_storage/auto_explore_location";
 import { LocalStorage } from "../local_storage/local_storage";
@@ -10,10 +13,16 @@ export async function loadExploration(): Promise<boolean> {
     return true;
   }
 
-  const explorationStatus = getExplorationStatus();
-  switch (explorationStatus) {
-    case ExplorationStatus.idle:
-      return startExploration();
+  switch (getExplorationStatus()) {
+    case ExplorationStatus.idle: {
+      const selected = await startExploration();
+      if (selected) {
+        await waitExploration(selected);
+        return loadExploration();
+      }
+
+      return false;
+    }
 
     case ExplorationStatus.pending:
       await waitExploration();
@@ -31,16 +40,18 @@ export async function loadExploration(): Promise<boolean> {
   }
 }
 
-async function startExploration(): Promise<boolean> {
+async function startExploration(): Promise<AutoExploreLocation | null> {
   const selected = getSelectedLocation();
   if (!selected) {
     SessionStorage.explorationsDone = true;
-    return false;
+    return selected;
   }
 
   // Go to season
-  if (getCurrentSeason() != selected.region.season)
-    return Boolean(await clickSeason());
+  if (getCurrentSeason() != selected.region.season) {
+    await clickSeason();
+    return selected;
+  }
 
   // Go to region
   if (currentRegion.id != selected.region.id) clickRegion(selected);
@@ -49,10 +60,8 @@ async function startExploration(): Promise<boolean> {
   await clickLocation(selected);
   await clickExplore();
 
-  // Refresh at the end of the exploration.
-  await waitExploration(selected);
-
-  return loadExploration();
+  SessionStorage.selectedLocation = null;
+  return selected;
 }
 
 async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
@@ -60,6 +69,22 @@ async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
   if (selected) ms = selected.location.timeToExplore * 60 * 1000;
   else if (timeLeftExploration && timeLeftExploration > 0)
     ms = timeLeftExploration * 1000;
+  else if (!pendingTreasureHuntLocation) {
+    const json = await explorationResults();
+    if (json.result === Result.success) {
+      const capture = json.data.results.find(
+        (result) => result.type === "capture"
+      );
+
+      if (capture?.timeRestCapture) {
+        ms = capture.timeRestCapture * 1000;
+        await new Promise<void>((resolve) => setTimeout(resolve, ms));
+        await captureEnd();
+      }
+    }
+
+    location.reload();
+  }
 
   await new Promise<void>((resolve) => setTimeout(resolve, ms));
 }
