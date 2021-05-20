@@ -2,6 +2,7 @@ import type { Template } from "hogan.js";
 import { changeRegion } from "../ajax/change_region";
 import { Result } from "../api/result.enum";
 import type { MapRegion } from "../eldarya/current_region";
+import type { AutoExploreLocation } from "../local_storage/auto_explore_location";
 import { LocalStorage } from "../local_storage/local_storage";
 import type { AutoExploreButton } from "../templates/interfaces/auto_explore_button";
 
@@ -29,11 +30,14 @@ export function loadPet(): void {
 }
 
 function loadExplorations(): void {
+  const autoExploreLocations = LocalStorage.autoExploreLocations;
   for (const div of document.querySelectorAll<HTMLDivElement>(
     ".map-location[data-id]"
   )) {
     const mapLocation = Number(div.getAttribute("data-id"));
     if (!mapLocation) continue;
+
+    loadPictoMap(autoExploreLocations, div);
 
     div.addEventListener("click", () => {
       new MutationObserver(
@@ -79,7 +83,7 @@ function addAutoExploreButton(
   buttonsContainer
     .querySelector<HTMLButtonElement>("#auto-explore-button")
     ?.addEventListener("click", () => {
-      void autoExplore(exploreContext);
+      void autoExplore(exploreContext).then(loadPictoMaps);
     });
 }
 
@@ -121,4 +125,27 @@ async function getRegion(
   if (json.result === Result.success) return json.data.currentRegion;
 
   return null;
+}
+
+function loadPictoMaps(): void {
+  const autoExploreLocations = LocalStorage.autoExploreLocations;
+  for (const div of document.querySelectorAll<HTMLDivElement>(
+    ".map-location[data-id]"
+  )) {
+    loadPictoMap(autoExploreLocations, div);
+  }
+}
+
+function loadPictoMap(
+  autoExploreLocations: AutoExploreLocation[],
+  div: HTMLDivElement
+): void {
+  const mapLocation = div.getAttribute("data-id");
+  if (!mapLocation) return;
+
+  div.style.backgroundImage = autoExploreLocations.some(
+    (saved) => saved.location.id === mapLocation
+  )
+    ? "url(/static/img/new-layout/pet/icons/picto_map_explo.png)"
+    : "url(/static/img/new-layout/pet/icons/picto_map.png)";
 }
