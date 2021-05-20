@@ -55,10 +55,29 @@ async function startExploration(): Promise<boolean> {
   return loadExploration();
 }
 
-function getCurrentSeason(): Season {
-  return <Season>(Array.from(document.querySelector("body")?.classList ?? [])
-    .find((c) => c.startsWith("season-"))
-    ?.replace("season-", "") ?? null);
+async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
+  let ms = 800;
+  if (selected) ms = selected.location.timeToExplore * 60 * 1000;
+  else if (timeLeftExploration && timeLeftExploration > 0)
+    ms = timeLeftExploration * 1000;
+
+  await new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
+async function endExploration(): Promise<HTMLDivElement> {
+  return click("#close-result");
+}
+
+// Getters
+
+function getExplorationStatus(): ExplorationStatus {
+  if (document.querySelector("#pending-map-location-data-outer.active"))
+    return ExplorationStatus.pending;
+  else if (document.querySelector("#treasure-hunt-result-overlay.active"))
+    return ExplorationStatus.result;
+  else if (document.querySelector("#capture-interface-outer.active"))
+    return ExplorationStatus.capture;
+  return ExplorationStatus.idle;
 }
 
 function getSelectedLocation(): AutoExploreLocation | null {
@@ -97,24 +116,16 @@ function selectLocation(): AutoExploreLocation | null {
   return selected;
 }
 
+function getCurrentSeason(): Season {
+  return <Season>(Array.from(document.querySelector("body")?.classList ?? [])
+    .find((c) => c.startsWith("season-"))
+    ?.replace("season-", "") ?? null);
+}
+
+// Clickers
+
 async function clickSeason(): Promise<HTMLImageElement> {
   return click<HTMLImageElement>("#crystal-images-container");
-}
-
-async function clickLocation(
-  selected: AutoExploreLocation
-): Promise<HTMLDivElement> {
-  const div = await click<HTMLDivElement>(
-    `.map-location[data-id="${selected.location.id}"]`
-  );
-  const mouseEvent = document.createEvent("MouseEvent");
-  mouseEvent.initEvent("mouseover");
-  div.dispatchEvent(mouseEvent);
-  return div;
-}
-
-async function clickExplore(): Promise<HTMLButtonElement> {
-  return click("#explore-button");
 }
 
 function clickRegion(selected: AutoExploreLocation): HTMLDivElement | null {
@@ -138,6 +149,18 @@ function clickRegion(selected: AutoExploreLocation): HTMLDivElement | null {
   return div;
 }
 
+async function clickLocation(
+  selected: AutoExploreLocation
+): Promise<HTMLDivElement> {
+  return click<HTMLDivElement>(
+    `.map-location[data-id="${selected.location.id}"]`
+  );
+}
+
+async function clickExplore(): Promise<HTMLButtonElement> {
+  return click("#explore-button");
+}
+
 async function click<T extends HTMLElement>(selector: string): Promise<T> {
   return new Promise<T>((resolve) => {
     const interval = setInterval(() => {
@@ -145,31 +168,16 @@ async function click<T extends HTMLElement>(selector: string): Promise<T> {
       if (!element) return;
       clearInterval(interval);
 
-      element.click();
-      resolve(element);
+      // Some elements don't have their click handlers ready until they're
+      // hovered.
+      const mouseEvent = document.createEvent("MouseEvent");
+      mouseEvent.initEvent("mouseover");
+      element.dispatchEvent(mouseEvent);
+
+      setTimeout(() => {
+        element.click();
+        resolve(element);
+      }, 800);
     }, 800);
   });
-}
-
-async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
-  let ms = 800;
-  if (selected) ms = selected.location.timeToExplore * 60 * 1000;
-  else if (timeLeftExploration && timeLeftExploration > 0)
-    ms = timeLeftExploration * 1000;
-
-  await new Promise<void>((resolve) => setTimeout(resolve, ms));
-}
-
-function getExplorationStatus(): ExplorationStatus {
-  if (document.querySelector("#pending-map-location-data-outer.active"))
-    return ExplorationStatus.pending;
-  else if (document.querySelector("#treasure-hunt-result-overlay.active"))
-    return ExplorationStatus.result;
-  else if (document.querySelector("#capture-interface-outer.active"))
-    return ExplorationStatus.capture;
-  return ExplorationStatus.idle;
-}
-
-async function endExploration(): Promise<HTMLDivElement> {
-  return click("#close-result");
 }
