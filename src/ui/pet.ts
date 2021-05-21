@@ -16,13 +16,13 @@ export function loadPet(): void {
 
   // `.page-main-container` changes background depending on the currently
   // selected region.
-  const appearanceItems = document.querySelector<HTMLDivElement>(
+  const mainContainer = document.querySelector<HTMLDivElement>(
     ".page-main-container"
   );
-  if (!appearanceItems) return;
+  if (!mainContainer) return;
 
   petObserver = new MutationObserver(loadPet);
-  petObserver.observe(appearanceItems, {
+  petObserver.observe(mainContainer, {
     attributes: true,
   });
 
@@ -31,18 +31,19 @@ export function loadPet(): void {
 
 function loadExplorations(): void {
   const autoExploreLocations = LocalStorage.autoExploreLocations;
+
   for (const div of document.querySelectorAll<HTMLDivElement>(
     ".map-location[data-id]"
   )) {
-    const mapLocation = Number(div.getAttribute("data-id"));
-    if (!mapLocation) continue;
+    const locationId = Number(div.getAttribute("data-id"));
+    if (!locationId) continue;
 
     loadPictoMap(autoExploreLocations, div);
 
     div.addEventListener("click", () => {
       new MutationObserver(
         (_: MutationRecord[], observer: MutationObserver): void => {
-          addAutoExploreButton(mapLocation, observer);
+          addAutoExploreButton(locationId, observer);
         }
       ).observe(<Node>document.getElementById("map-location-preview"), {
         attributes: true,
@@ -52,80 +53,103 @@ function loadExplorations(): void {
 }
 
 function addAutoExploreButton(
-  mapLocation: number,
+  locationId: number,
   observer?: MutationObserver
 ): void {
   const buttonsContainer =
     document.querySelector<HTMLDivElement>("#buttons-container");
-
   if (!buttonsContainer) return;
   observer?.disconnect();
 
-  const exploreContext: AutoExploreButton = {
-    mapLocation,
+  // Parameters to be injected into the template
+  const context: AutoExploreButton = {
+    locationId,
     active: LocalStorage.autoExploreLocations.some(
-      (saved) => saved.location.id === mapLocation.toString()
+      (saved) => saved.location.id === locationId.toString()
     ),
-    currentRegionId: Number(
+    regionId: Number(
       document
         .querySelector(".minimap.current[data-mapid]")
         ?.getAttribute("data-mapid")
     ),
   };
 
+  // Add the auto explore button
   buttonsContainer.querySelector("#auto-explore-button")?.remove();
   const autoExploreTemplate: Template = require("../templates/html/auto_explore_button.html");
   buttonsContainer.insertAdjacentHTML(
     "beforeend",
-    autoExploreTemplate.render(exploreContext)
+    autoExploreTemplate.render(context)
   );
 
+  // Bind `autoExplore` and `loadPictoMaps`
   buttonsContainer
     .querySelector<HTMLButtonElement>("#auto-explore-button")
     ?.addEventListener("click", () => {
-      void autoExplore(exploreContext).then(loadPictoMaps);
+      void autoExplore(context).then(loadPictoMaps);
     });
+
+  void disableExplore(context);
 }
 
-async function autoExplore(exploreContext: AutoExploreButton): Promise<void> {
-  if (exploreContext.active) {
-    LocalStorage.autoExploreLocations =
-      LocalStorage.autoExploreLocations.filter(
-        (saved) => saved.location.id !== exploreContext.mapLocation.toString()
-      );
-    addAutoExploreButton(exploreContext.mapLocation);
+async function disableExplore(context: AutoExploreButton): Promise<void> {
+  const entry = await getAutoExploreEntry(context.regionId, context.locationId);
+  if (!entry) return;
+
+  if (petEnergy < Number(entry.location.energyRequired))
+    document.getElementById("explore-button")?.classList.add("disabled");
+}
+
+async function autoExplore(context: AutoExploreButton): Promise<void> {
+  if (context.active) {
+    const filteredLocations = LocalStorage.autoExploreLocations.filter(
+      (saved) => saved.location.id !== context.locationId.toString()
+    );
+    LocalStorage.autoExploreLocations = filteredLocations;
+    addAutoExploreButton(context.locationId);
     return;
   }
 
-  const region = await getRegion(exploreContext);
-  if (!region) return;
-
-  const location = region.locations.find(
-    (location) => location.id === exploreContext.mapLocation.toString()
+  const newAutoExplore = await getAutoExploreEntry(
+    context.regionId,
+    context.locationId
   );
-  if (!location) return;
+  if (!newAutoExplore) return;
 
-  const autoExploreLocations = LocalStorage.autoExploreLocations;
-  autoExploreLocations.push({
-    location,
-    region,
-  });
-
-  LocalStorage.autoExploreLocations = autoExploreLocations;
-  addAutoExploreButton(exploreContext.mapLocation);
+  const newLocations = LocalStorage.autoExploreLocations;
+  newLocations.push(newAutoExplore);
+  LocalStorage.autoExploreLocations = newLocations;
+  addAutoExploreButton(context.locationId);
 }
 
-async function getRegion(
-  exploreContext: AutoExploreButton
-): Promise<MapRegion | null> {
-  if (exploreContext.currentRegionId.toString() === currentRegion.id)
-    return currentRegion;
+async function getAutoExploreEntry(
+  regionId: number,
+  locationId: number
+): Promise<AutoExploreLocation | null> {
+  const region = await getRegion(regionId);
+  if (!region) return null;
 
-  const json = await changeRegion(exploreContext.currentRegionId);
+  const location = region.locations.find(
+    (location) => location.id === locationId.toString()
+  );
+  if (!location) return null;
+
+  return {
+    location,
+    region,
+  };
+}
+
+async function getRegion(id: number): Promise<MapRegion | null> {
+  if (id.toString() === currentRegion.id) return currentRegion;
+
+  const json = await changeRegion(id);
   if (json.result === Result.success) return json.data.currentRegion;
 
   return null;
 }
+
+// Picto map
 
 function loadPictoMaps(): void {
   const autoExploreLocations = LocalStorage.autoExploreLocations;
