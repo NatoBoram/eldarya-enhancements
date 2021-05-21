@@ -72,11 +72,14 @@ async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
     ms = timeLeftExploration * 1000;
   else if (!pendingTreasureHuntLocation) {
     const json = await explorationResults();
+
+    // Exploration is in another region
     if (json.result === Result.success) {
       const capture = json.data.results.find(
         (result) => result.type === "capture"
       );
 
+      // Capture is in another region
       if (capture?.timeRestCapture) {
         ms = capture.timeRestCapture * 1000;
         await new Promise<void>((resolve) => setTimeout(resolve, ms));
@@ -84,6 +87,8 @@ async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
       }
     }
 
+    // Reloading is the only possible action if the exploration finished
+    // in a different region.
     location.reload();
   }
 
