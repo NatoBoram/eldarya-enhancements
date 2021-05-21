@@ -1,10 +1,12 @@
 export interface Meta {
-  event: null;
+  event: MetaEvent;
   message: Message;
   purroshop: Purroshop;
   player: Player;
   pet: Pet;
 }
+
+type MetaEvent = "easter" | null;
 
 interface Message {
   unread: string;
@@ -51,5 +53,9 @@ interface XP {
 }
 
 interface Purroshop {
-  status: string;
+  status: PurroshopStatus;
+}
+
+enum PurroshopStatus {
+  disabled = "disabled",
 }
