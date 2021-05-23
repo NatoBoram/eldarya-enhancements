@@ -14,7 +14,7 @@ cache:
   paths:
     - node_modules
 
-webpack:
+build:
   stage: build
   script:
     - npx webpack
