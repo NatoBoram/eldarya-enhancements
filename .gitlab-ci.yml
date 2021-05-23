@@ -18,9 +18,10 @@ webpack:
   stage: build
   script:
     - npx webpack
-  artifacts:
-    paths:
-      - dist/eldarya-enhancements.user.js
+  except:
+    - master
+    - develop
+    - tags
 
 eslint:
   stage: test
@@ -36,3 +37,15 @@ tsc:
   stage: test
   script:
     - npx tsc --noEmit
+
+deploy:
+  stage: deploy
+  script:
+    - npx webpack
+  only:
+    - master
+    - develop
+    - tags
+  artifacts:
+    paths:
+      - dist/eldarya-enhancements.user.js

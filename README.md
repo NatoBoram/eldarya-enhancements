@@ -9,16 +9,16 @@ Enhances the user experience of Eldarya.
 
 ![Eldarya Enhancements Banner](https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/carousel_eldarya_enhancements.png)
 
-This project is in early development. The latest release can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=webpack).
-
 ## Installation
 
 1. Install [one of these](https://github.com/OpenUserJS/OpenUserJS.org/wiki/Userscript-Beginners-HOWTO#how-do-i-get-going)
-2. Download the userscript [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=webpack)
+2. Download the latest release [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=webpack)
 3. Open the downloaded file in your browser
 
 I'm still figuring out an easier installation method, but for now this will do.
 The script updates automatically.
+
+Development versions can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.user.js?job=webpack).
 
 ## Features
 
