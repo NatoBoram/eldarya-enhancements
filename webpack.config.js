@@ -39,8 +39,8 @@ module.exports = {
 // @author       Nato Boram
 // @description  Enhances the user experience of Eldarya.
 // @icon         https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/avatar.png
-// @updateURL    https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=webpack
-// @downloadURL  https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=webpack
+// @updateURL    https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=deploy
+// @downloadURL  https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=deploy
 // @supportURL   https://gitlab.com/NatoBoram/Eldarya-Face-Downloader/issues
 //
 // @match        https://www.eldarya.com.br/*
