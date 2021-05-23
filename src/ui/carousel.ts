@@ -39,8 +39,8 @@ export function loadCarousel(): void {
   // Custom title
   const takeoverH4 = takeoverAnchor?.querySelector("h4");
   if (takeoverH4) {
-    takeoverH4.innerText = `Takeover : ${
-      SessionStorage.takeover ? "Enabled" : "Disabled"
-    }`;
+    takeoverH4.innerText = `${
+      SessionStorage.takeover ? "Disable" : "Enable"
+    } Takeover`;
   }
 }

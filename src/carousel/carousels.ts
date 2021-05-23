@@ -10,9 +10,9 @@ export const carousels: CarouselNews[] = [
   carouselEE,
 
   // Features
-  carouselDownloadFace,
-  carouselDownloadGuardian,
   carouselTakeover,
+  carouselDownloadGuardian,
+  carouselDownloadFace,
 
   // Ads
   carouselBeemoovAnnoyances,
