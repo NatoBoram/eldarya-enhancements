@@ -1,7 +1,7 @@
 {
   "name": "eldarya-enhancements",
   "description": "Enhances the user experience of Eldarya",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "eslint": "eslint",
     "prettier": "prettier",
