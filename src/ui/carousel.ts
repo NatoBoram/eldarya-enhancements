@@ -1,9 +1,11 @@
 import type { Template } from "hogan.js";
-import { carousels } from "../carousel/carousels";
+import { carouselBeemoovAnnoyances } from "../carousel/carousel_beemoov_annoyances";
 import { carouselDownloadFace } from "../carousel/carousel_download_face";
 import { carouselDownloadGuardian } from "../carousel/carousel_download_guardian";
+import { carouselEE } from "../carousel/carousel_eldarya_enhancements";
 import { carouselTakeover } from "../carousel/carousel_takeover";
 import { downloadFace, downloadGuardian } from "../download-canvas";
+import { LocalStorage } from "../local_storage/local_storage";
 import { SessionStorage } from "../session_storage/session_storage";
 import { toggleTakeover } from "../takeover/brain";
 import type { CarouselNews } from "../templates/interfaces/carousel_news";
@@ -20,7 +22,24 @@ export function loadCarousel(): void {
   // Add entries to the carousel
   carouselInner.insertAdjacentHTML(
     "beforeend",
-    carousels.map((banner: CarouselNews) => template.render(banner)).join("\n")
+    [
+      // Intro
+      carouselEE,
+
+      // Features
+      ...(LocalStorage.minigames ||
+      LocalStorage.explorations ||
+      LocalStorage.market
+        ? [carouselTakeover]
+        : []),
+      carouselDownloadGuardian,
+      carouselDownloadFace,
+
+      // Ads
+      carouselBeemoovAnnoyances,
+    ]
+      .map((banner: CarouselNews) => template.render(banner))
+      .join("\n")
   );
 
   // Add click events
