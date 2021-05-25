@@ -1,3 +1,5 @@
+import type { ItemType } from "../api/item_type.enum";
+
 export interface ExplorationResultsData {
   results: Result[];
   levels: Level[];
@@ -98,6 +100,3 @@ interface Item {
 }
 
 type ResultType = "capture" | "captureCrylasm" | "object";
-
-/** Item type */
-type ItemType = "Consumable" | "EggItem" | "PlayerWearableItem" | "QuestItem";

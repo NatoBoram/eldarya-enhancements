@@ -1,6 +1,7 @@
 import type { Settings } from "../templates/interfaces/settings";
 import type { AutoExploreLocation } from "./auto_explore_location";
 import { LocalStorageKey } from "./local_storage.enum";
+import type { WishedItem } from "./wished_item";
 
 export class LocalStorage {
   private static readonly localStorage = localStorage;
@@ -54,6 +55,14 @@ export class LocalStorage {
     this.explorations = settings.explorations;
     this.market = settings.market;
     this.minigames = settings.minigames;
+  }
+
+  public static get wishlist(): WishedItem[] {
+    return this.getItem<WishedItem[]>(LocalStorageKey.wishlist, []);
+  }
+
+  public static set wishlist(locations: WishedItem[]) {
+    this.setItem(LocalStorageKey.wishlist, locations);
   }
 
   private static getItem<T>(key: LocalStorageKey, fallback: T): T {

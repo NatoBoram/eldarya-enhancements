@@ -2,6 +2,7 @@ import { loadTakeover } from "./takeover/brain";
 import { loadAppearance } from "./ui/appearance";
 import { loadCarousel } from "./ui/carousel";
 import { loadHomeContent } from "./ui/home_content";
+import { loadMarket } from "./ui/market";
 import { loadMenu } from "./ui/menu";
 import { loadPet } from "./ui/pet";
 import { loadProfile } from "./ui/profile";
@@ -20,6 +21,7 @@ function loadUI(): void {
   loadProfile();
   loadSettings();
   loadPet();
+  loadMarket();
 }
 
 new MutationObserver(load).observe(<Node>document.getElementById("container"), {
