@@ -2,6 +2,7 @@ export interface Meta {
   event: MetaEvent;
   message: Message;
   purroshop: Purroshop;
+  notifications: Notifications;
   player: Player;
   pet: Pet;
 }
@@ -54,6 +55,12 @@ interface XP {
 
 interface Purroshop {
   status: PurroshopStatus;
+}
+
+interface Notifications {
+  type: string;
+  message: string;
+  displayTime: number;
 }
 
 enum PurroshopStatus {

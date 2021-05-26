@@ -9,7 +9,7 @@ export async function changeRegion(
     void $.post(
       "/pet/changeRegion",
       { newRegionId },
-      function (json: Packet<ChangeRegionData>) {
+      (json: Packet<ChangeRegionData>): void => {
         SessionStorage.meta = json.meta;
         resolve(json);
 

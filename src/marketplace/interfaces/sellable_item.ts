@@ -1,3 +1,5 @@
+import type { Rarity } from "../rarity.enum";
+
 export interface SellableItem {
   animationSacha: null;
   wearIndex: null;
@@ -31,9 +33,4 @@ export interface SellableItem {
   quantity: string;
   boughtOnStore: string;
   defaultPrice: string;
-}
-
-export enum Rarity {
-  Common = "common",
-  Rare = "rare",
 }

@@ -95,7 +95,7 @@ async function openGroup(group: number): Promise<void> {
     if (categoryContainer.length <= 0) {
       void $.get(
         "/player/openGroup/" + group.toString(),
-        function (view: string) {
+        (view: string): void => {
           $(view).hide().appendTo("#appearance-items");
         }
       ).always(() => {
@@ -116,7 +116,7 @@ async function openCategory(category: string): Promise<void> {
     }
 
     if (categoryContainer.length <= 0) {
-      void $.post("/player/openCategory/" + category, function (view: string) {
+      void $.post("/player/openCategory/" + category, (view: string): void => {
         $(view).hide().appendTo("#appearance-items");
       }).always(() => {
         resolve();
