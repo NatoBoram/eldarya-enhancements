@@ -1,4 +1,5 @@
 import { captureEnd } from "../ajax/capture_end";
+import { changeRegion } from "../ajax/change_region";
 import { explorationResults } from "../ajax/exploration_results";
 import { Result } from "../api/result.enum";
 import type { Season } from "../eldarya/current_region";
@@ -22,6 +23,7 @@ export async function loadExploration(): Promise<boolean> {
         return loadExploration();
       }
 
+      SessionStorage.explorationsDone = true;
       return false;
     }
 
@@ -43,10 +45,7 @@ export async function loadExploration(): Promise<boolean> {
 
 async function startExploration(): Promise<AutoExploreLocation | null> {
   const selected = getSelectedLocation();
-  if (!selected) {
-    SessionStorage.explorationsDone = true;
-    return selected;
-  }
+  if (!selected) return selected;
 
   // Go to season
   if (selected.region.season && getCurrentSeason() != selected.region.season) {
@@ -93,6 +92,7 @@ async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
   }
 
   await new Promise<void>((resolve) => setTimeout(resolve, ms));
+  await changeRegion(Number(selected?.region.id ?? currentRegion));
 }
 
 async function endExploration(): Promise<HTMLDivElement> {
@@ -124,6 +124,12 @@ function selectLocation(): AutoExploreLocation | null {
   const affordable = LocalStorage.autoExploreLocations.filter(
     (saved) => Number(saved.location.energyRequired) <= petEnergy
   );
+
+  const sameEnergy = affordable.filter(
+    (place) => place.location.energyRequired === petEnergy.toString()
+  );
+  if (sameEnergy.length)
+    return sameEnergy[Math.floor(Math.random() * sameEnergy.length)] ?? null;
 
   return affordable[Math.floor(Math.random() * affordable.length)] ?? null;
 }
