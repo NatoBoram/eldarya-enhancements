@@ -3,9 +3,9 @@
   "description": "Enhances the user experience of Eldarya",
   "version": "1.0.1",
   "scripts": {
-    "eslint": "eslint",
-    "prettier": "prettier",
-    "tsc": "tsc",
+    "eslint": "eslint --fix .",
+    "prettier": "prettier --write .",
+    "tsc": "tsc --noEmit",
     "webpack": "webpack"
   },
   "repository": {
@@ -19,14 +19,18 @@
   "author": "Nato Boram",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://gitlab.com/NatoBoram/eldarya-enhancements/issues"
+    "url": "https://gitlab.com/NatoBoram/eldarya-enhancements/issues",
+    "email": "incoming+natoboram-eldarya-enhancements-25925590-issue-@incoming.gitlab.com"
   },
   "homepage": "https://gitlab.com/NatoBoram/eldarya-enhancements",
   "devDependencies": {
+    "@types/box2d": "^0.0.35",
     "@types/createjs": "^0.0.29",
     "@types/hogan.js": "^3.0.0",
     "@types/jquery": "^3.5.5",
     "@types/jqueryui": "^1.12.15",
+    "@types/raphael": "^2.3.1",
+    "@types/suncalc": "^1.8.0",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
     "common-tags": "^1.8.0",

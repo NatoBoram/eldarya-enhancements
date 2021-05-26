@@ -28,6 +28,7 @@
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "editor.rulers": [80],
+  "eslint.packageManager": "pnpm",
   "files.associations": {
     "*.html": "handlebars"
   },
@@ -37,5 +38,8 @@
   "html.format.indentHandlebars": true,
   "html.format.maxPreserveNewLines": 1,
   "html.format.wrapLineLength": 80,
-  "prettier.prettierPath": "./node_modules/.bin/prettier"
+  "jshint.packageManager": "pnpm",
+  "npm.packageManager": "pnpm",
+  "prettier.prettierPath": "./node_modules/.bin/prettier",
+  "tslint.packageManager": "pnpm"
 }

@@ -1,8 +1,8 @@
-pnpm-lock.yaml
+package-lock.json
 src/templates/js
 
-# Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,vscode,node
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,vscode,node
+# Created by https://www.toptal.com/developers/gitignore/api/node,linux,macos,windows,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,linux,macos,windows,visualstudiocode
 
 ### Linux ###
 *~
@@ -173,13 +173,18 @@ dist/
 tmp/
 temp/
 
-### vscode ###
+### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -207,4 +212,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,vscode,node
+# End of https://www.toptal.com/developers/gitignore/api/node,linux,macos,windows,visualstudiocode

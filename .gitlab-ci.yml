@@ -5,19 +5,20 @@ default:
   image: node:latest
 
 before_script:
-  - npm ci
+  - npx pnpm add -g pnpm
+  - pnpm install
 
 cache:
   key:
     files:
-      - package-lock.json
+      - pnpm-lock.yaml
   paths:
-    - node_modules
+    - ~/.pnpm-store
 
 build:
   stage: build
   script:
-    - npx webpack
+    - pnpx webpack
   except:
     - master
     - develop
@@ -26,22 +27,22 @@ build:
 eslint:
   stage: test
   script:
-    - npx eslint .
+    - pnpx eslint .
 
 prettier:
   stage: test
   script:
-    - npx prettier --check .
+    - pnpx prettier --check .
 
 tsc:
   stage: test
   script:
-    - npx tsc --noEmit
+    - pnpx tsc --noEmit
 
 deploy:
   stage: deploy
   script:
-    - npx webpack
+    - pnpx webpack
   only:
     - master
     - develop
