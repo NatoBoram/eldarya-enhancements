@@ -17,14 +17,15 @@ export async function loadExploration(): Promise<boolean> {
 
   switch (getExplorationStatus()) {
     case ExplorationStatus.idle: {
-      const selected = await startExploration();
-      if (selected) {
-        await waitExploration(selected);
+      const start = await startExploration();
+      if (start.exploring) {
+        await waitExploration(start.selected);
         return loadExploration();
+      } else if (!start.selected) {
+        SessionStorage.explorationsDone = true;
       }
 
-      SessionStorage.explorationsDone = true;
-      return false;
+      return start.exploring;
     }
 
     case ExplorationStatus.pending:
@@ -43,14 +44,14 @@ export async function loadExploration(): Promise<boolean> {
   }
 }
 
-async function startExploration(): Promise<AutoExploreLocation | null> {
+async function startExploration(): Promise<StartExploration> {
   const selected = getSelectedLocation();
-  if (!selected) return selected;
+  if (!selected) return { exploring: false, selected };
 
   // Go to season
   if (selected.region.season && getCurrentSeason() != selected.region.season) {
     await clickSeason();
-    return selected;
+    return { exploring: false, selected };
   }
 
   // Go to region
@@ -61,7 +62,7 @@ async function startExploration(): Promise<AutoExploreLocation | null> {
   await clickExplore();
 
   SessionStorage.selectedLocation = null;
-  return selected;
+  return { exploring: true, selected };
 }
 
 async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
@@ -92,7 +93,7 @@ async function waitExploration(selected?: AutoExploreLocation): Promise<void> {
   }
 
   await new Promise<void>((resolve) => setTimeout(resolve, ms));
-  await changeRegion(Number(selected?.region.id ?? currentRegion));
+  await changeRegion(Number(selected?.region.id ?? currentRegion.id));
 }
 
 async function endExploration(): Promise<HTMLDivElement> {
@@ -178,3 +179,13 @@ async function clickLocation(
 async function clickExplore(): Promise<HTMLButtonElement> {
   return click("#explore-button");
 }
+
+type StartExploration =
+  | {
+      exploring: false;
+      selected: AutoExploreLocation | null;
+    }
+  | {
+      exploring: true;
+      selected: AutoExploreLocation;
+    };
