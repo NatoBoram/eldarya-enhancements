@@ -130,7 +130,13 @@ async function changePrice(wearableitemid: string): Promise<void> {
         value: entry.price.toString(),
       },
       buttons: {
-        close: { style: "close" },
+        close: {
+          style: "close",
+          action: () => {
+            resolve();
+            return true;
+          },
+        },
         save: {
           action: () => {
             const price = Number(
