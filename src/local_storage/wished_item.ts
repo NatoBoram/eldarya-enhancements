@@ -7,4 +7,7 @@ export interface WishedItem {
   type: ItemType;
   /** ID of this item+color combo. Eggs are unique though. */
   wearableitemid: string;
+
+  /** Latest error received from Eldarya. */
+  error?: string;
 }

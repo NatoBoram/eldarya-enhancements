@@ -7,6 +7,7 @@ import { loadMenu } from "./ui/menu";
 import { loadPet } from "./ui/pet";
 import { loadProfile } from "./ui/profile";
 import { loadSettings } from "./ui/settings";
+import { loadWishlist } from "./ui/wishlist";
 
 function load(): void {
   loadUI();
@@ -22,6 +23,7 @@ function loadUI(): void {
   loadSettings();
   loadPet();
   loadMarket();
+  loadWishlist();
 }
 
 new MutationObserver(load).observe(<Node>document.getElementById("container"), {
