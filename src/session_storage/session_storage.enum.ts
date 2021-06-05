@@ -4,4 +4,6 @@ export enum SessionStorageKey {
   minigamesDone = "minigamesDone",
   selectedLocation = "selectedLocation",
   takeover = "takeover",
+  wishlist = "wishlist",
+  action = "action",
 }

@@ -22,6 +22,11 @@ module.exports = {
     "@typescript-eslint/consistent-indexed-object-style": "error",
     "@typescript-eslint/consistent-type-definitions": "error",
     "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/explicit-member-accessibility": [
+      "error",
+      { accessibility: "no-public" },
+    ],
     "@typescript-eslint/member-delimiter-style": "error",
     "@typescript-eslint/method-signature-style": "error",
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
@@ -45,7 +50,6 @@ module.exports = {
     "@typescript-eslint/promise-function-async": "error",
     "@typescript-eslint/sort-type-union-intersection-members": "error",
     "@typescript-eslint/type-annotation-spacing": "error",
-    "@typescript-eslint/explicit-function-return-type": "error",
     // Off
     "@typescript-eslint/no-non-null-assertion": "off", // Breaks code imported from Eldarya.
     "@typescript-eslint/no-unsafe-assignment": "off", // Breaks `= require()`.
