@@ -1,7 +1,7 @@
 export enum TakeoverAction {
   daily,
   minigames,
-  pet,
+  explorations,
   auctions,
   marketplace,
   // sell,
