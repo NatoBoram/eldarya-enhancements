@@ -49,11 +49,12 @@ tsc:
 deploy:
   stage: deploy
   script:
-    - pnpx webpack
+    - ./scripts/build.sh
   only:
     - master
     - develop
     - tags
   artifacts:
     paths:
+      - dist/eldarya-enhancements.meta.js
       - dist/eldarya-enhancements.user.js

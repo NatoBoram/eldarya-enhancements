@@ -3,6 +3,9 @@
   "description": "Enhances the user experience of Eldarya",
   "version": "1.0.1",
   "scripts": {
+    "build:linux": "./scripts/build.sh",
+    "build:windows": "pwsh ./scripts/build.ps1",
+    "build": "./scripts/build.sh",
     "eslint": "eslint --fix .",
     "prettier": "prettier --write .",
     "tsc": "tsc --noEmit",
@@ -33,7 +36,6 @@
     "@types/suncalc": "^1.8.0",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
-    "common-tags": "^1.8.0",
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",

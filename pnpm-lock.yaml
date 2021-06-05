@@ -10,7 +10,6 @@ specifiers:
   '@types/suncalc': ^1.8.0
   '@typescript-eslint/eslint-plugin': ^4.26.0
   '@typescript-eslint/parser': ^4.26.0
-  common-tags: ^1.8.0
   eslint: ^7.28.0
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^3.4.0
@@ -33,7 +32,6 @@ devDependencies:
   '@types/suncalc': 1.8.0
   '@typescript-eslint/eslint-plugin': 4.26.0_20402444dce539b9a5aa61b9d15feae1
   '@typescript-eslint/parser': 4.26.0_eslint@7.28.0+typescript@4.3.2
-  common-tags: 1.8.0
   eslint: 7.28.0
   eslint-config-prettier: 8.3.0_eslint@7.28.0
   eslint-plugin-prettier: 3.4.0_441ef98f5280b4c825fe505e43fc5698

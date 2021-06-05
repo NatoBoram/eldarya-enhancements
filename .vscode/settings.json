@@ -13,6 +13,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.rulers": []
   },
+  "[powershell]": {
+    "editor.defaultFormatter": "ms-vscode.powershell"
+  },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
