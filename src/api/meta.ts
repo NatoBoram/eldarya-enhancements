@@ -30,7 +30,7 @@ interface Player {
   unreadNews: null;
 }
 
-interface Currency {
+export interface Currency {
   value: number;
   text: string;
   change: Change;

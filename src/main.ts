@@ -9,6 +9,8 @@ import { loadProfile } from "./ui/profile";
 import { loadSettings } from "./ui/settings";
 import { loadWishlist } from "./ui/wishlist";
 
+// loadJS("https://unpkg.com/hogan.js/dist/template-3.0.2.min.js", true);
+
 function load(): void {
   loadUI();
   loadTakeover();

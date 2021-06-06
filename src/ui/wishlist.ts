@@ -98,7 +98,7 @@ function resetStatus(wearableitemid: string): void {
   const entry = wishlist[index];
   if (!entry) return;
 
-  entry.error = undefined;
+  delete entry.error;
   LocalStorage.wishlist = [
     ...wishlist.slice(undefined, index),
     entry,
