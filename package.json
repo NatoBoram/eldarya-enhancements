@@ -20,6 +20,10 @@
     "UserScript"
   ],
   "author": "Nato Boram",
+  "funding": [
+    "https://patreon.com/NatoBoram",
+    "https://paypal.me/NatoBoram/5"
+  ],
   "license": "GPL-3.0-or-later",
   "bugs": {
     "url": "https://gitlab.com/NatoBoram/eldarya-enhancements/issues",
