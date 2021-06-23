@@ -11,7 +11,7 @@ export class SessionStorage {
     return this.getItem(SessionStorageKey.action, TakeoverAction.daily)
   }
 
-  static set action(action: TakeoverAction | null) {
+  static set action(action: TakeoverAction) {
     this.setItem(SessionStorageKey.action, action)
   }
 

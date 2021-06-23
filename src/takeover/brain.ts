@@ -25,7 +25,8 @@ export function toggleTakeover(): void {
 }
 
 export function resetTakeover(): void {
-  SessionStorage.action = null
+  SessionStorage.action = TakeoverAction.daily
+  SessionStorage.debug = true
   SessionStorage.explorationsDone = false
   SessionStorage.minigamesDone = false
   SessionStorage.selectedLocation = null
