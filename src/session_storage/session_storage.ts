@@ -15,6 +15,14 @@ export class SessionStorage {
     this.setItem(SessionStorageKey.action, action)
   }
 
+  static get debug(): boolean {
+    return this.getItem<boolean>(SessionStorageKey.debug, false)
+  }
+
+  static set debug(enabled: boolean) {
+    this.setItem(SessionStorageKey.debug, enabled)
+  }
+
   static get explorationsDone(): boolean {
     return this.getItem(SessionStorageKey.explorationsDone, false)
   }
