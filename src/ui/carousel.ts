@@ -53,10 +53,16 @@ export function loadCarousel(): void {
     ?.addEventListener("click", downloadGuardian)
 
   const takeoverAnchor = document.getElementById(carouselTakeover.id)
-  takeoverAnchor?.addEventListener("click", toggleTakeover)
+  takeoverAnchor?.addEventListener("click", () => {
+    toggleTakeover()
+    takeoverTitle(takeoverAnchor)
+  })
 
-  // Custom title
-  const takeoverH4 = takeoverAnchor?.querySelector("h4")
+  if (takeoverAnchor) takeoverTitle(takeoverAnchor)
+}
+
+function takeoverTitle(takeoverAnchor: HTMLElement): void {
+  const takeoverH4 = takeoverAnchor.querySelector("h4")
   if (takeoverH4) {
     takeoverH4.innerText = `${
       SessionStorage.takeover ? "Disable" : "Enable"
