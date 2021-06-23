@@ -1,7 +1,7 @@
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
 import { resetTakeover } from "../brain"
-import type { Action } from "./action"
 import { click } from "../click"
+import type { Action } from "./action"
 
 class DailyAction implements Action {
   readonly key = TakeoverAction.daily
@@ -17,8 +17,8 @@ class DailyAction implements Action {
 
   /**
    * Click on the daily maana gift.
-   * @returns `true` if the gift was available and clicked or `false` if it was
-   * unavailable.
+   * @returns `false`. This action does not perform meaningful actions on the
+   * page.
    */
   async perform(): Promise<boolean> {
     const dailyGiftContainer = document.getElementById("daily-gift-container")
@@ -33,7 +33,7 @@ class DailyAction implements Action {
     await click<HTMLButtonElement>(".first-connexion .flavr-button.default")
 
     resetTakeover()
-    return true
+    return false
   }
 }
 
