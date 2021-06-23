@@ -2,13 +2,13 @@ import type { Meta } from "../api/meta"
 import type { AutoExploreLocation } from "../local_storage/auto_explore_location"
 import type { WishedItem } from "../local_storage/wished_item"
 import { SessionStorageKey } from "./session_storage.enum"
-import type { TakeoverAction } from "./takeover_action.enum"
+import { TakeoverAction } from "./takeover_action.enum"
 
 export class SessionStorage {
   private static readonly sessionStorage = sessionStorage
 
-  static get action(): TakeoverAction | null {
-    return this.getItem(SessionStorageKey.action, null)
+  static get action(): TakeoverAction {
+    return this.getItem(SessionStorageKey.action, TakeoverAction.daily)
   }
 
   static set action(action: TakeoverAction | null) {
@@ -65,7 +65,9 @@ export class SessionStorage {
 
   private static getItem<T>(key: SessionStorageKey, fallback: T): T {
     return <T>(
-      JSON.parse(this.sessionStorage.getItem(key) ?? JSON.stringify(fallback))
+      (JSON.parse(
+        this.sessionStorage.getItem(key) ?? JSON.stringify(fallback)
+      ) ?? fallback)
     )
   }
 

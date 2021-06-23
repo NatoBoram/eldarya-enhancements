@@ -67,7 +67,8 @@ export class LocalStorage {
 
   private static getItem<T>(key: LocalStorageKey, fallback: T): T {
     return <T>(
-      JSON.parse(this.localStorage.getItem(key) ?? JSON.stringify(fallback))
+      (JSON.parse(this.localStorage.getItem(key) ?? JSON.stringify(fallback)) ??
+        fallback)
     )
   }
 
