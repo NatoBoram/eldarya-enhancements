@@ -1,9 +1,11 @@
+import logger from "../logger"
 import { SessionStorage } from "../session_storage/session_storage"
 import { TakeoverAction } from "../session_storage/takeover_action.enum"
 import type { Action } from "./classes/action"
 import dailyAction from "./classes/daily_action"
 import explorationAction from "./classes/exploration_action"
 import minigameAction from "./classes/minigame_action"
+import waitAction from "./classes/wait_action"
 
 /** Automated entry point of the takeover. */
 export function loadTakeover(): void {
@@ -33,14 +35,18 @@ export function resetTakeover(): void {
 async function takeover(): Promise<void> {
   if (!SessionStorage.takeover) return
 
-  const key = SessionStorage.action ?? TakeoverAction.daily
+  const key = SessionStorage.action
   const action = actions.find(action => action.key === key)
   if (!action) {
+    logger.warn("No actions were found.", { key, action })
+
     await new Promise(resolve => setTimeout(resolve, 3.6e6))
     resetTakeover()
     location.reload()
     return
   }
+
+  logger.info("Action:", action)
 
   if (action.condition() && (await action.perform())) return
   else {
@@ -50,29 +56,21 @@ async function takeover(): Promise<void> {
   }
 }
 
-const actions: Action[] = [dailyAction, minigameAction, explorationAction]
+const actions: Action[] = [
+  dailyAction,
+  minigameAction,
+  explorationAction,
+  waitAction,
+]
 
 function changeAction(): TakeoverAction {
-  switch (SessionStorage.action) {
-    case TakeoverAction.daily:
-      return (SessionStorage.action = TakeoverAction.minigames)
+  const index = actions.findIndex(
+    action => action.key === SessionStorage.action
+  )
+  if (index === -1) return (SessionStorage.action = TakeoverAction.daily)
 
-    case TakeoverAction.minigames:
-      return (SessionStorage.action = TakeoverAction.explorations)
+  const next = actions[index + 1 >= actions.length ? 0 : index + 1]
+  if (!next) return (SessionStorage.action = TakeoverAction.daily)
 
-    case TakeoverAction.explorations:
-      return (SessionStorage.action = TakeoverAction.auctions)
-
-    case TakeoverAction.auctions:
-      return (SessionStorage.action = TakeoverAction.marketplace)
-
-    case TakeoverAction.marketplace:
-      return (SessionStorage.action = TakeoverAction.wait)
-
-    case TakeoverAction.wait:
-      return (SessionStorage.action = TakeoverAction.daily)
-
-    default:
-      return (SessionStorage.action = TakeoverAction.daily)
-  }
+  return (SessionStorage.action = next.key)
 }
