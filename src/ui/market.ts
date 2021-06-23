@@ -1,31 +1,31 @@
-import type { Template } from "hogan.js";
-import { LocalStorage } from "../local_storage/local_storage";
-import type { BuyNowPrice } from "../marketplace/interfaces/buy_now_price";
-import type { CurrentPrice } from "../marketplace/interfaces/current_price";
-import type { MarketEntry } from "../marketplace/interfaces/market_entry";
-import type { MarketEntryDataSet } from "../marketplace/interfaces/market_entry_data_set";
+import type { Template } from "hogan.js"
+import { LocalStorage } from "../local_storage/local_storage"
+import type { BuyNowPrice } from "../marketplace/interfaces/buy_now_price"
+import type { CurrentPrice } from "../marketplace/interfaces/current_price"
+import type { MarketEntry } from "../marketplace/interfaces/market_entry"
+import type { MarketEntryDataSet } from "../marketplace/interfaces/market_entry_data_set"
 
-let marketObserver: MutationObserver | null;
+let marketObserver: MutationObserver | null
 
 export function loadMarket(): void {
-  marketObserver?.disconnect();
-  marketObserver = null;
+  marketObserver?.disconnect()
+  marketObserver = null
 
-  if (location.pathname !== "/marketplace") return;
+  if (location.pathname !== "/marketplace") return
 
   // `.marketplace-search-items` is the container whose HTML content is being
   // replaced on every action.
   const searchItems = document.querySelector<HTMLUListElement>(
     ".marketplace-search-items"
-  );
-  if (!searchItems) return;
+  )
+  if (!searchItems) return
 
-  marketObserver = new MutationObserver(loadWishlist);
+  marketObserver = new MutationObserver(loadWishlist)
   marketObserver.observe(searchItems, {
     childList: true,
-  });
+  })
 
-  loadWishlist();
+  loadWishlist()
 }
 
 function loadWishlist(): void {
@@ -35,31 +35,31 @@ function loadWishlist(): void {
     li.addEventListener("click", () => {
       new MutationObserver(
         (_: MutationRecord[], observer: MutationObserver): void => {
-          const marketEntry = getItemDetails(li);
-          if (!marketEntry) return;
+          const marketEntry = getItemDetails(li)
+          if (!marketEntry) return
 
-          addWishistButton(marketEntry, observer);
+          addWishistButton(marketEntry, observer)
         }
       ).observe(<Node>document.getElementById("marketplace-zoom"), {
         childList: true,
-      });
-    });
+      })
+    })
   }
 }
 
 function getItemDetails(li: HTMLLIElement): MarketEntry | null {
-  const name = li.querySelector<HTMLDivElement>(".abstract-name")?.innerText;
-  const src = li.querySelector<HTMLImageElement>(".abstract-icon img")?.src;
+  const name = li.querySelector<HTMLDivElement>(".abstract-name")?.innerText
+  const src = li.querySelector<HTMLImageElement>(".abstract-icon img")?.src
 
   const currentPrice = li.querySelector<HTMLImageElement>(
     ".price-item[data-bids]"
-  )?.dataset as unknown as CurrentPrice;
+  )?.dataset as unknown as CurrentPrice
 
   const buyNowPrice = li.querySelector<HTMLImageElement>(
     ".price-item:not([data-bids])"
-  )?.dataset as unknown as BuyNowPrice;
+  )?.dataset as unknown as BuyNowPrice
 
-  if (!src || !name) return null;
+  if (!src || !name) return null
 
   return {
     ...(li.dataset as unknown as MarketEntryDataSet),
@@ -67,7 +67,7 @@ function getItemDetails(li: HTMLLIElement): MarketEntry | null {
     name,
     buyNowPrice,
     currentPrice,
-  };
+  }
 }
 
 function addWishistButton(
@@ -76,23 +76,23 @@ function addWishistButton(
 ): void {
   const buttonsContainer = document.querySelector<HTMLDivElement>(
     "#marketplace-itemDetail"
-  );
-  if (!buttonsContainer) return;
-  observer?.disconnect();
+  )
+  if (!buttonsContainer) return
+  observer?.disconnect()
 
-  document.getElementById("marketplace-itemDetail-info-autobuy")?.remove();
-  const buttonTemplate: Template = require("../templates/html/auto_buy_button.html");
-  buttonsContainer.insertAdjacentHTML("beforeend", buttonTemplate.render({}));
+  document.getElementById("marketplace-itemDetail-info-autobuy")?.remove()
+  const buttonTemplate: Template = require("../templates/html/auto_buy_button.html")
+  buttonsContainer.insertAdjacentHTML("beforeend", buttonTemplate.render({}))
 
   buttonsContainer
     .querySelector<HTMLDivElement>("#marketplace-itemDetail-info-autobuy")
     ?.addEventListener("click", () => {
-      addToWishlistFlavr(marketEntry);
-    });
+      addToWishlistFlavr(marketEntry)
+    })
 }
 
 function addToWishlistFlavr(marketEntry: MarketEntry): void {
-  const template: Template = require("../templates/html/auto_buy_flavr.html");
+  const template: Template = require("../templates/html/auto_buy_flavr.html")
 
   $.flavr({
     content: template.render({}),
@@ -104,21 +104,21 @@ function addToWishlistFlavr(marketEntry: MarketEntry): void {
             document
               .querySelector<HTMLInputElement>(".flavr-prompt")
               ?.value.trim()
-          );
+          )
           if (!price || price <= 0) {
-            $.flavrNotif("This is not a valid price.");
-            return false;
+            $.flavrNotif("This is not a valid price.")
+            return false
           }
 
           const wishlist = LocalStorage.wishlist.filter(
-            (wishlistEntry) => wishlistEntry.icon !== marketEntry.icon
-          );
+            wishlistEntry => wishlistEntry.icon !== marketEntry.icon
+          )
           wishlist.push({
             ...marketEntry,
             price,
-          });
-          LocalStorage.wishlist = wishlist;
-          return true;
+          })
+          LocalStorage.wishlist = wishlist
+          return true
         },
       },
     },
@@ -126,8 +126,8 @@ function addToWishlistFlavr(marketEntry: MarketEntry): void {
     prompt: {
       value: "",
     },
-    onBuild: ($container) => {
-      $container.addClass("new-layout-popup");
+    onBuild: $container => {
+      $container.addClass("new-layout-popup")
     },
-  });
+  })
 }

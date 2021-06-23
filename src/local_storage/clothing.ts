@@ -1,4 +1,4 @@
 export interface Clothing {
-  id: number;
-  wearIndex: number;
+  id: number
+  wearIndex: number
 }

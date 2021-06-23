@@ -1,1 +1,1 @@
-declare let backgroundId: number;
+declare let backgroundId: number

@@ -1,7 +1,7 @@
-import type { AjaxSalesData } from "../api/ajax_sales_data";
-import type { ItemType } from "../api/item_type.enum";
-import type { Packet } from "../api/packet";
-import { SessionStorage } from "../session_storage/session_storage";
+import type { AjaxSalesData } from "../api/ajax_sales_data"
+import type { ItemType } from "../api/item_type.enum"
+import type { Packet } from "../api/packet"
+import { SessionStorage } from "../session_storage/session_storage"
 
 /**
  * Load a page of one type of object
@@ -14,7 +14,7 @@ export async function ajaxSales(
   category: ItemType,
   page: number
 ): Promise<Packet<AjaxSalesData>> {
-  const ITEMS_PER_PAGE = 4;
+  const ITEMS_PER_PAGE = 4
 
   return new Promise<Packet<AjaxSalesData>>((resolve): void => {
     void $.ajax({
@@ -29,14 +29,14 @@ export async function ajaxSales(
       },
       dataType: "json",
       success: (json: Packet<AjaxSalesData>): void => {
-        SessionStorage.meta = json.meta;
-        resolve(json);
+        SessionStorage.meta = json.meta
+        resolve(json)
 
         if (json.result !== "success") {
-          $.flavrNotif(json.data);
-          return;
+          $.flavrNotif(json.data)
+          return
         }
       },
-    });
-  });
+    })
+  })
 }

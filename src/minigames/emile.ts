@@ -1,63 +1,63 @@
-import type { GetPrizesData } from "../api/get_prizes_data";
-import type { Packet } from "../api/packet";
-import type { StartGameData } from "../api/start_game_data";
-import "../eldarya/jquery";
-import { flappy } from "./flappy";
-import { hatchlings } from "./hatchlings";
-import type { Minigame } from "./minigame";
-import { peggle } from "./peggle";
+import type { GetPrizesData } from "../api/get_prizes_data"
+import type { Packet } from "../api/packet"
+import type { StartGameData } from "../api/start_game_data"
+import "../eldarya/jquery"
+import { flappy } from "./flappy"
+import { hatchlings } from "./hatchlings"
+import type { Minigame } from "./minigame"
+import { peggle } from "./peggle"
 
 export async function playPeggle(): Promise<void> {
-  return play(peggle);
+  return play(peggle)
 }
 
 export async function playFlappy(): Promise<void> {
-  return play(flappy);
+  return play(flappy)
 }
 
 export async function playHatchlings(): Promise<void> {
-  return play(hatchlings);
+  return play(hatchlings)
 }
 
 async function play(minigame: Minigame): Promise<void> {
   // Disable buttons
-  await new Promise<boolean>((resolve) => {
+  await new Promise<boolean>(resolve => {
     const interval = setInterval(() => {
       const buttons = document.querySelectorAll<HTMLButtonElement>(
         ".minigames-rules .flavr-button"
-      );
+      )
 
       if (buttons.length) {
-        clearInterval(interval);
+        clearInterval(interval)
 
         for (const button of buttons) {
-          button.classList.add("disabled");
+          button.classList.add("disabled")
         }
 
-        resolve(true);
+        resolve(true)
       }
-    }, 250);
-  });
+    }, 250)
+  })
 
-  const json = await execute(minigame);
-  $.flavrNotif(`Playing <strong>${minigame.name}</strong>...`);
+  const json = await execute(minigame)
+  $.flavrNotif(`Playing <strong>${minigame.name}</strong>...`)
 
-  const gameToken = json.data;
-  const score = randomInt(minigame.scoreMin, minigame.scoreMax);
-  const enc_token = xorEncode(gameToken, score.toString());
-  await new Promise((resolve) =>
+  const gameToken = json.data
+  const score = randomInt(minigame.scoreMin, minigame.scoreMax)
+  const enc_token = xorEncode(gameToken, score.toString())
+  await new Promise(resolve =>
     setTimeout(resolve, randomInt(minigame.delayMin, minigame.delayMax))
-  );
+  )
 
-  await getPrizes(minigame, gameToken, score);
-  await new Promise((resolve) => setTimeout(resolve, randomInt(1000, 3000)));
+  await getPrizes(minigame, gameToken, score)
+  await new Promise(resolve => setTimeout(resolve, randomInt(1000, 3000)))
 
-  await send(enc_token, score, minigame.name.toLowerCase());
-  await new Promise((resolve) => setTimeout(resolve, randomInt(1000, 3000)));
+  await send(enc_token, score, minigame.name.toLowerCase())
+  await new Promise(resolve => setTimeout(resolve, randomInt(1000, 3000)))
 }
 
 function randomInt(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 async function execute(minigame: Minigame): Promise<Packet<StartGameData>> {
@@ -67,11 +67,11 @@ async function execute(minigame: Minigame): Promise<Packet<StartGameData>> {
         `minigameStart${minigame.name}`,
         (token): void =>
           void startGame(minigame, token).then(resolve).catch(reject)
-      );
+      )
     } else {
-      void startGame(minigame).then(resolve).catch(reject);
+      void startGame(minigame).then(resolve).catch(reject)
     }
-  });
+  })
 }
 
 async function startGame(
@@ -93,13 +93,13 @@ async function startGame(
               game: minigame.name.toLowerCase(),
             },
         success: (json: Packet<StartGameData>): void => {
-          resolve(json);
+          resolve(json)
         },
         error: (): void => {
-          reject();
+          reject()
         },
       })
-  );
+  )
 }
 
 async function getPrizes(
@@ -113,21 +113,21 @@ async function getPrizes(
         "/minigames/ajax_getPrizes",
         { game: minigame.name.toLowerCase(), score: score },
         (json: Packet<GetPrizesData>): void => {
-          resolve(json);
+          resolve(json)
 
           if (json.result === "success")
             $.flavrNotif(
               `Played <strong>${minigame.name}</strong> for <strong class="price-item">${json.data.maana}</strong> <span class="maana-icon"></span>.`
-            );
-          else $.flavrNotif(json.data);
+            )
+          else $.flavrNotif(json.data)
         },
         "json"
       ).fail(() =>
         setTimeout((): void => {
-          resolve(getPrizes(minigame, gameToken, score));
+          resolve(getPrizes(minigame, gameToken, score))
         }, randomInt(1000, 3000))
       )
-  );
+  )
 }
 
 /**
@@ -137,21 +137,21 @@ async function getPrizes(
  */
 function xorEncode(str: string, key: string): string {
   // Assure que les deux paramètres soient des chaines de caractère
-  str = str.toString();
-  key = key.toString();
+  str = str.toString()
+  key = key.toString()
 
   // Encodage XOR
-  let xor = "";
+  let xor = ""
   for (let i = 0; i < str.length; ++i) {
-    let tmp = str[i];
+    let tmp = str[i]
     for (let j = 0; j < key.length; ++j) {
-      tmp = String.fromCharCode(tmp!.charCodeAt(0) ^ key.charCodeAt(j));
+      tmp = String.fromCharCode(tmp!.charCodeAt(0) ^ key.charCodeAt(j))
     }
-    xor += tmp;
+    xor += tmp
   }
 
   // Renvoie le résultat en encodant les caractères spéciaux pouvant poser problème (\n par exemple)
-  return encodeURIComponent(xor);
+  return encodeURIComponent(xor)
 }
 
 async function send(
@@ -159,17 +159,17 @@ async function send(
   score: number,
   game: string
 ): Promise<void> {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     if (typeof Recaptcha !== "undefined") {
       Recaptcha.execute(
         "minigameSave" + game,
         (recaptchaToken): void =>
           void saveScore(enc_token, score, game, recaptchaToken).then(resolve)
-      );
+      )
     } else {
-      void saveScore(enc_token, score, game).then(resolve);
+      void saveScore(enc_token, score, game).then(resolve)
     }
-  });
+  })
 }
 
 async function saveScore(
@@ -178,8 +178,8 @@ async function saveScore(
   game: string,
   recaptchaToken?: string
 ): Promise<void> {
-  return new Promise((resolve) => {
-    const token = decodeURIComponent(enc_token);
+  return new Promise(resolve => {
+    const token = decodeURIComponent(enc_token)
 
     void $.ajax({
       type: "post",
@@ -197,12 +197,12 @@ async function saveScore(
             game: game,
           },
       success: (): void => {
-        resolve();
+        resolve()
       },
       error: () =>
         setTimeout((): void => {
-          resolve(saveScore(enc_token, score, game));
+          resolve(saveScore(enc_token, score, game))
         }, randomInt(1000, 3000)),
-    });
-  });
+    })
+  })
 }

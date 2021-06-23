@@ -1,4 +1,4 @@
-import type { CarouselNews } from "../templates/interfaces/carousel_news";
+import type { CarouselNews } from "../templates/interfaces/carousel_news"
 
 export const carouselBeemoovAnnoyances: CarouselNews = {
   backgroundImage:
@@ -7,4 +7,4 @@ export const carouselBeemoovAnnoyances: CarouselNews = {
   href: "https://gitlab.com/NatoBoram/Beemoov-Annoyances",
   id: "carousel-beemoov-annoyances",
   p: "Block some of Eldarya's annoyances.",
-};
+}

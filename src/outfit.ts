@@ -1,25 +1,25 @@
-import type { ParsableItem } from "./appearance/interfaces/parsable_item";
-import type { Avatar } from "./eldarya/avatar";
+import type { ParsableItem } from "./appearance/interfaces/parsable_item"
+import type { Avatar } from "./eldarya/avatar"
 
 export function exportOutfit(selector: string, name = "outfit"): void {
-  const avatar = Sacha.Avatar.avatars[selector];
-  if (!avatar) return;
+  const avatar = Sacha.Avatar.avatars[selector]
+  if (!avatar) return
 
-  const outfit = getItemsToSave(avatar);
+  const outfit = getItemsToSave(avatar)
 
   const href =
     "data:text/json;charset=utf-8," +
-    encodeURIComponent(JSON.stringify(outfit, null, "\t"));
+    encodeURIComponent(JSON.stringify(outfit, null, "\t"))
 
-  const a = document.createElement("a");
-  a.setAttribute("href", href);
-  a.setAttribute("download", `${name}.json`);
-  a.click();
+  const a = document.createElement("a")
+  a.setAttribute("href", href)
+  a.setAttribute("download", `${name}.json`)
+  a.click()
 }
 
 function getItemsToSave(avatar: Avatar): ParsableItem[] {
-  return avatar.children.map((child) => {
-    const item = child.getItem();
+  return avatar.children.map(child => {
+    const item = child.getItem()
     return {
       id: item._id,
       group: item._group,
@@ -30,6 +30,6 @@ function getItemsToSave(avatar: Avatar): ParsableItem[] {
       hiddenCategories: Object.values(item._hiddenCategories),
       animationData: item._animationData,
       locked: item._locked,
-    };
-  });
+    }
+  })
 }

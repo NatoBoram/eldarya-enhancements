@@ -1,75 +1,75 @@
-import type { Meta } from "../api/meta";
-import type { AutoExploreLocation } from "../local_storage/auto_explore_location";
-import type { WishedItem } from "../local_storage/wished_item";
-import { SessionStorageKey } from "./session_storage.enum";
-import type { TakeoverAction } from "./takeover_action.enum";
+import type { Meta } from "../api/meta"
+import type { AutoExploreLocation } from "../local_storage/auto_explore_location"
+import type { WishedItem } from "../local_storage/wished_item"
+import { SessionStorageKey } from "./session_storage.enum"
+import type { TakeoverAction } from "./takeover_action.enum"
 
 export class SessionStorage {
-  private static readonly sessionStorage = sessionStorage;
+  private static readonly sessionStorage = sessionStorage
 
   static get action(): TakeoverAction | null {
-    return this.getItem(SessionStorageKey.action, null);
+    return this.getItem(SessionStorageKey.action, null)
   }
 
   static set action(action: TakeoverAction | null) {
-    this.setItem(SessionStorageKey.action, action);
+    this.setItem(SessionStorageKey.action, action)
   }
 
   static get explorationsDone(): boolean {
-    return this.getItem(SessionStorageKey.explorationsDone, false);
+    return this.getItem(SessionStorageKey.explorationsDone, false)
   }
 
   static set explorationsDone(done: boolean) {
-    this.setItem(SessionStorageKey.explorationsDone, done);
+    this.setItem(SessionStorageKey.explorationsDone, done)
   }
 
   static get meta(): Meta | null {
-    return this.getItem(SessionStorageKey.meta, null);
+    return this.getItem(SessionStorageKey.meta, null)
   }
 
   static set meta(meta: Meta | null) {
-    this.setItem(SessionStorageKey.meta, meta);
+    this.setItem(SessionStorageKey.meta, meta)
   }
 
   static get minigamesDone(): boolean {
-    return this.getItem(SessionStorageKey.minigamesDone, false);
+    return this.getItem(SessionStorageKey.minigamesDone, false)
   }
 
   static set minigamesDone(done: boolean) {
-    this.setItem(SessionStorageKey.minigamesDone, done);
+    this.setItem(SessionStorageKey.minigamesDone, done)
   }
 
   static get selectedLocation(): AutoExploreLocation | null {
-    return this.getItem(SessionStorageKey.selectedLocation, null);
+    return this.getItem(SessionStorageKey.selectedLocation, null)
   }
 
   static set selectedLocation(selected: AutoExploreLocation | null) {
-    this.setItem(SessionStorageKey.selectedLocation, selected);
+    this.setItem(SessionStorageKey.selectedLocation, selected)
   }
 
   static get takeover(): boolean {
-    return this.getItem(SessionStorageKey.takeover, false);
+    return this.getItem(SessionStorageKey.takeover, false)
   }
 
   static set takeover(enabled: boolean) {
-    this.setItem(SessionStorageKey.takeover, enabled);
+    this.setItem(SessionStorageKey.takeover, enabled)
   }
 
   static get wishlist(): WishedItem[] {
-    return this.getItem(SessionStorageKey.wishlist, []);
+    return this.getItem(SessionStorageKey.wishlist, [])
   }
 
   static set wishlist(wishlist: WishedItem[]) {
-    this.setItem(SessionStorageKey.wishlist, wishlist);
+    this.setItem(SessionStorageKey.wishlist, wishlist)
   }
 
   private static getItem<T>(key: SessionStorageKey, fallback: T): T {
     return <T>(
       JSON.parse(this.sessionStorage.getItem(key) ?? JSON.stringify(fallback))
-    );
+    )
   }
 
   private static setItem<T>(key: SessionStorageKey, value: T): void {
-    this.sessionStorage.setItem(key, JSON.stringify(value));
+    this.sessionStorage.setItem(key, JSON.stringify(value))
   }
 }

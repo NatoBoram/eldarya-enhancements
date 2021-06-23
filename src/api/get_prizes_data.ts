@@ -1,4 +1,4 @@
 export interface GetPrizesData {
-  exp: number;
-  maana: number;
+  exp: number
+  maana: number
 }

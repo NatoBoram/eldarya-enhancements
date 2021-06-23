@@ -1,4 +1,4 @@
-import type { Minigame } from "./minigame";
+import type { Minigame } from "./minigame"
 
 export const flappy: Minigame = {
   name: "Flappy",
@@ -7,4 +7,4 @@ export const flappy: Minigame = {
   delayMin: 60_000,
   delayMax: 70_000,
   buttonSelector: '.minigame-start [href="/minigames/bubbltemple"] .nl-button',
-};
+}

@@ -1,5 +1,5 @@
-import type { Item } from "./item";
+import type { Item } from "./item"
 
 declare global {
-  const availableItems: Record<number, Item>;
+  const availableItems: Record<number, Item>
 }

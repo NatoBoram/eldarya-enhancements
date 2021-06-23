@@ -1,4 +1,4 @@
 export interface CurrentPrice {
-  bids: string;
-  price: string;
+  bids: string
+  price: string
 }

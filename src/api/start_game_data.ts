@@ -1,1 +1,1 @@
-export type StartGameData = string;
+export type StartGameData = string

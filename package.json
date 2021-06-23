@@ -9,6 +9,7 @@
     "eslint": "eslint --fix .",
     "prettier": "prettier --write .",
     "tsc": "tsc --noEmit",
+    "hulk": "hulk --wrapper common --outputdir src/templates/js src/templates/html/*.html",
     "webpack": "webpack"
   },
   "repository": {

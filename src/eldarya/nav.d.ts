@@ -4,4 +4,4 @@ declare function pageLoad(
   callback?: () => void,
   pushHistory?: boolean,
   showLoader?: boolean
-): void;
+): void

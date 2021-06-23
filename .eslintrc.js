@@ -27,7 +27,10 @@ module.exports = {
       "error",
       { accessibility: "no-public" },
     ],
-    "@typescript-eslint/member-delimiter-style": "error",
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      { multiline: { delimiter: "none", requireLast: true } },
+    ],
     "@typescript-eslint/method-signature-style": "error",
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
     "@typescript-eslint/no-confusing-void-expression": "error",
@@ -56,4 +59,4 @@ module.exports = {
     "@typescript-eslint/no-var-requires": "off", // Breaks config files with `= require()`.
     "no-undef": "off", // Breaks config files with `module.exports`.
   },
-};
+}

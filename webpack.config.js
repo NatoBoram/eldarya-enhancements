@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("path")
 
 module.exports = {
   entry: "./src/main.ts",
@@ -30,4 +30,4 @@ module.exports = {
   },
   mode: "production",
   plugins: [],
-};
+}

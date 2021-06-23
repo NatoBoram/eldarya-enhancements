@@ -1,7 +1,7 @@
-import type { Context } from "hogan.js";
+import type { Context } from "hogan.js"
 
 export interface AutoExploreButton extends Context {
-  active: boolean;
-  locationId: number;
-  regionId: number;
+  active: boolean
+  locationId: number
+  regionId: number
 }

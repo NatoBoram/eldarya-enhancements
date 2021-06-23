@@ -10,6 +10,6 @@ declare const Recaptcha:
           | "minigameStartHatchlings"
           | "minigameStartPeggle",
         callback: (token: string) => void
-      ) => void;
+      ) => void
     }
-  | undefined;
+  | undefined

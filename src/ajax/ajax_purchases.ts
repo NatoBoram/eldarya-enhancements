@@ -1,7 +1,7 @@
-import type { AjaxPurchasesData } from "../api/ajax_purchases_data";
-import type { ItemType } from "../api/item_type.enum";
-import type { Packet } from "../api/packet";
-import { SessionStorage } from "../session_storage/session_storage";
+import type { AjaxPurchasesData } from "../api/ajax_purchases_data"
+import type { ItemType } from "../api/item_type.enum"
+import type { Packet } from "../api/packet"
+import { SessionStorage } from "../session_storage/session_storage"
 
 /**
  * Loads a page of one type of object
@@ -14,9 +14,9 @@ export async function ajaxPurchases(
   category: ItemType,
   page: number
 ): Promise<Packet<AjaxPurchasesData>> {
-  const ITEMS_PER_PAGE = 4;
+  const ITEMS_PER_PAGE = 4
 
-  return new Promise<Packet<AjaxPurchasesData>>((resolve) => {
+  return new Promise<Packet<AjaxPurchasesData>>(resolve => {
     void $.ajax({
       url: "/marketplace/ajax_purchases",
       type: "post",
@@ -29,14 +29,14 @@ export async function ajaxPurchases(
       },
       dataType: "json",
       success: (json: Packet<AjaxPurchasesData>): void => {
-        SessionStorage.meta = json.meta;
-        resolve(json);
+        SessionStorage.meta = json.meta
+        resolve(json)
 
         if (json.result !== "success") {
-          $.flavrNotif(json.data);
-          return;
+          $.flavrNotif(json.data)
+          return
         }
       },
-    });
-  });
+    })
+  })
 }
