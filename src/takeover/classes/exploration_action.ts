@@ -2,6 +2,7 @@ import { captureEnd } from "../../ajax/capture_end"
 import { changeRegion } from "../../ajax/change_region"
 import { explorationResults } from "../../ajax/exploration_results"
 import { Result } from "../../api/result.enum"
+import { Console } from "../../console"
 import type { Season } from "../../eldarya/current_region"
 import type { AutoExploreLocation } from "../../local_storage/auto_explore_location"
 import { LocalStorage } from "../../local_storage/local_storage"
@@ -121,6 +122,7 @@ class ExplorationAction extends Action {
       selected = this.selectLocation()
       SessionStorage.selectedLocation = selected
     }
+
     return selected
   }
 
@@ -141,6 +143,7 @@ class ExplorationAction extends Action {
   private async startExploration(): Promise<StartExploration> {
     const selected = this.getSelectedLocation()
     if (!selected) return { exploring: false, selected }
+    Console.info("Exploring", selected)
 
     // Go to season
     if (
@@ -179,6 +182,7 @@ class ExplorationAction extends Action {
         // Capture is in another region
         if (capture?.timeRestCapture) {
           ms = capture.timeRestCapture * 1000
+          Console.log(`Waiting for ${Math.ceil(ms / 1000)} seconds...`)
           await new Promise<void>(resolve => setTimeout(resolve, ms))
           await captureEnd()
         }
@@ -189,6 +193,7 @@ class ExplorationAction extends Action {
       location.reload()
     }
 
+    Console.log(`Waiting for ${Math.ceil(ms / 1000)} seconds...`)
     await new Promise<void>(resolve => setTimeout(resolve, ms))
     await changeRegion(Number(selected?.region.id ?? currentRegion.id))
   }

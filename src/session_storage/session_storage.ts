@@ -2,25 +2,19 @@ import type { Meta } from "../api/meta"
 import type { AutoExploreLocation } from "../local_storage/auto_explore_location"
 import type { WishedItem } from "../local_storage/wished_item"
 import { SessionStorageKey } from "./session_storage.enum"
-import { TakeoverAction } from "./takeover_action.enum"
+import type { TakeoverAction } from "./takeover_action.enum"
 
 export class SessionStorage {
   private static readonly sessionStorage = sessionStorage
 
-  static get action(): TakeoverAction {
-    return this.getItem(SessionStorageKey.action, TakeoverAction.daily)
+  private constructor() {}
+
+  static get action(): TakeoverAction | null {
+    return this.getItem(SessionStorageKey.action, null)
   }
 
-  static set action(action: TakeoverAction) {
+  static set action(action: TakeoverAction | null) {
     this.setItem(SessionStorageKey.action, action)
-  }
-
-  static get debug(): boolean {
-    return this.getItem<boolean>(SessionStorageKey.debug, false)
-  }
-
-  static set debug(enabled: boolean) {
-    this.setItem(SessionStorageKey.debug, enabled)
   }
 
   static get explorationsDone(): boolean {

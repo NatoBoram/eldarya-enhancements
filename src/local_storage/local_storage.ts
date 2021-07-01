@@ -6,6 +6,8 @@ import type { WishedItem } from "./wished_item"
 export class LocalStorage {
   private static readonly localStorage = localStorage
 
+  private constructor() {}
+
   static get autoExploreLocations(): AutoExploreLocation[] {
     return this.getItem<AutoExploreLocation[]>(
       LocalStorageKey.autoExploreLocations,
@@ -15,6 +17,14 @@ export class LocalStorage {
 
   static set autoExploreLocations(locations: AutoExploreLocation[]) {
     this.setItem(LocalStorageKey.autoExploreLocations, locations)
+  }
+
+  static get debug(): boolean {
+    return this.getItem<boolean>(LocalStorageKey.debug, false)
+  }
+
+  static set debug(enabled: boolean) {
+    this.setItem(LocalStorageKey.debug, enabled)
   }
 
   static get explorations(): boolean {
@@ -44,9 +54,11 @@ export class LocalStorage {
   static get settings(): Settings {
     return {
       autoExploreLocations: this.autoExploreLocations,
+      debug: this.debug,
       explorations: this.explorations,
       market: this.market,
       minigames: this.minigames,
+      wishlist: this.wishlist,
     }
   }
 

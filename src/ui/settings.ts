@@ -12,6 +12,11 @@ export function loadSettings(): void {
     settingsTemplate.render(LocalStorage.settings)
   )
 
+  document.getElementById("ee-debug-enabled")?.addEventListener("click", () => {
+    LocalStorage.debug = !LocalStorage.debug
+    reloadSettings()
+  })
+
   document
     .getElementById("ee-minigames-enabled")
     ?.addEventListener("click", () => {

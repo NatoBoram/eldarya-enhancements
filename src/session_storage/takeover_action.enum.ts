@@ -1,9 +1,9 @@
 export enum TakeoverAction {
-  daily,
-  minigames,
-  explorations,
-  auctions,
-  marketplace,
+  daily = "daily",
+  minigames = "minigames",
+  explorations = "explorations",
+  auctions = "auctions",
+  marketplace = "marketplace",
   // sell,
-  wait,
+  wait = "wait",
 }

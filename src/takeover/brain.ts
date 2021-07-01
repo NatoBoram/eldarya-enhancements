@@ -1,6 +1,6 @@
-import logger from "../logger"
+import { Console } from "../console"
 import { SessionStorage } from "../session_storage/session_storage"
-import { TakeoverAction } from "../session_storage/takeover_action.enum"
+import type { TakeoverAction } from "../session_storage/takeover_action.enum"
 import type { Action } from "./classes/action"
 import dailyAction from "./classes/daily_action"
 import explorationAction from "./classes/exploration_action"
@@ -25,8 +25,7 @@ export function toggleTakeover(): void {
 }
 
 export function resetTakeover(): void {
-  SessionStorage.action = TakeoverAction.daily
-  SessionStorage.debug = true
+  SessionStorage.action = null
   SessionStorage.explorationsDone = false
   SessionStorage.minigamesDone = false
   SessionStorage.selectedLocation = null
@@ -35,19 +34,16 @@ export function resetTakeover(): void {
 
 async function takeover(): Promise<void> {
   if (!SessionStorage.takeover) return
+  if (dailyAction.condition()) await dailyAction.perform()
 
-  const key = SessionStorage.action
-  const action = actions.find(action => action.key === key)
+  const action = actions.find(action => action.key === SessionStorage.action)
   if (!action) {
-    logger.warn("No actions were found.", { key, action })
-
-    await new Promise(resolve => setTimeout(resolve, 3.6e6))
-    resetTakeover()
-    location.reload()
+    changeAction()
+    void takeover()
     return
   }
 
-  logger.info("Action:", action)
+  Console.info("Action:", action.key)
 
   if (action.condition() && (await action.perform())) return
   else {
@@ -57,21 +53,13 @@ async function takeover(): Promise<void> {
   }
 }
 
-const actions: Action[] = [
-  dailyAction,
-  minigameAction,
-  explorationAction,
-  waitAction,
-]
+const actions: Action[] = [minigameAction, explorationAction, waitAction]
 
 function changeAction(): TakeoverAction {
   const index = actions.findIndex(
     action => action.key === SessionStorage.action
   )
-  if (index === -1) return (SessionStorage.action = TakeoverAction.daily)
 
   const next = actions[index + 1 >= actions.length ? 0 : index + 1]
-  if (!next) return (SessionStorage.action = TakeoverAction.daily)
-
-  return (SessionStorage.action = next.key)
+  return (SessionStorage.action = next!.key)
 }

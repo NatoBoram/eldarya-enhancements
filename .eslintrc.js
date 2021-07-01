@@ -35,6 +35,10 @@ module.exports = {
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
     "@typescript-eslint/no-confusing-void-expression": "error",
     "@typescript-eslint/no-dynamic-delete": "error",
+    "@typescript-eslint/no-empty-function": [
+      "error",
+      { allow: ["private-constructors", "protected-constructors"] },
+    ],
     "@typescript-eslint/no-implicit-any-catch": "error",
     "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
