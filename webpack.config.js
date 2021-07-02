@@ -5,29 +5,20 @@ module.exports = {
   devtool: "inline-source-map",
   module: {
     rules: [
-      {
-        test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/,
-      },
+      { test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/ },
       {
         test: /\.html$/,
         loader: "mustache-loader",
-        options: {
-          minify: true,
-          noShortcut: true,
-          tiny: true,
-        },
+        options: { minify: false, noShortcut: true, tiny: true },
       },
     ],
   },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"],
-  },
+  resolve: { extensions: [".tsx", ".ts", ".js"] },
   output: {
     filename: "eldarya-enhancements.user.js",
     path: path.resolve(__dirname, "dist"),
   },
+  optimization: { minimize: false },
   mode: "production",
   plugins: [],
 }
