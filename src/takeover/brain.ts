@@ -56,10 +56,9 @@ async function takeover(): Promise<void> {
 const actions: Action[] = [minigameAction, explorationAction, waitAction]
 
 function changeAction(): TakeoverAction {
-  const index = actions.findIndex(
-    action => action.key === SessionStorage.action
-  )
+  const next =
+    actions.findIndex(action => action.key === SessionStorage.action) + 1
 
-  const next = actions[index + 1 >= actions.length ? 0 : index + 1]
-  return (SessionStorage.action = next!.key)
+  return (SessionStorage.action =
+    actions[next >= actions.length ? 0 : next]!.key)
 }
