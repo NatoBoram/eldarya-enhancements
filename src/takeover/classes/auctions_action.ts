@@ -8,12 +8,12 @@ class AuctionsAction extends Action {
   readonly key = TakeoverAction.auctions
 
   condition(): boolean {
-    return LocalStorage.market && !!LocalStorage.wishlist.length
+    return LocalStorage.market && Boolean(LocalStorage.wishlist.length)
   }
 
   async perform(): Promise<boolean> {
     if (!location.pathname.startsWith("/marketplace")) {
-      await click<HTMLAnchorElement>(".main-menu-pet a")
+      await click<HTMLAnchorElement>(".main-menu-marketplace a")
       return true
     }
 
