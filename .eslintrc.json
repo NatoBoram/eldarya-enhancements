@@ -1,20 +1,27 @@
-module.exports = {
-  root: true,
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project: "./tsconfig.eslint.json",
-    ecmaVersion: 2020,
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "greasemonkey": true,
+    "jquery": true
   },
-  ignorePatterns: ["webpack.config.js"],
-  plugins: ["@typescript-eslint"],
-  extends: [
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": { "impliedStrict": true },
+    "ecmaVersion": 2021,
+    "project": "./tsconfig.eslint.json"
+  },
+  "ignorePatterns": ["webpack.config.js"],
+  "plugins": ["@typescript-eslint"],
+  "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "prettier",
-    "plugin:prettier/recommended",
+    "plugin:prettier/recommended"
   ],
-  rules: {
+  "rules": {
     "prettier/prettier": "off",
     // "@typescript-eslint/member-ordering": "warn",
     "@typescript-eslint/array-type": "error",
@@ -25,11 +32,11 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
-      { accessibility: "no-public" },
+      { "accessibility": "no-public" }
     ],
     "@typescript-eslint/member-delimiter-style": [
       "error",
-      { multiline: { delimiter: "none", requireLast: true } },
+      { "multiline": { "delimiter": "none", "requireLast": true } }
     ],
     "@typescript-eslint/method-signature-style": "error",
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
@@ -37,15 +44,17 @@ module.exports = {
     "@typescript-eslint/no-dynamic-delete": "error",
     "@typescript-eslint/no-empty-function": [
       "error",
-      { allow: ["private-constructors", "protected-constructors"] },
+      { "allow": ["private-constructors", "protected-constructors"] }
     ],
     "@typescript-eslint/no-implicit-any-catch": "error",
+    "@typescript-eslint/no-invalid-void-type": "error",
     "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
     "@typescript-eslint/no-unnecessary-condition": "error",
     "@typescript-eslint/no-unnecessary-qualifier": "error",
     "@typescript-eslint/no-unnecessary-type-arguments": "error",
     "@typescript-eslint/no-unnecessary-type-constraint": "error",
     "@typescript-eslint/non-nullable-type-assertion-style": "error",
+    "@typescript-eslint/prefer-for-of": "error",
     "@typescript-eslint/prefer-function-type": "error",
     "@typescript-eslint/prefer-includes": "error",
     "@typescript-eslint/prefer-nullish-coalescing": "error",
@@ -56,11 +65,12 @@ module.exports = {
     "@typescript-eslint/prefer-ts-expect-error": "error",
     "@typescript-eslint/promise-function-async": "error",
     "@typescript-eslint/sort-type-union-intersection-members": "error",
+    "@typescript-eslint/switch-exhaustiveness-check": "error",
     "@typescript-eslint/type-annotation-spacing": "error",
     // Off
     "@typescript-eslint/no-non-null-assertion": "off", // Breaks code imported from Eldarya.
     "@typescript-eslint/no-unsafe-assignment": "off", // Breaks `= require()`.
     "@typescript-eslint/no-var-requires": "off", // Breaks config files with `= require()`.
-    "no-undef": "off", // Breaks config files with `module.exports`.
-  },
+    "no-undef": "off" // Breaks config files with `module.exports`.
+  }
 }

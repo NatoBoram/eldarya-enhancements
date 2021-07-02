@@ -6,12 +6,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.rulers": []
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.rulers": []
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[powershell]": {
     "editor.defaultFormatter": "ms-vscode.powershell"

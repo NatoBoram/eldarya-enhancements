@@ -140,8 +140,10 @@ function xorEncode(str: string, key: string): string {
   str = str.toString()
   key = key.toString()
 
-  // Encodage XOR
+  /** Encodage XOR */
   let xor = ""
+
+  // eslint-disable-next-line @typescript-eslint/prefer-for-of
   for (let i = 0; i < str.length; ++i) {
     let tmp = str[i]
     for (let j = 0; j < key.length; ++j) {
