@@ -1,10 +1,10 @@
 export interface Meta {
   event: MetaEvent
   message: Message
-  purroshop: Purroshop
   notifications: Notifications
-  player: Player
   pet: Pet
+  player: Player
+  purroshop: Purroshop
 }
 
 type MetaEvent = "easter" | null
@@ -14,43 +14,42 @@ interface Message {
 }
 
 interface Pet {
-  portrait: string
-
   /** Exploration is finished */
   exploration: boolean
+  portrait: string
 }
 
 interface Player {
-  maana: Currency
-  gold: Currency
-  purropass: Purropass
-  legacyCurrency: Currency
-  xp: XP
   dailyMaana: boolean
+  gold: Currency
+  legacyCurrency: Currency
+  maana: Currency
+  purropass: Purropass
   unreadNews: null
+  xp: XP
 }
 
 export interface Currency {
-  value: number
-  text: string
   change: Change
+  text: string
+  value: number
 }
 
 interface Change {
-  value: number
   text: string
+  value: number
 }
 
 interface Purropass {
-  value: string
-  text: string
   change: Change
+  text: string
+  value: string
 }
 
 interface XP {
-  value: number
   goal: number
   level: number
+  value: number
 }
 
 interface Purroshop {
@@ -58,9 +57,9 @@ interface Purroshop {
 }
 
 interface Notifications {
-  type: string
-  message: string
   displayTime: number
+  message: string
+  type: string
 }
 
 enum PurroshopStatus {

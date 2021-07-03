@@ -1,11 +1,11 @@
-import type { ItemType } from "../../api/item_type.enum"
+import type { Type } from "../enums/type.enum"
 
 export interface MarketEntryDataSet {
   isowner?: string
   ispremium?: string
   /** ID of this specific entry on the market */
   itemid: string
-  type: ItemType
+  type: Type
   /** ID of this item+color combo. Eggs are unique though. */
   wearableitemid: string
 }

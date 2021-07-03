@@ -9,7 +9,7 @@ module.exports = {
       {
         test: /\.html$/,
         loader: "mustache-loader",
-        options: { minify: false, noShortcut: true, tiny: true },
+        options: { minify: true, noShortcut: true, tiny: true },
       },
     ],
   },
@@ -18,7 +18,6 @@ module.exports = {
     filename: "eldarya-enhancements.user.js",
     path: path.resolve(__dirname, "dist"),
   },
-  optimization: { minimize: false },
   mode: "production",
   plugins: [],
 }

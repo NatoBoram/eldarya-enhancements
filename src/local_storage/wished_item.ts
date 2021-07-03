@@ -1,10 +1,10 @@
-import type { ItemType } from "../api/item_type.enum"
+import type { Type } from "../marketplace/enums/type.enum"
 
 export interface WishedItem {
   icon: string
   name: string
   price: number
-  type: ItemType
+  type: Type
   /** ID of this item+color combo. Eggs are unique though. */
   wearableitemid: string
 

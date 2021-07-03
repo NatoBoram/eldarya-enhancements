@@ -8,7 +8,6 @@ import { downloadFace, downloadGuardian } from "../download-canvas"
 import { LocalStorage } from "../local_storage/local_storage"
 import { SessionStorage } from "../session_storage/session_storage"
 import { toggleTakeover } from "../takeover/brain"
-import type { CarouselNews } from "../templates/interfaces/carousel_news"
 
 export function loadCarousel(): void {
   const carouselInner = document.querySelector("#carousel-inner")
@@ -19,28 +18,40 @@ export function loadCarousel(): void {
   // Import carousel template
   const template: Template = require("../templates/html/carousel_news.html")
 
+  const contexts = [
+    // Intro
+    carouselEE,
+
+    // Features
+    ...(LocalStorage.minigames ||
+    LocalStorage.explorations ||
+    LocalStorage.market
+      ? [carouselTakeover]
+      : []),
+    carouselDownloadGuardian,
+    carouselDownloadFace,
+
+    // Ads
+    carouselBeemoovAnnoyances,
+  ]
+
   // Add entries to the carousel
   carouselInner.insertAdjacentHTML(
     "beforeend",
-    [
-      // Intro
-      carouselEE,
-
-      // Features
-      ...(LocalStorage.minigames ||
-      LocalStorage.explorations ||
-      LocalStorage.market
-        ? [carouselTakeover]
-        : []),
-      carouselDownloadGuardian,
-      carouselDownloadFace,
-
-      // Ads
-      carouselBeemoovAnnoyances,
-    ]
-      .map((banner: CarouselNews) => template.render(banner))
-      .join("\n")
+    contexts.map(banner => template.render(banner)).join("\n")
   )
+
+  // Add links
+  for (const carousel of contexts) {
+    if (!carousel.href) continue
+
+    const element = carouselInner.querySelector(`#${carousel.id}`)
+    if (!element) continue
+
+    element.addEventListener("click", () => {
+      if (element.classList.contains("active")) open(carousel.href, "_blank")
+    })
+  }
 
   // Add click events
 

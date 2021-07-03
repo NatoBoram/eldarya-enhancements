@@ -1,20 +1,25 @@
-import type { BodyLocation } from "../api/body_location.enum"
-import type { ItemType } from "../api/item_type.enum"
-import type { Guard } from "../marketplace/guard.enum"
-import type { Rarity } from "../marketplace/rarity.enum"
+import { BodyLocation } from "../marketplace/enums/body_location.enum"
+import type { CategoryNumber } from "../marketplace/enums/category.enum"
+import type { Guard } from "../marketplace/enums/guard.enum"
+import type { Rarity } from "../marketplace/enums/rarity.enum"
+import { Type } from "../marketplace/enums/type.enum"
 
 export async function ajaxSearch(
   data: {
-    type?: ItemType
+    type?: Type
     bodyLocation?: BodyLocation
-    category?: unknown
+    category?: CategoryNumber
     rarity?: Rarity
     price?: number
     guard?: Guard
     /** Page number, indexed by 1 */
     page: number
     name?: string
-  } = { page: 1 }
+  } = {
+    type: Type.All,
+    bodyLocation: BodyLocation.All,
+    page: 1,
+  }
 ): Promise<string> {
   const ITEMS_PER_PAGE = 8
 

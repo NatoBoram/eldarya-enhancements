@@ -3,20 +3,20 @@ declare global {
 }
 
 export declare interface PendingTreasureHuntLocation {
-  id: string
-  name: string
-  x: string
-  y: string
-  levelRequired: string
-  energyRequired: string
-  xp: string
+  MapRegion_id: string
   description: string
+  energyRequired: string
+  episodeId: number
+  id: string
+  levelRequired: string
+  locationItems: number
+  name: string
+  playerItems: number
+  priceToExploreImmediately: number
   /** Minutes */
   timeToExplore: number
-  MapRegion_id: string
-  playerItems: number
-  locationItems: number
-  episodeId: number
-  priceToExploreImmediately: number
   timeToExploreText: string
+  x: string
+  xp: string
+  y: string
 }

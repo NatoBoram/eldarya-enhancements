@@ -1,6 +1,8 @@
 import type { AjaxSalesData } from "../api/ajax_sales_data"
-import type { ItemType } from "../api/item_type.enum"
 import type { Packet } from "../api/packet"
+import { BodyLocation } from "../marketplace/enums/body_location.enum"
+import { CategoryString } from "../marketplace/enums/category.enum"
+import { Type } from "../marketplace/enums/type.enum"
 import { SessionStorage } from "../session_storage/session_storage"
 
 /**
@@ -9,10 +11,10 @@ import { SessionStorage } from "../session_storage/session_storage"
  * @param page Page of the object to be displayed
  */
 export async function ajaxSales(
-  type: ItemType,
-  bodyLocation: string,
-  category: ItemType,
-  page: number
+  type = Type.All,
+  bodyLocation = BodyLocation.All,
+  category = CategoryString.all,
+  page = 1
 ): Promise<Packet<AjaxSalesData>> {
   const ITEMS_PER_PAGE = 4
 

@@ -9,30 +9,24 @@ interface DisplayObject extends createjs.DisplayObject {
 }
 
 declare class Avatar extends createjs.Container {
-  constructor(format: Format)
-
-  _animated: boolean
-  _format: Format
-  _hiddenCategories: Record<string, number>
-  _originalItems: OriginalItems
-  _renderApplyCallback: unknown[]
-  _wornItems: Record<number, Item>
-  children: DisplayObject[]
-
-  static avatars: Record<string, Avatar>
+  static Cookie: Cookie
 
   // Constante de format d'avatar (correspond au format d'image)
-  static FORMAT_NORMAL: Format.FORMAT_NORMAL
-  static FORMAT_ZOOM: Format.FORMAT_ZOOM
   static FORMAT_ANIMATED: Format.FORMAT_ANIMATED
+  static FORMAT_BACKGROUND: Format.FORMAT_BACKGROUND
   static FORMAT_BOMBOEUF: Format.FORMAT_BOMBOEUF
   static FORMAT_BOMBOEUF_IG: Format.FORMAT_BOMBOEUF_IG
   static FORMAT_FACE: Format.FORMAT_FACE
   static FORMAT_HOME: Format.FORMAT_HOME
-  static FORMAT_BACKGROUND: Format.FORMAT_BACKGROUND
+  static FORMAT_NORMAL: Format.FORMAT_NORMAL
   static FORMAT_REWARDPOPUP: Format.FORMAT_REWARDPOPUP
+  static FORMAT_ZOOM: Format.FORMAT_ZOOM
 
-  // Dimensions d'avatar classique
+  static Item: typeof Item
+
+  static avatars: Record<string, Avatar>
+
+  /** Dimensions d'avatar classique */
   static dimensions: {
     [Avatar.FORMAT_NORMAL]: { width: 420; height: 594 }
     [Avatar.FORMAT_FACE]: { width: 102; height: 102 }
@@ -44,43 +38,50 @@ declare class Avatar extends createjs.Container {
     [Avatar.FORMAT_REWARDPOPUP]: { width: 290; height: 500 }
   }
 
-  refreshHiddenItems(): void
-  getHiddingItems(categoryId: number): void
-  addItem(item: Item, index: number): boolean
-  checkConditions(item: Item): boolean
-  addItemPreview(item: Item): void
-  checkItemUnicity(item: Item): boolean
-  moveItemForward(item: Item): void
-  moveItemBackward(item: Item): void
-  getItemsToSave(): Clothing[]
-  addItems(items: Item[]): void
-  getRender(item: Item): boolean
-  isAnimated(): boolean
-  setAnimated(animated: boolean): void
-  displayOn(container: Element, width: number, height: number): void
-  removeAllChildren(): void
-  reset(): void
-  saveOriginalItems(): void
-  clone(recursive: boolean): Avatar
-  setOriginalItems(originalItems: OriginalItems): void
+  _animated: boolean
+  _format: Format
+  _hiddenCategories: Record<string, number>
+  _originalItems: OriginalItems
+  _renderApplyCallback: unknown[]
+  _wornItems: Record<number, Item>
 
-  static addItemToAllAvatars(item: Item): void
+  children: DisplayObject[]
+
+  constructor(format: Format)
+
   static addItemPreviewToAllAvatars(item: Item): void
-  static removeItemFromAllAvatars(item: Item): boolean
-  static moveItemForwardOnAllAvatars(item: Item): void
-  static moveItemBackwardOnAllAvatars(item: Item): void
-  static resetAllAvatars(): void
-  static loadItems(json: { items: Item[] }, format: Format): Item[]
+  static addItemToAllAvatars(item: Item): void
   static generateOn(
     containerName: string,
     items: Item[],
     format: Format,
     linkUrl: string | null
   ): Avatar
-
-  static Cookie: Cookie
   static isAnimated(): boolean
+  static loadItems(json: { items: Item[] }, format: Format): Item[]
+  static moveItemBackwardOnAllAvatars(item: Item): void
+  static moveItemForwardOnAllAvatars(item: Item): void
+  static removeItemFromAllAvatars(item: Item): boolean
+  static resetAllAvatars(): void
   static setAnimated(animated: boolean): void
 
-  static Item: typeof Item
+  addItem(item: Item, index: number): boolean
+  addItemPreview(item: Item): void
+  addItems(items: Item[]): void
+  checkConditions(item: Item): boolean
+  checkItemUnicity(item: Item): boolean
+  clone(recursive: boolean): Avatar
+  displayOn(container: Element, width: number, height: number): void
+  getHiddingItems(categoryId: number): void
+  getItemsToSave(): Clothing[]
+  getRender(item: Item): boolean
+  isAnimated(): boolean
+  moveItemBackward(item: Item): void
+  moveItemForward(item: Item): void
+  refreshHiddenItems(): void
+  removeAllChildren(): void
+  reset(): void
+  saveOriginalItems(): void
+  setAnimated(animated: boolean): void
+  setOriginalItems(originalItems: OriginalItems): void
 }

@@ -1,4 +1,4 @@
-import type { ItemType } from "../api/item_type.enum"
+import type { Type } from "../marketplace/enums/type.enum"
 
 export interface ExplorationResultsData {
   results: Result[]
@@ -16,7 +16,7 @@ interface Level {
 
 interface Reward {
   id: number
-  type: ItemType
+  type: Type
   category: string
   name: string
   description: string
@@ -71,7 +71,7 @@ interface Result {
   id: string
   type: ResultType
   /** Category of item */
-  arg1: ItemType
+  arg1: Type
   arg2: string
   /** Count */
   arg3: string

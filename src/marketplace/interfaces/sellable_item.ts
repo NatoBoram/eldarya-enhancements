@@ -1,4 +1,5 @@
-import type { Rarity } from "../rarity.enum"
+import type { Guard } from "../enums/guard.enum"
+import type { Rarity } from "../enums/rarity.enum"
 
 export interface SellableItem {
   animationSacha: null
@@ -20,7 +21,7 @@ export interface SellableItem {
   maxQuantity: string
   group: string
   rarity: Rarity
-  Guard_id: null
+  Guard_id: Guard
   eventId: null
   PlayerWearableItemCategory_Id: string
   purroprice: null

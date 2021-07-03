@@ -6,9 +6,12 @@ declare global {
 }
 
 export declare interface MapRegion {
+  Condition_id?: string
+  eventId?: string
   id: string
-  name: string
   image: ImageType
+  locations: Location[]
+  name: string
   /**
    * ID of the next region in this season.
    * `0` and `null` means there's no next region.
@@ -19,29 +22,26 @@ export declare interface MapRegion {
    * `0` and `null` means there's no previous region.
    */
   previousRegion_id?: string
-  eventId?: string
-  Condition_id?: string
-  locations: Location[]
   season?: Season
 }
 
 declare type Season = "s1" | "s2"
 
 export declare interface Location {
-  priceToExploreImmediately: number
-  timeToExploreText: string
-  id: string
-  name: string
-  x: string
-  y: string
-  levelRequired: string
-  energyRequired: string
-  xp: string
+  MapRegion_id: string
   description: string
+  energyRequired: string
+  episodeId: number
+  id: string
+  levelRequired: string
+  locationItems: number
+  name: string
+  playerItems: number
+  priceToExploreImmediately: number
   /** Minutes */
   timeToExplore: number
-  MapRegion_id: string
-  playerItems: number
-  locationItems: number
-  episodeId: number
+  timeToExploreText: string
+  x: string
+  xp: string
+  y: string
 }

@@ -20,6 +20,8 @@ class AuctionsAction extends Action {
     if (!SessionStorage.wishlist.length)
       SessionStorage.wishlist = LocalStorage.wishlist
 
+    // const purchases = await ajaxPurchases()
+
     return false
   }
 }

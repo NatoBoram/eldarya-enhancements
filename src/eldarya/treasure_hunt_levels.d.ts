@@ -2,45 +2,45 @@ import type { ImageType } from "./image_type"
 
 declare const treasureHuntLevels: TreasureHuntLevels[]
 interface TreasureHuntLevels {
-  reward?: Reward
-  retrievedDate?: Date
-  treasureHuntEventModel: TreasureHuntEventModel
-  state: string
   playerPoints?: number
+  retrievedDate?: Date
+  reward?: Reward
+  state: string
+  treasureHuntEventModel: TreasureHuntEventModel
 }
 
 interface Reward {
-  id: number
-  type: string
+  animated?: boolean
+  bodyLocation?: string
+  categoriesToHide?: unknown[]
   category: string
-  name: string
+  categoryId: number
+  categoryLimit?: null
+  categoryUnique?: boolean
   description: string
+  eventName?: null
+  group?: number
+  icon: ImageType
+  id: number
+  image?: ImageType
+  movable?: boolean
+  name: string
+  previewCategoriesToHide?: string[]
   rarity: string
   rarityText: string
   tradable: boolean
-  icon: ImageType
+  type: string
   usable?: boolean
-  categoryId: number
-  eventName?: null
-  bodyLocation?: string
-  movable?: boolean
-  categoryUnique?: boolean
-  categoriesToHide?: unknown[]
-  previewCategoriesToHide?: string[]
-  animated?: boolean
-  group?: number
   wearIndex?: null
-  categoryLimit?: null
-  image?: ImageType
 }
 
 interface TreasureHuntEventModel {
-  rewardPreview: string
-  id: string
-  eventId: string
   count: string
-  type: string
-  value?: string
+  eventId: string
+  id: string
   order: string
   rarity?: string
+  rewardPreview: string
+  type: string
+  value?: string
 }

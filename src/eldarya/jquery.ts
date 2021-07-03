@@ -36,5 +36,6 @@ interface flavrParams {
     /** Default value */
     value: string
   }
+
   title?: string
 }
