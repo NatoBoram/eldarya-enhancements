@@ -2,6 +2,7 @@ import { Console } from "../console"
 import { SessionStorage } from "../session_storage/session_storage"
 import type { TakeoverAction } from "../session_storage/takeover_action.enum"
 import type { Action } from "./classes/action"
+import buyAction from "./classes/buy_action"
 import dailyAction from "./classes/daily_action"
 import explorationAction from "./classes/exploration_action"
 import minigameAction from "./classes/minigame_action"
@@ -53,7 +54,12 @@ async function takeover(): Promise<void> {
   }
 }
 
-const actions: Action[] = [minigameAction, explorationAction, waitAction]
+const actions: Action[] = [
+  minigameAction,
+  explorationAction,
+  buyAction,
+  waitAction,
+]
 
 function changeAction(): TakeoverAction {
   const next =

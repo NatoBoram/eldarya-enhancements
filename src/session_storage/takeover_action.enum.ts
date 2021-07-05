@@ -3,7 +3,7 @@ export enum TakeoverAction {
   minigames = "minigames",
   explorations = "explorations",
   auctions = "auctions",
-  marketplace = "marketplace",
+  buy = "buy",
   // sell,
   wait = "wait",
 }

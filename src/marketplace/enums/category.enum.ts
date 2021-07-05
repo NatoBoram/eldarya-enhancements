@@ -9,7 +9,7 @@ export enum CategoryString {
 }
 
 export enum CategoryNumber {
-  all = 0,
+  all = CategoryString.all,
   food = 1,
   alchemy = Type.Consumable,
   utility = 3,

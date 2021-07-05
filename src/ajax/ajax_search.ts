@@ -1,26 +1,34 @@
 import { BodyLocation } from "../marketplace/enums/body_location.enum"
-import type { CategoryNumber } from "../marketplace/enums/category.enum"
-import type { Guard } from "../marketplace/enums/guard.enum"
-import type { Rarity } from "../marketplace/enums/rarity.enum"
+import { CategoryNumber } from "../marketplace/enums/category.enum"
+import { Guard } from "../marketplace/enums/guard.enum"
+import { Rarity } from "../marketplace/enums/rarity.enum"
 import { Type } from "../marketplace/enums/type.enum"
 
-export async function ajaxSearch(
-  data: {
-    type?: Type
-    bodyLocation?: BodyLocation
-    category?: CategoryNumber
-    rarity?: Rarity
-    price?: number
-    guard?: Guard
-    /** Page number, indexed by 1 */
-    page: number
-    name?: string
-  } = {
-    type: Type.All,
-    bodyLocation: BodyLocation.All,
-    page: 1,
+export async function ajaxSearch(data: {
+  type?: Type
+  bodyLocation?: BodyLocation
+  category?: CategoryNumber
+  rarity?: Rarity
+  price?: number | ""
+  guard?: Guard
+  /** Page number, indexed by 1 */
+  page: number
+  name?: string
+}): Promise<string> {
+  data = {
+    ...{
+      type: Type.All,
+      bodyLocation: BodyLocation.All,
+      category: CategoryNumber.all,
+      rarity: Rarity.all,
+      price: "",
+      guard: Guard.any,
+      page: 1,
+      name: "",
+    },
+    ...data,
   }
-): Promise<string> {
+
   const ITEMS_PER_PAGE = 8
 
   return new Promise<string>((resolve): void => {
