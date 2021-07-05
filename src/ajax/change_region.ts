@@ -21,12 +21,12 @@ export async function changeRegion(
         currentRegion = json.data.currentRegion
 
         pendingTreasureHuntLocation =
-          typeof json.data.pendingTreasureHuntLocation == "undefined"
+          typeof json.data.pendingTreasureHuntLocation === "undefined"
             ? null
             : json.data.pendingTreasureHuntLocation
 
         timeLeftExploration =
-          typeof json.data.timeLeftExploration == "undefined"
+          typeof json.data.timeLeftExploration === "undefined"
             ? null
             : json.data.timeLeftExploration
       }

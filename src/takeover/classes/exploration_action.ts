@@ -148,7 +148,7 @@ class ExplorationAction extends Action {
     // Go to season
     if (
       selected.region.season &&
-      this.getCurrentSeason() != selected.region.season
+      this.getCurrentSeason() !== selected.region.season
     ) {
       await this.clickSeason()
       return { exploring: false, selected }
