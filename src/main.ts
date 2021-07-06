@@ -26,6 +26,8 @@ function loadUI(): void {
   loadPet()
   loadMarket()
   loadWishlist()
+
+  document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
 }
 
 new MutationObserver(load).observe(<Node>document.getElementById("container"), {
