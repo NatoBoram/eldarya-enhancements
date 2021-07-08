@@ -52,7 +52,17 @@ class ExplorationAction extends Action {
         return this.perform()
 
       case ExplorationStatus.capture:
-        return false
+        await this.endCapture()
+        return this.perform()
+
+      case ExplorationStatus.desync:
+        Console.info("Reloading because the timer is desynchronised.", {
+          timeLeftExploration,
+          pendingTreasureHuntLocation,
+          currentRegion,
+        })
+        location.reload()
+        return true
 
       default:
         return false
@@ -96,6 +106,21 @@ class ExplorationAction extends Action {
     return click<HTMLImageElement>("#crystal-images-container")
   }
 
+  private async endCapture(): Promise<void> {
+    try {
+      void new Audio(
+        "/static/event/2021/music/sounds/mission-complete.mp3"
+      ).play()
+    } catch (e: unknown) {
+      // eslint-disable-next-line no-empty
+    }
+
+    document
+      .querySelector<HTMLButtonElement>("#open-capture-interface")
+      ?.click()
+    await click<HTMLButtonElement>("#close-result")
+  }
+
   private async endExploration(): Promise<HTMLDivElement> {
     return click("#close-result")
   }
@@ -107,12 +132,19 @@ class ExplorationAction extends Action {
   }
 
   private getExplorationStatus(): ExplorationStatus {
-    if (document.querySelector("#pending-map-location-data-outer.active"))
-      return ExplorationStatus.pending
-    else if (document.querySelector("#treasure-hunt-result-overlay.active"))
-      return ExplorationStatus.result
-    else if (document.querySelector("#capture-interface-outer.active"))
+    if (
+      document.querySelector("#open-capture-interface") ||
+      document.querySelector("#capture-interface-outer.active")
+    ) {
       return ExplorationStatus.capture
+    } else if (
+      document.querySelector("#pending-map-location-data-outer.active")
+    ) {
+      if (timeLeftExploration !== null && timeLeftExploration <= 0)
+        return ExplorationStatus.desync
+      return ExplorationStatus.pending
+    } else if (document.querySelector("#treasure-hunt-result-overlay.active"))
+      return ExplorationStatus.result
     return ExplorationStatus.idle
   }
 
@@ -190,6 +222,11 @@ class ExplorationAction extends Action {
 
       // Reloading is the only possible action if the exploration finished
       // in a different region.
+      Console.info("Reloading because the exploration is in capture mode.", {
+        timeLeftExploration,
+        pendingTreasureHuntLocation,
+        currentRegion,
+      })
       location.reload()
     }
 
