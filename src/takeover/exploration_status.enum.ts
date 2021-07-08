@@ -3,4 +3,5 @@ export enum ExplorationStatus {
   result,
   capture,
   pending,
+  desync,
 }
