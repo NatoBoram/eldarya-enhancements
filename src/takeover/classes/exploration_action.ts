@@ -34,8 +34,7 @@ class ExplorationAction extends Action {
       case ExplorationStatus.idle: {
         const start = await this.startExploration()
         if (start.exploring) {
-          await this.waitExploration(start.selected)
-          return this.perform()
+          return (await this.waitExploration(start.selected)) || this.perform()
         } else if (!start.selected) {
           SessionStorage.explorationsDone = true
         }
@@ -44,8 +43,7 @@ class ExplorationAction extends Action {
       }
 
       case ExplorationStatus.pending:
-        await this.waitExploration()
-        return this.perform()
+        return (await this.waitExploration()) || this.perform()
 
       case ExplorationStatus.result:
         await this.endExploration()
@@ -54,15 +52,6 @@ class ExplorationAction extends Action {
       case ExplorationStatus.capture:
         await this.endCapture()
         return this.perform()
-
-      case ExplorationStatus.desync:
-        Console.info("Reloading because the timer is desynchronised.", {
-          timeLeftExploration,
-          pendingTreasureHuntLocation,
-          currentRegion,
-        })
-        location.reload()
-        return true
 
       default:
         return false
@@ -140,8 +129,6 @@ class ExplorationAction extends Action {
     } else if (
       document.querySelector("#pending-map-location-data-outer.active")
     ) {
-      if (timeLeftExploration !== null && timeLeftExploration <= 0)
-        return ExplorationStatus.desync
       return ExplorationStatus.pending
     } else if (document.querySelector("#treasure-hunt-result-overlay.active"))
       return ExplorationStatus.result
@@ -197,11 +184,13 @@ class ExplorationAction extends Action {
     return { exploring: true, selected }
   }
 
-  private async waitExploration(selected?: AutoExploreLocation): Promise<void> {
+  private async waitExploration(
+    selected?: AutoExploreLocation
+  ): Promise<boolean> {
     let ms = 800
-    if (selected) ms = selected.location.timeToExplore * 60 * 1000
+    if (selected) ms += selected.location.timeToExplore * 60 * 1000
     else if (timeLeftExploration && timeLeftExploration > 0)
-      ms = timeLeftExploration * 1000
+      ms += timeLeftExploration * 1000
     else if (!pendingTreasureHuntLocation) {
       const json = await explorationResults()
 
@@ -213,7 +202,7 @@ class ExplorationAction extends Action {
 
         // Capture is in another region
         if (capture?.timeRestCapture) {
-          ms = capture.timeRestCapture * 1000
+          ms += capture.timeRestCapture * 1000
           Console.log(`Waiting for ${Math.ceil(ms / 1000)} seconds...`)
           await new Promise<void>(resolve => setTimeout(resolve, ms))
           await captureEnd()
@@ -228,11 +217,28 @@ class ExplorationAction extends Action {
         currentRegion,
       })
       location.reload()
+      return true
     }
 
     Console.log(`Waiting for ${Math.ceil(ms / 1000)} seconds...`)
     await new Promise<void>(resolve => setTimeout(resolve, ms))
     await changeRegion(Number(selected?.region.id ?? currentRegion.id))
+
+    if (
+      this.getExplorationStatus() === ExplorationStatus.pending &&
+      timeLeftExploration &&
+      timeLeftExploration < 0
+    ) {
+      Console.info("Reloading because the timer is desynchronised.", {
+        currentRegion,
+        pendingTreasureHuntLocation,
+        timeLeftExploration,
+      })
+      location.reload()
+      return true
+    }
+
+    return false
   }
 }
 
