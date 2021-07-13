@@ -3,7 +3,8 @@ import { changeRegion } from "../../ajax/change_region"
 import { explorationResults } from "../../ajax/exploration_results"
 import { Result } from "../../api/result.enum"
 import { Console } from "../../console"
-import type { Season } from "../../eldarya/current_region"
+import type { MapRegion, Season } from "../../eldarya/current_region"
+import type { PendingTreasureHuntLocation } from "../../eldarya/treasure"
 import type { AutoExploreLocation } from "../../local_storage/auto_explore_location"
 import { LocalStorage } from "../../local_storage/local_storage"
 import { SessionStorage } from "../../session_storage/session_storage"
@@ -15,6 +16,14 @@ import { Action } from "./action"
 
 class ExplorationAction extends Action {
   readonly key = TakeoverAction.explorations
+
+  private get globals(): {
+    currentRegion: MapRegion
+    pendingTreasureHuntLocation: PendingTreasureHuntLocation | null
+    timeLeftExploration: number | null
+  } {
+    return { currentRegion, pendingTreasureHuntLocation, timeLeftExploration }
+  }
 
   condition(): boolean {
     return (
@@ -208,7 +217,12 @@ class ExplorationAction extends Action {
         // Capture is in another region
         if (capture?.timeRestCapture) {
           ms += capture.timeRestCapture * 1000
-          Console.log(`Waiting for ${Math.ceil(ms / 1000)} seconds...`)
+          Console.log(
+            `Waiting for the capture to fail in ${Math.ceil(
+              ms / 1000
+            )} seconds...`,
+            this.globals
+          )
           await new Promise<void>(resolve => setTimeout(resolve, ms))
           await captureEnd()
         }
@@ -216,16 +230,20 @@ class ExplorationAction extends Action {
 
       // Reloading is the only possible action if the exploration finished
       // in a different region.
-      Console.info("Reloading because the exploration is in capture mode.", {
-        timeLeftExploration,
-        pendingTreasureHuntLocation,
-        currentRegion,
-      })
+      Console.info(
+        "Reloading because the exploration is in capture mode.",
+        this.globals
+      )
       location.reload()
       return true
     }
 
-    Console.log(`Waiting for ${Math.ceil(ms / 1000)} seconds...`)
+    Console.log(
+      `Waiting for the exploration to end in ${Math.ceil(
+        ms / 1000
+      )} seconds...`,
+      this.globals
+    )
     await new Promise<void>(resolve => setTimeout(resolve, ms))
     await changeRegion(Number(selected?.region.id ?? currentRegion.id))
 
@@ -234,11 +252,10 @@ class ExplorationAction extends Action {
       timeLeftExploration &&
       timeLeftExploration < 0
     ) {
-      Console.info("Reloading because the timer is desynchronised.", {
-        currentRegion,
-        pendingTreasureHuntLocation,
-        timeLeftExploration,
-      })
+      Console.info(
+        "Reloading because the timer is desynchronised.",
+        this.globals
+      )
       location.reload()
       return true
     }
