@@ -135,7 +135,8 @@ class ExplorationAction extends Action {
     ) {
       return ExplorationStatus.capture
     } else if (
-      document.querySelector("#pending-map-location-data-outer.active")
+      document.querySelector("#pending-map-location-data-outer.active") ||
+      document.querySelector("#map-container.pending")
     ) {
       return ExplorationStatus.pending
     } else if (document.querySelector("#treasure-hunt-result-overlay.active"))
@@ -205,7 +206,10 @@ class ExplorationAction extends Action {
     if (selected) ms += selected.location.timeToExplore * 60 * 1000
     else if (timeLeftExploration && timeLeftExploration > 0)
       ms += timeLeftExploration * 1000
-    else if (!pendingTreasureHuntLocation) {
+    else if (
+      !pendingTreasureHuntLocation &&
+      document.querySelector("#map-container.pending")
+    ) {
       const json = await explorationResults()
 
       // Exploration is in another region
@@ -228,12 +232,13 @@ class ExplorationAction extends Action {
         }
       }
 
-      // Reloading is the only possible action if the exploration finished
-      // in a different region.
-      Console.info(
-        "Reloading because the exploration is in capture mode.",
+      // Reloading is the only possible action if the exploration finished in a
+      // different region.
+      Console.error(
+        "Reloading because the exploration is in another region.",
         this.globals
       )
+      await new Promise<void>(resolve => setTimeout(resolve, 10 * 60 * 1000))
       location.reload()
       return true
     }
