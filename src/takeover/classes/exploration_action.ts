@@ -187,6 +187,12 @@ class ExplorationAction extends Action {
   private async waitExploration(
     selected?: AutoExploreLocation
   ): Promise<boolean> {
+    document
+      .querySelector<HTMLDivElement>(
+        `.minimap[data-mapid="${selected?.region.id ?? currentRegion.id}"]`
+      )
+      ?.click()
+
     let ms = 800
     if (selected) ms += selected.location.timeToExplore * 60 * 1000
     else if (timeLeftExploration && timeLeftExploration > 0)
