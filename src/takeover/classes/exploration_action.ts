@@ -104,9 +104,8 @@ class ExplorationAction extends Action {
       // eslint-disable-next-line no-empty
     }
 
-    document
-      .querySelector<HTMLButtonElement>("#open-capture-interface")
-      ?.click()
+    await click<HTMLButtonElement>("#open-capture-interface")
+    await click<HTMLButtonElement>("#capture-button")
     await click<HTMLButtonElement>("#close-result")
   }
 
