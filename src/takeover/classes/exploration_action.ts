@@ -144,6 +144,15 @@ class ExplorationAction extends Action {
     return ExplorationStatus.idle
   }
 
+  private getLowestEnergyLocation(): AutoExploreLocation {
+    return LocalStorage.autoExploreLocations.reduce((lowest, place) =>
+      Number(place.location.energyRequired) <
+      Number(lowest.location.energyRequired)
+        ? place
+        : lowest
+    )
+  }
+
   private getSelectedLocation(): AutoExploreLocation | null {
     let selected = SessionStorage.selectedLocation
     if (!selected) {
@@ -159,8 +168,17 @@ class ExplorationAction extends Action {
       saved => Number(saved.location.energyRequired) <= petEnergy
     )
 
+    const minimumEnergy = this.getLowestEnergyLocation()
+    const notDeadEnd = affordable.filter(
+      place =>
+        petEnergy - Number(place.location.energyRequired) >=
+        Number(minimumEnergy.location.energyRequired)
+    )
+    if (notDeadEnd.length)
+      return notDeadEnd[Math.floor(Math.random() * notDeadEnd.length)] ?? null
+
     const sameEnergy = affordable.filter(
-      place => place.location.energyRequired === petEnergy.toString()
+      place => Number(place.location.energyRequired) === petEnergy
     )
     if (sameEnergy.length)
       return sameEnergy[Math.floor(Math.random() * sameEnergy.length)] ?? null
