@@ -10,7 +10,7 @@
     cursor: pointer;
   }
 
-  .action-picto:hover,
+  .action-picto:hover:not(.disabled),
   .edit-price:hover {
     animation: button-bounce 300ms linear forwards;
     filter: brightness(1.05) contrast(1.1);
@@ -18,6 +18,15 @@
 
   .edit-price {
     cursor: pointer;
+  }
+
+  img.disabled {
+    filter: grayscale(1);
+  }
+
+  .item-icon {
+    width: 100px;
+    height: 100px;
   }
 </style>
 
@@ -33,42 +42,46 @@
   </thead>
   <tbody>
     {{#wishlist}}
-      <tr class="marketplace-abstract" data-wearableitemid="{{wearableitemid}}">
+    <tr class="marketplace-abstract" data-wearableitemid="{{wearableitemid}}">
+      <!-- Icon -->
+      <td>
+        <img class="item-icon" src="{{icon}}" alt="{{name}}" />
+      </td>
 
-        <!-- Icon -->
-        <td>
-          <img src="{{icon}}" alt="{{name}}" width="100" height="100">
-        </td>
+      <!-- Name -->
+      <td>
+        <div class="abstract-name">{{name}}</div>
+      </td>
 
-        <!-- Name -->
-        <td>
-          <div class="abstract-name">{{name}}</div>
-        </td>
+      <!-- Price -->
+      <td>
+        <div class="edit-price" title="Change price">
+          <span class="price-item">{{price}}</span>
+          <span class="maana-icon" alt="maanas"></span>
+        </div>
+      </td>
 
-        <!-- Price -->
-        <td>
-          <div class="edit-price" title="Change price">
-            <span class="price-item">
-              {{price}}
-            </span> <span class="maana-icon" alt="maanas"></span>
-          </div>
-        </td>
+      <!-- Error -->
+      <td>
+        <p class="error">{{error}}</p>
+      </td>
 
-        <!-- Error -->
-        <td>
-          <p class="error">{{error}}</p>
-        </td>
-
-        <!-- Actions -->
-        <td>
-          <img class="action-picto reset-item-status"
-            src="/static/img/new-layout/wardrobe/reset-btn.png"
-            title="Reset the error status" alt="Reset">
-          <img class="action-picto delete-wishlist-item"
-            src="/static/img/new-layout/wardrobe/delete.png"
-            title="Remove from the wishlist" alt="Delete">
-        </td>
-      </tr>
+      <!-- Actions -->
+      <td>
+        <img
+          class="action-picto reset-item-status {{^error}}disabled{{/error}}"
+          src="/static/img/new-layout/wardrobe/reset-btn.png"
+          title="Reset the error status"
+          alt="Reset"
+        />
+        <img
+          class="action-picto delete-wishlist-item"
+          src="/static/img/new-layout/wardrobe/delete.png"
+          title="Remove from the wishlist"
+          alt="Delete"
+        />
+      </td>
+    </tr>
     {{/wishlist}}
   </tbody>
 </table>
