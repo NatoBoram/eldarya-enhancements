@@ -18,7 +18,7 @@ Enhances the user experience of Eldarya.
 I'm still figuring out an easier installation method, but for now this will do.
 The script updates automatically.
 
-Development versions can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.user.js?job=deploy).
+The latest development version can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.user.js?job=deploy).
 
 ## Features
 
@@ -27,3 +27,5 @@ Development versions can be downloaded [here](https://gitlab.com/NatoBoram/eldar
 - Replaces a few bank buttons with a link to the forum
 - Import and export your outfit
 - Export other guardians' outfits from their profile
+- Mark favourite exploration points
+- Wishlist for the market
