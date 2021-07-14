@@ -1,46 +1,46 @@
-import type { ImageType } from "./image_type";
+import type { ImageType } from "./image_type"
 
-declare const treasureHuntLevels: TreasureHuntLevels[];
+declare const treasureHuntLevels: TreasureHuntLevels[]
 interface TreasureHuntLevels {
-  reward?: Reward;
-  retrievedDate?: Date;
-  treasureHuntEventModel: TreasureHuntEventModel;
-  state: string;
-  playerPoints?: number;
+  playerPoints?: number
+  retrievedDate?: Date
+  reward?: Reward
+  state: string
+  treasureHuntEventModel: TreasureHuntEventModel
 }
 
 interface Reward {
-  id: number;
-  type: string;
-  category: string;
-  name: string;
-  description: string;
-  rarity: string;
-  rarityText: string;
-  tradable: boolean;
-  icon: ImageType;
-  usable?: boolean;
-  categoryId: number;
-  eventName?: null;
-  bodyLocation?: string;
-  movable?: boolean;
-  categoryUnique?: boolean;
-  categoriesToHide?: unknown[];
-  previewCategoriesToHide?: string[];
-  animated?: boolean;
-  group?: number;
-  wearIndex?: null;
-  categoryLimit?: null;
-  image?: ImageType;
+  animated?: boolean
+  bodyLocation?: string
+  categoriesToHide?: unknown[]
+  category: string
+  categoryId: number
+  categoryLimit?: null
+  categoryUnique?: boolean
+  description: string
+  eventName?: null
+  group?: number
+  icon: ImageType
+  id: number
+  image?: ImageType
+  movable?: boolean
+  name: string
+  previewCategoriesToHide?: string[]
+  rarity: string
+  rarityText: string
+  tradable: boolean
+  type: string
+  usable?: boolean
+  wearIndex?: null
 }
 
 interface TreasureHuntEventModel {
-  rewardPreview: string;
-  id: string;
-  eventId: string;
-  count: string;
-  type: string;
-  value?: string;
-  order: string;
-  rarity?: string;
+  count: string
+  eventId: string
+  id: string
+  order: string
+  rarity?: string
+  rewardPreview: string
+  type: string
+  value?: string
 }

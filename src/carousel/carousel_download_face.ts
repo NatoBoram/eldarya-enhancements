@@ -1,4 +1,4 @@
-import type { CarouselNews } from "../templates/interfaces/carousel_news";
+import type { CarouselNews } from "../templates/interfaces/carousel_news"
 
 export const carouselDownloadFace: CarouselNews = {
   backgroundImage:
@@ -6,4 +6,4 @@ export const carouselDownloadFace: CarouselNews = {
   id: "carousel-download-face",
   h4: "Download your face!",
   p: "Click here to download your guardian's face.",
-};
+}

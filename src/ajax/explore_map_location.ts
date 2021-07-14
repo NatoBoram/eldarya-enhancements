@@ -1,6 +1,6 @@
-import type { ExploreMapLocationData } from "../api/explore_map_location_data";
-import type { Packet } from "../api/packet";
-import { SessionStorage } from "../session_storage/session_storage";
+import type { ExploreMapLocationData } from "../api/explore_map_location_data"
+import type { Packet } from "../api/packet"
+import { SessionStorage } from "../session_storage/session_storage"
 
 export async function exploreMapLocation(
   mapLocationId: number
@@ -10,14 +10,14 @@ export async function exploreMapLocation(
       "/pet/exploreMapLocation",
       { mapLocationId },
       (json: Packet<ExploreMapLocationData>): void => {
-        SessionStorage.meta = json.meta;
-        resolve(json);
+        SessionStorage.meta = json.meta
+        resolve(json)
 
         if (json.result !== "success") {
-          $.flavrNotif(json.data);
-          return;
+          $.flavrNotif(json.data)
+          return
         }
       }
-    );
-  });
+    )
+  })
 }

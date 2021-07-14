@@ -1,4 +1,4 @@
-import type { CarouselNews } from "../templates/interfaces/carousel_news";
+import type { CarouselNews } from "../templates/interfaces/carousel_news"
 
 export const carouselTakeover: CarouselNews = {
   backgroundImage:
@@ -6,4 +6,4 @@ export const carouselTakeover: CarouselNews = {
   id: "carousel-takeover",
   h4: "Takeover",
   p: "Give up this tab to perform automated actions.",
-};
+}

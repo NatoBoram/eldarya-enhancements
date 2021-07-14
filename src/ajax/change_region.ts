@@ -1,6 +1,6 @@
-import type { ChangeRegionData } from "../api/change_region_data";
-import type { Packet } from "../api/packet";
-import { SessionStorage } from "../session_storage/session_storage";
+import type { ChangeRegionData } from "../api/change_region_data"
+import type { Packet } from "../api/packet"
+import { SessionStorage } from "../session_storage/session_storage"
 
 export async function changeRegion(
   newRegionId: number
@@ -9,27 +9,27 @@ export async function changeRegion(
     void $.post(
       "/pet/changeRegion",
       { newRegionId },
-      function (json: Packet<ChangeRegionData>) {
-        SessionStorage.meta = json.meta;
-        resolve(json);
+      (json: Packet<ChangeRegionData>): void => {
+        SessionStorage.meta = json.meta
+        resolve(json)
 
         if (json.result !== "success") {
-          $.flavrNotif(json.data);
-          return;
+          $.flavrNotif(json.data)
+          return
         }
 
-        currentRegion = json.data.currentRegion;
+        currentRegion = json.data.currentRegion
 
         pendingTreasureHuntLocation =
-          typeof json.data.pendingTreasureHuntLocation == "undefined"
+          typeof json.data.pendingTreasureHuntLocation === "undefined"
             ? null
-            : json.data.pendingTreasureHuntLocation;
+            : json.data.pendingTreasureHuntLocation
 
         timeLeftExploration =
-          typeof json.data.timeLeftExploration == "undefined"
+          typeof json.data.timeLeftExploration === "undefined"
             ? null
-            : json.data.timeLeftExploration;
+            : json.data.timeLeftExploration
       }
-    );
-  });
+    )
+  })
 }

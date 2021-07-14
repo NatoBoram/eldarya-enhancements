@@ -1,4 +1,4 @@
-import type { CarouselNews } from "../templates/interfaces/carousel_news";
+import type { CarouselNews } from "../templates/interfaces/carousel_news"
 
 export const carouselEE: CarouselNews = {
   backgroundImage:
@@ -7,4 +7,4 @@ export const carouselEE: CarouselNews = {
   href: "https://gitlab.com/NatoBoram/eldarya-enhancements",
   id: "carousel-eldarya-enhancements",
   p: "Enhances the user experience of Eldarya.",
-};
+}

@@ -1,4 +1,4 @@
-import type { Minigame } from "./minigame";
+import type { Minigame } from "./minigame"
 
 export const hatchlings: Minigame = {
   name: "Hatchlings",
@@ -7,4 +7,4 @@ export const hatchlings: Minigame = {
   delayMin: 30_000,
   delayMax: 30_000,
   buttonSelector: '.minigame-start [href="/minigames/cocooninpick"] .nl-button',
-};
+}
