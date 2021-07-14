@@ -1,9 +1,7 @@
 import type { Template } from "hogan.js"
 import { LocalStorage } from "../local_storage/local_storage"
-import type { BuyNowPrice } from "../marketplace/interfaces/buy_now_price"
-import type { CurrentPrice } from "../marketplace/interfaces/current_price"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
-import type { MarketEntryDataSet } from "../marketplace/interfaces/market_entry_data_set"
+import { getItemDetails } from "../marketplace/marketplace_handlers"
 
 let marketObserver: MutationObserver | null
 
@@ -44,29 +42,6 @@ function loadWishlist(): void {
         childList: true,
       })
     })
-  }
-}
-
-function getItemDetails(li: HTMLLIElement): MarketEntry | null {
-  const name = li.querySelector<HTMLDivElement>(".abstract-name")?.innerText
-  const src = li.querySelector<HTMLImageElement>(".abstract-icon img")?.src
-
-  const currentPrice = li.querySelector<HTMLImageElement>(
-    ".price-item[data-bids]"
-  )?.dataset as unknown as CurrentPrice
-
-  const buyNowPrice = li.querySelector<HTMLImageElement>(
-    ".price-item:not([data-bids])"
-  )?.dataset as unknown as BuyNowPrice
-
-  if (!src || !name) return null
-
-  return {
-    ...(li.dataset as unknown as MarketEntryDataSet),
-    icon: src,
-    name,
-    buyNowPrice,
-    currentPrice,
   }
 }
 

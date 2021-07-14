@@ -10,8 +10,13 @@ class WaitAction extends Action {
   }
 
   async perform(): Promise<boolean> {
-    Console.log(`Waiting for ${Math.ceil(3.6e6 / 1000)} seconds...`)
-    return new Promise(resolve => setTimeout(resolve, 3.6e6))
+    Console.log(`Waiting for 10 minutes...`)
+
+    return new Promise<boolean>(resolve =>
+      setTimeout(() => {
+        resolve(false)
+      }, 10 * 60 * 1000)
+    )
   }
 }
 

@@ -5,6 +5,6 @@ import type { MarketEntryDataSet } from "./market_entry_data_set"
 export interface MarketEntry extends MarketEntryDataSet {
   icon: string
   name: string
-  buyNowPrice: BuyNowPrice
-  currentPrice?: CurrentPrice
+  currentPrice: CurrentPrice
+  buyNowPrice?: BuyNowPrice
 }
