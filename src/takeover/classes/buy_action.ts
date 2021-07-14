@@ -12,6 +12,13 @@ import { Action } from "./action"
 class BuyAction extends Action {
   readonly key = TakeoverAction.buy
 
+  private get currentMaana(): number {
+    return Number(
+      document.querySelector<HTMLAnchorElement>("#currency-maana")?.dataset
+        .maana
+    )
+  }
+
   condition(): boolean {
     return LocalStorage.market && Boolean(LocalStorage.wishlist.length)
   }
@@ -41,11 +48,26 @@ class BuyAction extends Action {
           result =>
             result.icon === wished.icon &&
             result.buyNowPrice &&
-            Number(result.buyNowPrice.price) <= wished.price
+            Number(result.buyNowPrice.price) <= wished.price &&
+            Number(result.buyNowPrice.price) <= this.currentMaana
         )
         for (const result of wanted) {
           if (!(await this.buy(result))) break forpage
-          Console.info(`Bought "${result.name}"`, result)
+
+          Console.info(
+            `Bought "${result.name}" for ${Number(
+              result.buyNowPrice?.price
+            )} maanas.`,
+            result
+          )
+
+          $.flavrNotif(
+            `Bought <strong>${
+              result.name
+            }</strong> for <strong class="price-item">${Number(
+              result.buyNowPrice?.price
+            )}</strong> <span class="maana-icon" alt="maanas"></span>.`
+          )
         }
       }
     }

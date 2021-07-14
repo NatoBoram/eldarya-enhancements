@@ -117,7 +117,7 @@ async function getPrizes(
 
           if (json.result === "success")
             $.flavrNotif(
-              `Played <strong>${minigame.name}</strong> for <strong class="price-item">${json.data.maana}</strong> <span class="maana-icon"></span>.`
+              `Played <strong>${minigame.name}</strong> for <strong class="price-item">${json.data.maana}</strong> <span class="maana-icon" alt="maanas"></span>.`
             )
           else $.flavrNotif(json.data)
         },
