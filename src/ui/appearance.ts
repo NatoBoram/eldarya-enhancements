@@ -1,5 +1,6 @@
 import type { Template } from "hogan.js"
 import { exportPreview, importOutfit } from "../appearance/favorites_actions"
+import { downloadAppearance } from "../download-canvas"
 import type { FavoritesAction } from "../templates/interfaces/favorites_action"
 
 let observer: MutationObserver | null
@@ -24,23 +25,36 @@ function loadFavoritesActions(): void {
   if (!actions || document.querySelector(".favorites-action-ee")) return
 
   const actionTemplate: Template = require("../templates/html/favorites_action.html")
-  const exportAction: FavoritesAction = {
-    id: "export-outfit",
-    text: "Export",
-  }
+
   const importAction: FavoritesAction = {
     id: "import-outfit",
     text: "Import",
   }
+  const exportAction: FavoritesAction = {
+    id: "export-outfit",
+    text: "Export",
+  }
+  const downloadAction: FavoritesAction = {
+    id: "download-outfit",
+    text: "Download",
+  }
 
-  actions.insertAdjacentHTML("beforeend", actionTemplate.render(exportAction))
-  actions.insertAdjacentHTML("beforeend", actionTemplate.render(importAction))
+  actions.insertAdjacentHTML(
+    "beforeend",
+    actionTemplate.render(importAction) +
+      actionTemplate.render(exportAction) +
+      actionTemplate.render(downloadAction)
+  )
+
+  document
+    .getElementById(importAction.id)
+    ?.addEventListener("click", importOutfit)
 
   document
     .getElementById(exportAction.id)
     ?.addEventListener("click", exportPreview)
 
   document
-    .getElementById(importAction.id)
-    ?.addEventListener("click", importOutfit)
+    .getElementById(downloadAction.id)
+    ?.addEventListener("click", downloadAppearance)
 }

@@ -39,5 +39,24 @@ export function downloadGuardian(): void {
     return
   }
 
-  downloadCanvas(canvas, "guardian")
+  downloadCanvas(canvas, getName() ?? "guardian")
+}
+
+export function downloadAppearance(): void {
+  const canvas = document.querySelector<HTMLCanvasElement>(
+    "#appearance-preview canvas"
+  )
+  if (!canvas) {
+    console.warn("Couldn't find the guardian.")
+    return
+  }
+
+  downloadCanvas(canvas, getName() ?? "guardian")
+}
+
+function getName(): string | null {
+  return (
+    document.querySelector("#avatar-menu-container-outer>p")?.textContent ??
+    null
+  )
 }
