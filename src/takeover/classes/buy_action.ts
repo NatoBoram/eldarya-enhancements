@@ -32,7 +32,7 @@ class BuyAction extends Action {
       Console.info(`Searching for "${wished.name}"`, wished)
 
       let amount = 8
-      for (let page = 1; amount === 8; page++) {
+      forpage: for (let page = 1; amount === 8; page++) {
         const results = await this.search(wished, page)
         amount = results.length
         Console.log(`Found ${amount} results`, results)
@@ -44,7 +44,7 @@ class BuyAction extends Action {
             Number(result.buyNowPrice.price) <= wished.price
         )
         for (const result of wanted) {
-          if (!(await this.buy(result))) break
+          if (!(await this.buy(result))) break forpage
           Console.info(`Bought "${result.name}"`, result)
         }
       }
