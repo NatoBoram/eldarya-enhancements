@@ -33,6 +33,7 @@ function loadUI(): void {
 new MutationObserver(load).observe(<Node>document.getElementById("container"), {
   childList: true,
 })
-load()
 
+loadUI()
 console.log("Eldarya Enhancements loaded.")
+loadTakeover()
