@@ -3,6 +3,7 @@ import { changeRegion } from "../../ajax/change_region"
 import { explorationResults } from "../../ajax/exploration_results"
 import { Result } from "../../api/result.enum"
 import { Console } from "../../console"
+import { DurationUnit } from "../../duration"
 import type { MapRegion, Season } from "../../eldarya/current_region"
 import type { PendingTreasureHuntLocation } from "../../eldarya/treasure"
 import type { AutoExploreLocation } from "../../local_storage/auto_explore_location"
@@ -220,9 +221,9 @@ class ExplorationAction extends Action {
       ?.click()
 
     let ms = 800
-    if (selected) ms += selected.location.timeToExplore * 60 * 1000
+    if (selected) ms += selected.location.timeToExplore * DurationUnit.minute
     else if (timeLeftExploration && timeLeftExploration > 0)
-      ms += timeLeftExploration * 1000
+      ms += timeLeftExploration * DurationUnit.second
     else if (
       !pendingTreasureHuntLocation &&
       document.querySelector("#map-container.pending")
@@ -235,14 +236,14 @@ class ExplorationAction extends Action {
           result => result.type === "capture"
         )
 
-        if (ms > 10 * 60 * 1000) return false
+        if (ms > 10 * DurationUnit.minute) return false
 
         // Capture is in another region
         if (capture?.timeRestCapture) {
-          ms += capture.timeRestCapture * 1000
+          ms += capture.timeRestCapture * DurationUnit.second
           Console.log(
             `Waiting for the capture to fail in ${Math.ceil(
-              ms / 1000
+              ms / DurationUnit.second
             )} seconds...`,
             this.globals
           )
@@ -257,16 +258,19 @@ class ExplorationAction extends Action {
         "Reloading because the exploration is in another region.",
         this.globals
       )
-      await new Promise<void>(resolve => setTimeout(resolve, 10 * 60 * 1000))
+      await new Promise<void>(resolve =>
+        setTimeout(resolve, 10 * DurationUnit.minute)
+      )
       location.reload()
       return true
     }
 
-    if (ms > 10 * 60 * 1000) return false
+    if (ms > 10 * DurationUnit.minute) return false
+    ms += 10 * DurationUnit.second
 
     Console.log(
       `Waiting for the exploration to end in ${Math.ceil(
-        ms / 1000
+        ms / DurationUnit.second
       )} seconds...`,
       this.globals
     )
