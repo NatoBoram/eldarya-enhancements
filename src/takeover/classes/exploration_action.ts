@@ -41,11 +41,10 @@ class ExplorationAction extends Action {
     }
 
     switch (this.getExplorationStatus()) {
-      case ExplorationStatus.idle: {
+      case ExplorationStatus.idle:
         if (!(await this.startExploration()).selected)
           SessionStorage.explorationsDone = true
         return false
-      }
 
       case ExplorationStatus.pending:
         return (await this.waitExploration()) && this.perform()
@@ -220,7 +219,7 @@ class ExplorationAction extends Action {
       )
       ?.click()
 
-    let ms = 800
+    let ms = 3 * DurationUnit.second
     if (selected) ms += selected.location.timeToExplore * DurationUnit.minute
     else if (timeLeftExploration && timeLeftExploration > 0)
       ms += timeLeftExploration * DurationUnit.second
@@ -229,28 +228,13 @@ class ExplorationAction extends Action {
       document.querySelector("#map-container.pending")
     ) {
       const json = await explorationResults()
+      if (json.result !== Result.success) return false
 
-      // Exploration is in another region
-      if (json.result === Result.success) {
-        const capture = json.data.results.find(
-          result => result.type === "capture"
-        )
-
-        if (ms > 10 * DurationUnit.minute) return false
-
-        // Capture is in another region
-        if (capture?.timeRestCapture) {
-          ms += capture.timeRestCapture * DurationUnit.second
-          Console.log(
-            `Waiting for the capture to fail in ${Math.ceil(
-              ms / DurationUnit.second
-            )} seconds...`,
-            this.globals
-          )
-          await new Promise<void>(resolve => setTimeout(resolve, ms))
-          await captureEnd()
-        }
-      }
+      const capture = json.data.results.find(
+        result => result.type === "capture"
+      )
+      if (!capture) return false
+      await captureEnd()
 
       // Reloading is the only possible action if the exploration finished in a
       // different region.
@@ -258,15 +242,12 @@ class ExplorationAction extends Action {
         "Reloading because the exploration is in another region.",
         this.globals
       )
-      await new Promise<void>(resolve =>
-        setTimeout(resolve, 10 * DurationUnit.minute)
-      )
+      await new Promise(resolve => setTimeout(resolve, DurationUnit.minute))
       location.reload()
       return true
     }
 
     if (ms > 10 * DurationUnit.minute) return false
-    ms += 10 * DurationUnit.second
 
     Console.log(
       `Waiting for the exploration to end in ${Math.ceil(
@@ -274,18 +255,19 @@ class ExplorationAction extends Action {
       )} seconds...`,
       this.globals
     )
-    await new Promise<void>(resolve => setTimeout(resolve, ms))
+    await new Promise(resolve => setTimeout(resolve, ms))
     await changeRegion(Number(selected?.region.id ?? currentRegion.id))
 
     if (
-      document.querySelector("#pending-map-location-data-outer.active") &&
-      ((timeLeftExploration && timeLeftExploration < 0) ||
-        (!pendingTreasureHuntLocation && !timeLeftExploration))
+      this.getExplorationStatus() === ExplorationStatus.pending &&
+      timeLeftExploration &&
+      timeLeftExploration < 0
     ) {
       Console.info(
         "Reloading because the timer is desynchronised.",
         this.globals
       )
+      await new Promise(resolve => setTimeout(resolve, DurationUnit.second))
       location.reload()
     }
 
