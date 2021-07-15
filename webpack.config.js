@@ -3,6 +3,10 @@ const path = require("path")
 module.exports = {
   entry: "./src/main.ts",
   devtool: "inline-source-map",
+  performance: {
+    maxAssetSize: 300 * 1024,
+    maxEntrypointSize: 300 * 1024,
+  },
   module: {
     rules: [
       { test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/ },
