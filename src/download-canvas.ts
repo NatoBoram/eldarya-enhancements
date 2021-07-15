@@ -1,43 +1,62 @@
 function downloadCanvas(canvas: HTMLCanvasElement, name: string): void {
   // Make it an image
-  const image = canvas.toDataURL("image/png");
+  const image = canvas.toDataURL("image/png")
 
   // Create a link
-  const a = document.createElement("a");
-  a.setAttribute("href", image);
-  a.setAttribute("download", `${name}.png`);
+  const a = document.createElement("a")
+  a.setAttribute("href", image)
+  a.setAttribute("download", `${name}.png`)
 
   // Place it on the body
-  a.style.display = "none";
-  document.body.appendChild(a);
+  a.style.display = "none"
+  document.body.appendChild(a)
 
   // Start the download
-  a.click();
+  a.click()
 
   // Remove the link
-  document.body.removeChild(a);
+  document.body.removeChild(a)
 }
 
 export function downloadFace(): void {
   const canvas = document.querySelector<HTMLCanvasElement>(
     "#avatar-menu-container canvas"
-  );
+  )
   if (!canvas) {
-    console.warn("Couldn't find the guardian's face.");
-    return;
+    console.warn("Couldn't find the guardian's face.")
+    return
   }
 
-  downloadCanvas(canvas, "face");
+  downloadCanvas(canvas, "face")
 }
 
 export function downloadGuardian(): void {
   const canvas = document.querySelector<HTMLCanvasElement>(
     "#home-avatar-player canvas"
-  );
+  )
   if (!canvas) {
-    console.warn("Couldn't find the guardian.");
-    return;
+    console.warn("Couldn't find the guardian.")
+    return
   }
 
-  downloadCanvas(canvas, "guardian");
+  downloadCanvas(canvas, getName() ?? "guardian")
+}
+
+export function downloadAppearance(): void {
+  const canvas = document.querySelector<HTMLCanvasElement>(
+    "#appearance-preview canvas"
+  )
+  if (!canvas) {
+    console.warn("Couldn't find the guardian.")
+    return
+  }
+
+  downloadCanvas(canvas, getName() ?? "guardian")
+}
+
+function getName(): string | null {
+  return (
+    document.querySelector("#avatar-menu-container-outer>p")?.textContent ??
+    null
+  )
 }

@@ -1,1 +1,1 @@
-declare let isViewingGroup: boolean;
+declare let isViewingGroup: boolean

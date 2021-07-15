@@ -1,17 +1,18 @@
 {
   "[handlebars]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.rulers": []
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.rulers": []
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[powershell]": {
+    "editor.defaultFormatter": "ms-vscode.powershell"
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -28,6 +29,7 @@
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
   "editor.rulers": [80],
+  "eslint.packageManager": "pnpm",
   "files.associations": {
     "*.html": "handlebars"
   },
@@ -37,5 +39,8 @@
   "html.format.indentHandlebars": true,
   "html.format.maxPreserveNewLines": 1,
   "html.format.wrapLineLength": 80,
-  "prettier.prettierPath": "./node_modules/.bin/prettier"
+  "jshint.packageManager": "pnpm",
+  "npm.packageManager": "pnpm",
+  "prettier.prettierPath": "./node_modules/.bin/prettier",
+  "tslint.packageManager": "pnpm"
 }

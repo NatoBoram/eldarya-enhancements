@@ -1,4 +1,4 @@
-import type { Minigame } from "./minigame";
+import type { Minigame } from "./minigame"
 
 export const peggle: Minigame = {
   name: "Peggle",
@@ -7,4 +7,4 @@ export const peggle: Minigame = {
   delayMin: 10_000,
   delayMax: 20_000,
   buttonSelector: '.minigame-start [href="/minigames/gembomb"] .nl-button',
-};
+}

@@ -1,23 +1,31 @@
-include:
-  - template: Dependency-Scanning.gitlab-ci.yml
+dependency_scanning:
+  trigger:
+    include:
+      - template: Dependency-Scanning.gitlab-ci.yml
+  only:
+    - master
+    - develop
+    - tags
 
 default:
   image: node:latest
 
 before_script:
-  - npm ci
+  - curl -f https://get.pnpm.io/v6.js | node - add --global pnpm@6
+  - pnpm config set store-dir .pnpm-store
+  - pnpm install
 
 cache:
   key:
     files:
-      - package-lock.json
+      - pnpm-lock.yaml
   paths:
-    - node_modules
+    - .pnpm-store
 
 build:
   stage: build
   script:
-    - npx webpack
+    - pnpx webpack
   except:
     - master
     - develop
@@ -26,26 +34,27 @@ build:
 eslint:
   stage: test
   script:
-    - npx eslint .
+    - pnpx eslint .
 
 prettier:
   stage: test
   script:
-    - npx prettier --check .
+    - pnpx prettier --check .
 
 tsc:
   stage: test
   script:
-    - npx tsc --noEmit
+    - pnpx tsc --noEmit
 
 deploy:
   stage: deploy
   script:
-    - npx webpack
+    - ./scripts/build.sh
   only:
     - master
     - develop
     - tags
   artifacts:
     paths:
+      - dist/eldarya-enhancements.meta.js
       - dist/eldarya-enhancements.user.js

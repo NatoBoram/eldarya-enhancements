@@ -1,3 +1,6 @@
+.pnpm-store
 dist
 node_modules
-src/templates/html
+package-lock.json
+pnpm-lock.yaml
+src/templates/js

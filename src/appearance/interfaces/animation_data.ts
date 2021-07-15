@@ -1,3 +1,3 @@
 export interface AnimationData {
-  a: string[];
+  a: string[]
 }
