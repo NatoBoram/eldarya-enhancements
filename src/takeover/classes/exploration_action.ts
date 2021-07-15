@@ -41,18 +41,13 @@ class ExplorationAction extends Action {
 
     switch (this.getExplorationStatus()) {
       case ExplorationStatus.idle: {
-        const start = await this.startExploration()
-        if (start.exploring) {
-          return (await this.waitExploration(start.selected)) || this.perform()
-        } else if (!start.selected) {
+        if (!(await this.startExploration()).selected)
           SessionStorage.explorationsDone = true
-        }
-
-        return start.exploring
+        return false
       }
 
       case ExplorationStatus.pending:
-        return (await this.waitExploration()) || this.perform()
+        return (await this.waitExploration()) && this.perform()
 
       case ExplorationStatus.result:
         await this.endExploration()
@@ -211,6 +206,10 @@ class ExplorationAction extends Action {
     return { exploring: true, selected }
   }
 
+  /**
+   * Wait for up to 10 minutes.
+   * @returns whether the exploration is finished.
+   */
   private async waitExploration(
     selected?: AutoExploreLocation
   ): Promise<boolean> {
@@ -235,6 +234,8 @@ class ExplorationAction extends Action {
         const capture = json.data.results.find(
           result => result.type === "capture"
         )
+
+        if (ms > 10 * 60 * 1000) return false
 
         // Capture is in another region
         if (capture?.timeRestCapture) {
@@ -261,6 +262,8 @@ class ExplorationAction extends Action {
       return true
     }
 
+    if (ms > 10 * 60 * 1000) return false
+
     Console.log(
       `Waiting for the exploration to end in ${Math.ceil(
         ms / 1000
@@ -271,19 +274,18 @@ class ExplorationAction extends Action {
     await changeRegion(Number(selected?.region.id ?? currentRegion.id))
 
     if (
-      this.getExplorationStatus() === ExplorationStatus.pending &&
-      timeLeftExploration &&
-      timeLeftExploration < 0
+      document.querySelector("#pending-map-location-data-outer.active") &&
+      ((timeLeftExploration && timeLeftExploration < 0) ||
+        (!pendingTreasureHuntLocation && !timeLeftExploration))
     ) {
       Console.info(
         "Reloading because the timer is desynchronised.",
         this.globals
       )
       location.reload()
-      return true
     }
 
-    return false
+    return true
   }
 }
 
