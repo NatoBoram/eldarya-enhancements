@@ -1,3 +1,4 @@
+import { DurationUnit } from "./duration"
 import { loadTakeover } from "./takeover/brain"
 import { loadAppearance } from "./ui/appearance"
 import { loadCarousel } from "./ui/carousel"
@@ -27,12 +28,19 @@ function loadUI(): void {
   loadMarket()
   loadWishlist()
 
-  document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
+  setTimeout(() => {
+    document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
+  }, DurationUnit.second)
 }
+
+window.addEventListener("load", () => {
+  document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
+})
 
 new MutationObserver(load).observe(<Node>document.getElementById("container"), {
   childList: true,
 })
-load()
 
+loadUI()
 console.log("Eldarya Enhancements loaded.")
+loadTakeover()

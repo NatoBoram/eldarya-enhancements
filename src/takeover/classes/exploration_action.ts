@@ -3,6 +3,7 @@ import { changeRegion } from "../../ajax/change_region"
 import { explorationResults } from "../../ajax/exploration_results"
 import { Result } from "../../api/result.enum"
 import { Console } from "../../console"
+import { DurationUnit } from "../../duration"
 import type { MapRegion, Season } from "../../eldarya/current_region"
 import type { PendingTreasureHuntLocation } from "../../eldarya/treasure"
 import type { AutoExploreLocation } from "../../local_storage/auto_explore_location"
@@ -40,19 +41,13 @@ class ExplorationAction extends Action {
     }
 
     switch (this.getExplorationStatus()) {
-      case ExplorationStatus.idle: {
-        const start = await this.startExploration()
-        if (start.exploring) {
-          return (await this.waitExploration(start.selected)) || this.perform()
-        } else if (!start.selected) {
+      case ExplorationStatus.idle:
+        if (!(await this.startExploration()).selected)
           SessionStorage.explorationsDone = true
-        }
-
-        return start.exploring
-      }
+        return false
 
       case ExplorationStatus.pending:
-        return (await this.waitExploration()) || this.perform()
+        return (await this.waitExploration()) && this.perform()
 
       case ExplorationStatus.result:
         await this.endExploration()
@@ -211,6 +206,10 @@ class ExplorationAction extends Action {
     return { exploring: true, selected }
   }
 
+  /**
+   * Wait for up to 10 minutes.
+   * @returns whether the exploration is finished.
+   */
   private async waitExploration(
     selected?: AutoExploreLocation
   ): Promise<boolean> {
@@ -220,35 +219,22 @@ class ExplorationAction extends Action {
       )
       ?.click()
 
-    let ms = 800
-    if (selected) ms += selected.location.timeToExplore * 60 * 1000
+    let ms = 3 * DurationUnit.second
+    if (selected) ms += selected.location.timeToExplore * DurationUnit.minute
     else if (timeLeftExploration && timeLeftExploration > 0)
-      ms += timeLeftExploration * 1000
+      ms += timeLeftExploration * DurationUnit.second
     else if (
       !pendingTreasureHuntLocation &&
       document.querySelector("#map-container.pending")
     ) {
       const json = await explorationResults()
+      if (json.result !== Result.success) return false
 
-      // Exploration is in another region
-      if (json.result === Result.success) {
-        const capture = json.data.results.find(
-          result => result.type === "capture"
-        )
-
-        // Capture is in another region
-        if (capture?.timeRestCapture) {
-          ms += capture.timeRestCapture * 1000
-          Console.log(
-            `Waiting for the capture to fail in ${Math.ceil(
-              ms / 1000
-            )} seconds...`,
-            this.globals
-          )
-          await new Promise<void>(resolve => setTimeout(resolve, ms))
-          await captureEnd()
-        }
-      }
+      const capture = json.data.results.find(
+        result => result.type === "capture"
+      )
+      if (!capture) return false
+      await captureEnd()
 
       // Reloading is the only possible action if the exploration finished in a
       // different region.
@@ -256,18 +242,20 @@ class ExplorationAction extends Action {
         "Reloading because the exploration is in another region.",
         this.globals
       )
-      await new Promise<void>(resolve => setTimeout(resolve, 10 * 60 * 1000))
+      await new Promise(resolve => setTimeout(resolve, DurationUnit.minute))
       location.reload()
       return true
     }
 
+    if (ms > 10 * DurationUnit.minute) return false
+
     Console.log(
       `Waiting for the exploration to end in ${Math.ceil(
-        ms / 1000
+        ms / DurationUnit.second
       )} seconds...`,
       this.globals
     )
-    await new Promise<void>(resolve => setTimeout(resolve, ms))
+    await new Promise(resolve => setTimeout(resolve, ms))
     await changeRegion(Number(selected?.region.id ?? currentRegion.id))
 
     if (
@@ -279,11 +267,11 @@ class ExplorationAction extends Action {
         "Reloading because the timer is desynchronised.",
         this.globals
       )
+      await new Promise(resolve => setTimeout(resolve, DurationUnit.second))
       location.reload()
-      return true
     }
 
-    return false
+    return true
   }
 }
 
