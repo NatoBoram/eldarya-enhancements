@@ -64,9 +64,11 @@ export class LocalStorage {
 
   static set settings(settings: Settings) {
     this.autoExploreLocations = settings.autoExploreLocations
+    this.debug = settings.debug
     this.explorations = settings.explorations
     this.market = settings.market
     this.minigames = settings.minigames
+    this.wishlist = settings.wishlist
   }
 
   static get wishlist(): WishedItem[] {
