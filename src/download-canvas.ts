@@ -54,7 +54,7 @@ export function downloadAppearance(): void {
   downloadCanvas(canvas, getName() ?? "guardian")
 }
 
-function getName(): string | null {
+export function getName(): string | null {
   return (
     document.querySelector("#avatar-menu-container-outer>p")?.textContent ??
     null
