@@ -1,5 +1,6 @@
 import type { Template } from "hogan.js"
 import { LocalStorage } from "../local_storage/local_storage"
+import type { WishedItem } from "../local_storage/wished_item"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import { getItemDetails } from "../marketplace/marketplace_handlers"
 
@@ -88,11 +89,12 @@ function addToWishlistFlavr(marketEntry: MarketEntry): void {
           const wishlist = LocalStorage.wishlist.filter(
             wishlistEntry => wishlistEntry.icon !== marketEntry.icon
           )
-          wishlist.push({
-            ...marketEntry,
-            price,
-          })
+          const wished: WishedItem = { ...marketEntry, price }
+          wishlist.push(wished)
           LocalStorage.wishlist = wishlist
+
+          const template: Template = require("../templates/html/flavr_notif/added_to_wishlist.html")
+          $.flavrNotif(template.render(wished))
           return true
         },
       },
