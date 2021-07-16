@@ -156,6 +156,9 @@ async function changePrice(wearableitemid: string): Promise<void> {
               ...wishlist.slice(index + 1, undefined),
             ]
 
+            const template: Template = require("../templates/html/flavr_notif/changed_wishlist_price.html")
+            $.flavrNotif(template.render(entry))
+
             resolve()
             return true
           },
