@@ -1,5 +1,6 @@
 import type { Template } from "hogan.js"
 import { LocalStorage } from "../local_storage/local_storage"
+import type { WishedItem } from "../local_storage/wished_item"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import { getItemDetails } from "../marketplace/marketplace_handlers"
 
@@ -74,27 +75,7 @@ function addToWishlistFlavr(marketEntry: MarketEntry): void {
     buttons: {
       close: { style: "close" },
       save: {
-        action: () => {
-          const price = Number(
-            document
-              .querySelector<HTMLInputElement>(".flavr-prompt")
-              ?.value.trim()
-          )
-          if (!price || price <= 0) {
-            $.flavrNotif("This is not a valid price.")
-            return false
-          }
-
-          const wishlist = LocalStorage.wishlist.filter(
-            wishlistEntry => wishlistEntry.icon !== marketEntry.icon
-          )
-          wishlist.push({
-            ...marketEntry,
-            price,
-          })
-          LocalStorage.wishlist = wishlist
-          return true
-        },
+        action: () => save(marketEntry),
       },
     },
     dialog: "prompt",
@@ -103,6 +84,34 @@ function addToWishlistFlavr(marketEntry: MarketEntry): void {
     },
     onBuild: $container => {
       $container.addClass("new-layout-popup")
+
+      document
+        .querySelector<HTMLInputElement>(".flavr-prompt")
+        ?.addEventListener("keyup", ({ key }) => {
+          if (key !== "Enter") return
+          save(marketEntry)
+        })
     },
   })
+}
+
+function save(marketEntry: MarketEntry): boolean {
+  const price = Number(
+    document.querySelector<HTMLInputElement>(".flavr-prompt")?.value.trim()
+  )
+  if (!price || price <= 0) {
+    $.flavrNotif("This is not a valid price.")
+    return false
+  }
+
+  const wishlist = LocalStorage.wishlist.filter(
+    wishlistEntry => wishlistEntry.icon !== marketEntry.icon
+  )
+  const wished: WishedItem = { ...marketEntry, price }
+  wishlist.push(wished)
+  LocalStorage.wishlist = wishlist
+
+  const template: Template = require("../templates/html/flavr_notif/added_to_wishlist.html")
+  $.flavrNotif(template.render(wished))
+  return true
 }

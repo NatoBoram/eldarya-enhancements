@@ -2,6 +2,7 @@ import { DurationUnit } from "./duration"
 import { loadTakeover } from "./takeover/brain"
 import { loadAppearance } from "./ui/appearance"
 import { loadCarousel } from "./ui/carousel"
+import { loadHeaderTakeover } from "./ui/header_takeover"
 import { loadHomeContent } from "./ui/home_content"
 import { loadMarket } from "./ui/market"
 import { loadMenu } from "./ui/menu"
@@ -27,6 +28,7 @@ function loadUI(): void {
   loadPet()
   loadMarket()
   loadWishlist()
+  loadHeaderTakeover()
 
   setTimeout(() => {
     document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
@@ -42,5 +44,5 @@ new MutationObserver(load).observe(<Node>document.getElementById("container"), {
 })
 
 loadUI()
-console.log("Eldarya Enhancements loaded.")
+console.log(`${GM.info.script.name} v${GM.info.script.version} loaded.`)
 loadTakeover()
