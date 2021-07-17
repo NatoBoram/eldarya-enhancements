@@ -44,5 +44,5 @@ new MutationObserver(load).observe(<Node>document.getElementById("container"), {
 })
 
 loadUI()
-console.log("Eldarya Enhancements loaded.")
+console.log(`Eldarya Enhancements v${GM.info.script.version} loaded.`)
 loadTakeover()
