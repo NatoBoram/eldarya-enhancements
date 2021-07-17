@@ -138,35 +138,49 @@ async function changePrice(wearableitemid: string): Promise<void> {
           },
         },
         save: {
-          action: () => {
-            const price = Number(
-              document
-                .querySelector<HTMLInputElement>(".flavr-prompt")
-                ?.value.trim()
-            )
-            if (!price || price <= 0) {
-              $.flavrNotif("This is not a valid price.")
-              return false
-            }
-
-            entry.price = price
-            LocalStorage.wishlist = [
-              ...wishlist.slice(undefined, index),
-              entry,
-              ...wishlist.slice(index + 1, undefined),
-            ]
-
-            const template: Template = require("../templates/html/flavr_notif/changed_wishlist_price.html")
-            $.flavrNotif(template.render(entry))
-
-            resolve()
-            return true
-          },
+          action: () => save(wearableitemid, resolve),
         },
       },
       onBuild: $container => {
         $container.addClass("new-layout-popup")
+
+        document
+          .querySelector<HTMLInputElement>(".flavr-prompt")
+          ?.addEventListener("keyup", ({ key }) => {
+            if (key !== "Enter") return
+            save(wearableitemid, resolve)
+          })
       },
     })
   })
+}
+
+function save(wearableitemid: string, resolve: () => void): boolean {
+  const wishlist = LocalStorage.wishlist
+  const index = wishlist.findIndex(
+    item => item.wearableitemid === wearableitemid
+  )
+  const entry = wishlist[index]
+  if (!entry) return false
+
+  const price = Number(
+    document.querySelector<HTMLInputElement>(".flavr-prompt")?.value.trim()
+  )
+  if (!price || price <= 0) {
+    $.flavrNotif("This is not a valid price.")
+    return false
+  }
+
+  entry.price = price
+  LocalStorage.wishlist = [
+    ...wishlist.slice(undefined, index),
+    entry,
+    ...wishlist.slice(index + 1, undefined),
+  ]
+
+  const template: Template = require("../templates/html/flavr_notif/changed_wishlist_price.html")
+  $.flavrNotif(template.render(entry))
+
+  resolve()
+  return true
 }
