@@ -1,3 +1,4 @@
+import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import type { Settings } from "../templates/interfaces/settings"
 import type { AutoExploreLocation } from "./auto_explore_location"
 import { LocalStorageKey } from "./local_storage.enum"
@@ -49,6 +50,14 @@ export class LocalStorage {
 
   static set minigames(enabled: boolean) {
     this.setItem(LocalStorageKey.minigames, enabled)
+  }
+
+  static get purchases(): MarketEntry[] {
+    return this.getItem<MarketEntry[]>(LocalStorageKey.purchases, [])
+  }
+
+  static set purchases(entry: MarketEntry[]) {
+    this.setItem(LocalStorageKey.purchases, entry)
   }
 
   static get settings(): Settings {

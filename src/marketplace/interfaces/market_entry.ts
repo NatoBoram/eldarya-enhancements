@@ -7,4 +7,5 @@ export interface MarketEntry extends MarketEntryDataSet {
   name: string
   currentPrice: CurrentPrice
   buyNowPrice?: BuyNowPrice
+  date: Date | string
 }

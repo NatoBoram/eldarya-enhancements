@@ -1,6 +1,7 @@
 import { DurationUnit } from "./duration"
 import { loadTakeover } from "./takeover/brain"
 import { loadAppearance } from "./ui/appearance"
+import { loadAuctions } from "./ui/auctions"
 import { loadCarousel } from "./ui/carousel"
 import { loadHeaderTakeover } from "./ui/header_takeover"
 import { loadHomeContent } from "./ui/home_content"
@@ -29,6 +30,7 @@ function loadUI(): void {
   loadMarket()
   loadWishlist()
   loadHeaderTakeover()
+  loadAuctions()
 
   setTimeout(() => {
     document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
