@@ -1,7 +1,7 @@
 import { Console } from "../console"
 import { SessionStorage } from "../session_storage/session_storage"
 import type { TakeoverAction } from "../session_storage/takeover_action.enum"
-import { loadHeaderTakeover } from "../ui/header_takeover"
+import { loadTopBar } from "../ui/top_bar"
 import type { Action } from "./classes/action"
 import buyAction from "./classes/buy_action"
 import dailyAction from "./classes/daily_action"
@@ -19,7 +19,7 @@ export function toggleTakeover(): void {
   resetTakeover()
   SessionStorage.takeover = !SessionStorage.takeover
 
-  loadHeaderTakeover()
+  loadTopBar()
   if (SessionStorage.takeover)
     $.flavrNotif("Takeover mode enabled. Please do not interact with this tab.")
   else $.flavrNotif("Takeover mode disabled.")
