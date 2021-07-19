@@ -24,6 +24,7 @@
   "rules": {
     // ESLint
     "eqeqeq": "error",
+    "semi": "off",
     // Prettier
     "prettier/prettier": "off",
     // TypeScript ESLint
@@ -70,6 +71,7 @@
     "@typescript-eslint/prefer-string-starts-ends-with": "error",
     "@typescript-eslint/prefer-ts-expect-error": "error",
     "@typescript-eslint/promise-function-async": "error",
+    "@typescript-eslint/semi": ["error", "never"],
     "@typescript-eslint/sort-type-union-intersection-members": "error",
     "@typescript-eslint/switch-exhaustiveness-check": "error",
     "@typescript-eslint/type-annotation-spacing": "error",

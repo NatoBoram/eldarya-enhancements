@@ -1,4 +1,5 @@
 import { DurationUnit } from "./duration"
+import { migrate } from "./migrate"
 import { loadTakeover } from "./takeover/brain"
 import { loadAppearance } from "./ui/appearance"
 import { loadAuctions } from "./ui/auctions"
@@ -9,6 +10,7 @@ import { loadMarket } from "./ui/market"
 import { loadMenu } from "./ui/menu"
 import { loadPet } from "./ui/pet"
 import { loadProfile } from "./ui/profile"
+import { loadSell } from "./ui/sell"
 import { loadSettings } from "./ui/settings"
 import { loadWishlist } from "./ui/wishlist"
 
@@ -31,6 +33,7 @@ function loadUI(): void {
   loadWishlist()
   loadHeaderTakeover()
   loadAuctions()
+  loadSell()
 
   setTimeout(() => {
     document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
@@ -44,6 +47,8 @@ window.addEventListener("load", () => {
 new MutationObserver(load).observe(<Node>document.getElementById("container"), {
   childList: true,
 })
+
+migrate()
 
 loadUI()
 console.log(`${GM.info.script.name} v${GM.info.script.version} loaded.`)

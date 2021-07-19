@@ -108,14 +108,11 @@
 
 <!-- Sales -->
 <div class="marketplace-abstract" id="sale-history">
-  <h2 class="section-subtitle">Sale history</h2>
+  <h2 class="section-subtitle">Sales history</h2>
 
   <ul class="marketplace-sales-items">
     {{#sales}}
-    <li
-      data-itemid="{{itemid}}"
-      class="marketplace-abstract marketplace-sales-item"
-    >
+    <li class="marketplace-abstract marketplace-sales-item">
       <!-- Icon -->
       <div class="abstract-icon">
         <img src="{{icon}}" />
@@ -127,12 +124,12 @@
         <div class="abstract-content">
           <div class="abstract-currentPrice">
             {{#currentPrice}} Current price :
-            <span class="price-item">{{currentPrice.price}}</span>
+            <span class="price-item">{{currentPrice}}</span>
             <span class="maana-icon"></span>
             {{/currentPrice}}
             <br />
             {{#buyNowPrice}} Buy now price :
-            <span class="price-item">{{buyNowPrice.price}}</span>
+            <span class="price-item">{{buyNowPrice}}</span>
             <span class="maana-icon"></span>
             {{/buyNowPrice}}
           </div>
@@ -148,7 +145,6 @@
             marketplace-itemDetail-cancel
             delete-button
           "
-          data-itemid="{{itemid}}"
         >
           Delete
         </div>

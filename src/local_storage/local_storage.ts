@@ -2,6 +2,7 @@ import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import type { Settings } from "../templates/interfaces/settings"
 import type { AutoExploreLocation } from "./auto_explore_location"
 import { LocalStorageKey } from "./local_storage.enum"
+import type { Sale } from "./sale"
 import type { WishedItem } from "./wished_item"
 
 export class LocalStorage {
@@ -60,6 +61,14 @@ export class LocalStorage {
     this.setItem(LocalStorageKey.purchases, entry)
   }
 
+  static get sales(): Sale[] {
+    return this.getItem<Sale[]>(LocalStorageKey.sales, [])
+  }
+
+  static set sales(sale: Sale[]) {
+    this.setItem(LocalStorageKey.sales, sale)
+  }
+
   static get settings(): Settings {
     return {
       autoExploreLocations: this.autoExploreLocations,
@@ -78,6 +87,14 @@ export class LocalStorage {
     this.market = settings.market
     this.minigames = settings.minigames
     this.wishlist = settings.wishlist
+  }
+
+  static get version(): string {
+    return this.getItem<string>(LocalStorageKey.version, "")
+  }
+
+  static set version(version: string) {
+    this.setItem(LocalStorageKey.version, version)
   }
 
   static get wishlist(): WishedItem[] {

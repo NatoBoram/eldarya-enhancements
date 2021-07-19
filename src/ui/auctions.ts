@@ -35,7 +35,16 @@ function loadHistory(marketplaceActiveAuctions: HTMLDivElement): void {
         minute: "2-digit",
       }).format(new Date(purchase.date)),
     })),
-    sales: [],
+    sales: LocalStorage.sales.map(sale => ({
+      ...sale,
+      date: new Intl.DateTimeFormat("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }).format(new Date(sale.date)),
+    })),
   }
 
   marketplaceActiveAuctions.insertAdjacentHTML(
@@ -51,6 +60,17 @@ function loadHistory(marketplaceActiveAuctions: HTMLDivElement): void {
       LocalStorage.purchases = LocalStorage.purchases.filter(
         purchase => purchase.itemid !== itemid
       )
+
+      loadHistory(marketplaceActiveAuctions)
+    })
+  }
+
+  for (const sale of document.querySelectorAll<HTMLLIElement>(
+    "#sale-history .marketplace-sales-item"
+  )) {
+    const icon = sale.querySelector<HTMLImageElement>(".abstract-icon img")?.src
+    sale.querySelector(".delete-button")?.addEventListener("click", () => {
+      LocalStorage.sales = LocalStorage.sales.filter(sale => sale.icon !== icon)
 
       loadHistory(marketplaceActiveAuctions)
     })
