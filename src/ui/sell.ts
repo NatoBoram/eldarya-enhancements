@@ -58,7 +58,6 @@ function handleSellButton(
     if (!currentPrice || !buyNowPrice) return
 
     LocalStorage.sales = [
-      ...LocalStorage.sales,
       {
         ...dataItem,
         currentPrice: Number(currentPrice),
@@ -66,6 +65,7 @@ function handleSellButton(
         icon,
         date: new Date(),
       },
+      ...LocalStorage.sales,
     ]
   })
 }

@@ -133,9 +133,9 @@ function hijackBuyButtons(marketEntry: MarketEntry): void {
 
 function addPurchase(marketEntry: MarketEntry): void {
   LocalStorage.purchases = [
+    marketEntry,
     ...LocalStorage.purchases.filter(
       purchase => purchase.itemid !== marketEntry.itemid
     ),
-    marketEntry,
   ]
 }

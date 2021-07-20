@@ -55,10 +55,10 @@ class BuyAction extends Action {
           if (!(await this.buy(result))) break forpage
 
           LocalStorage.purchases = [
+            result,
             ...LocalStorage.purchases.filter(
               purchase => purchase.itemid !== result.itemid
             ),
-            result,
           ]
 
           Console.info(
