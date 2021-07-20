@@ -7,7 +7,8 @@ export function loadTopBar(): void {
   if (!headerRight) return
 
   const headerTakeover = headerRight.querySelector("#header-takeover")
-  headerTakeover?.remove()
+  if (headerTakeover) headerTakeover.remove()
+  else loadLinks()
 
   const template: Template = require("../templates/html/header_takeover.html")
   headerRight.insertAdjacentHTML(
@@ -18,4 +19,12 @@ export function loadTopBar(): void {
   headerRight
     .querySelector("#header-takeover")
     ?.addEventListener("click", toggleTakeover)
+}
+
+function loadLinks(): void {
+  for (const id of ["header-profile", "avatar-menu-container-outer"]) {
+    document.getElementById(id)?.addEventListener("click", () => {
+      pageLoad("/player/profile")
+    })
+  }
 }

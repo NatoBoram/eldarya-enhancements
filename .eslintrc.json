@@ -46,7 +46,10 @@
     ],
     "@typescript-eslint/method-signature-style": "error",
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
-    "@typescript-eslint/no-confusing-void-expression": "error",
+    "@typescript-eslint/no-confusing-void-expression": [
+      "error",
+      { "ignoreArrowShorthand": true, "ignoreVoidOperator": true }
+    ],
     "@typescript-eslint/no-dynamic-delete": "error",
     "@typescript-eslint/no-empty-function": [
       "error",
