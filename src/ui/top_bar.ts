@@ -22,9 +22,22 @@ export function loadTopBar(): void {
 }
 
 function loadLinks(): void {
-  for (const id of ["header-profile", "avatar-menu-container-outer"]) {
-    document.getElementById(id)?.addEventListener("click", () => {
-      pageLoad("/player/profile")
-    })
+  document
+    .getElementById("avatar-menu-container-outer")
+    ?.addEventListener("click", () => pageLoad("/player/profile"))
+
+  const headerProfile = document.getElementById("header-profile")?.firstChild
+  if (headerProfile?.textContent) {
+    const a = document.createElement("a")
+    a.href = "/player/profile"
+    a.style.color = "var(--text-color)"
+    a.style.fontFamily = '"Alegreya Sans", sans-serif'
+    a.style.fontWeight = "unset"
+    a.textContent = headerProfile.textContent.trim()
+
+    const p = document.createElement("p")
+    p.insertAdjacentElement("beforeend", a)
+
+    headerProfile.replaceWith(p)
   }
 }
