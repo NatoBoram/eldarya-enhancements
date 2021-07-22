@@ -14,7 +14,17 @@ export function loadDressingExperience(): void {
   const background = document.querySelector<HTMLImageElement>(
     "#avatar-background img"
   )
-  if (background) background.style.filter = "blur(0px)"
+  if (background) {
+    background.style.filter = "unset"
+    background.style.height = "unset"
+    background.style.mask =
+      "linear-gradient(to right, black 50%, transparent 100%)"
+    background.style.minHeight = "100vh"
+    background.style.minWidth = "50vw"
+    background.style.position = "fixed"
+    background.style.transform = "unset"
+    background.style.width = "unset"
+  }
 
   // Setup categories
   for (const li of document.querySelectorAll<HTMLLIElement>(
@@ -132,6 +142,7 @@ async function handleGroups(
   initializeSelectedItems()
   initializeHiddenCategories()
 
+  // All items must be fully loaded before the scrollbar is initialized.
   $("#ee-items").mCustomScrollbar({
     advanced: { updateOnSelectorChange: "li" },
     autoExpandScrollbar: true,
