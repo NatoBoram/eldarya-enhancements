@@ -1,3 +1,4 @@
+import { loadDressingExperience } from "./appearance/dressing_experience"
 import { DurationUnit } from "./duration"
 import { migrate } from "./migrate"
 import { loadTakeover } from "./takeover/brain"
@@ -34,6 +35,7 @@ function loadUI(): void {
   loadTopBar()
   loadAuctions()
   loadSell()
+  loadDressingExperience()
 
   setTimeout(() => {
     document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
