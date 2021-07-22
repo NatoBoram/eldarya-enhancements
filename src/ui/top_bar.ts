@@ -22,10 +22,6 @@ export function loadTopBar(): void {
 }
 
 function loadLinks(): void {
-  document
-    .getElementById("avatar-menu-container-outer")
-    ?.addEventListener("click", () => pageLoad("/player/profile"))
-
   const headerProfile = document.getElementById("header-profile")?.firstChild
   if (headerProfile?.textContent) {
     const a = document.createElement("a")
@@ -40,4 +36,12 @@ function loadLinks(): void {
 
     headerProfile.replaceWith(p)
   }
+
+  const avatarTitle = document.querySelector("#avatar-menu-container-outer>p")
+  if (avatarTitle?.textContent)
+    avatarTitle.innerHTML = `<a href="/player/profile" style="color: #FFFFFF; font-size: 23px; font-weight: 900; text-transform: uppercase;">${avatarTitle.textContent.trim()}</a>`
+
+  document
+    .querySelector("#avatar-menu-container>canvas")
+    ?.addEventListener("click", () => pageLoad("/player/appearance"))
 }
