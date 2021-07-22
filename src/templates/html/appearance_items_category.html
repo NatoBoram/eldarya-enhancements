@@ -4,7 +4,11 @@
   data-category="{{category}}"
   data-categoryid="{{categoryid}}"
 >
-  <ul class="appearance-items-list" id="ee-items" style="max-height: 50vh">
+  <ul
+    class="appearance-items-list"
+    id="ee-items"
+    style="max-height: calc(100vh - {{offset}}px)"
+  >
     {{{appearanceItemsList}}}
   </ul>
 

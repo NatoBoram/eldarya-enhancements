@@ -28,7 +28,7 @@ export function loadDressingExperience(): void {
 
   // Setup categories
   for (const li of document.querySelectorAll<HTMLLIElement>(
-    "#wardrobe-menu>li"
+    "#wardrobe-menu>li, #appearance-items-categories li"
   )) {
     const { category } = li.dataset
     if (!category) continue
@@ -82,12 +82,24 @@ async function handleGroups(
   categoryContainer.classList.remove("active")
   categoryContainer.style.display = "none"
 
+  // Get max max-height
+  const offset = [
+    "#top-bar",
+    "#crystal-images-inner",
+    "#avatar-actions",
+    "#appearance-section-title",
+    "#actions-container",
+    "#wardrobe-menu",
+  ]
+    .map(id => Number(document.querySelector<HTMLElement>(id)?.offsetHeight))
+    .reduce((a, b) => a + b)
+
   // Setup appearance_items_category
   const template: Template = require("../templates/html/appearance_items_category.html")
   document.getElementById("ee-category")?.remove()
   appearanceItems.insertAdjacentHTML(
     "beforeend",
-    template.render({ category, categoryid })
+    template.render({ category, categoryid, offset })
   )
 
   const eeItems = document.querySelector("#ee-items")
