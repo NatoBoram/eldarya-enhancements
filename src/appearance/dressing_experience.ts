@@ -7,7 +7,7 @@ export function loadDressingExperience(): void {
   const preview = document.querySelector<HTMLDivElement>("#appearance-preview")
   if (preview) {
     preview.style.left = "0"
-  preview.style.position = "fixed"
+    preview.style.position = "fixed"
     preview.style.top = "50%"
     preview.style.transform = "translateY(-50%)"
   }
@@ -27,6 +27,10 @@ export function loadDressingExperience(): void {
     background.style.transform = "unset"
     background.style.width = "unset"
   }
+
+  // Setup right panel
+  const rightPanel = document.getElementById("appearance-right")
+  if (rightPanel) rightPanel.style.paddingTop = "80px"
 
   // Setup categories
   for (const li of document.querySelectorAll<HTMLLIElement>(
