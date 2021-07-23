@@ -5,10 +5,12 @@ export function loadDressingExperience(): void {
 
   // Setup preview
   const preview = document.querySelector<HTMLDivElement>("#appearance-preview")
-  if (!preview) return
+  if (preview) {
+    preview.style.left = "0"
   preview.style.position = "fixed"
-  preview.style.left = "0"
-  preview.style.top = "10%"
+    preview.style.top = "50%"
+    preview.style.transform = "translateY(-50%)"
+  }
 
   // Setup background
   const background = document.querySelector<HTMLImageElement>(
