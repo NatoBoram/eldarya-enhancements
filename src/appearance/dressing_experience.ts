@@ -3,15 +3,6 @@ import type { Template } from "hogan.js"
 export function loadDressingExperience(): void {
   if (!location.pathname.startsWith("/player/appearance")) return
 
-  // Setup preview
-  const preview = document.querySelector<HTMLDivElement>("#appearance-preview")
-  if (preview) {
-    preview.style.left = "0"
-    preview.style.position = "fixed"
-    preview.style.top = "50%"
-    preview.style.transform = "translateY(-50%)"
-  }
-
   // Setup background
   const background = document.querySelector<HTMLImageElement>(
     "#avatar-background img"
@@ -26,6 +17,30 @@ export function loadDressingExperience(): void {
     background.style.position = "fixed"
     background.style.transform = "unset"
     background.style.width = "unset"
+  }
+
+  // Setup preview outer
+  const previewOuter = document.getElementById("appearance-preview-outer")
+  if (previewOuter) {
+    previewOuter.style.padding = "0px"
+  }
+
+  // Setup preview
+  const preview = document.getElementById("appearance-preview")
+  if (preview) {
+    preview.style.left = "0"
+    preview.style.position = "fixed"
+    preview.style.top = "calc(50% - var(--topbar-height))"
+    preview.style.transform = "translateY(-50%)"
+  }
+
+  // Setup canvas
+  const canvas = document.querySelector<HTMLCanvasElement>(
+    "#appearance-preview canvas"
+  )
+  if (canvas) {
+    canvas.style.maxHeight = "100vh"
+    canvas.style.maxWidth = "50vw"
   }
 
   // Setup right panel
@@ -52,6 +67,7 @@ export function loadDressingExperience(): void {
   }
 }
 
+/** Get the category container for the clicked category and load its groups */
 function handleCategory(category: string): void {
   const appearanceItems =
     document.querySelector<HTMLDivElement>("#appearance-items")
@@ -76,6 +92,7 @@ function handleCategory(category: string): void {
   }).observe(appearanceItems, { childList: true })
 }
 
+/** Load each groups synchronously and add them to a custom container. */
 async function handleGroups(
   appearanceItems: HTMLDivElement,
   categoryContainer: HTMLDivElement
@@ -88,24 +105,12 @@ async function handleGroups(
   categoryContainer.classList.remove("active")
   categoryContainer.style.display = "none"
 
-  // Get max max-height
-  const offset = [
-    "#top-bar",
-    "#crystal-images-inner",
-    "#avatar-actions",
-    "#appearance-section-title",
-    "#actions-container",
-    "#wardrobe-menu",
-  ]
-    .map(id => Number(document.querySelector<HTMLElement>(id)?.offsetHeight))
-    .reduce((a, b) => a + b)
-
   // Setup appearance_items_category
   const template: Template = require("../templates/html/appearance_items_category.html")
   document.getElementById("ee-category")?.remove()
   appearanceItems.insertAdjacentHTML(
     "beforeend",
-    template.render({ category, categoryid, offset })
+    template.render({ category, categoryid })
   )
 
   const eeItems = document.querySelector("#ee-items")
@@ -159,11 +164,4 @@ async function handleGroups(
 
   initializeSelectedItems()
   initializeHiddenCategories()
-
-  // All items must be fully loaded before the scrollbar is initialized.
-  $("#ee-items").mCustomScrollbar({
-    advanced: { updateOnSelectorChange: "li" },
-    autoExpandScrollbar: true,
-    scrollbarPosition: "inside",
-  })
 }

@@ -4,10 +4,16 @@
   data-category="{{category}}"
   data-categoryid="{{categoryid}}"
 >
+  <style>
+    #ee-items {
+      scrollbar-color: dark;
+      scrollbar-width: thin;
+    }
+  </style>
   <ul
     class="appearance-items-list"
     id="ee-items"
-    style="max-height: calc(100vh - {{offset}}px)"
+    style="max-height: calc(100vh - 565px)"
   >
     {{{appearanceItemsList}}}
   </ul>
