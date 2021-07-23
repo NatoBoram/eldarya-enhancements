@@ -7,6 +7,7 @@ specifiers:
   '@types/hogan.js': ^3.0.1
   '@types/jquery': ^3.5.6
   '@types/jqueryui': ^1.12.16
+  '@types/mcustomscrollbar': ^2.8.33
   '@types/node': ^16.3.3
   '@types/raphael': ^2.3.2
   '@types/sax': ^1.2.3
@@ -33,6 +34,7 @@ devDependencies:
   '@types/hogan.js': 3.0.1
   '@types/jquery': 3.5.6
   '@types/jqueryui': 1.12.16
+  '@types/mcustomscrollbar': 2.8.33
   '@types/node': 16.3.3
   '@types/raphael': 2.3.2
   '@types/sax': 1.2.3
@@ -201,6 +203,12 @@ packages:
 
   /@types/json-schema/7.0.8:
     resolution: {integrity: sha512-YSBPTLTVm2e2OoQIDYx8HaeWJ5tTToLH67kXR7zYNGupXMEHa2++G8k+DczX2cFVgalypqtyZIcU19AFcmOpmg==}
+    dev: true
+
+  /@types/mcustomscrollbar/2.8.33:
+    resolution: {integrity: sha512-tEE5eH7wLksBeNYesJmBM+bnFPxot401dDTJXNXoGbokVszOYJBjE6FyPHs23+wVNgqJ3BvcuWS/afD5/LFahQ==}
+    dependencies:
+      '@types/jquery': 3.5.6
     dev: true
 
   /@types/node/16.3.3:

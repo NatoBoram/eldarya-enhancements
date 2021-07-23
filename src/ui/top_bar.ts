@@ -22,9 +22,26 @@ export function loadTopBar(): void {
 }
 
 function loadLinks(): void {
-  for (const id of ["header-profile", "avatar-menu-container-outer"]) {
-    document.getElementById(id)?.addEventListener("click", () => {
-      pageLoad("/player/profile")
-    })
+  const headerProfile = document.getElementById("header-profile")?.firstChild
+  if (headerProfile?.textContent) {
+    const a = document.createElement("a")
+    a.href = "/player/profile"
+    a.style.color = "var(--text-color)"
+    a.style.fontFamily = '"Alegreya Sans", sans-serif'
+    a.style.fontWeight = "unset"
+    a.textContent = headerProfile.textContent.trim()
+
+    const p = document.createElement("p")
+    p.insertAdjacentElement("beforeend", a)
+
+    headerProfile.replaceWith(p)
   }
+
+  const avatarTitle = document.querySelector("#avatar-menu-container-outer>p")
+  if (avatarTitle?.textContent)
+    avatarTitle.innerHTML = `<a href="/player/profile" style="color: #FFFFFF; font-size: 23px; font-weight: 900; text-transform: uppercase;">${avatarTitle.textContent.trim()}</a>`
+
+  document
+    .querySelector("#avatar-menu-container>canvas")
+    ?.addEventListener("click", () => pageLoad("/player/appearance"))
 }
