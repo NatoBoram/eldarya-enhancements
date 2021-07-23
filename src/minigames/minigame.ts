@@ -5,4 +5,5 @@ export interface Minigame {
   delayMin: number
   delayMax: number
   buttonSelector: string
+  icon: string
 }

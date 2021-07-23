@@ -7,4 +7,5 @@ export const peggle: Minigame = {
   delayMin: 10_000,
   delayMax: 20_000,
   buttonSelector: '.minigame-start [href="/minigames/gembomb"] .nl-button',
+  icon: "/static/img/new-layout/minigames/icon_gembomb.png",
 }

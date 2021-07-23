@@ -23,5 +23,6 @@ export function getItemDetails(li: HTMLLIElement): MarketEntry | null {
     name,
     buyNowPrice,
     currentPrice,
+    date: new Date(),
   }
 }

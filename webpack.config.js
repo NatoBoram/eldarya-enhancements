@@ -4,8 +4,8 @@ module.exports = {
   entry: "./src/main.ts",
   devtool: "inline-source-map",
   performance: {
-    maxAssetSize: 300 * 1024,
-    maxEntrypointSize: 300 * 1024,
+    maxAssetSize: 400 * 1024,
+    maxEntrypointSize: 400 * 1024,
   },
   module: {
     rules: [

@@ -24,6 +24,7 @@
   "rules": {
     // ESLint
     "eqeqeq": "error",
+    "semi": "off",
     // Prettier
     "prettier/prettier": "off",
     // TypeScript ESLint
@@ -45,7 +46,10 @@
     ],
     "@typescript-eslint/method-signature-style": "error",
     "@typescript-eslint/no-confusing-non-null-assertion": "error",
-    "@typescript-eslint/no-confusing-void-expression": "error",
+    "@typescript-eslint/no-confusing-void-expression": [
+      "error",
+      { "ignoreArrowShorthand": true, "ignoreVoidOperator": true }
+    ],
     "@typescript-eslint/no-dynamic-delete": "error",
     "@typescript-eslint/no-empty-function": [
       "error",
@@ -70,6 +74,7 @@
     "@typescript-eslint/prefer-string-starts-ends-with": "error",
     "@typescript-eslint/prefer-ts-expect-error": "error",
     "@typescript-eslint/promise-function-async": "error",
+    "@typescript-eslint/semi": ["error", "never"],
     "@typescript-eslint/sort-type-union-intersection-members": "error",
     "@typescript-eslint/switch-exhaustiveness-check": "error",
     "@typescript-eslint/type-annotation-spacing": "error",

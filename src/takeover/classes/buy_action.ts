@@ -24,7 +24,7 @@ class BuyAction extends Action {
   }
 
   async perform(): Promise<boolean> {
-    if (!location.pathname.startsWith("/marketplace")) {
+    if (location.pathname !== "/marketplace") {
       await click<HTMLAnchorElement>(".main-menu-marketplace a")
       return true
     }
@@ -53,6 +53,13 @@ class BuyAction extends Action {
         )
         for (const result of wanted) {
           if (!(await this.buy(result))) break forpage
+
+          LocalStorage.purchases = [
+            result,
+            ...LocalStorage.purchases.filter(
+              purchase => purchase.itemid !== result.itemid
+            ),
+          ]
 
           Console.info(
             `Bought "${result.name}" for ${Number(

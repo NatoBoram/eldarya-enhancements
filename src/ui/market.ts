@@ -55,6 +55,7 @@ function addWishistButton(
   )
   if (!buttonsContainer) return
   observer?.disconnect()
+  hijackBuyButtons(marketEntry)
 
   document.getElementById("marketplace-itemDetail-info-autobuy")?.remove()
   const buttonTemplate: Template = require("../templates/html/auto_buy_button.html")
@@ -114,4 +115,27 @@ function save(marketEntry: MarketEntry): boolean {
   const template: Template = require("../templates/html/flavr_notif/added_to_wishlist.html")
   $.flavrNotif(template.render(wished))
   return true
+}
+
+function hijackBuyButtons(marketEntry: MarketEntry): void {
+  document
+    .querySelector(".marketplace-itemDetail-bid-prepare")
+    ?.addEventListener("click", () => {
+      addPurchase(marketEntry)
+    })
+
+  document
+    .querySelector(".marketplace-itemDetail-buy")
+    ?.addEventListener("click", () => {
+      addPurchase(marketEntry)
+    })
+}
+
+function addPurchase(marketEntry: MarketEntry): void {
+  LocalStorage.purchases = [
+    marketEntry,
+    ...LocalStorage.purchases.filter(
+      purchase => purchase.itemid !== marketEntry.itemid
+    ),
+  ]
 }

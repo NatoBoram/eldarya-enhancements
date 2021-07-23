@@ -40,7 +40,12 @@ async function play(minigame: Minigame): Promise<void> {
   })
 
   const json = await execute(minigame)
-  $.flavrNotif(`Playing <strong>${minigame.name}</strong>...`)
+  $.flavrNotif(`<img
+      src="${minigame.icon}"
+      alt="${minigame.name}"
+      height="21"
+      style="display: inline-block; margin: -2px auto"
+    /> Playing <strong>${minigame.name}</strong>...`)
 
   const gameToken = json.data
   const score = randomInt(minigame.scoreMin, minigame.scoreMax)
@@ -116,9 +121,12 @@ async function getPrizes(
           resolve(json)
 
           if (json.result === "success")
-            $.flavrNotif(
-              `Played <strong>${minigame.name}</strong> for <strong class="price-item">${json.data.maana}</strong> <span class="maana-icon" alt="maanas"></span>.`
-            )
+            $.flavrNotif(`<img
+              src="${minigame.icon}"
+              alt="${minigame.name}"
+              height="21"
+              style="display: inline-block; margin: -2px auto"
+            /> Played <strong>${minigame.name}</strong> for <strong class="price-item">${json.data.maana}</strong> <span class="maana-icon" alt="maanas"></span>.`)
           else $.flavrNotif(json.data)
         },
         "json"

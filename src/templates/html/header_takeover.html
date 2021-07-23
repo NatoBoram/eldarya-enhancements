@@ -1,13 +1,15 @@
 <li
   id="header-takeover"
-  style="transition: transform ease-in-out 200ms"
+  title="Takeover"
+  style="transition: transform ease-in-out 200ms; cursor: pointer"
   onMouseOver="this.style.transform='scale(1.3)'"
   onMouseOut="this.style.transform='scale(1)'"
 >
   <a>
     <img
       src="/static/img/new-layout/home/connected/lock.png"
-      style="filter: contrast(0%) brightness(200%)"
+      alt="Takeover"
+      style="filter: contrast(0%) brightness(200%) {{^takeover}}opacity(0){{/takeover}}"
       height="21"
     />
   </a>
