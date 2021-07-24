@@ -6,8 +6,10 @@ dependency_scanning:
     - master
     - develop
 
-include:
-  - template: Code-Quality.gitlab-ci.yml
+code_quality:
+  trigger:
+    include:
+      - template: Code-Quality.gitlab-ci.yml
 
 default:
   image: node:latest
