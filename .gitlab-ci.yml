@@ -2,6 +2,8 @@ dependency_scanning:
   trigger:
     include:
       - template: Dependency-Scanning.gitlab-ci.yml
+  before_script:
+    - npm install
   only:
     - master
     - develop
