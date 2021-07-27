@@ -29,3 +29,4 @@ The latest development version can be downloaded [here](https://gitlab.com/NatoB
 - Export other guardians' outfits from their profile
 - Mark favourite exploration points
 - Wishlist for the market
+- Overhaul of the dresser so you can see all items in a category at once
