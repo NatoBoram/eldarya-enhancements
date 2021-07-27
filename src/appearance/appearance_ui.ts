@@ -1,7 +1,12 @@
+import wardrobe from "./wardrobe"
+
 export function loadAppearanceUI(): void {
   setupBackground()
   setupLeftPanel()
   setupRightPanel()
+
+  if (wardrobe.availableItems) availableItems = wardrobe.availableItems
+  else wardrobe.availableItems = availableItems
 }
 
 function setupBackground(): void {

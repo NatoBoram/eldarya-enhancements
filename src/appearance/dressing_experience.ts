@@ -144,6 +144,7 @@ async function handleGroups(
 
     initializeSelectedItems()
     initializeHiddenCategories()
+    wardrobe.availableItems = availableItems
   }
 
   unloadHiddenCategories()

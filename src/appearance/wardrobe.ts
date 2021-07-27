@@ -1,3 +1,4 @@
+import type { Item } from "../eldarya/item"
 import type { AppearanceCategory } from "../templates/interfaces/appearance_category"
 import type { AppearanceGroup } from "../templates/interfaces/appearance_group"
 import type { AppearanceItem } from "../templates/interfaces/appearance_item"
@@ -8,6 +9,8 @@ class Wardrobe {
   private readonly groups: Record<number, AppearanceGroup> = {}
 
   private readonly items: Record<number, AppearanceItem> = {}
+
+  availableItems?: Record<number, Item>
 
   getCategories(): AppearanceCategory[] {
     return Object.values(this.categories)
