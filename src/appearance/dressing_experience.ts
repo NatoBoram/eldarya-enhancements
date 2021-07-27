@@ -1,51 +1,10 @@
 import type { Template } from "hogan.js"
+import { loadAppearanceUI } from "./appearance_ui"
+import wardrobe from "./wardrobe"
 
 export function loadDressingExperience(): void {
   if (!location.pathname.startsWith("/player/appearance")) return
-
-  // Setup background
-  const background = document.querySelector<HTMLImageElement>(
-    "#avatar-background img"
-  )
-  if (background) {
-    background.style.filter = "unset"
-    background.style.height = "unset"
-    background.style.mask =
-      "linear-gradient(to right, black 50%, transparent 100%)"
-    background.style.minHeight = "100vh"
-    background.style.minWidth = "50vw"
-    background.style.position = "fixed"
-    background.style.transform = "unset"
-    background.style.width = "unset"
-  }
-
-  // Setup preview outer
-  const previewOuter = document.getElementById("appearance-preview-outer")
-  if (previewOuter) {
-    previewOuter.style.padding = "0px"
-  }
-
-  // Setup preview
-  const preview = document.getElementById("appearance-preview")
-  if (preview) {
-    preview.style.left = "0"
-    preview.style.position = "fixed"
-    preview.style.top = "calc(50% - var(--topbar-height))"
-    preview.style.transform = "translateY(-50%)"
-  }
-
-  // Setup canvas
-  const canvas = document.querySelector<HTMLCanvasElement>(
-    "#appearance-preview canvas"
-  )
-  if (canvas) {
-    canvas.style.maxHeight = "100vh"
-    canvas.style.maxWidth = "50vw"
-  }
-
-  // Setup right panel
-  const rightPanel = document.getElementById("appearance-right")
-  if (rightPanel) rightPanel.style.paddingTop = "80px"
+  loadAppearanceUI()
 
   // Setup categories
   for (const li of document.querySelectorAll<HTMLLIElement>(
@@ -100,8 +59,13 @@ async function handleGroups(
   await new Promise(resolve => setTimeout(resolve, 220))
 
   // Get information about the current category
-  const { category, categoryid } = categoryContainer.dataset
-  if (!category || !categoryid) return
+  const { category, categoryid, categoryname } = categoryContainer.dataset
+  if (!category || !categoryid || !categoryname) return
+  wardrobe.setCategory({
+    category,
+    categoryid: Number(categoryid),
+    categoryname,
+  })
   categoryContainer.classList.remove("active")
   categoryContainer.style.display = "none"
 
@@ -112,14 +76,19 @@ async function handleGroups(
     "beforeend",
     template.render({ category, categoryid })
   )
-
   const eeItems = document.querySelector("#ee-items")
   if (!eeItems) return
 
+  loadHiddenCategory(category)
   for (const li of categoryContainer.querySelectorAll<HTMLLIElement>(
     "li.appearance-item-group"
   )) {
     const { group } = li.dataset
+    wardrobe.setGroup({
+      category,
+      categoryid: Number(categoryid),
+      group: Number(group),
+    })
     if (!group) continue
 
     if (
@@ -137,8 +106,7 @@ async function handleGroups(
     if (!div) continue
     div.classList.remove("active")
 
-    const script = div.querySelector("script")
-    // eslint-disable-next-line @typescript-eslint/no-implied-eval
+    const script = div.querySelector("script") // eslint-disable-next-line @typescript-eslint/no-implied-eval
     if (script) setTimeout(script.innerHTML, 0)
 
     // Check if the category is still active
@@ -156,12 +124,64 @@ async function handleGroups(
           li.dataset.category = category
           li.dataset.categoryid = categoryid
           li.dataset.group = group
+
+          const icon = li.querySelector("img")?.src
+          if (!icon) return li.outerHTML
+
+          wardrobe.setItem({
+            group: Number(group),
+            icon,
+            itemid: Number(li.dataset.itemid),
+            name: li.dataset.name ?? "",
+            rarity: li.dataset.rarity ?? "",
+            rarityname: li.dataset.rarityname ?? "",
+          })
+
           return li.outerHTML
         })
         .join("\n")
     )
+
+    initializeSelectedItems()
+    initializeHiddenCategories()
   }
 
-  initializeSelectedItems()
-  initializeHiddenCategories()
+  unloadHiddenCategories()
+}
+
+function unloadHiddenCategories(): void {
+  const hidden = document.querySelectorAll<HTMLDivElement>(
+    "#appearance-items .appearance-items-category:not(.active):not([data-categoryname]), #appearance-items script"
+  )
+  for (const div of hidden) {
+    div.remove()
+  }
+}
+
+function loadHiddenCategory(category: string): void {
+  const categoryid = wardrobe
+    .getCategories()
+    .find(c => c.category === category)?.categoryid
+  if (!categoryid) return
+
+  const groups = wardrobe.getGroups(categoryid)
+  const itemTemplate: Template = require("../templates/html/appearance_item.html")
+  const groupTemplate: Template = require("../templates/html/appearance_items_group.html")
+
+  document
+    .querySelector<HTMLDivElement>("#appearance-items")
+    ?.insertAdjacentHTML(
+      "beforeend",
+      groups
+        .map(group =>
+          groupTemplate.render({
+            ...group,
+            items: wardrobe
+              .getItems(group.group)
+              .map(item => itemTemplate.render(item))
+              .join("\n"),
+          })
+        )
+        .join("\n")
+    )
 }
