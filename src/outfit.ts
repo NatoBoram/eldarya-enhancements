@@ -5,7 +5,7 @@ export function exportOutfit(selector: string, name = "outfit"): void {
   const avatar = Sacha.Avatar.avatars[selector]
   if (!avatar) return
 
-  const outfit = getItemsToSave(avatar)
+  const outfit = parseAvatar(avatar)
 
   const href =
     "data:text/json;charset=utf-8," +
@@ -17,7 +17,7 @@ export function exportOutfit(selector: string, name = "outfit"): void {
   a.click()
 }
 
-function getItemsToSave(avatar: Avatar): ParsableItem[] {
+export function parseAvatar(avatar: Avatar): ParsableItem[] {
   return avatar.children.map(child => {
     const item = child.getItem()
     return {

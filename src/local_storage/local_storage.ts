@@ -1,3 +1,4 @@
+import type { FavouriteOutfit } from "../appearance/interfaces/favourite_outfit"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import type { Settings } from "../templates/interfaces/settings"
 import type { AutoExploreLocation } from "./auto_explore_location"
@@ -61,6 +62,14 @@ export class LocalStorage {
     this.setItem(LocalStorageKey.purchases, entry)
   }
 
+  static get favourites(): FavouriteOutfit[] {
+    return this.getItem<FavouriteOutfit[]>(LocalStorageKey.favourites, [])
+  }
+
+  static set favourites(outfit: FavouriteOutfit[]) {
+    this.setItem(LocalStorageKey.favourites, outfit)
+  }
+
   static get sales(): Sale[] {
     return this.getItem<Sale[]>(LocalStorageKey.sales, [])
   }
@@ -74,8 +83,10 @@ export class LocalStorage {
       autoExploreLocations: this.autoExploreLocations,
       debug: this.debug,
       explorations: this.explorations,
+      favourites: this.favourites,
       market: this.market,
       minigames: this.minigames,
+      version: this.version,
       wishlist: this.wishlist,
     }
   }
@@ -84,8 +95,10 @@ export class LocalStorage {
     this.autoExploreLocations = settings.autoExploreLocations
     this.debug = settings.debug
     this.explorations = settings.explorations
+    this.favourites = settings.favourites
     this.market = settings.market
     this.minigames = settings.minigames
+    this.version = settings.version
     this.wishlist = settings.wishlist
   }
 
