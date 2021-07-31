@@ -14,7 +14,7 @@ export interface Translation {
     readonly favorites: {
       readonly save_outfit: {
         readonly goto_account: string
-        readonly name: string
+        readonly placeholder: string
         readonly save: string
         readonly saved_locally: string
         readonly title: string
@@ -52,12 +52,12 @@ export interface Translation {
     }
     readonly wishlist: {
       readonly actions: string
-      readonly delete_hover: string
+      readonly delete_tooltip: string
       readonly delete: string
       readonly icon: string
       readonly name: string
       readonly price: string
-      readonly reset_hover: string
+      readonly reset_tooltip: string
       readonly reset: string
       readonly status: string
       readonly title: string

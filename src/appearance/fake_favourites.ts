@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import indexed_db from "../indexed_db/indexed_db"
 import { parseAvatar } from "../outfit"
 import { loadFakeFavourites } from "../ui/appearance"
@@ -22,7 +23,7 @@ async function showOutfit(): Promise<FavouriteOutfit | null> {
 
   return new Promise(resolve =>
     $.flavr({
-      content: template.render({}),
+      content: template.render({ translate }),
       onBuild: $container => {
         $container.addClass("new-layout-popup")
         $container.addClass("created-outfit-popup")
@@ -53,7 +54,7 @@ async function showOutfit(): Promise<FavouriteOutfit | null> {
           },
         },
         save: {
-          text: "Save",
+          text: translate.appearance.favorites.save_outfit.save,
           style: "default",
           action: () => {
             const name =
@@ -77,7 +78,7 @@ export function showFavourite(favourite: FavouriteOutfit): void {
   const template: Template = require("../templates/html/favourite_outfit_flavr.html")
 
   $.flavr({
-    content: template.render(favourite),
+    content: template.render({ ...favourite, translate }),
     onBuild: $container => {
       $container.addClass("new-layout-popup")
       $container.addClass("created-outfit-popup")
@@ -89,7 +90,7 @@ export function showFavourite(favourite: FavouriteOutfit): void {
         action: () => true,
       },
       delete: {
-        text: "Delete",
+        text: translate.appearance.favorites.click_outfit.delete,
         style: "default",
         action: () => {
           void deleteFavourite(favourite)
@@ -97,7 +98,7 @@ export function showFavourite(favourite: FavouriteOutfit): void {
         },
       },
       wear: {
-        text: "Wear",
+        text: translate.appearance.favorites.click_outfit.wear,
         style: "default",
         action: () => {
           const avatar = Sacha.Avatar.avatars["#appearance-preview"]

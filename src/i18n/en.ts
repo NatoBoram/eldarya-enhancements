@@ -45,7 +45,7 @@ export const en: Translation = {
       save_outfit: {
         goto_account:
           'To transfer your Eldarya Enhancements favourites to another browser, export them in the <a href="/user/account">my account</a> page.',
-        name: "Name...",
+        placeholder: "Name...",
         save: "Save",
         saved_locally:
           "This outfit will only be saved within Eldarya Enhancements' settings and will not be sent to Eldarya's servers.",
@@ -60,8 +60,8 @@ export const en: Translation = {
       save: "Save",
     },
     auctions: {
-      buy_now_price: "Buy now price",
-      current_price: "Current price",
+      buy_now_price: "Buy now price :",
+      current_price: "Current price :",
       delete: "Delete",
       purchase_history: "Purchase history",
       sales_history: "Sales history",
@@ -73,12 +73,12 @@ export const en: Translation = {
     },
     wishlist: {
       actions: "Actions",
-      delete_hover: "Remove from the wishlist",
+      delete_tooltip: "Remove from the wishlist",
       delete: "Delete",
       icon: "Icon",
       name: "Name",
       price: "Price",
-      reset_hover: "Reset the error status",
+      reset_tooltip: "Reset the error status",
       reset: "Reset",
       status: "Status",
       title: "Wishlist",
@@ -97,3 +97,5 @@ export const en: Translation = {
     auto_explore: "Auto explore",
   },
 }
+
+Object.freeze(en)

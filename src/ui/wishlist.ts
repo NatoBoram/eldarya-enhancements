@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { WishlistSettings } from "../templates/interfaces/wishlist_settings"
 
@@ -18,7 +19,7 @@ export function loadWishlist(): void {
   const wishlistButtonTemplate: Template = require("../templates/html/wishlist_button.html")
   marketplaceMenu.insertAdjacentHTML(
     "beforeend",
-    wishlistButtonTemplate.render({})
+    wishlistButtonTemplate.render({ translate })
   )
 
   const wishlistButton =
@@ -56,7 +57,10 @@ function insertWishlist(button: HTMLAnchorElement): void {
   const wishlistContext: WishlistSettings = {
     wishlist: LocalStorage.wishlist,
   }
-  container.innerHTML = wishlistTemplate.render(wishlistContext)
+  container.innerHTML = wishlistTemplate.render({
+    ...wishlistContext,
+    translate,
+  })
 
   // Buttons
   for (const tr of container.querySelectorAll("tr")) {
@@ -124,7 +128,7 @@ async function changePrice(wearableitemid: string): Promise<void> {
 
   return new Promise(resolve => {
     $.flavr({
-      content: template.render({}),
+      content: template.render({ translate }),
       dialog: "prompt",
       prompt: {
         value: entry.price.toString(),

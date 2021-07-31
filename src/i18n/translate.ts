@@ -14,4 +14,4 @@ function translation(): Translation {
   else return en
 }
 
-export const translate = Object.freeze(translation())
+export const translate = translation()

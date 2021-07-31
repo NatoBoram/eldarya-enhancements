@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { WishedItem } from "../local_storage/wished_item"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
@@ -59,7 +60,10 @@ function addWishistButton(
 
   document.getElementById("marketplace-itemDetail-info-autobuy")?.remove()
   const buttonTemplate: Template = require("../templates/html/auto_buy_button.html")
-  buttonsContainer.insertAdjacentHTML("beforeend", buttonTemplate.render({}))
+  buttonsContainer.insertAdjacentHTML(
+    "beforeend",
+    buttonTemplate.render({ translate })
+  )
 
   buttonsContainer
     .querySelector<HTMLDivElement>("#marketplace-itemDetail-info-autobuy")
@@ -72,7 +76,7 @@ function addToWishlistFlavr(marketEntry: MarketEntry): void {
   const template: Template = require("../templates/html/auto_buy_flavr.html")
 
   $.flavr({
-    content: template.render({}),
+    content: template.render({ translate }),
     buttons: {
       close: { style: "close" },
       save: {

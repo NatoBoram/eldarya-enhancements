@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { MarketHistory } from "../templates/interfaces/market_history"
 
@@ -49,7 +50,7 @@ function loadHistory(marketplaceActiveAuctions: HTMLDivElement): void {
 
   marketplaceActiveAuctions.insertAdjacentHTML(
     "beforeend",
-    template.render(history)
+    template.render({ ...history, translate })
   )
 
   for (const purchase of document.querySelectorAll<HTMLLIElement>(
