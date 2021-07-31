@@ -1,6 +1,7 @@
 export interface Translation {
   readonly home: {
     readonly forum: string
+    readonly takeover: string
   }
   readonly carousel: {
     readonly beemoov_annoyances: I18nCarousel
@@ -60,6 +61,8 @@ export interface Translation {
     }
     readonly wishlist: {
       readonly actions: string
+      readonly assistance: string
+      readonly change_price: string
       readonly delete_tooltip: string
       readonly delete: string
       readonly icon: string

@@ -32,9 +32,7 @@ export function loadWishlist(): void {
 function insertWishlist(button: HTMLAnchorElement): void {
   // Assistance
   const assistance = document.querySelector(".marketplace-assistance")
-  if (assistance)
-    assistance.textContent =
-      "On this page, you can organize your wishlist and check the status of your wished items."
+  if (assistance) assistance.textContent = translate.market.wishlist.assistance
 
   // Menu
   document

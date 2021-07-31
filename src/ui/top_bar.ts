@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import { SessionStorage } from "../session_storage/session_storage"
 import { toggleTakeover } from "../takeover/brain"
 
@@ -13,7 +14,7 @@ export function loadTopBar(): void {
   const template: Template = require("../templates/html/header_takeover.html")
   headerRight.insertAdjacentHTML(
     "afterbegin",
-    template.render({ takeover: SessionStorage.takeover })
+    template.render({ takeover: SessionStorage.takeover, translate })
   )
 
   headerRight

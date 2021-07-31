@@ -3,6 +3,7 @@ import type { Translation } from "./translation"
 export const en: Translation = {
   home: {
     forum: "Forum",
+    takeover: "Takeover",
   },
   carousel: {
     beemoov_annoyances: {
@@ -73,7 +74,10 @@ export const en: Translation = {
       title: "Change price",
     },
     wishlist: {
+      assistance:
+        "On this page, you can organize your wishlist and check the status of your wished items.",
       actions: "Actions",
+      change_price: "Change price",
       delete_tooltip: "Remove from wishlist",
       delete: "Delete",
       icon: "Icon",
