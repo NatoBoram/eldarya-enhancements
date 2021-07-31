@@ -106,6 +106,9 @@ export interface Translation {
     readonly market: string
     readonly minigames: string
   }
+  readonly profile: {
+    readonly export_outfit: string
+  }
 }
 
 interface I18nCarousel {

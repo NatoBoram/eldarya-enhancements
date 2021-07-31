@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import { exportOutfit } from "../outfit"
 import type { ProfileContactAction } from "../templates/interfaces/profile_contact_action"
 
@@ -16,7 +17,7 @@ export function loadProfile(): void {
   const template: Template = require("../templates/html/profile_contact_action.html")
   const profileActionExport: ProfileContactAction = {
     id: "profile-contact-action-export",
-    actionDescription: "Export outfit",
+    actionDescription: translate.profile.export_outfit,
   }
 
   // Add entries

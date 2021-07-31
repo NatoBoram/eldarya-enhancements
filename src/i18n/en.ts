@@ -130,6 +130,9 @@ export const en: Translation = {
   pet: {
     auto_explore: "Highlight",
   },
+  profile: {
+    export_outfit: "Export outfit",
+  },
 }
 
 Object.freeze(en)

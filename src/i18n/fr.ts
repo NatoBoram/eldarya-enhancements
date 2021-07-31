@@ -130,6 +130,9 @@ export const fr: Translation = {
   pet: {
     auto_explore: "Marquer",
   },
+  profile: {
+    export_outfit: "Exporter la tenue",
+  },
 }
 
 Object.freeze(fr)
