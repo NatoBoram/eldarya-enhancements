@@ -1,21 +1,22 @@
 function downloadCanvas(canvas: HTMLCanvasElement, name: string): void {
-  // Make it an image
-  const image = canvas.toDataURL("image/png")
+  canvas.toBlob(
+    blob => {
+      const url = URL.createObjectURL(blob)
 
-  // Create a link
-  const a = document.createElement("a")
-  a.setAttribute("href", image)
-  a.setAttribute("download", `${name}.png`)
+      const a = document.createElement("a")
+      a.setAttribute("href", url)
+      a.setAttribute("download", `${name}.png`)
+      a.style.display = "none"
 
-  // Place it on the body
-  a.style.display = "none"
-  document.body.appendChild(a)
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
 
-  // Start the download
-  a.click()
-
-  // Remove the link
-  document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+    },
+    "image/png",
+    1
+  )
 }
 
 export function downloadFace(): void {

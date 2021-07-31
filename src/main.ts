@@ -1,5 +1,4 @@
 import { loadDressingExperience } from "./appearance/dressing_experience"
-import { DurationUnit } from "./duration"
 import { migrate } from "./migrate"
 import { loadTakeover } from "./takeover/brain"
 import { loadAppearance } from "./ui/appearance"
@@ -28,7 +27,6 @@ function loadUI(): void {
   loadHomeContent()
   loadAppearance()
   loadProfile()
-  loadSettings()
   loadPet()
   loadMarket()
   loadWishlist()
@@ -37,14 +35,13 @@ function loadUI(): void {
   loadSell()
   loadDressingExperience()
 
-  setTimeout(() => {
-    document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
-  }, DurationUnit.second)
+  if (document.readyState === "complete") void loadIndexedDb()
+  else window.addEventListener("load", () => loadIndexedDb())
 }
 
-window.addEventListener("load", () => {
-  document.querySelector<HTMLImageElement>(".music-hidden-voice")?.click()
-})
+function loadIndexedDb(): void {
+  void loadSettings()
+}
 
 new MutationObserver(load).observe(<Node>document.getElementById("container"), {
   childList: true,
