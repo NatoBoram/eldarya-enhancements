@@ -5,6 +5,7 @@ import { carouselDownloadGuardian } from "../carousel/carousel_download_guardian
 import { carouselEE } from "../carousel/carousel_eldarya_enhancements"
 import { carouselTakeover } from "../carousel/carousel_takeover"
 import { downloadFace, downloadGuardian } from "../download-canvas"
+import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import { SessionStorage } from "../session_storage/session_storage"
 import { toggleTakeover } from "../takeover/brain"
@@ -75,8 +76,8 @@ export function loadCarousel(): void {
 function takeoverTitle(takeoverAnchor: HTMLElement): void {
   const takeoverH4 = takeoverAnchor.querySelector("h4")
   if (takeoverH4) {
-    takeoverH4.innerText = `${
-      SessionStorage.takeover ? "Disable" : "Enable"
-    } Takeover`
+    takeoverH4.innerText = SessionStorage.takeover
+      ? translate.carousel.takeover.disable_takeover
+      : translate.carousel.takeover.enable_takeover
   }
 }

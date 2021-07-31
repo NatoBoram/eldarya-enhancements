@@ -4,7 +4,12 @@ export interface Translation {
     readonly download_face: I18nCarousel
     readonly download_guardian: I18nCarousel
     readonly eldarya_enhancements: I18nCarousel
-    readonly takeover: I18nCarousel
+    readonly takeover: {
+      readonly disable_takeover: string
+      readonly enable_takeover: string
+      readonly subtitle: string
+      readonly title: string
+    }
   }
   readonly appearance: {
     readonly buttons: {
@@ -68,6 +73,7 @@ export interface Translation {
   }
   readonly account: {
     readonly debug: string
+    readonly debug_tooltip: string
     readonly enhancements: string
     readonly explorations: string
     readonly export: string

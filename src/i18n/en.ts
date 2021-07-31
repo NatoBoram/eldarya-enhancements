@@ -19,8 +19,10 @@ export const en: Translation = {
       subtitle: GM.info.script.description,
     },
     takeover: {
-      title: "Takeover",
+      disable_takeover: "Disable Takeover",
+      enable_takeover: "Enable Takeover",
       subtitle: "Give up this tab to perform automated actions.",
+      title: "Takeover",
     },
   },
   minigames: {
@@ -86,6 +88,7 @@ export const en: Translation = {
   },
   account: {
     debug: "Debug",
+    debug_tooltip: "Enables or disables logging.",
     enhancements: "Enhancements",
     explorations: "Explorations",
     export: "Export settings",

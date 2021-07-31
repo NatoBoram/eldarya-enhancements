@@ -19,8 +19,10 @@ export const fr: Translation = {
       subtitle: "Améliore l'expérience utilisateur d'Eldarya.",
     },
     takeover: {
-      title: "Takeover",
+      disable_takeover: "Désactive le takeover",
+      enable_takeover: "Active le takeover",
       subtitle: "Laisse cet onglet performer des actions automatiques.",
+      title: "Takeover",
     },
   },
   minigames: {
@@ -86,6 +88,7 @@ export const fr: Translation = {
   },
   account: {
     debug: "Débogage",
+    debug_tooltip: "Active ou désactive la journalisation.",
     enhancements: "Améliorations",
     explorations: "Explorations",
     export: "Exporter les paramètres",
