@@ -1,6 +1,8 @@
+import type { Template } from "hogan.js"
 import { ajaxSearch } from "../../ajax/ajax_search"
 import { buy } from "../../ajax/buy"
 import { Console } from "../../console"
+import { translate } from "../../i18n/translate"
 import { LocalStorage } from "../../local_storage/local_storage"
 import type { WishedItem } from "../../local_storage/wished_item"
 import type { MarketEntry } from "../../marketplace/interfaces/market_entry"
@@ -29,6 +31,7 @@ class BuyAction extends Action {
       return true
     }
 
+    const iconMessage: Template = require("../../templates/html/flavr_notif/icon_message.html")
     for (const wished of LocalStorage.wishlist) {
       // Clothes might be a special exception. If they are, then check for
       // `wished.type === Type.PlayerWearableItem`.
@@ -69,11 +72,13 @@ class BuyAction extends Action {
           )
 
           $.flavrNotif(
-            `Bought <strong>${
-              result.name
-            }</strong> for <strong class="price-item">${Number(
-              result.buyNowPrice?.price
-            )}</strong> <span class="maana-icon" alt="maanas"></span>.`
+            iconMessage.render({
+              ...result,
+              message: translate.takeover.bought(
+                result.name,
+                Number(result.buyNowPrice?.price)
+              ),
+            })
           )
         }
       }

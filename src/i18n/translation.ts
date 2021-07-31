@@ -1,8 +1,13 @@
 export interface Translation {
   readonly home: {
     readonly forum: string
-    readonly takeover: string
     readonly script_loaded: string
+    readonly takeover: string
+  }
+  readonly takeover: {
+    readonly bought: (name: string, price: number) => string
+    readonly disabled: string
+    readonly enabled: string
   }
   readonly carousel: {
     readonly beemoov_annoyances: I18nCarousel
@@ -21,7 +26,9 @@ export interface Translation {
       readonly backward: string
       readonly forward: string
     }
-    readonly favorites: {
+    readonly favourites: {
+      readonly importing: string
+      readonly imported: string
       readonly save_outfit: {
         readonly goto_account: string
         readonly placeholder: string
@@ -35,6 +42,11 @@ export interface Translation {
         readonly goto_account: string
         readonly saved_locally: string
         readonly wear: string
+      }
+      readonly buttons: {
+        readonly download: string
+        readonly export: string
+        readonly import: string
       }
     }
   }
@@ -63,6 +75,7 @@ export interface Translation {
       readonly delete: string
       readonly purchase_history: string
       readonly sales_history: string
+      readonly date_time_format: Intl.DateTimeFormat
     }
     readonly wishlist: {
       readonly actions: string
@@ -83,12 +96,13 @@ export interface Translation {
     readonly auto_explore: string
   }
   readonly account: {
-    readonly debug: string
     readonly debug_tooltip: string
+    readonly debug: string
     readonly enhancements: string
     readonly explorations: string
     readonly export: string
     readonly import: string
+    readonly imported: string
     readonly market: string
     readonly minigames: string
   }

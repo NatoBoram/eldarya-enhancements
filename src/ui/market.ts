@@ -116,7 +116,7 @@ function save(marketEntry: MarketEntry): boolean {
   wishlist.push(wished)
   LocalStorage.wishlist = wishlist
 
-  const template: Template = require("../templates/html/flavr_notif/added_to_wishlist.html")
+  const template: Template = require("../templates/html/flavr_notif/icon_message.html")
   $.flavrNotif(
     template.render({
       ...wished,

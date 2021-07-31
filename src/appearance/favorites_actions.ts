@@ -1,5 +1,6 @@
 import type { Avatar } from "../eldarya/avatar"
 import type { Item } from "../eldarya/item"
+import { translate } from "../i18n/translate"
 import { exportOutfit } from "../outfit"
 import type { ParsableItem } from "./interfaces/parsable_item"
 
@@ -93,7 +94,7 @@ export async function wearOutfit(
   avatar: Avatar,
   outfit: ParsableItem[]
 ): Promise<void> {
-  $.flavrNotif("Importing outfit. Please wait...")
+  $.flavrNotif(translate.appearance.favourites.importing)
 
   // Get all categories
   const categories = new Set<string>()
@@ -132,5 +133,5 @@ export async function wearOutfit(
   initializeSelectedItems()
   initializeHiddenCategories()
 
-  $.flavrNotif("Imported outfit!")
+  $.flavrNotif(translate.appearance.favourites.importing)
 }

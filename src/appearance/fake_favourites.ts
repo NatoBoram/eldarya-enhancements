@@ -54,7 +54,7 @@ async function showOutfit(): Promise<FavouriteOutfit | null> {
           },
         },
         save: {
-          text: translate.appearance.favorites.save_outfit.save,
+          text: translate.appearance.favourites.save_outfit.save,
           style: "default",
           action: () => {
             const name =
@@ -90,7 +90,7 @@ export function showFavourite(favourite: FavouriteOutfit): void {
         action: () => true,
       },
       delete: {
-        text: translate.appearance.favorites.click_outfit.delete,
+        text: translate.appearance.favourites.click_outfit.delete,
         style: "default",
         action: () => {
           void deleteFavourite(favourite)
@@ -98,7 +98,7 @@ export function showFavourite(favourite: FavouriteOutfit): void {
         },
       },
       wear: {
-        text: translate.appearance.favorites.click_outfit.wear,
+        text: translate.appearance.favourites.click_outfit.wear,
         style: "default",
         action: () => {
           const avatar = Sacha.Avatar.avatars["#appearance-preview"]

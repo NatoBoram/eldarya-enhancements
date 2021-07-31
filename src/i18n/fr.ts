@@ -3,8 +3,14 @@ import type { Translation } from "./translation"
 export const fr: Translation = {
   home: {
     forum: "Forum",
-    takeover: "Takeover",
     script_loaded: `${GM.info.script.name} v${GM.info.script.version} chargé.`,
+    takeover: "Takeover",
+  },
+  takeover: {
+    bought: (name, price) =>
+      `Acheté <strong>${name}</strong> pour <strong class="price-item">${price}</strong> <span class="maana-icon" alt="maanas"></span>.`,
+    disabled: "Takeover désactivé.",
+    enabled: "Takeover activé. Évite d'intéragir avec cet onglet.",
   },
   carousel: {
     beemoov_annoyances: {
@@ -40,7 +46,9 @@ export const fr: Translation = {
       backward: "Vers l'arrière",
       forward: "Vers l'avant",
     },
-    favorites: {
+    favourites: {
+      imported: "Importation réussie!",
+      importing: "Importation en cours...",
       click_outfit: {
         delete: "Supprimer",
         goto_account: `Pour transférer tes favoris d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte-les à partir de la page <a href="/user/account" style="text-decoration: underline;">mon compte</a>.`,
@@ -53,6 +61,11 @@ export const fr: Translation = {
         save: "Sauvegarder",
         saved_locally: `Prends note que cette tenue sera sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et ne sera pas envoyée aux serveurs d'Eldarya.`,
         title: "Sauvegarder cette tenue",
+      },
+      buttons: {
+        download: "Télécharger",
+        export: "Exporter",
+        import: "Importer",
       },
     },
   },
@@ -71,6 +84,13 @@ export const fr: Translation = {
       delete: "Supprimer",
       purchase_history: "Historique d'achat",
       sales_history: "Historique de vente",
+      date_time_format: new Intl.DateTimeFormat("fr-CA", {
+        minute: "2-digit",
+        hour: "2-digit",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
     },
     change_price: {
       changed_price: (name: string, price: number) =>
@@ -97,12 +117,13 @@ export const fr: Translation = {
     },
   },
   account: {
-    debug: "Débogage",
     debug_tooltip: "Active ou désactive la journalisation.",
+    debug: "Débogage",
     enhancements: "Améliorations",
     explorations: "Explorations",
     export: "Exporter les paramètres",
     import: "Importer les paramètres",
+    imported: "Paramètres importés",
     market: "Marché",
     minigames: "Mini-jeux",
   },

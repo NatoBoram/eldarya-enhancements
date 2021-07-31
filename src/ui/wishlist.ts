@@ -180,7 +180,7 @@ function save(wearableitemid: string, resolve: () => void): boolean {
     ...wishlist.slice(index + 1, undefined),
   ]
 
-  const template: Template = require("../templates/html/flavr_notif/changed_wishlist_price.html")
+  const template: Template = require("../templates/html/flavr_notif/icon_message.html")
   $.flavrNotif(
     template.render({
       ...entry,

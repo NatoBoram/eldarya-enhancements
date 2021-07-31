@@ -75,7 +75,7 @@ function importSettings(): void {
       await LocalStorage.setSettings(JSON.parse(value))
 
       reloadSettings()
-      $.flavrNotif("Imported settings!")
+      $.flavrNotif(translate.account.imported)
     })
   })
 }

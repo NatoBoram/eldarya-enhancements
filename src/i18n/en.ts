@@ -3,8 +3,14 @@ import type { Translation } from "./translation"
 export const en: Translation = {
   home: {
     forum: "Forum",
-    takeover: "Takeover",
     script_loaded: `${GM.info.script.name} v${GM.info.script.version} loaded.`,
+    takeover: "Takeover",
+  },
+  takeover: {
+    bought: (name, price) =>
+      `Bought <strong>${name}</strong> for <strong class="price-item">${price}</strong> <span class="maana-icon" alt="maanas"></span>.`,
+    disabled: "Takeover mode disabled.",
+    enabled: "Takeover mode enabled. Please do not interact with this tab.",
   },
   carousel: {
     beemoov_annoyances: {
@@ -31,8 +37,8 @@ export const en: Translation = {
     },
   },
   minigames: {
-    playing: (name: string) => `Playing <strong>${name}</strong>...`,
-    played_for: (name: string, maanas: number) =>
+    playing: name => `Playing <strong>${name}</strong>...`,
+    played_for: (name, maanas) =>
       `Played <strong>${name}</strong> for <strong class="price-item">${maanas}</strong> <span class="maana-icon" alt="maanas"></span> earned.`,
   },
   appearance: {
@@ -40,7 +46,9 @@ export const en: Translation = {
       backward: "Move back",
       forward: "Bring forward",
     },
-    favorites: {
+    favourites: {
+      imported: "Imported outfit!",
+      importing: "Importing outfit. Please wait...",
       click_outfit: {
         delete: "Delete",
         goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourites to another browser, export them in the <a href="/user/account" style="text-decoration: underline;">my account</a> page.`,
@@ -54,11 +62,16 @@ export const en: Translation = {
         saved_locally: `Take note that this outfit will only be saved within <strong>${GM.info.script.name}</strong>' settings and will not be sent to Eldarya's servers.`,
         title: "Save outfit",
       },
+      buttons: {
+        download: "Download",
+        export: "Export",
+        import: "Import",
+      },
     },
   },
   market: {
     add_to_wishlist: {
-      added_to_wishlist: (name: string, price: number) =>
+      added_to_wishlist: (name, price) =>
         `Added <strong>${name}</strong> for <strong class="price-item">${price}</strong> <span class="maana-icon" alt="maanas"></span> to the wishlist.`,
       invalid_price: "This is not a valid price.",
       save: "Save",
@@ -71,9 +84,16 @@ export const en: Translation = {
       delete: "Delete",
       purchase_history: "Purchase history",
       sales_history: "Sales history",
+      date_time_format: new Intl.DateTimeFormat("en-GB", {
+        minute: "2-digit",
+        hour: "2-digit",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
     },
     change_price: {
-      changed_price: (name: string, price: number) =>
+      changed_price: (name, price) =>
         `Changed <strong>${name}</strong>'s price for <strong class="price-item">${price}</strong> <span class="maana-icon" alt="maanas"></span>.`,
       invalid_price: "This is not a valid price.",
       save: "Save",
@@ -97,12 +117,13 @@ export const en: Translation = {
     },
   },
   account: {
-    debug: "Debug",
     debug_tooltip: "Enables or disables logging.",
+    debug: "Debug",
     enhancements: "Enhancements",
     explorations: "Explorations",
     export: "Export settings",
     import: "Import settings",
+    imported: "Imported settings!",
     market: "Market",
     minigames: "Minigames",
   },
