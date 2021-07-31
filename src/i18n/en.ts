@@ -38,19 +38,15 @@ export const en: Translation = {
     favorites: {
       click_outfit: {
         delete: "Delete",
-        goto_account:
-          'To transfer your Eldarya Enhancements favourites to another browser, export them in the <a href="/user/account">my account</a> page.',
-        saved_locally:
-          "Take note that this outfit was saved in Eldarya Enhancements' settings and was not sent to Eldarya's servers.",
+        goto_account: `To transfer your ${GM.info.script.name} favourites to another browser, export them in the <a href="/user/account">my account</a> page.`,
+        saved_locally: `Take note that this outfit was saved in ${GM.info.script.name}' settings and was not sent to Eldarya's servers.`,
         wear: "Wear",
       },
       save_outfit: {
-        goto_account:
-          'To transfer your Eldarya Enhancements favourites to another browser, export them in the <a href="/user/account">my account</a> page.',
+        goto_account: `To transfer your ${GM.info.script.name} favourites to another browser, export them in the <a href="/user/account">my account</a> page.`,
         placeholder: "Name...",
         save: "Save",
-        saved_locally:
-          "Take note that this outfit will only be saved within Eldarya Enhancements' settings and will not be sent to Eldarya's servers.",
+        saved_locally: `Take note that this outfit will only be saved within ${GM.info.script.name}' settings and will not be sent to Eldarya's servers.`,
         title: "Save outfit",
       },
     },
