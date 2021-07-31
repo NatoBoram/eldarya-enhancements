@@ -38,15 +38,15 @@ export const fr: Translation = {
     favorites: {
       click_outfit: {
         delete: "Supprimer",
-        goto_account: `Pour transférer tes favoris d'${GM.info.script.name} vers un autre navigateur, exporte-les à partir de la page <a href="/user/account">mon compte</a>.`,
-        saved_locally: `Prends note que cette tenue a été sauvegardée localement dans les paramètres d'${GM.info.script.name} et n'a pas été envoyée aux serveurs d'Eldarya.`,
+        goto_account: `Pour transférer tes favoris d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte-les à partir de la page <a href="/user/account" style="text-decoration: underline;">mon compte</a>.`,
+        saved_locally: `Prends note que cette tenue a été sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyée aux serveurs d'Eldarya.`,
         wear: "Porter",
       },
       save_outfit: {
-        goto_account: `Pour transférer tes favoris d'${GM.info.script.name} vers un autre navigateur, exporte-les à partir de la page <a href="/user/account">mon compte</a>.`,
+        goto_account: `Pour transférer tes favoris d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte-les à partir de la page <a href="/user/account" style="text-decoration: underline;">mon compte</a>.`,
         placeholder: "Nom...",
         save: "Sauvegarder",
-        saved_locally: `Prends note que cette tenue sera sauvegardée localement dans les paramètres d'${GM.info.script.name} et ne sera pas envoyée aux serveurs d'Eldarya.`,
+        saved_locally: `Prends note que cette tenue sera sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et ne sera pas envoyée aux serveurs d'Eldarya.`,
         title: "Sauvegarder cette tenue",
       },
     },
