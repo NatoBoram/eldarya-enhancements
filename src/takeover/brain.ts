@@ -1,4 +1,5 @@
 import { Console } from "../console"
+import { translate } from "../i18n/translate"
 import { SessionStorage } from "../session_storage/session_storage"
 import type { TakeoverAction } from "../session_storage/takeover_action.enum"
 import { loadTopBar } from "../ui/top_bar"
@@ -20,9 +21,8 @@ export function toggleTakeover(): void {
   SessionStorage.takeover = !SessionStorage.takeover
 
   loadTopBar()
-  if (SessionStorage.takeover)
-    $.flavrNotif("Takeover mode enabled. Please do not interact with this tab.")
-  else $.flavrNotif("Takeover mode disabled.")
+  if (SessionStorage.takeover) $.flavrNotif(translate.takeover.enabled)
+  else $.flavrNotif(translate.takeover.enabled)
 
   void takeover()
 }

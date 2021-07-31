@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { WishedItem } from "../local_storage/wished_item"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
@@ -59,7 +60,10 @@ function addWishistButton(
 
   document.getElementById("marketplace-itemDetail-info-autobuy")?.remove()
   const buttonTemplate: Template = require("../templates/html/auto_buy_button.html")
-  buttonsContainer.insertAdjacentHTML("beforeend", buttonTemplate.render({}))
+  buttonsContainer.insertAdjacentHTML(
+    "beforeend",
+    buttonTemplate.render({ translate })
+  )
 
   buttonsContainer
     .querySelector<HTMLDivElement>("#marketplace-itemDetail-info-autobuy")
@@ -72,7 +76,7 @@ function addToWishlistFlavr(marketEntry: MarketEntry): void {
   const template: Template = require("../templates/html/auto_buy_flavr.html")
 
   $.flavr({
-    content: template.render({}),
+    content: template.render({ translate }),
     buttons: {
       close: { style: "close" },
       save: {
@@ -101,7 +105,7 @@ function save(marketEntry: MarketEntry): boolean {
     document.querySelector<HTMLInputElement>(".flavr-prompt")?.value.trim()
   )
   if (!price || price <= 0) {
-    $.flavrNotif("This is not a valid price.")
+    $.flavrNotif(translate.market.add_to_wishlist.invalid_price)
     return false
   }
 
@@ -112,8 +116,16 @@ function save(marketEntry: MarketEntry): boolean {
   wishlist.push(wished)
   LocalStorage.wishlist = wishlist
 
-  const template: Template = require("../templates/html/flavr_notif/added_to_wishlist.html")
-  $.flavrNotif(template.render(wished))
+  const template: Template = require("../templates/html/flavr_notif/icon_message.html")
+  $.flavrNotif(
+    template.render({
+      ...wished,
+      message: translate.market.add_to_wishlist.added_to_wishlist(
+        wished.name,
+        wished.price
+      ),
+    })
+  )
   return true
 }
 

@@ -1,5 +1,6 @@
 import type { Template } from "hogan.js"
 import { getName } from "../download-canvas"
+import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 
 export async function loadSettings(): Promise<void> {
@@ -10,7 +11,10 @@ export async function loadSettings(): Promise<void> {
 
   accountRight.insertAdjacentHTML(
     "beforeend",
-    settingsTemplate.render(await LocalStorage.getSettings())
+    settingsTemplate.render({
+      ...(await LocalStorage.getSettings()),
+      translate,
+    })
   )
 
   document.getElementById("ee-debug-enabled")?.addEventListener("click", () => {
@@ -71,7 +75,7 @@ function importSettings(): void {
       await LocalStorage.setSettings(JSON.parse(value))
 
       reloadSettings()
-      $.flavrNotif("Imported settings!")
+      $.flavrNotif(translate.account.imported)
     })
   })
 }

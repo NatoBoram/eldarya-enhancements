@@ -1,7 +1,9 @@
+import type { Template } from "hogan.js"
 import type { GetPrizesData } from "../api/get_prizes_data"
 import type { Packet } from "../api/packet"
 import type { StartGameData } from "../api/start_game_data"
 import "../eldarya/jquery"
+import { translate } from "../i18n/translate"
 import { flappy } from "./flappy"
 import { hatchlings } from "./hatchlings"
 import type { Minigame } from "./minigame"
@@ -40,12 +42,14 @@ async function play(minigame: Minigame): Promise<void> {
   })
 
   const json = await execute(minigame)
-  $.flavrNotif(`<img
-      src="${minigame.icon}"
-      alt="${minigame.name}"
-      height="21"
-      style="display: inline-block; margin: -2px auto"
-    /> Playing <strong>${minigame.name}</strong>...`)
+
+  const template: Template = require("../templates/html/flavr_notif/icon_message.html")
+  $.flavrNotif(
+    template.render({
+      ...minigame,
+      message: translate.minigames.playing(minigame.name),
+    })
+  )
 
   const gameToken = json.data
   const score = randomInt(minigame.scoreMin, minigame.scoreMax)
@@ -120,14 +124,19 @@ async function getPrizes(
         (json: Packet<GetPrizesData>): void => {
           resolve(json)
 
-          if (json.result === "success")
-            $.flavrNotif(`<img
-              src="${minigame.icon}"
-              alt="${minigame.name}"
-              height="21"
-              style="display: inline-block; margin: -2px auto"
-            /> Played <strong>${minigame.name}</strong> for <strong class="price-item">${json.data.maana}</strong> <span class="maana-icon" alt="maanas"></span>.`)
-          else $.flavrNotif(json.data)
+          if (json.result === "success") {
+            const template: Template = require("../templates/html/flavr_notif/icon_message.html")
+
+            $.flavrNotif(
+              template.render({
+                ...minigame,
+                message: translate.minigames.played_for(
+                  minigame.name,
+                  json.data.maana
+                ),
+              })
+            )
+          } else $.flavrNotif(json.data)
         },
         "json"
       ).fail(() =>

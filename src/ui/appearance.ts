@@ -2,6 +2,7 @@ import type { Template } from "hogan.js"
 import { saveFavourite, showFavourite } from "../appearance/fake_favourites"
 import { exportPreview, importOutfit } from "../appearance/favorites_actions"
 import { downloadAppearance } from "../download-canvas"
+import { translate } from "../i18n/translate"
 import indexed_db from "../indexed_db/indexed_db"
 import type { FavoritesAction } from "../templates/interfaces/favorites_action"
 import type { OutfitThumbs } from "../templates/interfaces/outfit_thumb"
@@ -32,15 +33,15 @@ function loadFavoritesActions(): void {
 
   const importAction: FavoritesAction = {
     id: "import-outfit",
-    text: "Import",
+    text: translate.appearance.favourites.buttons.import,
   }
   const exportAction: FavoritesAction = {
     id: "export-outfit",
-    text: "Export",
+    text: translate.appearance.favourites.buttons.export,
   }
   const downloadAction: FavoritesAction = {
     id: "download-outfit",
-    text: "Download",
+    text: translate.appearance.favourites.buttons.download,
   }
 
   actions.insertAdjacentHTML(

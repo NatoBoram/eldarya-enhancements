@@ -1,10 +1,11 @@
+import { translate } from "../i18n/translate"
 import type { CarouselNews } from "../templates/interfaces/carousel_news"
 
 export const carouselEE: CarouselNews = {
   backgroundImage:
     "https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/carousel_eldarya_enhancements.png",
-  h4: `${GM.info.script.name} v${GM.info.script.version}`,
+  h4: translate.carousel.eldarya_enhancements.title,
   href: GM.info.script.namespace,
   id: "carousel-eldarya-enhancements",
-  p: GM.info.script.description,
+  p: translate.carousel.eldarya_enhancements.subtitle,
 }

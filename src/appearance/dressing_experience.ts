@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import { loadAppearanceUI } from "./appearance_ui"
 import wardrobe from "./wardrobe"
 
@@ -74,7 +75,7 @@ async function handleGroups(
   document.getElementById("ee-category")?.remove()
   appearanceItems.insertAdjacentHTML(
     "beforeend",
-    template.render({ category, categoryid })
+    template.render({ category, categoryid, translate })
   )
   const eeItems = document.querySelector("#ee-items")
   if (!eeItems) return

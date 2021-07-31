@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { MarketHistory } from "../templates/interfaces/market_history"
 
@@ -27,29 +28,21 @@ function loadHistory(marketplaceActiveAuctions: HTMLDivElement): void {
   const history: MarketHistory = {
     purchases: LocalStorage.purchases.map(purchase => ({
       ...purchase,
-      date: new Intl.DateTimeFormat("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }).format(new Date(purchase.date)),
+      date: translate.market.auctions.date_time_format.format(
+        new Date(purchase.date)
+      ),
     })),
     sales: LocalStorage.sales.map(sale => ({
       ...sale,
-      date: new Intl.DateTimeFormat("en-GB", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }).format(new Date(sale.date)),
+      date: translate.market.auctions.date_time_format.format(
+        new Date(sale.date)
+      ),
     })),
   }
 
   marketplaceActiveAuctions.insertAdjacentHTML(
     "beforeend",
-    template.render(history)
+    template.render({ ...history, translate })
   )
 
   for (const purchase of document.querySelectorAll<HTMLLIElement>(

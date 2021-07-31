@@ -2,6 +2,7 @@ import type { Template } from "hogan.js"
 import { changeRegion } from "../ajax/change_region"
 import { Result } from "../api/result.enum"
 import type { MapRegion } from "../eldarya/current_region"
+import { translate } from "../i18n/translate"
 import type { AutoExploreLocation } from "../local_storage/auto_explore_location"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { AutoExploreButton } from "../templates/interfaces/auto_explore_button"
@@ -79,7 +80,7 @@ function addAutoExploreButton(
   const autoExploreTemplate: Template = require("../templates/html/auto_explore_button.html")
   buttonsContainer.insertAdjacentHTML(
     "beforeend",
-    autoExploreTemplate.render(context)
+    autoExploreTemplate.render({ ...context, translate })
   )
 
   // Bind `autoExplore` and `loadPictoMaps`
