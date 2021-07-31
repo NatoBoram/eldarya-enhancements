@@ -2,6 +2,7 @@ export interface Translation {
   readonly home: {
     readonly forum: string
     readonly takeover: string
+    readonly script_loaded: string
   }
   readonly carousel: {
     readonly beemoov_annoyances: I18nCarousel

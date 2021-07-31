@@ -1,4 +1,5 @@
 import { loadDressingExperience } from "./appearance/dressing_experience"
+import { translate } from "./i18n/translate"
 import { migrate } from "./migrate"
 import { loadTakeover } from "./takeover/brain"
 import { loadAppearance } from "./ui/appearance"
@@ -50,5 +51,5 @@ new MutationObserver(load).observe(<Node>document.getElementById("container"), {
 migrate()
 
 loadUI()
-console.log(`${GM.info.script.name} v${GM.info.script.version} loaded.`)
+console.log(translate.home.script_loaded)
 loadTakeover()

@@ -4,6 +4,7 @@ export const en: Translation = {
   home: {
     forum: "Forum",
     takeover: "Takeover",
+    script_loaded: `${GM.info.script.name} v${GM.info.script.version} loaded.`,
   },
   carousel: {
     beemoov_annoyances: {
