@@ -105,7 +105,7 @@ function save(marketEntry: MarketEntry): boolean {
     document.querySelector<HTMLInputElement>(".flavr-prompt")?.value.trim()
   )
   if (!price || price <= 0) {
-    $.flavrNotif("This is not a valid price.")
+    $.flavrNotif(translate.market.add_to_wishlist.invalid_price)
     return false
   }
 
@@ -117,7 +117,15 @@ function save(marketEntry: MarketEntry): boolean {
   LocalStorage.wishlist = wishlist
 
   const template: Template = require("../templates/html/flavr_notif/added_to_wishlist.html")
-  $.flavrNotif(template.render(wished))
+  $.flavrNotif(
+    template.render({
+      ...wished,
+      message: translate.market.add_to_wishlist.added_to_wishlist(
+        wished.name,
+        wished.price
+      ),
+    })
+  )
   return true
 }
 

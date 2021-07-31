@@ -58,9 +58,12 @@ export const fr: Translation = {
   },
   market: {
     add_to_wishlist: {
-      title: "Ajouter à la liste de souhait",
-      text: "Combien de maanas souhaites-tu offrir pour acquérir cet item?",
+      added_to_wishlist: (name: string, price: number) =>
+        `Ajouté <strong>${name}</strong> pour <strong class="price-item">${price}</strong> <span class="maana-icon" alt="maanas"></span> à la liste de souhaits.`,
+      invalid_price: "Ce prix n'est pas valide.",
       save: "Sauvegarder",
+      text: "Combien de maanas souhaites-tu offrir pour acquérir cet item?",
+      title: "Ajouter à la liste de souhait",
     },
     auctions: {
       buy_now_price: "Achat immédiat :",
@@ -70,6 +73,9 @@ export const fr: Translation = {
       sales_history: "Historique de vente",
     },
     change_price: {
+      changed_price: (name: string, price: number) =>
+        `Changé le prix de <strong>${name}</strong> pour <strong class="price-item">${price}</strong> <span class="maana-icon" alt="maanas"></span>.`,
+      invalid_price: "Ce prix n'est pas valide.",
       save: "Sauvegarder",
       text: "Combien de maanas souhaites-tu offrir pour acquérir cet item?",
       title: "Changer le prix",

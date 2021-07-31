@@ -169,7 +169,7 @@ function save(wearableitemid: string, resolve: () => void): boolean {
     document.querySelector<HTMLInputElement>(".flavr-prompt")?.value.trim()
   )
   if (!price || price <= 0) {
-    $.flavrNotif("This is not a valid price.")
+    $.flavrNotif(translate.market.change_price.invalid_price)
     return false
   }
 
@@ -181,7 +181,15 @@ function save(wearableitemid: string, resolve: () => void): boolean {
   ]
 
   const template: Template = require("../templates/html/flavr_notif/changed_wishlist_price.html")
-  $.flavrNotif(template.render(entry))
+  $.flavrNotif(
+    template.render({
+      ...entry,
+      message: translate.market.change_price.changed_price(
+        entry.name,
+        entry.price
+      ),
+    })
+  )
 
   resolve()
   return true

@@ -44,11 +44,15 @@ export interface Translation {
   }
   readonly market: {
     readonly add_to_wishlist: {
+      readonly added_to_wishlist: (name: string, price: number) => string
+      readonly invalid_price: string
       readonly save: string
       readonly text: string
       readonly title: string
     }
     readonly change_price: {
+      readonly changed_price: (name: string, price: number) => string
+      readonly invalid_price: string
       readonly save: string
       readonly text: string
       readonly title: string
