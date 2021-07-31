@@ -23,10 +23,34 @@ export const en: Translation = {
       subtitle: "Give up this tab to perform automated actions.",
     },
   },
+  minigames: {
+    playing: (name: string) => `Playing <strong>${name}</strong>...`,
+    played_for: (name: string, maanas: number) =>
+      `Played <strong>${name}</strong> for <strong class="price-item">${maanas}</strong> <span class="maana-icon" alt="maanas"></span>.`,
+  },
   appearance: {
     buttons: {
       backward: "Move back",
       forward: "Bring forward",
+    },
+    favorites: {
+      click_outfit: {
+        delete: "Delete",
+        goto_account:
+          'To transfer your Eldarya Enhancements favourites to another browser, export them in the <a href="/user/account">my account</a> page.',
+        saved_locally:
+          "This outfit was saved in Eldarya Enhancements' settings and was not sent to Eldarya's servers.",
+        wear: "Wear",
+      },
+      save_outfit: {
+        goto_account:
+          'To transfer your Eldarya Enhancements favourites to another browser, export them in the <a href="/user/account">my account</a> page.',
+        name: "Name...",
+        save: "Save",
+        saved_locally:
+          "This outfit will only be saved within Eldarya Enhancements' settings and will not be sent to Eldarya's servers.",
+        title: "Save outfit",
+      },
     },
   },
   market: {

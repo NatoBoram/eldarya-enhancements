@@ -11,6 +11,26 @@ export interface Translation {
       readonly backward: string
       readonly forward: string
     }
+    readonly favorites: {
+      readonly save_outfit: {
+        readonly goto_account: string
+        readonly name: string
+        readonly save: string
+        readonly saved_locally: string
+        readonly title: string
+      }
+      readonly click_outfit: {
+        readonly delete: string
+        /** Contains a link to `/user/account`. */
+        readonly goto_account: string
+        readonly saved_locally: string
+        readonly wear: string
+      }
+    }
+  }
+  readonly minigames: {
+    readonly played_for: (name: string, maanas: number) => string
+    readonly playing: (name: string) => string
   }
   readonly market: {
     readonly add_to_wishlist: {
