@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import type { MainMenu } from "../templates/interfaces/main_menu"
 
 export function loadMenu(): void {
@@ -13,7 +14,7 @@ export function loadMenu(): void {
   const mainMenuForum: MainMenu = {
     class: "forum",
     href: "/forum",
-    text: "Forum",
+    text: translate.home.forum,
   }
 
   menuInnerRight.insertAdjacentHTML(

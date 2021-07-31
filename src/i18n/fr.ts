@@ -1,6 +1,9 @@
 import type { Translation } from "./translation"
 
 export const fr: Translation = {
+  home: {
+    forum: "Forum",
+  },
   carousel: {
     beemoov_annoyances: {
       title: "Beemoov Annoyances",

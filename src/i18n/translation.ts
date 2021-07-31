@@ -1,4 +1,7 @@
 export interface Translation {
+  readonly home: {
+    readonly forum: string
+  }
   readonly carousel: {
     readonly beemoov_annoyances: I18nCarousel
     readonly download_face: I18nCarousel
