@@ -2,12 +2,9 @@ import type { Template } from "hogan.js"
 import { saveFavourite, showFavourite } from "../appearance/fake_favourites"
 import { exportPreview, importOutfit } from "../appearance/favorites_actions"
 import { downloadAppearance } from "../download-canvas"
-import { LocalStorage } from "../local_storage/local_storage"
+import indexed_db from "../indexed_db/indexed_db"
 import type { FavoritesAction } from "../templates/interfaces/favorites_action"
-import type {
-  OutfitThumb,
-  OutfitThumbs,
-} from "../templates/interfaces/outfit_thumb"
+import type { OutfitThumbs } from "../templates/interfaces/outfit_thumb"
 
 let observer: MutationObserver | null
 
@@ -24,7 +21,7 @@ export function loadAppearance(): void {
   })
 
   loadFavoritesActions()
-  loadFakeFavourites()
+  void loadFakeFavourites()
 }
 
 function loadFavoritesActions(): void {
@@ -66,33 +63,36 @@ function loadFavoritesActions(): void {
     ?.addEventListener("click", downloadAppearance)
 }
 
-export function loadFakeFavourites(): void {
+export async function loadFakeFavourites(): Promise<void> {
   const thumbs = document.querySelector("#all-outfit-thumbs .mCSB_container")
   if (!thumbs) return
 
   const template: Template = require("../templates/html/outfit_thumbs.html")
 
+  const favourites = await indexed_db.getFavouriteOutfits()
+
   document.querySelector("#ee-outfit-thumbs")?.remove()
   thumbs.insertAdjacentHTML(
     "beforeend",
     template.render({
-      outfits: LocalStorage.favourites.map<OutfitThumb>((outfit, index) => ({
-        index,
-        name: outfit.name,
-        preview: outfit.preview,
-      })),
+      outfits: favourites,
     } as OutfitThumbs)
   )
 
   document
     .querySelector(".ee-available-slot")
-    ?.addEventListener("click", saveFavourite)
+    ?.addEventListener("click", (): void => void saveFavourite())
 
   for (const div of document.querySelectorAll<HTMLDivElement>(
     ".ee-outfit-thumb"
   )) {
-    div.addEventListener("click", () =>
-      showFavourite(Number(div.dataset.arrayIndex))
-    )
+    div.addEventListener("click", () => {
+      const favourite = favourites.find(
+        favourite => favourite.id === Number(div.dataset.arrayIndex)
+      )
+      if (!favourite) return
+
+      showFavourite(favourite)
+    })
   }
 }

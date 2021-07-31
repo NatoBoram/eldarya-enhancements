@@ -1,9 +1,12 @@
 import type { ParsableItem } from "./parsable_item"
 
 export interface FavouriteOutfit {
-  name: string
-  items: ParsableItem[]
+  /** Key used as a reference to the IndexedDB */
+  readonly id?: number
 
-  /** Base64 representation of a `png` screenshot of the canvas. */
-  preview: string
+  readonly name: string
+  readonly items: ParsableItem[]
+
+  readonly blob: Blob
+  readonly url?: string
 }

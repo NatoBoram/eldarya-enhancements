@@ -5,7 +5,7 @@ export interface OutfitThumbs extends Context {
 }
 
 export interface OutfitThumb extends Context {
-  index?: number
+  id: number
   name: string
-  preview: string
+  url: string
 }

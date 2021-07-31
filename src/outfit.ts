@@ -9,7 +9,7 @@ export function exportOutfit(selector: string, name = "outfit"): void {
 
   const href =
     "data:text/json;charset=utf-8," +
-    encodeURIComponent(JSON.stringify(outfit, null, "\t"))
+    encodeURIComponent(JSON.stringify(outfit, undefined, 2))
 
   const a = document.createElement("a")
   a.setAttribute("href", href)

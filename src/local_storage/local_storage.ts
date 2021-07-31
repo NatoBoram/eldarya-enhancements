@@ -1,7 +1,10 @@
+import { base64StringToBlob, blobToBase64String } from "blob-util"
 import type { FavouriteOutfit } from "../appearance/interfaces/favourite_outfit"
+import indexed_db from "../indexed_db/indexed_db"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import type { Settings } from "../templates/interfaces/settings"
 import type { AutoExploreLocation } from "./auto_explore_location"
+import type { ExportableFavourite } from "./exportable_favourite"
 import { LocalStorageKey } from "./local_storage.enum"
 import type { Sale } from "./sale"
 import type { WishedItem } from "./wished_item"
@@ -62,14 +65,6 @@ export class LocalStorage {
     this.setItem(LocalStorageKey.purchases, entry)
   }
 
-  static get favourites(): FavouriteOutfit[] {
-    return this.getItem<FavouriteOutfit[]>(LocalStorageKey.favourites, [])
-  }
-
-  static set favourites(outfit: FavouriteOutfit[]) {
-    this.setItem(LocalStorageKey.favourites, outfit)
-  }
-
   static get sales(): Sale[] {
     return this.getItem<Sale[]>(LocalStorageKey.sales, [])
   }
@@ -78,12 +73,20 @@ export class LocalStorage {
     this.setItem(LocalStorageKey.sales, sale)
   }
 
-  static get settings(): Settings {
+  static async getSettings(): Promise<Settings> {
     return {
       autoExploreLocations: this.autoExploreLocations,
       debug: this.debug,
       explorations: this.explorations,
-      favourites: this.favourites,
+      favourites: await Promise.all(
+        (
+          await indexed_db.getFavouriteOutfits()
+        ).map<Promise<ExportableFavourite>>(async favourite => ({
+          name: favourite.name,
+          items: favourite.items,
+          base64: await blobToBase64String(favourite.blob),
+        }))
+      ),
       market: this.market,
       minigames: this.minigames,
       version: this.version,
@@ -91,15 +94,25 @@ export class LocalStorage {
     }
   }
 
-  static set settings(settings: Settings) {
+  static async setSettings(settings: Settings): Promise<void> {
     this.autoExploreLocations = settings.autoExploreLocations
     this.debug = settings.debug
     this.explorations = settings.explorations
-    this.favourites = settings.favourites
     this.market = settings.market
     this.minigames = settings.minigames
     this.version = settings.version
     this.wishlist = settings.wishlist
+
+    await indexed_db.clearFavouriteOutfits()
+    for (const favourite of settings.favourites.map<FavouriteOutfit>(
+      favourite => ({
+        blob: base64StringToBlob(favourite.base64),
+        items: favourite.items,
+        name: favourite.name,
+      })
+    )) {
+      void indexed_db.addFavouriteOutfit(favourite)
+    }
   }
 
   static get version(): string {
