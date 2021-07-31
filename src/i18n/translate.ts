@@ -1,4 +1,5 @@
 import { en } from "./en"
+import { fr } from "./fr"
 import type { Translation } from "./translation"
 
 function translation(): Translation {
@@ -10,7 +11,7 @@ function translation(): Translation {
   if (location.hostname.endsWith(".pl")) return en
   if (location.hostname.endsWith(".ru")) return en
   if (location.hostname.endsWith(".com")) return en
-  if (location.hostname.endsWith(".fr")) return en
+  if (location.hostname.endsWith(".fr")) return fr
   else return en
 }
 

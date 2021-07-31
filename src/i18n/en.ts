@@ -7,7 +7,7 @@ export const en: Translation = {
       subtitle: "Block some of Eldarya's annoyances.",
     },
     download_face: {
-      title: "Download your face!",
+      title: "Download your guardian's face!",
       subtitle: "Click here to download your guardian's face.",
     },
     download_guardian: {
@@ -26,7 +26,7 @@ export const en: Translation = {
   minigames: {
     playing: (name: string) => `Playing <strong>${name}</strong>...`,
     played_for: (name: string, maanas: number) =>
-      `Played <strong>${name}</strong> for <strong class="price-item">${maanas}</strong> <span class="maana-icon" alt="maanas"></span>.`,
+      `Played <strong>${name}</strong> for <strong class="price-item">${maanas}</strong> <span class="maana-icon" alt="maanas"></span> earned.`,
   },
   appearance: {
     buttons: {
@@ -39,7 +39,7 @@ export const en: Translation = {
         goto_account:
           'To transfer your Eldarya Enhancements favourites to another browser, export them in the <a href="/user/account">my account</a> page.',
         saved_locally:
-          "This outfit was saved in Eldarya Enhancements' settings and was not sent to Eldarya's servers.",
+          "Take note that this outfit was saved in Eldarya Enhancements' settings and was not sent to Eldarya's servers.",
         wear: "Wear",
       },
       save_outfit: {
@@ -48,7 +48,7 @@ export const en: Translation = {
         placeholder: "Name...",
         save: "Save",
         saved_locally:
-          "This outfit will only be saved within Eldarya Enhancements' settings and will not be sent to Eldarya's servers.",
+          "Take note that this outfit will only be saved within Eldarya Enhancements' settings and will not be sent to Eldarya's servers.",
         title: "Save outfit",
       },
     },
@@ -73,7 +73,7 @@ export const en: Translation = {
     },
     wishlist: {
       actions: "Actions",
-      delete_tooltip: "Remove from the wishlist",
+      delete_tooltip: "Remove from wishlist",
       delete: "Delete",
       icon: "Icon",
       name: "Name",
@@ -88,13 +88,13 @@ export const en: Translation = {
     debug: "Debug",
     enhancements: "Enhancements",
     explorations: "Explorations",
-    export: "Export",
-    import: "Import",
+    export: "Export settings",
+    import: "Import settings",
     market: "Market",
     minigames: "Minigames",
   },
   pet: {
-    auto_explore: "Auto explore",
+    auto_explore: "Highlight",
   },
 }
 
