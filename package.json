@@ -31,6 +31,10 @@
     "email": "incoming+natoboram-eldarya-enhancements-25925590-issue-@incoming.gitlab.com"
   },
   "homepage": "https://gitlab.com/NatoBoram/eldarya-enhancements",
+  "dependencies": {
+    "blob-util": "^2.0.2",
+    "hogan.js": "^3.0.2"
+  },
   "devDependencies": {
     "@types/box2d": "^0.0.35",
     "@types/createjs": "^0.0.29",
@@ -49,7 +53,6 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "hogan.js": "^3.0.2",
     "mustache-loader": "^1.4.3",
     "prettier": "^2.3.2",
     "prettier-eslint": "^13.0.0",

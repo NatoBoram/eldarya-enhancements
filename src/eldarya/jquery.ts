@@ -21,6 +21,7 @@ interface flavrParams {
       style?: "close" | "default"
       text?: string
       addClass?: string
+      /** @returns whether the popup should close */
       action?: ($container: JQuery) => boolean
     }
   >

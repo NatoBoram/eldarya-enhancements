@@ -30,3 +30,19 @@ The latest development version can be downloaded [here](https://gitlab.com/NatoB
 - Mark favourite exploration points
 - Wishlist for the market
 - Overhaul of the dresser so you can see all items in a category at once
+
+## Development
+
+### Dependencies
+
+This project uses [`pnpm`](https://pnpm.io/installation), but it'll probably work
+with any NodeJS package manager.
+
+### Building
+
+To build, simply run `pnpm run build` or `pnpm run build:windows`, the resulting
+userscript will be in the `dist/` folder. The build script prepends the `.meta.js`
+file after the `webpack` command finishes because webpack's
+[`BannerPlugin`](https://webpack.js.org/plugins/banner-plugin/)
+[is broken](https://github.com/webpack/webpack/issues/6630)
+but webpack's members refuse to acknowledge the problem.

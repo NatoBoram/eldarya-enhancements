@@ -1,3 +1,4 @@
+import type { Avatar } from "../eldarya/avatar"
 import type { Item } from "../eldarya/item"
 import { exportOutfit } from "../outfit"
 import type { ParsableItem } from "./interfaces/parsable_item"
@@ -25,46 +26,7 @@ export function importOutfit(): void {
       const avatar = Sacha.Avatar.avatars["#appearance-preview"]
       if (!avatar) return
 
-      $.flavrNotif("Importing outfit. Please wait...")
-
-      // Get all categories
-      const categories = new Set<string>()
-      for (const clothing of outfit) {
-        categories.add(clothing.type)
-      }
-
-      // Open all categories
-      await Promise.all(
-        Array.from(categories.values()).map(async category =>
-          openCategory(category)
-        )
-      )
-
-      // Get all groups
-      const groups = new Set<number>()
-      for (const clothing of outfit) {
-        if (document.querySelector(`[data-group="${clothing.group}"]`))
-          groups.add(clothing.group)
-      }
-
-      // Open all groups
-      await Promise.all(
-        Array.from(groups.values()).map(async group => openGroup(group))
-      )
-
-      // Get the items from `availableItems`
-      const wornItems: Item[] = []
-      for (const clothing of outfit) {
-        const item = availableItems[clothing.id]
-        if (item) wornItems.push(item)
-      }
-
-      removeClothes()
-      avatar.addItems(wornItems)
-      initializeSelectedItems()
-      initializeHiddenCategories()
-
-      $.flavrNotif("Imported outfit!")
+      await wearOutfit(avatar, outfit)
     })
   })
 }
@@ -125,4 +87,50 @@ async function openCategory(category: string): Promise<void> {
       resolve()
     }
   })
+}
+
+export async function wearOutfit(
+  avatar: Avatar,
+  outfit: ParsableItem[]
+): Promise<void> {
+  $.flavrNotif("Importing outfit. Please wait...")
+
+  // Get all categories
+  const categories = new Set<string>()
+  for (const clothing of outfit) {
+    categories.add(clothing.type)
+  }
+
+  // Open all categories
+  await Promise.all(
+    Array.from(categories.values()).map(async category =>
+      openCategory(category)
+    )
+  )
+
+  // Get all groups
+  const groups = new Set<number>()
+  for (const clothing of outfit) {
+    if (document.querySelector(`[data-group="${clothing.group}"]`))
+      groups.add(clothing.group)
+  }
+
+  // Open all groups
+  await Promise.all(
+    Array.from(groups.values()).map(async group => openGroup(group))
+  )
+
+  // Get the items from `availableItems`
+  const wornItems: Item[] = []
+  for (const clothing of outfit) {
+    const item = availableItems[clothing.id]
+    if (item) wornItems.push(item)
+  }
+
+  removeClothes()
+  avatar.addItems(wornItems)
+  initializeSelectedItems()
+  initializeHiddenCategories()
+
+  $.flavrNotif("Imported outfit!")
 }

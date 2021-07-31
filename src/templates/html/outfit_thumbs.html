@@ -1,0 +1,65 @@
+<div id="ee-outfit-thumbs">
+  <style>
+    #appearance-items-category-favorites .slot.ee-available-slot {
+      background-image: url(/static/img/new-layout/wardrobe/available-favorite.png);
+      background-position: -14px -11px;
+      background-size: 171px 244px;
+      border-radius: 44px;
+      box-shadow: 0 0 4px 4px rgba(255, 255, 255, 0.8);
+      filter: hue-rotate(72deg);
+    }
+
+    #appearance-items-category-favorites .slot.ee-available-slot::after {
+      background: url(/static/img/new-layout/wardrobe/icon-plus.png);
+      content: " ";
+      filter: drop-shadow(0 0 6px rgba(11, 214, 244, 0.9));
+      filter: hue-rotate(-72deg);
+      height: 71px;
+      left: 50%;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity ease-in-out 100ms;
+      width: 66px;
+    }
+
+    #appearance-items-category-favorites .slot.ee-available-slot:hover::after,
+    #appearance-items-category-favorites .slot.ee-outfit-thumb:hover p {
+      opacity: 1;
+    }
+
+    #appearance-items-category-favorites .slot.ee-outfit-thumb img {
+      border-radius: 44px;
+      height: 100%;
+      width: 100%;
+    }
+
+    #appearance-items-category-favorites .slot.ee-outfit-thumb p {
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-family: "Alegreya Sans SC", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      left: 50%;
+      line-height: 22px;
+      opacity: 0;
+      padding: 12px 0;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity ease-in-out 400ms;
+      width: 100%;
+    }
+  </style>
+
+  {{#outfits}}
+  <div class="slot ee-outfit-thumb" data-array-index="{{id}}">
+    <img alt="{{name}}" src="{{url}}" />
+    <p>{{name}}</p>
+  </div>
+  {{/outfits}}
+
+  <div class="slot ee-available-slot"></div>
+</div>

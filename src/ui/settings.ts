@@ -2,7 +2,7 @@ import type { Template } from "hogan.js"
 import { getName } from "../download-canvas"
 import { LocalStorage } from "../local_storage/local_storage"
 
-export function loadSettings(): void {
+export async function loadSettings(): Promise<void> {
   const accountRight = document.querySelector("#account-right div")
   if (!accountRight || accountRight.querySelector(".account-ee-bloc")) return
 
@@ -10,7 +10,7 @@ export function loadSettings(): void {
 
   accountRight.insertAdjacentHTML(
     "beforeend",
-    settingsTemplate.render(LocalStorage.settings)
+    settingsTemplate.render(await LocalStorage.getSettings())
   )
 
   document.getElementById("ee-debug-enabled")?.addEventListener("click", () => {
@@ -45,12 +45,12 @@ export function loadSettings(): void {
 
   document
     .getElementById("ee-export")
-    ?.addEventListener("click", exportSettings)
+    ?.addEventListener("click", () => void exportSettings())
 }
 
 function reloadSettings(): void {
   document.querySelector<HTMLDivElement>(".account-ee-bloc")?.remove()
-  loadSettings()
+  void loadSettings()
 }
 
 function importSettings(): void {
@@ -65,10 +65,10 @@ function importSettings(): void {
     if (!files) return
     const file = files[0]
     if (!file) return
-    void file.text().then(value => {
+    void file.text().then(async value => {
       if (!value) return
 
-      LocalStorage.settings = JSON.parse(value)
+      await LocalStorage.setSettings(JSON.parse(value))
 
       reloadSettings()
       $.flavrNotif("Imported settings!")
@@ -76,10 +76,12 @@ function importSettings(): void {
   })
 }
 
-function exportSettings(): void {
+async function exportSettings(): Promise<void> {
   const href =
     "data:text/json;charset=utf-8," +
-    encodeURIComponent(JSON.stringify(LocalStorage.settings, null, "\t"))
+    encodeURIComponent(
+      JSON.stringify(await LocalStorage.getSettings(), null, 2)
+    )
 
   const a = document.createElement("a")
   a.setAttribute("href", href)
