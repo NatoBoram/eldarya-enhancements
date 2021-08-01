@@ -8,7 +8,7 @@ specifiers:
   '@types/jquery': ^3.5.6
   '@types/jqueryui': ^1.12.16
   '@types/mcustomscrollbar': ^2.8.33
-  '@types/node': ^16.4.8
+  '@types/node': ^16.4.9
   '@types/raphael': ^2.3.2
   '@types/sax': ^1.2.3
   '@types/suncalc': ^1.8.0
@@ -40,7 +40,7 @@ devDependencies:
   '@types/jquery': 3.5.6
   '@types/jqueryui': 1.12.16
   '@types/mcustomscrollbar': 2.8.33
-  '@types/node': 16.4.8
+  '@types/node': 16.4.9
   '@types/raphael': 2.3.2
   '@types/sax': 1.2.3
   '@types/suncalc': 1.8.0
@@ -215,8 +215,8 @@ packages:
       '@types/jquery': 3.5.6
     dev: true
 
-  /@types/node/16.4.8:
-    resolution: {integrity: sha512-VL7RZyCpfYEmbyd3/Eq5RNYhZt7yoL1JThZQ3KzimzhLya2Qa86U1ZZmioNWAAjiz99z1ED1xF9NUV2srvfVrA==}
+  /@types/node/16.4.9:
+    resolution: {integrity: sha512-HXhRf581nCItzn8yevv4LYt+bJ5cBbDBAJExbDPMeU/2n5/j0ZemGpayahFBP4xL7RseaCLASLD9i9AYyDe7Nw==}
     dev: true
 
   /@types/preloadjs/0.6.32:
@@ -232,7 +232,7 @@ packages:
   /@types/sax/1.2.3:
     resolution: {integrity: sha512-+QSw6Tqvs/KQpZX8DvIl3hZSjNFLW/OqE5nlyHXtTwODaJvioN2rOWpBNEWZp2HZUFhOh+VohmJku/WxEXU2XA==}
     dependencies:
-      '@types/node': 16.4.8
+      '@types/node': 16.4.9
     dev: true
 
   /@types/sizzle/2.3.3:
@@ -1417,7 +1417,7 @@ packages:
     resolution: {integrity: sha512-qupxcj/dRuA3xHPMUd40gr2EaAurFbkwzOh7wfPaeE9id7hyjURRQoqNfHifHK3XjJU6YJJUQKILGUnwGPEOCA==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.4.8
+      '@types/node': 16.4.9
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
