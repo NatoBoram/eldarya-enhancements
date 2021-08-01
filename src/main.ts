@@ -2,9 +2,9 @@ import { loadDressingExperience } from "./appearance/dressing_experience"
 import { translate } from "./i18n/translate"
 import { migrate } from "./migrate"
 import { loadTakeover } from "./takeover/brain"
-import { loadAppearance } from "./ui/appearance"
 import { loadAuctions } from "./ui/auctions"
 import { loadCarousel } from "./ui/carousel"
+import { loadFavourites } from "./ui/favourites"
 import { loadHomeContent } from "./ui/home_content"
 import { loadMarket } from "./ui/market"
 import { loadMenu } from "./ui/menu"
@@ -26,7 +26,7 @@ function loadUI(): void {
   loadMenu()
   loadCarousel()
   loadHomeContent()
-  loadAppearance()
+  loadFavourites()
   loadProfile()
   loadPet()
   loadMarket()

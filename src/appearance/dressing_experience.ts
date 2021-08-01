@@ -1,5 +1,6 @@
 import type { Template } from "hogan.js"
 import { translate } from "../i18n/translate"
+import { loadFavourites } from "../ui/favourites"
 import { loadAppearanceUI } from "./appearance_ui"
 import wardrobe from "./wardrobe"
 
@@ -16,10 +17,15 @@ export function loadDressingExperience(): void {
 
     switch (category) {
       case "background":
-      case "favorites":
         li.addEventListener("click", () =>
           document.getElementById("ee-category")?.remove()
         )
+        continue
+      case "favorites":
+        li.addEventListener("click", () => {
+          document.getElementById("ee-category")?.remove()
+          handleCategory(category)
+        })
         continue
       case "attic":
         continue
@@ -44,7 +50,8 @@ function handleCategory(category: string): void {
     `#appearance-items-category-${category}`
   )
   if (oldCatContainer) {
-    void handleGroups(appearanceItems, oldCatContainer)
+    if (category === "favorites") loadFavourites()
+    else void handleGroups(appearanceItems, oldCatContainer)
     return
   }
 
@@ -55,7 +62,8 @@ function handleCategory(category: string): void {
     if (!newCatContainer) return
     observer.disconnect()
 
-    void handleGroups(appearanceItems, newCatContainer)
+    if (category === "favorites") loadFavourites()
+    else void handleGroups(appearanceItems, newCatContainer)
   }).observe(appearanceItems, { childList: true })
 }
 

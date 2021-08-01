@@ -7,20 +7,7 @@ import indexed_db from "../indexed_db/indexed_db"
 import type { FavouritesAction } from "../templates/interfaces/favourites_action"
 import type { OutfitThumbs } from "../templates/interfaces/outfit_thumb"
 
-let observer: MutationObserver | null
-
-export function loadAppearance(): void {
-  observer?.disconnect()
-  observer = null
-
-  const appearanceItems = document.getElementById("appearance-items")
-  if (!appearanceItems) return
-
-  observer = new MutationObserver(loadAppearance)
-  observer.observe(appearanceItems, {
-    childList: true,
-  })
-
+export function loadFavourites(): void {
   loadFavouritesActions()
   void loadFakeFavourites()
 }
@@ -65,6 +52,8 @@ function loadFavouritesActions(): void {
 }
 
 export async function loadFakeFavourites(): Promise<void> {
+  console.log("loadFakeFavourites")
+
   const thumbs = document.querySelector("#all-outfit-thumbs .mCSB_container")
   if (!thumbs) return
 

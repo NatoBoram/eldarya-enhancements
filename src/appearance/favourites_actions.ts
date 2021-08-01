@@ -113,5 +113,8 @@ export async function wearOutfit(
   initializeSelectedItems()
   initializeHiddenCategories()
 
+  const avatarActions = document.getElementById("avatar-actions")
+  if (avatarActions) avatarActions.style.display = "initial"
+
   $.flavrNotif(translate.appearance.favourites.imported)
 }
