@@ -52,8 +52,6 @@ function loadFavouritesActions(): void {
 }
 
 export async function loadFakeFavourites(): Promise<void> {
-  console.log("loadFakeFavourites")
-
   const thumbs = document.querySelector("#all-outfit-thumbs .mCSB_container")
   if (!thumbs) return
 
