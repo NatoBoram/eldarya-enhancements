@@ -3,7 +3,7 @@ import { translate } from "../i18n/translate"
 import indexed_db from "../indexed_db/indexed_db"
 import { parseAvatar } from "../outfit"
 import { loadFakeFavourites } from "../ui/appearance"
-import { wearOutfit } from "./favorites_actions"
+import { wearOutfit } from "./favourites_actions"
 import type { FavouriteOutfit } from "./interfaces/favourite_outfit"
 import type { ParsableItem } from "./interfaces/parsable_item"
 
