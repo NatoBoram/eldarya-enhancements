@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { WishlistSettings } from "../templates/interfaces/wishlist_settings"
 
@@ -18,7 +19,7 @@ export function loadWishlist(): void {
   const wishlistButtonTemplate: Template = require("../templates/html/wishlist_button.html")
   marketplaceMenu.insertAdjacentHTML(
     "beforeend",
-    wishlistButtonTemplate.render({})
+    wishlistButtonTemplate.render({ translate })
   )
 
   const wishlistButton =
@@ -31,9 +32,7 @@ export function loadWishlist(): void {
 function insertWishlist(button: HTMLAnchorElement): void {
   // Assistance
   const assistance = document.querySelector(".marketplace-assistance")
-  if (assistance)
-    assistance.textContent =
-      "On this page, you can organize your wishlist and check the status of your wished items."
+  if (assistance) assistance.textContent = translate.market.wishlist.assistance
 
   // Menu
   document
@@ -56,7 +55,10 @@ function insertWishlist(button: HTMLAnchorElement): void {
   const wishlistContext: WishlistSettings = {
     wishlist: LocalStorage.wishlist,
   }
-  container.innerHTML = wishlistTemplate.render(wishlistContext)
+  container.innerHTML = wishlistTemplate.render({
+    ...wishlistContext,
+    translate,
+  })
 
   // Buttons
   for (const tr of container.querySelectorAll("tr")) {
@@ -124,7 +126,7 @@ async function changePrice(wearableitemid: string): Promise<void> {
 
   return new Promise(resolve => {
     $.flavr({
-      content: template.render({}),
+      content: template.render({ translate }),
       dialog: "prompt",
       prompt: {
         value: entry.price.toString(),
@@ -167,7 +169,7 @@ function save(wearableitemid: string, resolve: () => void): boolean {
     document.querySelector<HTMLInputElement>(".flavr-prompt")?.value.trim()
   )
   if (!price || price <= 0) {
-    $.flavrNotif("This is not a valid price.")
+    $.flavrNotif(translate.market.change_price.invalid_price)
     return false
   }
 
@@ -178,8 +180,16 @@ function save(wearableitemid: string, resolve: () => void): boolean {
     ...wishlist.slice(index + 1, undefined),
   ]
 
-  const template: Template = require("../templates/html/flavr_notif/changed_wishlist_price.html")
-  $.flavrNotif(template.render(entry))
+  const template: Template = require("../templates/html/flavr_notif/icon_message.html")
+  $.flavrNotif(
+    template.render({
+      ...entry,
+      message: translate.market.change_price.changed_price(
+        entry.name,
+        entry.price
+      ),
+    })
+  )
 
   resolve()
   return true

@@ -1,4 +1,6 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
+import { loadFavourites } from "../ui/favourites"
 import { loadAppearanceUI } from "./appearance_ui"
 import wardrobe from "./wardrobe"
 
@@ -15,13 +17,25 @@ export function loadDressingExperience(): void {
 
     switch (category) {
       case "background":
+        li.addEventListener("click", () =>
+          document.getElementById("ee-category")?.remove()
+        )
+        continue
       case "favorites":
-        document.getElementById("ee-category")?.remove()
+        li.addEventListener("click", () => {
+          document.getElementById("ee-category")?.remove()
+          handleCategory(category)
+        })
         continue
       case "attic":
         continue
       default:
-        li.addEventListener("click", () => handleCategory(category))
+        li.addEventListener("click", () => {
+          document
+            .getElementById("appearance-items-category-favorites")
+            ?.remove()
+          handleCategory(category)
+        })
     }
   }
 }
@@ -36,7 +50,8 @@ function handleCategory(category: string): void {
     `#appearance-items-category-${category}`
   )
   if (oldCatContainer) {
-    void handleGroups(appearanceItems, oldCatContainer)
+    if (category === "favorites") loadFavourites()
+    else void handleGroups(appearanceItems, oldCatContainer)
     return
   }
 
@@ -47,7 +62,8 @@ function handleCategory(category: string): void {
     if (!newCatContainer) return
     observer.disconnect()
 
-    void handleGroups(appearanceItems, newCatContainer)
+    if (category === "favorites") loadFavourites()
+    else void handleGroups(appearanceItems, newCatContainer)
   }).observe(appearanceItems, { childList: true })
 }
 
@@ -74,7 +90,7 @@ async function handleGroups(
   document.getElementById("ee-category")?.remove()
   appearanceItems.insertAdjacentHTML(
     "beforeend",
-    template.render({ category, categoryid })
+    template.render({ category, categoryid, translate })
   )
   const eeItems = document.querySelector("#ee-items")
   if (!eeItems) return
@@ -159,13 +175,13 @@ function unloadHiddenCategories(): void {
   }
 }
 
-function loadHiddenCategory(category: string): void {
+export function loadHiddenCategory(category: string): void {
   const categoryid = wardrobe
     .getCategories()
     .find(c => c.category === category)?.categoryid
   if (!categoryid) return
 
-  const groups = wardrobe.getGroups(categoryid)
+  const groups = wardrobe.getCategoryGroups(categoryid)
   const itemTemplate: Template = require("../templates/html/appearance_item.html")
   const groupTemplate: Template = require("../templates/html/appearance_items_group.html")
 
@@ -184,5 +200,26 @@ function loadHiddenCategory(category: string): void {
           })
         )
         .join("\n")
+    )
+}
+
+export function loadHiddenGroup(id: number): void {
+  const group = wardrobe.getGroup(id)
+  if (!group) return
+
+  const itemTemplate: Template = require("../templates/html/appearance_item.html")
+  const groupTemplate: Template = require("../templates/html/appearance_items_group.html")
+
+  document
+    .querySelector<HTMLDivElement>("#appearance-items")
+    ?.insertAdjacentHTML(
+      "beforeend",
+      groupTemplate.render({
+        ...group,
+        items: wardrobe
+          .getItems(group.group)
+          .map(item => itemTemplate.render(item))
+          .join("\n"),
+      })
     )
 }

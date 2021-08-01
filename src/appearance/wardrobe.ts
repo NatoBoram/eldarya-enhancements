@@ -20,14 +20,18 @@ class Wardrobe {
     return this.categories[id]
   }
 
+  getCategoryGroups(categoryid: number): AppearanceGroup[] {
+    return Object.values(this.groups).filter(
+      group => group.categoryid === categoryid
+    )
+  }
+
   getGroup(id: number): AppearanceGroup | undefined {
     return this.groups[id]
   }
 
-  getGroups(categoryid: number): AppearanceGroup[] {
-    return Object.values(this.groups).filter(
-      group => group.categoryid === categoryid
-    )
+  getGroups(): AppearanceGroup[] {
+    return Object.values(this.groups)
   }
 
   getItem(id: number): AppearanceItem | undefined {

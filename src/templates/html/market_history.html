@@ -54,7 +54,9 @@
 
 <!-- Purchases -->
 <div class="marketplace-abstract" id="purchase-history">
-  <h2 class="section-subtitle">Purchase history</h2>
+  <h2 class="section-subtitle">
+    {{translate.market.auctions.purchase_history}}
+  </h2>
 
   <ul class="marketplace-purchases-items">
     {{#purchases}}
@@ -74,12 +76,12 @@
         <div class="abstract-name">{{name}}</div>
         <div class="abstract-content">
           <div class="abstract-currentPrice">
-            {{#currentPrice}} Current price :
+            {{#currentPrice}} {{translate.market.auctions.current_price}}
             <span class="price-item">{{currentPrice.price}}</span>
             <span class="maana-icon"></span>
             {{/currentPrice}}
             <br />
-            {{#buyNowPrice}} Buy now price :
+            {{#buyNowPrice}} {{translate.market.auctions.buy_now_price}}
             <span class="price-item">{{buyNowPrice.price}}</span>
             <span class="maana-icon"></span>
             {{/buyNowPrice}}
@@ -98,7 +100,7 @@
           "
           data-itemid="{{itemid}}"
         >
-          Delete
+          {{translate.market.auctions.delete}}
         </div>
       </div>
     </li>
@@ -108,7 +110,7 @@
 
 <!-- Sales -->
 <div class="marketplace-abstract" id="sale-history">
-  <h2 class="section-subtitle">Sales history</h2>
+  <h2 class="section-subtitle">{{translate.market.auctions.sales_history}}</h2>
 
   <ul class="marketplace-sales-items">
     {{#sales}}
@@ -123,12 +125,12 @@
         <div class="abstract-name">{{name}}</div>
         <div class="abstract-content">
           <div class="abstract-currentPrice">
-            {{#currentPrice}} Current price :
+            {{#currentPrice}} {{translate.market.auctions.current_price}}
             <span class="price-item">{{currentPrice}}</span>
             <span class="maana-icon"></span>
             {{/currentPrice}}
             <br />
-            {{#buyNowPrice}} Buy now price :
+            {{#buyNowPrice}} {{translate.market.auctions.buy_now_price}}
             <span class="price-item">{{buyNowPrice}}</span>
             <span class="maana-icon"></span>
             {{/buyNowPrice}}
@@ -146,7 +148,7 @@
             delete-button
           "
         >
-          Delete
+          {{translate.market.auctions.delete}}
         </div>
       </div>
     </li>

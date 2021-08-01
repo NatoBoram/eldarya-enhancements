@@ -1,4 +1,6 @@
 import type { Template } from "hogan.js"
+import { downloadProfile } from "../download-canvas"
+import { translate } from "../i18n/translate"
 import { exportOutfit } from "../outfit"
 import type { ProfileContactAction } from "../templates/interfaces/profile_contact_action"
 
@@ -14,9 +16,14 @@ export function loadProfile(): void {
   }
 
   const template: Template = require("../templates/html/profile_contact_action.html")
+
   const profileActionExport: ProfileContactAction = {
     id: "profile-contact-action-export",
-    actionDescription: "Export outfit",
+    actionDescription: translate.profile.export_outfit,
+  }
+  const profileActionDownload: ProfileContactAction = {
+    id: "profile-contact-action-download",
+    actionDescription: translate.profile.download_outfit,
   }
 
   // Add entries
@@ -24,11 +31,18 @@ export function loadProfile(): void {
     "beforeend",
     template.render(profileActionExport)
   )
+  profileContactActions.insertAdjacentHTML(
+    "beforeend",
+    template.render(profileActionDownload)
+  )
 
   // Add click events
   document
     .getElementById(profileActionExport.id)
     ?.addEventListener("click", exportProfile)
+  document
+    .getElementById(profileActionDownload.id)
+    ?.addEventListener("click", downloadProfile)
 }
 
 function exportProfile(): void {

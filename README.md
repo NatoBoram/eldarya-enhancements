@@ -27,5 +27,25 @@ The latest development version can be downloaded [here](https://gitlab.com/NatoB
 - Replaces a few bank buttons with a link to the forum
 - Import and export your outfit
 - Export other guardians' outfits from their profile
+- Import and export settings
 - Mark favourite exploration points
 - Wishlist for the market
+- Overhaul of the dresser so you can see all items in a category at once
+- Translated in French
+- Unlimited amount of free favourite outfits
+
+## Development
+
+### Dependencies
+
+This project uses [`pnpm`](https://pnpm.io/installation), but it'll probably work
+with any NodeJS package manager.
+
+### Building
+
+To build, simply run `pnpm run build` or `pnpm run build:windows`, the resulting
+userscript will be in the `dist/` folder. The build script prepends the `.meta.js`
+file after the `webpack` command finishes because webpack's
+[`BannerPlugin`](https://webpack.js.org/plugins/banner-plugin/)
+[is broken](https://github.com/webpack/webpack/issues/6630)
+but webpack's members refuse to acknowledge the problem.

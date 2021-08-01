@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import type { HomeContentSmall } from "../templates/interfaces/home_content_small"
 
 export function loadHomeContent(): void {
@@ -17,7 +18,7 @@ export function loadHomeContent(): void {
   const smallContent: HomeContentSmall = {
     backgroundImage:
       "/assets/img/minigames/treasurehunt/a48bbc4e4849745ebe6dbcf5313eb3f0.jpg",
-    h4: "Forum",
+    h4: translate.home.forum,
     href: "/forum",
     id: "forum",
   }

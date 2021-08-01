@@ -1,5 +1,6 @@
 .pnpm-store
 package-lock.json
+src/imagekit.ts
 src/templates/js
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,linux,macos,windows,visualstudiocode
