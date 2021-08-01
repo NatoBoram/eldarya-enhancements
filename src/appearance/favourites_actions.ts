@@ -48,45 +48,24 @@ function removeClothes(): void {
 }
 
 async function openGroup(group: number): Promise<void> {
-  return new Promise<void>(resolve => {
-    const categoryContainer = $("#appearance-items-group-" + group.toString())
-    if (categoryContainer.hasClass("active")) {
-      resolve()
-      return
-    }
+  return new Promise<void>((resolve): void => {
+    if (document.querySelector(`#appearance-items-group-${group}`))
+      return void resolve()
 
-    if (categoryContainer.length <= 0) {
-      void $.get(
-        "/player/openGroup/" + group.toString(),
-        (view: string): void => {
-          $(view).hide().appendTo("#appearance-items")
-        }
-      ).always(() => {
-        resolve()
-      })
-    } else {
-      resolve()
-    }
+    void $.get(`/player/openGroup/${group}`, (view: string): void => {
+      $(view).hide().appendTo("#appearance-items")
+    }).always(resolve)
   })
 }
 
 async function openCategory(category: string): Promise<void> {
-  return new Promise<void>(resolve => {
-    const categoryContainer = $("#appearance-items-category-" + category)
-    if (categoryContainer.hasClass("active")) {
-      resolve()
-      return
-    }
+  return new Promise<void>((resolve): void => {
+    if (document.querySelector(`#appearance-items-category-${category}`))
+      return void resolve()
 
-    if (categoryContainer.length <= 0) {
-      void $.post("/player/openCategory/" + category, (view: string): void => {
-        $(view).hide().appendTo("#appearance-items")
-      }).always(() => {
-        resolve()
-      })
-    } else {
-      resolve()
-    }
+    void $.post(`/player/openCategory/${category}`, (view: string): void => {
+      $(view).hide().appendTo("#appearance-items")
+    }).always(resolve)
   })
 }
 
@@ -98,9 +77,8 @@ export async function wearOutfit(
 
   // Get all categories
   const categories = new Set<string>()
-  for (const clothing of outfit) {
-    categories.add(clothing.type)
-  }
+  for (const clothing of outfit)
+    if (!availableItems[clothing.id]) categories.add(clothing.type)
 
   // Open all categories
   await Promise.all(
@@ -111,10 +89,12 @@ export async function wearOutfit(
 
   // Get all groups
   const groups = new Set<number>()
-  for (const clothing of outfit) {
-    if (document.querySelector(`[data-group="${clothing.group}"]`))
+  for (const clothing of outfit)
+    if (
+      document.querySelector(`[data-group="${clothing.group}"]`) &&
+      !availableItems[clothing.id]
+    )
       groups.add(clothing.group)
-  }
 
   // Open all groups
   await Promise.all(
@@ -133,5 +113,5 @@ export async function wearOutfit(
   initializeSelectedItems()
   initializeHiddenCategories()
 
-  $.flavrNotif(translate.appearance.favourites.importing)
+  $.flavrNotif(translate.appearance.favourites.imported)
 }

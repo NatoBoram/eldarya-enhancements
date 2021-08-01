@@ -17,12 +17,19 @@ export function loadDressingExperience(): void {
     switch (category) {
       case "background":
       case "favorites":
-        document.getElementById("ee-category")?.remove()
+        li.addEventListener("click", () =>
+          document.getElementById("ee-category")?.remove()
+        )
         continue
       case "attic":
         continue
       default:
-        li.addEventListener("click", () => handleCategory(category))
+        li.addEventListener("click", () => {
+          document
+            .getElementById("appearance-items-category-favorites")
+            ?.remove()
+          handleCategory(category)
+        })
     }
   }
 }
@@ -160,13 +167,13 @@ function unloadHiddenCategories(): void {
   }
 }
 
-function loadHiddenCategory(category: string): void {
+export function loadHiddenCategory(category: string): void {
   const categoryid = wardrobe
     .getCategories()
     .find(c => c.category === category)?.categoryid
   if (!categoryid) return
 
-  const groups = wardrobe.getGroups(categoryid)
+  const groups = wardrobe.getCategoryGroups(categoryid)
   const itemTemplate: Template = require("../templates/html/appearance_item.html")
   const groupTemplate: Template = require("../templates/html/appearance_items_group.html")
 
@@ -185,5 +192,26 @@ function loadHiddenCategory(category: string): void {
           })
         )
         .join("\n")
+    )
+}
+
+export function loadHiddenGroup(id: number): void {
+  const group = wardrobe.getGroup(id)
+  if (!group) return
+
+  const itemTemplate: Template = require("../templates/html/appearance_item.html")
+  const groupTemplate: Template = require("../templates/html/appearance_items_group.html")
+
+  document
+    .querySelector<HTMLDivElement>("#appearance-items")
+    ?.insertAdjacentHTML(
+      "beforeend",
+      groupTemplate.render({
+        ...group,
+        items: wardrobe
+          .getItems(group.group)
+          .map(item => itemTemplate.render(item))
+          .join("\n"),
+      })
     )
 }
