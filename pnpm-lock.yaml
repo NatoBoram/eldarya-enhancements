@@ -8,7 +8,7 @@ specifiers:
   '@types/jquery': ^3.5.6
   '@types/jqueryui': ^1.12.16
   '@types/mcustomscrollbar': ^2.8.33
-  '@types/node': ^16.4.9
+  '@types/node': ^16.4.10
   '@types/raphael': ^2.3.2
   '@types/sax': ^1.2.3
   '@types/suncalc': ^1.8.0
@@ -40,7 +40,7 @@ devDependencies:
   '@types/jquery': 3.5.6
   '@types/jqueryui': 1.12.16
   '@types/mcustomscrollbar': 2.8.33
-  '@types/node': 16.4.9
+  '@types/node': 16.4.10
   '@types/raphael': 2.3.2
   '@types/sax': 1.2.3
   '@types/suncalc': 1.8.0
@@ -66,8 +66,8 @@ packages:
       '@babel/highlight': 7.14.5
     dev: true
 
-  /@babel/helper-validator-identifier/7.14.8:
-    resolution: {integrity: sha512-ZGy6/XQjllhYQrNw/3zfWRwZCTVSiBLZ9DHVZxn9n2gip/7ab8mv2TWlKPIBk26RwedCBoWdjLmn+t9na2Gcow==}
+  /@babel/helper-validator-identifier/7.14.9:
+    resolution: {integrity: sha512-pQYxPY0UP6IHISRitNe8bsijHex4TWZXi2HwKVsjPiltzlhse2znVcm9Ace510VT1kxIHjGJCZZQBX2gJDbo0g==}
     engines: {node: '>=6.9.0'}
     dev: true
 
@@ -75,7 +75,7 @@ packages:
     resolution: {integrity: sha512-qf9u2WFWVV0MppaL877j2dBtQIDgmidgjGk5VIMw3OadXvYaXn66U1BFlH2t4+t3i+8PhedppRv+i40ABzd+gg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/helper-validator-identifier': 7.14.8
+      '@babel/helper-validator-identifier': 7.14.9
       chalk: 2.4.2
       js-tokens: 4.0.0
     dev: true
@@ -215,8 +215,8 @@ packages:
       '@types/jquery': 3.5.6
     dev: true
 
-  /@types/node/16.4.9:
-    resolution: {integrity: sha512-HXhRf581nCItzn8yevv4LYt+bJ5cBbDBAJExbDPMeU/2n5/j0ZemGpayahFBP4xL7RseaCLASLD9i9AYyDe7Nw==}
+  /@types/node/16.4.10:
+    resolution: {integrity: sha512-TmVHsm43br64js9BqHWqiDZA+xMtbUpI1MBIA0EyiBmoV9pcEYFOSdj5fr6enZNfh4fChh+AGOLIzGwJnkshyQ==}
     dev: true
 
   /@types/preloadjs/0.6.32:
@@ -232,7 +232,7 @@ packages:
   /@types/sax/1.2.3:
     resolution: {integrity: sha512-+QSw6Tqvs/KQpZX8DvIl3hZSjNFLW/OqE5nlyHXtTwODaJvioN2rOWpBNEWZp2HZUFhOh+VohmJku/WxEXU2XA==}
     dependencies:
-      '@types/node': 16.4.9
+      '@types/node': 16.4.10
     dev: true
 
   /@types/sizzle/2.3.3:
@@ -1417,7 +1417,7 @@ packages:
     resolution: {integrity: sha512-qupxcj/dRuA3xHPMUd40gr2EaAurFbkwzOh7wfPaeE9id7hyjURRQoqNfHifHK3XjJU6YJJUQKILGUnwGPEOCA==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.4.9
+      '@types/node': 16.4.10
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
