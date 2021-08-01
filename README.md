@@ -27,9 +27,12 @@ The latest development version can be downloaded [here](https://gitlab.com/NatoB
 - Replaces a few bank buttons with a link to the forum
 - Import and export your outfit
 - Export other guardians' outfits from their profile
+- Import and export settings
 - Mark favourite exploration points
 - Wishlist for the market
 - Overhaul of the dresser so you can see all items in a category at once
+- Translated in French
+- Unlimited amount of free favourite outfits
 
 ## Development
 
