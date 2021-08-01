@@ -55,6 +55,18 @@ export function downloadAppearance(): void {
   downloadCanvas(canvas, getName() ?? "guardian")
 }
 
+export function downloadProfile(): void {
+  const canvas = document.querySelector<HTMLCanvasElement>(
+    ".playerProfileAvatar canvas"
+  )
+  const title = document.querySelector<HTMLHeadingElement>(
+    "#main-section .section-title"
+  )
+  if (!canvas || !title) return
+
+  downloadCanvas(canvas, title.textContent?.trim() ?? "guardian")
+}
+
 export function getName(): string | null {
   return (
     document.querySelector("#avatar-menu-container-outer>p")?.textContent ??

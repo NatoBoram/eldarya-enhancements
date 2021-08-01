@@ -63,7 +63,7 @@ export const en: Translation = {
         title: "Save outfit",
       },
       buttons: {
-        download: "Download",
+        download: "Download PNG",
         export: "Export",
         import: "Import",
       },
@@ -132,6 +132,7 @@ export const en: Translation = {
   },
   profile: {
     export_outfit: "Export outfit",
+    download_outfit: "Download PNG",
   },
 }
 

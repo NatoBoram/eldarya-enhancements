@@ -63,7 +63,7 @@ export const fr: Translation = {
         title: "Sauvegarder cette tenue",
       },
       buttons: {
-        download: "Télécharger",
+        download: "Télécharger le PNG",
         export: "Exporter",
         import: "Importer",
       },
@@ -132,6 +132,7 @@ export const fr: Translation = {
   },
   profile: {
     export_outfit: "Exporter la tenue",
+    download_outfit: "Télécharger le PNG",
   },
 }
 

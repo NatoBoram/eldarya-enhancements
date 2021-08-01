@@ -108,6 +108,7 @@ export interface Translation {
   }
   readonly profile: {
     readonly export_outfit: string
+    readonly download_outfit: string
   }
 }
 
