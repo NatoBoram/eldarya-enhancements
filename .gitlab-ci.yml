@@ -20,6 +20,7 @@ build:
   except:
     - master
     - develop
+    - merge_requests
     - tags
 
 eslint:
@@ -44,8 +45,11 @@ deploy:
   only:
     - master
     - develop
+    - merge_requests
     - tags
   artifacts:
+    name: eldarya-enhancements
+    expose_as: eldarya-enhancements
     paths:
       - dist/eldarya-enhancements.meta.js
       - dist/eldarya-enhancements.user.js
