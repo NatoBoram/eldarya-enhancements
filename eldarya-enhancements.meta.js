@@ -7,7 +7,7 @@
 // @description     Enhances the user experience of Eldarya.
 // @icon            https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/avatar.png
 // @updateURL       https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.meta.js?job=deploy
-// @downloadURL     https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=deploy
+// @downloadURL     https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.min.user.js?job=deploy
 // @supportURL      https://gitlab.com/NatoBoram/Eldarya-Face-Downloader/issues
 // @contributionURL https://paypal.me/NatoBoram/5
 //
