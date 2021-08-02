@@ -2,7 +2,7 @@ default:
   image: node:latest
 
 before_script:
-  - curl -f https://get.pnpm.io/v6.js | node - add --global pnpm@6
+  - curl -f https://get.pnpm.io/v6.7.js | node - add --global pnpm@6
   - pnpm config set store-dir .pnpm-store
   - pnpm install
 
@@ -40,16 +40,38 @@ tsc:
 
 deploy:
   stage: deploy
-  script:
-    - ./scripts/build.sh
   only:
     - master
     - develop
     - merge_requests
     - tags
+  script:
+    - ./scripts/build.sh
   artifacts:
     name: eldarya-enhancements
     expose_as: eldarya-enhancements
     paths:
       - dist/eldarya-enhancements.meta.js
       - dist/eldarya-enhancements.user.js
+
+release:
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  stage: deploy
+  only:
+    - tags
+  needs:
+    - job: deploy
+      artifacts: true
+  script:
+    - "echo $CI_COMMIT_TAG: $CI_COMMIT_TITLE"
+  release:
+    tag_name: "$CI_COMMIT_TAG"
+    description: "$CI_COMMIT_MESSAGE"
+    assets:
+      links:
+        - name: "eldarya-enhancements.meta.js"
+          url: "https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/$CI_COMMIT_TAG/raw/dist/eldarya-enhancements.meta.js?job=deploy"
+          link_type: "other"
+        - name: "eldarya-enhancements.user.js"
+          url: "https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/$CI_COMMIT_TAG/raw/dist/eldarya-enhancements.user.js?job=deploy"
+          link_type: "package"
