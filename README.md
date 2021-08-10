@@ -12,13 +12,13 @@ Enhances the user experience of Eldarya.
 ## Installation
 
 1. Install [one of these](https://github.com/OpenUserJS/OpenUserJS.org/wiki/Userscript-Beginners-HOWTO#how-do-i-get-going)
-2. Download the latest release [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.user.js?job=deploy)
+2. Download the latest release [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.min.user.js?job=deploy)
 3. Open the downloaded file in your browser
 
 I'm still figuring out an easier installation method, but for now this will do.
 The script updates automatically.
 
-The latest development version can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.user.js?job=deploy).
+The latest development version can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.min.user.js?job=deploy).
 
 ## Features
 
