@@ -1,15 +1,41 @@
 const path = require("path")
 
-module.exports = {
+const webpack = {
   entry: "./src/main.ts",
-  devtool: "inline-source-map",
-  performance: {
-    maxAssetSize: 500 * 1024,
-    maxEntrypointSize: 500 * 1024,
+  module: {
+    rules: [{ test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/ }],
   },
+  resolve: { extensions: [".tsx", ".ts", ".js"] },
+  output: {
+    path: path.resolve(__dirname, "dist"),
+  },
+}
+
+const development = {
+  ...webpack,
   module: {
     rules: [
-      { test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/ },
+      ...webpack.module.rules,
+      {
+        test: /\.html$/,
+        loader: "mustache-loader",
+        options: { noShortcut: true },
+      },
+    ],
+  },
+  devtool: "inline-source-map",
+  output: {
+    ...webpack.output,
+    filename: "eldarya-enhancements.user.js",
+  },
+  mode: "development",
+}
+
+const production = {
+  ...webpack,
+  module: {
+    rules: [
+      ...webpack.module.rules,
       {
         test: /\.html$/,
         loader: "mustache-loader",
@@ -17,11 +43,11 @@ module.exports = {
       },
     ],
   },
-  resolve: { extensions: [".tsx", ".ts", ".js"] },
   output: {
-    filename: "eldarya-enhancements.user.js",
-    path: path.resolve(__dirname, "dist"),
+    ...webpack.output,
+    filename: "eldarya-enhancements.min.user.js",
   },
   mode: "production",
-  plugins: [],
 }
+
+module.exports = [development, production]
