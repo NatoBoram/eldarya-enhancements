@@ -37,9 +37,10 @@ export const fr: Translation = {
     },
   },
   minigames: {
-    playing: (name: string) => `Joue à <strong>${name}</strong>...`,
     played_for: (name: string, maanas: number) =>
       `A joué à <strong>${name}</strong> pour <strong class="price-item">${maanas}</strong> <span class="maana-icon" alt="maanas"></span> gagnés.`,
+    played: (name: string) => `A joué à <strong>${name}</strong>.`,
+    playing: (name: string) => `Joue à <strong>${name}</strong>...`,
   },
   appearance: {
     buttons: {

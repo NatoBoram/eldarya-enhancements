@@ -8,8 +8,8 @@ export abstract class Action {
   abstract condition(): boolean
 
   /**
-   * Performs the action and returns `true` the brain can continue with another
-   * action or `false` if this action isn't finished executing.
+   * Performs the action and returns `true` if it has something else to do or
+   * `false` if this action is finished executing.
    */
   abstract perform(): Promise<boolean>
 }
