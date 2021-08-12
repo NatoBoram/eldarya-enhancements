@@ -45,6 +45,8 @@ export const fr: Translation = {
     buttons: {
       backward: "Vers l'arrière",
       forward: "Vers l'avant",
+      load_tooltip: "Charger la garde-robe en arrière-plan",
+      load: "Charger",
     },
     favourites: {
       imported: "Importation réussie!",

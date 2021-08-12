@@ -25,6 +25,8 @@ export interface Translation {
     readonly buttons: {
       readonly backward: string
       readonly forward: string
+      readonly load_tooltip: string
+      readonly load: string
     }
     readonly favourites: {
       readonly importing: string

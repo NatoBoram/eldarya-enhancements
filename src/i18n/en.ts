@@ -45,6 +45,8 @@ export const en: Translation = {
     buttons: {
       backward: "Move back",
       forward: "Bring forward",
+      load_tooltip: "Load the wardrobe in the background.",
+      load: "Load",
     },
     favourites: {
       imported: "Imported outfit!",

@@ -1,5 +1,8 @@
 import type { Template } from "hogan.js"
 import { translate } from "../i18n/translate"
+import type { AppearanceCategory } from "../templates/interfaces/appearance_category"
+import type { AppearanceGroup } from "../templates/interfaces/appearance_group"
+import type { AppearanceItem } from "../templates/interfaces/appearance_item"
 import { loadFavourites } from "../ui/favourites"
 import { loadAppearanceUI } from "./appearance_ui"
 import wardrobe from "./wardrobe"
@@ -75,13 +78,8 @@ async function handleGroups(
   await new Promise(resolve => setTimeout(resolve, 220))
 
   // Get information about the current category
-  const { category, categoryid, categoryname } = categoryContainer.dataset
-  if (!category || !categoryid || !categoryname) return
-  wardrobe.setCategory({
-    category,
-    categoryid: Number(categoryid),
-    categoryname,
-  })
+  const appearanceCategory = categoryContainerDataSet(categoryContainer)!
+  wardrobe.setCategory(appearanceCategory)
   categoryContainer.classList.remove("active")
   categoryContainer.style.display = "none"
 
@@ -90,34 +88,30 @@ async function handleGroups(
   document.getElementById("ee-category")?.remove()
   appearanceItems.insertAdjacentHTML(
     "beforeend",
-    template.render({ category, categoryid, translate })
+    template.render({ ...appearanceCategory, translate })
   )
   const eeItems = document.querySelector("#ee-items")
   if (!eeItems) return
 
-  loadHiddenCategory(category)
+  loadHiddenCategory(appearanceCategory.category)
   for (const li of categoryContainer.querySelectorAll<HTMLLIElement>(
     "li.appearance-item-group"
   )) {
-    const { group } = li.dataset
-    wardrobe.setGroup({
-      category,
-      categoryid: Number(categoryid),
-      group: Number(group),
-    })
-    if (!group) continue
+    const appearanceGroup = categoryGroupDataSet(li, appearanceCategory)!
+    if (!appearanceGroup.group) continue
+    wardrobe.setGroup(appearanceGroup)
 
     if (
       !document.querySelector<HTMLDivElement>(
-        `#appearance-items-group-${group}`
+        `#appearance-items-group-${appearanceGroup.group}`
       )
     )
-      await $.get("/player/openGroup/" + group, view =>
+      await $.get(`/player/openGroup/${appearanceGroup.group}`, view =>
         appearanceItems.insertAdjacentHTML("beforeend", view)
       )
 
     const div = document.querySelector<HTMLDivElement>(
-      `#appearance-items-group-${group}`
+      `#appearance-items-group-${appearanceGroup.group}`
     )
     if (!div) continue
     div.classList.remove("active")
@@ -128,7 +122,7 @@ async function handleGroups(
     // Check if the category is still active
     if (
       !document.querySelector(
-        `#wardrobe-menu li[data-category="${category}"].active`
+        `#wardrobe-menu li[data-category="${appearanceGroup.category}"].active`
       )
     )
       break
@@ -137,21 +131,15 @@ async function handleGroups(
       "beforeend",
       Array.from(div.querySelectorAll<HTMLLIElement>("li.appearance-item"))
         .map(li => {
-          li.dataset.category = category
-          li.dataset.categoryid = categoryid
-          li.dataset.group = group
+          const appearanceItem = itemDataSet(li, appearanceGroup)!
+          if (!appearanceItem.icon) return li.outerHTML
 
-          const icon = li.querySelector("img")?.src
-          if (!icon) return li.outerHTML
+          li.dataset.categoryid = appearanceItem.categoryid.toString()
+          li.dataset.category = appearanceItem.category
+          li.dataset.categoryname = appearanceItem.categoryname
+          li.dataset.group = appearanceItem.group.toString()
 
-          wardrobe.setItem({
-            group: Number(group),
-            icon,
-            itemid: Number(li.dataset.itemid),
-            name: li.dataset.name ?? "",
-            rarity: li.dataset.rarity ?? "",
-            rarityname: li.dataset.rarityname ?? "",
-          })
+          wardrobe.setItem(appearanceItem)
 
           return li.outerHTML
         })
@@ -222,4 +210,46 @@ export function loadHiddenGroup(id: number): void {
           .join("\n"),
       })
     )
+}
+
+function categoryContainerDataSet(
+  categoryContainer: HTMLDivElement
+): AppearanceCategory | undefined {
+  const { categoryid, category, categoryname } = categoryContainer.dataset
+  if (!categoryid || !category || !categoryname) return
+  return { categoryid: Number(categoryid), category, categoryname }
+}
+
+function categoryGroupDataSet(
+  groupItem: HTMLLIElement,
+  appearanceCategory: AppearanceCategory
+): AppearanceGroup | undefined {
+  const { itemid, group, name, rarity, rarityname } = groupItem.dataset
+  if (!itemid || !group || !name || !rarity || !rarityname) return
+  return {
+    ...appearanceCategory,
+    itemid: Number(itemid),
+    group: Number(group),
+    name,
+    rarity,
+    rarityname,
+  }
+}
+
+function itemDataSet(
+  li: HTMLLIElement,
+  appearanceGroup: AppearanceGroup
+): AppearanceItem | undefined {
+  const { itemid, name, rarity, rarityname } = li.dataset
+  const icon = li.querySelector("img")?.src
+  if (!itemid || !name || !rarity || !rarityname || !icon) return
+
+  return {
+    ...appearanceGroup,
+    itemid: Number(itemid),
+    name,
+    rarity,
+    rarityname,
+    icon,
+  }
 }

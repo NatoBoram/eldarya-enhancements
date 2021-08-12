@@ -1,9 +1,12 @@
+import type { Template } from "hogan.js"
+import { translate } from "../i18n/translate"
 import wardrobe from "./wardrobe"
 
 export function loadAppearanceUI(): void {
   setupBackground()
   setupLeftPanel()
   setupRightPanel()
+  setupAvatarPictoActions()
 
   if (wardrobe.availableItems) availableItems = wardrobe.availableItems
   else wardrobe.availableItems = availableItems
@@ -52,4 +55,17 @@ function setupLeftPanel(): void {
     canvas.style.maxHeight = "100vh"
     canvas.style.maxWidth = "50vw"
   }
+}
+
+function setupAvatarPictoActions(): void {
+  const avatarPictoActions = document.getElementById("avatar-picto-actions")
+  const template: Template = require("../templates/html/avatar_picto_action_load.html")
+
+  const container = document.getElementById("appearance-load-container")
+  if (container) container.replaceWith(template.render({ translate }))
+  else
+    avatarPictoActions?.insertAdjacentHTML(
+      "afterbegin",
+      template.render({ translate })
+    )
 }
