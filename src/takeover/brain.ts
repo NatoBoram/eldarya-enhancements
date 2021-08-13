@@ -8,6 +8,7 @@ import buyAction from "./classes/buy_action"
 import dailyAction from "./classes/daily_action"
 import explorationAction from "./classes/exploration_action"
 import minigameAction from "./classes/minigame_action"
+import { summerGameAction } from "./classes/summer_game_action"
 import waitAction from "./classes/wait_action"
 
 /** Automated entry point of the takeover. */
@@ -22,7 +23,7 @@ export function toggleTakeover(): void {
 
   loadTopBar()
   if (SessionStorage.takeover) $.flavrNotif(translate.takeover.enabled)
-  else $.flavrNotif(translate.takeover.enabled)
+  else $.flavrNotif(translate.takeover.disabled)
 
   void takeover()
 }
@@ -32,6 +33,7 @@ export function resetTakeover(): void {
   SessionStorage.explorationsDone = false
   SessionStorage.minigamesDone = false
   SessionStorage.selectedLocation = null
+  SessionStorage.summerGameDone = false
   SessionStorage.wishlist = []
 }
 
@@ -40,26 +42,21 @@ async function takeover(): Promise<void> {
   if (dailyAction.condition()) await dailyAction.perform()
 
   const action = actions.find(action => action.key === SessionStorage.action)
-  if (!action) {
-    changeAction()
-    void takeover()
-    return
+  if (action?.condition()) {
+    Console.info("Action:", action.key)
+
+    if (await action.perform()) return
   }
 
-  Console.info("Action:", action.key)
-
-  if (action.condition() && (await action.perform())) return
-  else {
-    changeAction()
-    void takeover()
-    return
-  }
+  changeAction()
+  void takeover()
 }
 
 const actions: Action[] = [
-  minigameAction,
   explorationAction,
   buyAction,
+  minigameAction,
+  summerGameAction,
   waitAction,
 ]
 

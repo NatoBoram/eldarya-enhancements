@@ -5,5 +5,6 @@ export enum TakeoverAction {
   auctions = "auctions",
   buy = "buy",
   // sell,
+  summerGame = "summerGame",
   wait = "wait",
 }

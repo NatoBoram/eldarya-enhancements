@@ -36,11 +36,13 @@ class ExplorationAction extends Action {
 
   async perform(): Promise<boolean> {
     if (location.pathname !== "/pet") {
-      await click<HTMLAnchorElement>(".main-menu-pet a")
+      pageLoad("/pet")
       return true
     }
 
-    switch (this.getExplorationStatus()) {
+    const status = this.getExplorationStatus()
+    Console.log("Exploration status:", ExplorationStatus[status])
+    switch (status) {
       case ExplorationStatus.idle:
         if (!(await this.startExploration()).selected)
           SessionStorage.explorationsDone = true
@@ -87,7 +89,7 @@ class ExplorationAction extends Action {
         )
 
       SessionStorage.selectedLocation = null
-      location.reload()
+      pageLoad("/pet")
       return null
     }
 
@@ -243,7 +245,7 @@ class ExplorationAction extends Action {
         this.globals
       )
       await new Promise(resolve => setTimeout(resolve, DurationUnit.minute))
-      location.reload()
+      pageLoad("/pet")
       return true
     }
 
@@ -268,7 +270,7 @@ class ExplorationAction extends Action {
         this.globals
       )
       await new Promise(resolve => setTimeout(resolve, DurationUnit.second))
-      location.reload()
+      pageLoad("/pet")
     }
 
     return true

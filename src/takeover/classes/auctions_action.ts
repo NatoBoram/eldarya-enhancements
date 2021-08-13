@@ -26,4 +26,4 @@ class AuctionsAction extends Action {
   }
 }
 
-export default new AuctionsAction()
+export const auctionsAction = new AuctionsAction()
