@@ -37,9 +37,10 @@ export const en: Translation = {
     },
   },
   minigames: {
-    playing: name => `Playing <strong>${name}</strong>...`,
     played_for: (name, maanas) =>
       `Played <strong>${name}</strong> for <strong class="price-item">${maanas}</strong> <span class="maana-icon" alt="maanas"></span> earned.`,
+    played: name => `Played <strong>${name}</strong>.`,
+    playing: name => `Playing <strong>${name}</strong>...`,
   },
   appearance: {
     buttons: {

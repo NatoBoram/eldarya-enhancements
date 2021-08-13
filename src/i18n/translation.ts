@@ -54,6 +54,7 @@ export interface Translation {
   }
   readonly minigames: {
     readonly played_for: (name: string, maanas: number) => string
+    readonly played: (name: string) => string
     readonly playing: (name: string) => string
   }
   readonly market: {
