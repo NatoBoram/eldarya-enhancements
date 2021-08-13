@@ -6,4 +6,5 @@ export enum SessionStorageKey {
   selectedLocation = "selectedLocation",
   takeover = "takeover",
   wishlist = "wishlist",
+  summerGameDone = "summerGameDone",
 }

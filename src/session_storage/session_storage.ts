@@ -41,6 +41,14 @@ export class SessionStorage {
     this.setItem(SessionStorageKey.minigamesDone, done)
   }
 
+  static get summerGameDone(): boolean {
+    return this.getItem(SessionStorageKey.summerGameDone, false)
+  }
+
+  static set summerGameDone(done: boolean) {
+    this.setItem(SessionStorageKey.summerGameDone, done)
+  }
+
   static get selectedLocation(): AutoExploreLocation | null {
     return this.getItem(SessionStorageKey.selectedLocation, null)
   }
