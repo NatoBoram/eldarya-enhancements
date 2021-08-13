@@ -42,6 +42,9 @@ class SummerGameAction extends Action {
       return false
     }
 
+    play.classList.remove("active")
+    play.classList.add("inactive")
+
     const template: Template = require("../../templates/html/flavr_notif/icon_message.html")
     $.flavrNotif(
       template.render({
