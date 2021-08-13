@@ -40,7 +40,9 @@ class ExplorationAction extends Action {
       return true
     }
 
-    switch (this.getExplorationStatus()) {
+    const status = this.getExplorationStatus()
+    Console.log("Exploration status:", ExplorationStatus[status])
+    switch (status) {
       case ExplorationStatus.idle:
         if (!(await this.startExploration()).selected)
           SessionStorage.explorationsDone = true
