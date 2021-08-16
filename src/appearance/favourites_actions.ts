@@ -47,7 +47,7 @@ function removeClothes(): void {
   }
 }
 
-async function openGroup(group: number): Promise<void> {
+export async function openGroup(group: number): Promise<void> {
   return new Promise<void>((resolve): void => {
     if (document.querySelector(`#appearance-items-group-${group}`))
       return void resolve()
@@ -58,7 +58,7 @@ async function openGroup(group: number): Promise<void> {
   })
 }
 
-async function openCategory(category: string): Promise<void> {
+export async function openCategory(category: string): Promise<void> {
   return new Promise<void>((resolve): void => {
     if (document.querySelector(`#appearance-items-category-${category}`))
       return void resolve()

@@ -48,6 +48,9 @@ export const fr: Translation = {
       forward: "Vers l'avant",
       load_tooltip: "Charger la garde-robe en arrière-plan",
       load: "Charger",
+      loaded_tooltip: "La garde-robe est chargée",
+      loadin_category_tooltip: (categoryname: string) =>
+        `Chargement de <strong>${categoryname}</strong>...`,
     },
     favourites: {
       imported: "Importation réussie!",

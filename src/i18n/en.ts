@@ -48,6 +48,9 @@ export const en: Translation = {
       forward: "Bring forward",
       load_tooltip: "Load the wardrobe in the background.",
       load: "Load",
+      loaded_tooltip: "The wardrobe is loaded",
+      loadin_category_tooltip: (categoryname: string) =>
+        `Loading <strong>${categoryname}</strong>...`,
     },
     favourites: {
       imported: "Imported outfit!",
