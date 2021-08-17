@@ -127,7 +127,9 @@ class ExplorationAction extends Action {
 
   private getExplorationStatus(): ExplorationStatus {
     if (
-      document.querySelector("#open-capture-interface") ||
+      document.querySelector(
+        "#treasure-hunt-result-overlay.active #open-capture-interface"
+      ) ||
       document.querySelector("#capture-interface-outer.active")
     ) {
       return ExplorationStatus.capture
