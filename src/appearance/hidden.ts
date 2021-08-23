@@ -5,7 +5,7 @@ import wardrobe from "./wardrobe"
 
 export function unloadHiddenCategories(): void {
   const hidden = document.querySelectorAll<HTMLDivElement>(
-    "#appearance-items .appearance-items-category:not(.active):not([data-categoryname]), #appearance-items script"
+    "#appearance-items .appearance-items-category:not(.active):not([data-categoryname]), #appearance-items script, body>script"
   )
   for (const div of hidden) {
     div.remove()

@@ -25,10 +25,6 @@ export interface Translation {
     readonly buttons: {
       readonly backward: string
       readonly forward: string
-      readonly load_tooltip: string
-      readonly load: string
-      readonly loaded_tooltip: string
-      readonly loadin_category_tooltip: (categoryname: string) => string
     }
     readonly favourites: {
       readonly importing: string
@@ -53,6 +49,8 @@ export interface Translation {
         readonly import: string
       }
     }
+    readonly loaded: string
+    readonly loading: (categoryname: string) => string
   }
   readonly minigames: {
     readonly played_for: (name: string, maanas: number) => string

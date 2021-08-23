@@ -46,11 +46,6 @@ export const fr: Translation = {
     buttons: {
       backward: "Vers l'arrière",
       forward: "Vers l'avant",
-      load_tooltip: "Charger la garde-robe en arrière-plan",
-      load: "Charger",
-      loaded_tooltip: "La garde-robe est chargée",
-      loadin_category_tooltip: (categoryname: string) =>
-        `Chargement de <strong>${categoryname}</strong>...`,
     },
     favourites: {
       imported: "Importation réussie!",
@@ -74,6 +69,9 @@ export const fr: Translation = {
         import: "Importer",
       },
     },
+    loaded: "Le chargement de la garde-robe est terminé.",
+    loading: (categoryname: string) =>
+      `Chargement de <strong>${categoryname}</strong>...`,
   },
   market: {
     add_to_wishlist: {

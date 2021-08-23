@@ -1,13 +1,9 @@
-import type { Template } from "hogan.js"
-import { translate } from "../i18n/translate"
-import { loadBackground } from "./dressing_experience"
 import wardrobe from "./wardrobe"
 
 export function loadAppearanceUI(): void {
   setupBackground()
   setupLeftPanel()
   setupRightPanel()
-  loadAvatarPictoActions(0, undefined)
 
   if (wardrobe.availableItems) availableItems = wardrobe.availableItems
   else wardrobe.availableItems = availableItems
@@ -55,40 +51,5 @@ function setupLeftPanel(): void {
   if (canvas) {
     canvas.style.maxHeight = "100vh"
     canvas.style.maxWidth = "50vw"
-  }
-}
-
-/** Picto action for loading in the background */
-export function loadAvatarPictoActions(
-  percentage: number,
-  categoryname?: string
-): void {
-  const avatarPictoActions = document.getElementById("avatar-picto-actions")
-  const template: Template = require("../templates/html/avatar_picto_action_load.html")
-
-  let tooltip: string
-  if (!percentage) {
-    tooltip = translate.appearance.buttons.load_tooltip
-  } else if (categoryname && percentage !== 1) {
-    tooltip = translate.appearance.buttons.loadin_category_tooltip(categoryname)
-  } else {
-    tooltip = translate.appearance.buttons.loaded_tooltip
-  }
-
-  const red = -186
-  const green = -66
-
-  const rendered = template.render({
-    translate,
-    deg: (red + percentage * (green - red)).toFixed(0),
-    tooltip,
-  })
-  document.getElementById("appearance-load-container")?.remove()
-  avatarPictoActions?.insertAdjacentHTML("afterbegin", rendered)
-
-  if (!percentage) {
-    document
-      .querySelector<HTMLDivElement>("#appearance-load-container")
-      ?.addEventListener("click", () => void loadBackground())
   }
 }

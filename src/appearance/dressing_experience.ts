@@ -2,22 +2,24 @@ import type { Template } from "hogan.js"
 import { translate } from "../i18n/translate"
 import { isEnum } from "../ts_util"
 import { loadFavourites } from "../ui/favourites"
-import { loadAppearanceUI, loadAvatarPictoActions } from "./appearance_ui"
+import { loadAppearanceUI } from "./appearance_ui"
 import {
   categoryContainerDataSet,
   categoryGroupDataSet,
   itemDataSet,
 } from "./data_set"
 import { AppearanceCategoryCode } from "./enums/appearance_category_code.enum"
-import { openCategory } from "./favourites_actions"
+import { openCategory, openGroup } from "./favourites_actions"
 import { loadHiddenCategory, unloadHiddenCategories } from "./hidden"
 import wardrobe from "./wardrobe"
 
-export function loadDressingExperience(): void {
+export async function loadDressingExperience(): Promise<void> {
   if (!location.pathname.startsWith("/player/appearance")) return
-  loadAppearanceUI()
+
   handledCategories.clear()
   loading = false
+
+  loadAppearanceUI()
 
   // Setup categories
   for (const li of document.querySelectorAll<HTMLLIElement>(
@@ -49,6 +51,9 @@ export function loadDressingExperience(): void {
         })
     }
   }
+
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  await loadBackground()
 }
 
 /**
@@ -100,7 +105,7 @@ async function onAppearanceItemsCategory(
   else {
     await new Promise(resolve => setTimeout(resolve, 220))
     loadEeItems(appearanceItems, categoryContainer)
-    await handleGroups(appearanceItems, categoryContainer)
+    await handleGroups(categoryContainer)
   }
 }
 
@@ -132,10 +137,7 @@ function loadEeItems(
 const handledCategories = new Set<AppearanceCategoryCode>()
 
 /** Load each groups synchronously and add them to a custom container. */
-async function handleGroups(
-  appearanceItems: HTMLDivElement,
-  categoryContainer: HTMLDivElement
-): Promise<void> {
+async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
   const appearanceCategory = categoryContainerDataSet(categoryContainer)
   if (!appearanceCategory) return
 
@@ -147,7 +149,7 @@ async function handleGroups(
     "li.appearance-item-group"
   )) {
     const appearanceGroup = categoryGroupDataSet(li, appearanceCategory)
-    if (!appearanceGroup?.group) continue
+    if (!appearanceGroup?.group) break
     wardrobe.setGroup(appearanceGroup)
 
     if (
@@ -157,14 +159,12 @@ async function handleGroups(
       !handled
       // && !loadHiddenGroup(appearanceGroup.group)
     )
-      await $.get(`/player/openGroup/${appearanceGroup.group}`, view =>
-        appearanceItems.insertAdjacentHTML("beforeend", view)
-      )
+      await openGroup(appearanceGroup.group)
 
     const div = document.querySelector<HTMLDivElement>(
       `#appearance-items-group-${appearanceGroup.group}`
     )
-    if (!div) continue
+    if (!div) break
     div.classList.remove("active")
 
     const script = div.querySelector("script") // eslint-disable-next-line @typescript-eslint/no-implied-eval
@@ -188,6 +188,8 @@ async function handleGroups(
       .join("\n")
     wardrobe.availableItems = availableItems
 
+    div.remove()
+
     const active = document.querySelector(
       `#wardrobe-menu li[data-category="${appearanceGroup.category}"].active`
     )
@@ -196,11 +198,13 @@ async function handleGroups(
       document
         .querySelector<HTMLDivElement>("#ee-items")
         ?.insertAdjacentHTML("beforeend", outerHTML)
+
       initializeSelectedItems()
       initializeHiddenCategories()
-    }
+    } else if (handled) break
   }
 
+  if (!handled) handledCategories.delete(appearanceCategory.category)
   unloadHiddenCategories()
 }
 
@@ -209,10 +213,7 @@ let loading = false
 export async function loadBackground(): Promise<void> {
   if (loading) return
   loading = true
-
-  const appearanceItems =
-    document.querySelector<HTMLDivElement>("#appearance-items")
-  if (!appearanceItems) return
+  let success = true
 
   const categories = [
     AppearanceCategoryCode.underwear,
@@ -236,27 +237,42 @@ export async function loadBackground(): Promise<void> {
     AppearanceCategoryCode.ambient,
   ]
 
-  for (const [index, category] of categories.entries()) {
-    if (
-      !document.querySelector<HTMLDivElement>(
-        `#appearance-items-category-${category}`
-      ) &&
-      !loadHiddenCategory(category)
-    )
-      await openCategory(category)
+  const template: Template = require("../templates/html/flavr_notif/icon_message.html")
 
-    const categoryContainer = document.querySelector<HTMLDivElement>(
-      `#appearance-items-category-${category}`
+  for (const category of categories) {
+    if (!location.pathname.startsWith("/player/appearance")) {
+      success = false
+      break
+    }
+
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    const dataset = document.querySelector<HTMLLIElement>(
+      `#wardrobe-menu li[data-category="${category}"]`
+    )?.dataset
+    $.flavrNotif(
+      template.render({
+        icon: `/static/img/mall/categories/${category}.png`,
+        message: translate.appearance.loading(
+          dataset?.categoryname ?? category
+        ),
+      })
     )
-    if (!categoryContainer) continue
+
+    const categoryContainer = await openCategory(category)
+    if (!categoryContainer) {
+      success = false
+      break
+    }
 
     const appearanceCategory = categoryContainerDataSet(categoryContainer)
-    if (!appearanceCategory) continue
-    loadAvatarPictoActions(
-      (index + 1) / categories.length,
-      appearanceCategory.categoryname
-    )
+    if (!appearanceCategory) {
+      success = false
+      break
+    }
 
-    await handleGroups(appearanceItems, categoryContainer)
+    await handleGroups(categoryContainer)
   }
+
+  if (success) $.flavrNotif(translate.appearance.loaded)
+  loading = false
 }
