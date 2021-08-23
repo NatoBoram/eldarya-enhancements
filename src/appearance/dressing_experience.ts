@@ -112,9 +112,10 @@ async function onAppearanceItemsCategory(
 function loadEeItems(
   appearanceItems: HTMLDivElement,
   categoryContainer: HTMLDivElement
-): HTMLDivElement {
+): HTMLDivElement | null {
   // Get information about the current category
-  const appearanceCategory = categoryContainerDataSet(categoryContainer)!
+  const appearanceCategory = categoryContainerDataSet(categoryContainer)
+  if (!appearanceCategory) return null
   wardrobe.setCategory(appearanceCategory)
   categoryContainer.classList.remove("active")
   categoryContainer.style.display = "none"
@@ -127,7 +128,8 @@ function loadEeItems(
     template.render({ ...appearanceCategory, translate })
   )
 
-  const eeItems = document.querySelector<HTMLDivElement>("#ee-items")!
+  const eeItems = document.querySelector<HTMLDivElement>("#ee-items")
+  if (!eeItems) return null
   eeItems.dataset.categoryid = appearanceCategory.categoryid.toString()
   eeItems.dataset.category = appearanceCategory.category
   eeItems.dataset.categoryname = appearanceCategory.categoryname
@@ -140,6 +142,9 @@ const handledCategories = new Set<AppearanceCategoryCode>()
 async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
   const appearanceCategory = categoryContainerDataSet(categoryContainer)
   if (!appearanceCategory) return
+  wardrobe.setCategory(appearanceCategory)
+  categoryContainer.classList.remove("active")
+  categoryContainer.style.display = "none"
 
   const handled = handledCategories.has(appearanceCategory.category)
   handledCategories.add(appearanceCategory.category)
@@ -250,32 +255,29 @@ export async function loadBackground(): Promise<void> {
     )
     if (active) continue
 
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    const dataset = document.querySelector<HTMLLIElement>(
-      `#wardrobe-menu li[data-category="${category}"]`
-    )?.dataset
-    $.flavrNotif(
-      template.render({
-        icon: `/static/img/mall/categories/${category}.png`,
-        message: translate.appearance.loading(
-          dataset?.categoryname ?? category
-        ),
-      })
-    )
-
     const categoryContainer = await openCategory(category)
     if (!categoryContainer) {
       success = false
       break
     }
 
-    const appearanceCategory = categoryContainerDataSet(categoryContainer)
-    if (!appearanceCategory) {
-      success = false
-      break
-    }
+    let finished = false
+    setTimeout(() => {
+      if (!finished)
+        $.flavrNotif(
+          template.render({
+            icon: `/static/img/mall/categories/${category}.png`,
+            message: translate.appearance.loading(
+              document.querySelector<HTMLLIElement>(
+                `#wardrobe-menu li[data-category="${category}"]`
+              )?.dataset.categoryname ?? category
+            ),
+          })
+        )
+    }, 1000)
 
     await handleGroups(categoryContainer)
+    finished = true
   }
 
   if (success) $.flavrNotif(translate.appearance.loaded)
