@@ -34,7 +34,7 @@ function loadUI(): void {
   loadTopBar()
   loadAuctions()
   loadSell()
-  loadDressingExperience()
+  void loadDressingExperience()
 
   if (document.readyState === "complete") void loadIndexedDb()
   else window.addEventListener("load", () => loadIndexedDb())

@@ -69,6 +69,9 @@ export const fr: Translation = {
         import: "Importer",
       },
     },
+    loaded: "Le chargement de la garde-robe est terminé.",
+    loading: (categoryname: string) =>
+      `Chargement de <strong>${categoryname}</strong>...`,
   },
   market: {
     add_to_wishlist: {
