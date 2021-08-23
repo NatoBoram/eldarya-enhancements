@@ -245,6 +245,11 @@ export async function loadBackground(): Promise<void> {
       break
     }
 
+    const active = document.querySelector(
+      `#wardrobe-menu li[data-category="${category}"].active`
+    )
+    if (active) continue
+
     await new Promise(resolve => setTimeout(resolve, 1000))
     const dataset = document.querySelector<HTMLLIElement>(
       `#wardrobe-menu li[data-category="${category}"]`
