@@ -1,7 +1,7 @@
 {
   "name": "eldarya-enhancements",
   "description": "Enhances the user experience of Eldarya",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "scripts": {
     "build:linux": "./scripts/build.sh",
     "build:windows": "pwsh ./scripts/build.ps1",
@@ -48,8 +48,8 @@
     "@types/sax": "^1.2.3",
     "@types/suncalc": "^1.8.1",
     "@types/tampermonkey": "^4.0.2",
-    "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.1",
