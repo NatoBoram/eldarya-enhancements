@@ -5,7 +5,6 @@ import { downloadAppearance } from "../download-canvas"
 import { translate } from "../i18n/translate"
 import indexed_db from "../indexed_db/indexed_db"
 import type { FavouritesAction } from "../templates/interfaces/favourites_action"
-import type { OutfitThumbs } from "../templates/interfaces/outfit_thumb"
 
 export function loadFavourites(): void {
   loadFavouritesActions()
@@ -64,7 +63,7 @@ export async function loadFakeFavourites(): Promise<void> {
     "beforeend",
     template.render({
       outfits: favourites,
-    } as OutfitThumbs)
+    })
   )
 
   document

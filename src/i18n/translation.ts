@@ -49,6 +49,8 @@ export interface Translation {
         readonly import: string
       }
     }
+    readonly loaded: string
+    readonly loading: (categoryname: string) => string
   }
   readonly minigames: {
     readonly played_for: (name: string, maanas: number) => string

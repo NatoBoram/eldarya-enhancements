@@ -33,6 +33,7 @@ The latest development version can be downloaded [here](https://gitlab.com/NatoB
 - Overhaul of the dresser so you can see all items in a category at once
 - Translated in French
 - Unlimited amount of free favourite outfits
+- Load the entire wardrobe in the background
 
 ## Development
 

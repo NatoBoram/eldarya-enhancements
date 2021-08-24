@@ -16,7 +16,7 @@ export function importOutfit(): void {
 
   input.addEventListener("input", event => {
     if (!event.target) return
-    const files = (<HTMLInputElement>event.target).files
+    const files = (event.target as HTMLInputElement).files
     if (!files) return
     const file = files[0]
     if (!file) return
@@ -47,25 +47,41 @@ function removeClothes(): void {
   }
 }
 
-async function openGroup(group: number): Promise<void> {
-  return new Promise<void>((resolve): void => {
-    if (document.querySelector(`#appearance-items-group-${group}`))
-      return void resolve()
+export async function openGroup(group: number): Promise<HTMLDivElement | null> {
+  return new Promise<HTMLDivElement | null>((resolve): void => {
+    const groupContainer = document.querySelector<HTMLDivElement>(
+      `#appearance-items-group-${group}`
+    )
+    if (groupContainer) return void resolve(groupContainer)
 
     void $.get(`/player/openGroup/${group}`, (view: string): void => {
       $(view).hide().appendTo("#appearance-items")
-    }).always(resolve)
+      resolve(
+        document.querySelector<HTMLDivElement>(
+          `#appearance-items-group-${group}`
+        )
+      )
+    })
   })
 }
 
-async function openCategory(category: string): Promise<void> {
-  return new Promise<void>((resolve): void => {
-    if (document.querySelector(`#appearance-items-category-${category}`))
-      return void resolve()
+export async function openCategory(
+  category: string
+): Promise<HTMLDivElement | null> {
+  return new Promise<HTMLDivElement | null>((resolve): void => {
+    const categoryContainer = document.querySelector<HTMLDivElement>(
+      `#appearance-items-category-${category}`
+    )
+    if (categoryContainer) return void resolve(categoryContainer)
 
     void $.post(`/player/openCategory/${category}`, (view: string): void => {
       $(view).hide().appendTo("#appearance-items")
-    }).always(resolve)
+      resolve(
+        document.querySelector<HTMLDivElement>(
+          `#appearance-items-category-${category}`
+        )
+      )
+    })
   })
 }
 

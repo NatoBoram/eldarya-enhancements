@@ -34,7 +34,7 @@ function loadUI(): void {
   loadTopBar()
   loadAuctions()
   loadSell()
-  loadDressingExperience()
+  void loadDressingExperience()
 
   if (document.readyState === "complete") void loadIndexedDb()
   else window.addEventListener("load", () => loadIndexedDb())
@@ -44,9 +44,12 @@ function loadIndexedDb(): void {
   void loadSettings()
 }
 
-new MutationObserver(load).observe(<Node>document.getElementById("container"), {
-  childList: true,
-})
+new MutationObserver(load).observe(
+  document.getElementById("container") as Node,
+  {
+    childList: true,
+  }
+)
 
 migrate()
 

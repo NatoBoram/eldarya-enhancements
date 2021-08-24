@@ -132,10 +132,9 @@ export class LocalStorage {
   }
 
   private static getItem<T>(key: LocalStorageKey, fallback: T): T {
-    return <T>(
-      (JSON.parse(this.localStorage.getItem(key) ?? JSON.stringify(fallback)) ??
-        fallback)
-    )
+    return (JSON.parse(
+      this.localStorage.getItem(key) ?? JSON.stringify(fallback)
+    ) ?? fallback) as T
   }
 
   private static setItem<T>(key: LocalStorageKey, value: T): void {
