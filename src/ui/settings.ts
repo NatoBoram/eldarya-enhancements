@@ -2,6 +2,7 @@ import type { Template } from "hogan.js"
 import { getName } from "../download-canvas"
 import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
+import type { Settings } from "../templates/interfaces/settings"
 
 export async function loadSettings(): Promise<void> {
   const accountRight = document.querySelector("#account-right div")
@@ -72,7 +73,8 @@ function importSettings(): void {
     void file.text().then(async value => {
       if (!value) return
 
-      await LocalStorage.setSettings(JSON.parse(value))
+      const parsed: Settings = JSON.parse(value)
+      await LocalStorage.setSettings(parsed)
 
       reloadSettings()
       $.flavrNotif(translate.account.imported)
