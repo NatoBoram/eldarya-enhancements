@@ -85,7 +85,7 @@ class ExplorationAction extends Action {
       // Clearing invalid regions is useful to remove finished events.
       LocalStorage.autoExploreLocations =
         LocalStorage.autoExploreLocations.filter(
-          saved => saved.region.id !== selected.region.toString()
+          saved => saved.region.id !== selected.region.id
         )
 
       SessionStorage.selectedLocation = null
