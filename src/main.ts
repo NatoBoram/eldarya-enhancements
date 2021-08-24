@@ -44,9 +44,12 @@ function loadIndexedDb(): void {
   void loadSettings()
 }
 
-new MutationObserver(load).observe(<Node>document.getElementById("container"), {
-  childList: true,
-})
+new MutationObserver(load).observe(
+  document.getElementById("container") as Node,
+  {
+    childList: true,
+  }
+)
 
 migrate()
 

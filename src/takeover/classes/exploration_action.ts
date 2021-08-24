@@ -120,9 +120,9 @@ class ExplorationAction extends Action {
   }
 
   private getCurrentSeason(): Season {
-    return <Season>(Array.from(document.querySelector("body")?.classList ?? [])
+    return (Array.from(document.querySelector("body")?.classList ?? [])
       .find(c => c.startsWith("season-"))
-      ?.replace("season-", "") ?? null)
+      ?.replace("season-", "") ?? null) as Season
   }
 
   private getExplorationStatus(): ExplorationStatus {

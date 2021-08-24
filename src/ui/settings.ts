@@ -65,7 +65,7 @@ function importSettings(): void {
 
   input.addEventListener("input", event => {
     if (!event.target) return
-    const files = (<HTMLInputElement>event.target).files
+    const files = (event.target as HTMLInputElement).files
     if (!files) return
     const file = files[0]
     if (!file) return

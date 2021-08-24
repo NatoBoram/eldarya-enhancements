@@ -74,11 +74,9 @@ export class SessionStorage {
   }
 
   private static getItem<T>(key: SessionStorageKey, fallback: T): T {
-    return <T>(
-      (JSON.parse(
-        this.sessionStorage.getItem(key) ?? JSON.stringify(fallback)
-      ) ?? fallback)
-    )
+    return (JSON.parse(
+      this.sessionStorage.getItem(key) ?? JSON.stringify(fallback)
+    ) ?? fallback) as T
   }
 
   private static setItem<T>(key: SessionStorageKey, value: T): void {

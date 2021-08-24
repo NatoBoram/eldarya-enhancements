@@ -40,7 +40,7 @@ function loadWishlist(): void {
 
           addWishistButton(marketEntry, observer)
         }
-      ).observe(<Node>document.getElementById("marketplace-zoom"), {
+      ).observe(document.getElementById("marketplace-zoom") as Node, {
         childList: true,
       })
     })

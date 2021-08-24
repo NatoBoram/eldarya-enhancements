@@ -46,7 +46,7 @@ function loadExplorations(): void {
         (_: MutationRecord[], observer: MutationObserver): void => {
           addAutoExploreButton(locationId, observer)
         }
-      ).observe(<Node>document.getElementById("map-location-preview"), {
+      ).observe(document.getElementById("map-location-preview") as Node, {
         attributes: true,
       })
     })
