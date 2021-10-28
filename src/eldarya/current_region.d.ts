@@ -32,7 +32,7 @@ export declare interface Location {
   description: string
   energyRequired: string
   episodeId: number
-  id: string
+  id: number
   levelRequired: string
   locationItems: number
   name: string
