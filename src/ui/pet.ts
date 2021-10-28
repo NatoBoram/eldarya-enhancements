@@ -1,6 +1,7 @@
 import type { Template } from "hogan.js"
 import { changeRegion } from "../ajax/change_region"
 import { Result } from "../api/result.enum"
+import { Console } from "../console"
 import type { MapRegion } from "../eldarya/current_region"
 import { translate } from "../i18n/translate"
 import type { AutoExploreLocation } from "../local_storage/auto_explore_location"
@@ -66,7 +67,7 @@ function addAutoExploreButton(
   const context: AutoExploreButton = {
     locationId,
     active: LocalStorage.autoExploreLocations.some(
-      saved => saved.location.id === locationId.toString()
+      saved => saved.location.id === locationId
     ),
     regionId: Number(
       document
@@ -87,6 +88,7 @@ function addAutoExploreButton(
   buttonsContainer
     .querySelector<HTMLButtonElement>("#auto-explore-button")
     ?.addEventListener("click", () => {
+      Console.debug("Clicked on #auto-explore-button.", context)
       void autoExplore(context).then(loadPictoMaps)
     })
 
@@ -104,7 +106,7 @@ async function disableExplore(context: AutoExploreButton): Promise<void> {
 async function autoExplore(context: AutoExploreButton): Promise<void> {
   if (context.active) {
     const filteredLocations = LocalStorage.autoExploreLocations.filter(
-      saved => saved.location.id !== context.locationId.toString()
+      saved => saved.location.id !== context.locationId
     )
     LocalStorage.autoExploreLocations = filteredLocations
     addAutoExploreButton(context.locationId)
@@ -115,7 +117,13 @@ async function autoExplore(context: AutoExploreButton): Promise<void> {
     context.regionId,
     context.locationId
   )
-  if (!newAutoExplore) return
+  if (!newAutoExplore) {
+    Console.error(
+      `Could not generate an auto explore entry for location #${context.locationId}.`,
+      context
+    )
+    return
+  }
 
   const newLocations = LocalStorage.autoExploreLocations
   newLocations.push(newAutoExplore)
@@ -128,12 +136,19 @@ async function getAutoExploreEntry(
   locationId: number
 ): Promise<AutoExploreLocation | null> {
   const region = await getRegion(regionId)
-  if (!region) return null
+  if (!region) {
+    Console.error(`Could not get region #${regionId}.`)
+    return null
+  }
 
-  const location = region.locations.find(
-    location => location.id === locationId.toString()
-  )
-  if (!location) return null
+  const location = region.locations.find(location => location.id === locationId)
+  if (!location) {
+    Console.error(
+      `Could not get location #${locationId} in ${region.name}.`,
+      region
+    )
+    return null
+  }
 
   return {
     location,
@@ -169,7 +184,7 @@ function loadPictoMap(
   if (!mapLocation) return
 
   div.style.backgroundImage = autoExploreLocations.some(
-    saved => saved.location.id === mapLocation
+    saved => saved.location.id === Number(mapLocation)
   )
     ? "url(/static/img/new-layout/pet/icons/picto_map_explo.png)"
     : "url(/static/img/new-layout/pet/icons/picto_map.png)"
