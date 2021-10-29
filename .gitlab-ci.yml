@@ -86,3 +86,14 @@ release:
         - name: "eldarya-enhancements-$CI_COMMIT_TAG.user.js"
           url: "https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/$CI_COMMIT_TAG/raw/dist/eldarya-enhancements.user.js?job=deploy"
           link_type: "package"
+
+pages:
+  stage: deploy
+  only:
+    - master
+  script:
+    - ./scripts/build.sh
+    - mv dist public
+  artifacts:
+    paths:
+      - public
