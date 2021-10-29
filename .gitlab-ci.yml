@@ -1,7 +1,7 @@
 image: node:latest
 
 before_script:
-  - curl -f https://get.pnpm.io/v6.7.js | node - add --global pnpm@6
+  - curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm@6
   - pnpm config set store-dir .pnpm-store
   - pnpm install
 
@@ -36,6 +36,8 @@ tsc:
   stage: test
   script:
     - pnpx tsc --noEmit
+  # https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/56858
+  allow_failure: true
 
 deploy:
   stage: deploy
