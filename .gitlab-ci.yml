@@ -12,6 +12,10 @@ cache:
   paths:
     - .pnpm-store
 
+variables:
+  # https://github.com/webpack/webpack/issues/14532
+  NODE_OPTIONS: --openssl-legacy-provider
+
 build:
   stage: build
   script:
