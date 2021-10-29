@@ -87,6 +87,7 @@ release:
           url: "https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/$CI_COMMIT_TAG/raw/dist/eldarya-enhancements.user.js?job=deploy"
           link_type: "package"
 
+# https://stackoverflow.com/q/69762831/5083247
 pages:
   stage: deploy
   only:
