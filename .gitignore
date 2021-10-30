@@ -2,6 +2,7 @@
 package-lock.json
 src/imagekit.ts
 src/templates/js
+snippets
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,linux,macos,windows,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,linux,macos,windows,visualstudiocode
