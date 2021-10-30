@@ -1,6 +1,5 @@
 #Requires -PSEdition Core
 
-$env:NODE_OPTIONS = '--openssl-legacy-provider'
 pnpx webpack
 
 Copy-Item eldarya-enhancements.meta.js dist/eldarya-enhancements.meta.js

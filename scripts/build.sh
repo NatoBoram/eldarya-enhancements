@@ -1,6 +1,6 @@
 #!/bin/sh
 
-env NODE_OPTIONS='--openssl-legacy-provider' pnpx webpack
+pnpx webpack
 
 cp eldarya-enhancements.meta.js dist/eldarya-enhancements.meta.js
 
