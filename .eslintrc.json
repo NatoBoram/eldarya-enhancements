@@ -12,7 +12,7 @@
     "ecmaVersion": 2021,
     "project": "./tsconfig.eslint.json"
   },
-  "ignorePatterns": ["webpack.config.js"],
+  "ignorePatterns": ["webpack.config.ts"],
   "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
