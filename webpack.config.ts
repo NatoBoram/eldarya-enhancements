@@ -58,4 +58,5 @@ const production: Configuration = {
   mode: "production",
 }
 
-export default Object.freeze([development, production])
+export default (env: { WEBPACK_WATCH: boolean }) =>
+  env.WEBPACK_WATCH ? development : [development, production]
