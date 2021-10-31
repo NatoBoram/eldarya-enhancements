@@ -1,21 +1,23 @@
-const path = require("path")
+import { readFileSync } from "fs"
+import { resolve } from "path"
+import { BannerPlugin, Configuration } from "webpack"
 
-const webpack = {
+const base: Configuration = {
   entry: "./src/main.ts",
   module: {
     rules: [{ test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/ }],
   },
   resolve: { extensions: [".tsx", ".ts", ".js"] },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: resolve(__dirname, "dist"),
   },
 }
 
-const development = {
-  ...webpack,
+const development: Configuration = {
+  ...base,
   module: {
     rules: [
-      ...webpack.module.rules,
+      ...(base?.module?.rules ?? []),
       {
         test: /\.html$/,
         loader: "mustache-loader",
@@ -23,19 +25,25 @@ const development = {
       },
     ],
   },
+  plugins: [
+    new BannerPlugin({
+      banner: readFileSync("eldarya-enhancements.meta.js", "utf8"),
+      raw: true,
+    }),
+  ],
   devtool: "inline-source-map",
   output: {
-    ...webpack.output,
+    ...base.output,
     filename: "eldarya-enhancements.user.js",
   },
   mode: "development",
 }
 
-const production = {
-  ...webpack,
+const production: Configuration = {
+  ...base,
   module: {
     rules: [
-      ...webpack.module.rules,
+      ...(base?.module?.rules ?? []),
       {
         test: /\.html$/,
         loader: "mustache-loader",
@@ -44,10 +52,10 @@ const production = {
     ],
   },
   output: {
-    ...webpack.output,
+    ...base.output,
     filename: "eldarya-enhancements.min.user.js",
   },
   mode: "production",
 }
 
-module.exports = [development, production]
+export default Object.freeze([development, production])
