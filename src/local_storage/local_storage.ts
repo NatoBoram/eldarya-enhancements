@@ -33,6 +33,14 @@ export class LocalStorage {
     this.setItem(LocalStorageKey.debug, enabled)
   }
 
+  static get explorationHistory(): string[] {
+    return this.getItem<string[]>(LocalStorageKey.explorationHistory, [])
+  }
+
+  static set explorationHistory(explorationHistory: string[]) {
+    this.setItem(LocalStorageKey.explorationHistory, explorationHistory)
+  }
+
   static get explorations(): boolean {
     return this.getItem<boolean>(LocalStorageKey.explorations, false)
   }
@@ -71,6 +79,22 @@ export class LocalStorage {
 
   static set sales(sale: Sale[]) {
     this.setItem(LocalStorageKey.sales, sale)
+  }
+
+  static get version(): string {
+    return this.getItem<string>(LocalStorageKey.version, "")
+  }
+
+  static set version(version: string) {
+    this.setItem(LocalStorageKey.version, version)
+  }
+
+  static get wishlist(): WishedItem[] {
+    return this.getItem<WishedItem[]>(LocalStorageKey.wishlist, [])
+  }
+
+  static set wishlist(locations: WishedItem[]) {
+    this.setItem(LocalStorageKey.wishlist, locations)
   }
 
   static async getSettings(): Promise<Settings> {
@@ -113,22 +137,6 @@ export class LocalStorage {
     )) {
       void indexed_db.addFavouriteOutfit(favourite)
     }
-  }
-
-  static get version(): string {
-    return this.getItem<string>(LocalStorageKey.version, "")
-  }
-
-  static set version(version: string) {
-    this.setItem(LocalStorageKey.version, version)
-  }
-
-  static get wishlist(): WishedItem[] {
-    return this.getItem<WishedItem[]>(LocalStorageKey.wishlist, [])
-  }
-
-  static set wishlist(locations: WishedItem[]) {
-    this.setItem(LocalStorageKey.wishlist, locations)
   }
 
   private static getItem<T>(key: LocalStorageKey, fallback: T): T {
