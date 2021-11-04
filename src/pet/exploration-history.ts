@@ -1,8 +1,16 @@
+import type { Template } from "hogan.js"
 import { Console } from "../console"
+import { translate } from "../i18n/translate"
+import { LocalStorage } from "../local_storage/local_storage"
+import { listenTreasureHunt } from "./exploration-watcher"
 
 export function loadExplorationHistory(): void {
   Console.log("Loading exploration history...")
+  loadHistoryButton()
+  listenTreasureHunt()
+}
 
+function loadHistoryButton(): void {
   const closeExplorationButton = document.querySelector<HTMLAnchorElement>(
     "#close-treasure-hunt-interface"
   )
@@ -23,9 +31,6 @@ export function loadExplorationHistory(): void {
   const row = document.createElement("div")
   row.insertAdjacentElement("beforeend", historyButton)
   row.insertAdjacentElement("beforeend", closeExplorationButton)
-
-  Console.debug("#close-treasure-hunt-interface:", closeExplorationButton)
-  Console.debug("row", row)
 
   document
     .querySelector<HTMLDivElement>("#right-container-inner")
@@ -96,15 +101,23 @@ function hideExploration(): void {
     ?.classList.remove("treasure-hunt-interface-open")
 }
 
-function makeHistory(): HTMLDivElement | undefined {
-  if (document.getElementById("history-container")) return
+function makeHistory(): void {
+  document.getElementById("history-container")?.remove()
+  const template: Template = require("../templates/html/exploration_history.html")
 
-  const history = document.createElement("div")
-  history.id = "history-container"
-  history.textContent = "Hello world!"
-  document
-    .getElementById("left-container")
-    ?.insertAdjacentElement("beforeend", history)
+  document.getElementById("left-container")?.insertAdjacentHTML(
+    "beforeend",
+    template.render({
+      translate,
+      history: LocalStorage.explorationHistory.map(history => ({
+        ...history,
+        date: translate.pet.date_time_format.format(new Date(history.date)),
+      })),
+    })
+  )
 
-  return history
+  document.getElementById("delete-history")?.addEventListener("click", () => {
+    LocalStorage.explorationHistory = []
+    makeHistory()
+  })
 }

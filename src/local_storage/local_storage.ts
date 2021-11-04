@@ -4,6 +4,7 @@ import indexed_db from "../indexed_db/indexed_db"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import type { Settings } from "../templates/interfaces/settings"
 import type { AutoExploreLocation } from "./auto_explore_location"
+import type { ExplorationResult } from "./exploration_result"
 import type { ExportableFavourite } from "./exportable_favourite"
 import { LocalStorageKey } from "./local_storage.enum"
 import type { Sale } from "./sale"
@@ -33,11 +34,14 @@ export class LocalStorage {
     this.setItem(LocalStorageKey.debug, enabled)
   }
 
-  static get explorationHistory(): string[] {
-    return this.getItem<string[]>(LocalStorageKey.explorationHistory, [])
+  static get explorationHistory(): ExplorationResult[] {
+    return this.getItem<ExplorationResult[]>(
+      LocalStorageKey.explorationHistory,
+      []
+    )
   }
 
-  static set explorationHistory(explorationHistory: string[]) {
+  static set explorationHistory(explorationHistory: ExplorationResult[]) {
     this.setItem(LocalStorageKey.explorationHistory, explorationHistory)
   }
 
@@ -101,6 +105,7 @@ export class LocalStorage {
     return {
       autoExploreLocations: this.autoExploreLocations,
       debug: this.debug,
+      explorationHistory: this.explorationHistory,
       explorations: this.explorations,
       favourites: await Promise.all(
         (
@@ -121,6 +126,7 @@ export class LocalStorage {
   static async setSettings(settings: Settings): Promise<void> {
     this.autoExploreLocations = settings.autoExploreLocations
     this.debug = settings.debug
+    this.explorationHistory = settings.explorationHistory
     this.explorations = settings.explorations
     this.market = settings.market
     this.minigames = settings.minigames

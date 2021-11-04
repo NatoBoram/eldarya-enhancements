@@ -20,3 +20,17 @@ export async function click<T extends HTMLElement>(
     }, 800)
   })
 }
+
+export async function wait<T extends HTMLElement>(
+  selector: string
+): Promise<T> {
+  return new Promise<T>(resolve => {
+    const interval = setInterval(() => {
+      const element = document.querySelector<T>(selector)
+      if (!element) return
+
+      clearInterval(interval)
+      resolve(element)
+    }, 800)
+  })
+}

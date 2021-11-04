@@ -97,6 +97,8 @@ export interface Translation {
   }
   readonly pet: {
     readonly auto_explore: string
+    readonly date_time_format: Intl.DateTimeFormat
+    readonly delete_history: string
   }
   readonly account: {
     readonly debug_tooltip: string
