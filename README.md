@@ -36,6 +36,7 @@ The script updates automatically.
 - Translated in French
 - Unlimited amount of free favourite outfits
 - Load the entire wardrobe in the background
+- Exploration history
 
 ## Development
 
