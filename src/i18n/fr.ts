@@ -142,7 +142,7 @@ export const fr: Translation = {
     }),
     delete_history: "Nettoyer l'historique",
     empty_history:
-      "Ton historique d'exploration est vide. Envoie ton familier en exploration pour le remplir!",
+      "Ton historique d'exploration est vide. Il se remplira automatiquement à mesure que ton familier trouvera des items en exploration.",
     history: "Historique",
   },
   profile: {

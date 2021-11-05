@@ -141,7 +141,8 @@ export const en: Translation = {
       year: "numeric",
     }),
     delete_history: "Delete history",
-    empty_history: "Your exploration history is empty. Go explore to fill it!",
+    empty_history:
+      "Your exploration history is empty. It will automatically fill up as your pet finds items while exploring.",
     history: "History",
   },
   profile: {
