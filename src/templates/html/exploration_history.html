@@ -7,16 +7,21 @@
     .history-row {
       display: flex;
       flex-wrap: wrap;
+      height: 450px;
+      margin-right: 1em;
+      overflow-y: auto;
+      scrollbar-color: dark;
+      scrollbar-width: thin;
     }
 
     .result-card {
       background-color: white;
       border-radius: 1em;
       box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
-      margin: 1em;
-      max-width: 150px;
-      padding: 1em;
+      margin: 0.5em;
+      padding: 0.5em;
       text-align: center;
+      width: 128px;
     }
 
     .result-image {
@@ -25,13 +30,22 @@
       box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.12),
         0 2px 4px 2px rgba(0, 0, 0, 0.08);
       position: relative;
-      top: -2em;
+      top: -0.8em;
+    }
+
+    .result-content-column {
+      display: flex;
+      flex-direction: column;
+      height: 93px;
+      justify-content: space-between;
     }
 
     .result-name {
       color: rgb(52, 56, 111);
       font-size: 16px;
       font-weight: bold;
+      margin-top: -0.2em;
+      flex-grow: 1;
     }
 
     .result-date {
@@ -41,7 +55,7 @@
     }
 
     .result-icons {
-      margin-top: 1em;
+      margin-top: 0.8em;
     }
 
     .result-count {
@@ -74,6 +88,11 @@
       text-align: center;
       width: 15px;
     }
+
+    .icon-spacer {
+      display: inline-block;
+      width: 0.1em;
+    }
   </style>
 
   <div class="history-actions">
@@ -86,14 +105,18 @@
     {{#history}}
     <div class="result-card">
       <img class="result-image" src="{{icon}}" />
-      <div class="result-name">{{name}}</div>
-      <div class="result-date">{{date}}</div>
 
-      <div class="result-icons">
-        <span class="result-count">{{count}}</span>
-        {{#tradable}}
-        <span class="history-tradable"></span>
-        {{/tradable}}
+      <div class="result-content-column">
+        <div class="result-name">{{name}}</div>
+        <div class="result-date">{{date}}</div>
+
+        <div class="result-icons">
+          {{#tradable}}
+          <span class="result-count">{{count}}</span>
+          <div class="icon-spacer"></div>
+          <span class="history-tradable"></span>
+          {{/tradable}}
+        </div>
       </div>
     </div>
     {{/history}}

@@ -141,6 +141,7 @@ export const en: Translation = {
       year: "numeric",
     }),
     delete_history: "Delete history",
+    history: "History",
   },
   profile: {
     export_outfit: "Export outfit",

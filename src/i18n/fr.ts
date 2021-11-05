@@ -140,7 +140,8 @@ export const fr: Translation = {
       month: "long",
       year: "numeric",
     }),
-    delete_history: "Supprimer l'historique",
+    delete_history: "Nettoyer l'historique",
+    history: "Historique",
   },
   profile: {
     export_outfit: "Exporter la tenue",

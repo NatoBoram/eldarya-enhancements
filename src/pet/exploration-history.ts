@@ -25,7 +25,7 @@ function loadHistoryButton(): void {
 
   const historyButton = document.createElement("a")
   historyButton.classList.add("nl-button", "nl-button-back")
-  historyButton.textContent = "History"
+  historyButton.textContent = translate.pet.history
   historyButton.addEventListener("click", onClickHistory)
 
   const row = document.createElement("div")
