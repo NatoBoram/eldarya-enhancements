@@ -142,7 +142,7 @@ export const fr: Translation = {
     }),
     delete_history: "Nettoyer l'historique",
     empty_history:
-      "Votre historique d'exploration est vide. Explorez pour le remplir!",
+      "Ton historique d'exploration est vide. Envoie ton familier en exploration pour le remplir!",
     history: "Historique",
   },
   profile: {
