@@ -141,6 +141,7 @@ export const en: Translation = {
       year: "numeric",
     }),
     delete_history: "Delete history",
+    empty_history: "Your exploration history is empty. Go explore to fill it!",
     history: "History",
   },
   profile: {
