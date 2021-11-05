@@ -4,6 +4,7 @@ import indexed_db from "../indexed_db/indexed_db"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import type { Settings } from "../templates/interfaces/settings"
 import type { AutoExploreLocation } from "./auto_explore_location"
+import type { ExplorationResult } from "./exploration_result"
 import type { ExportableFavourite } from "./exportable_favourite"
 import { LocalStorageKey } from "./local_storage.enum"
 import type { Sale } from "./sale"
@@ -31,6 +32,17 @@ export class LocalStorage {
 
   static set debug(enabled: boolean) {
     this.setItem(LocalStorageKey.debug, enabled)
+  }
+
+  static get explorationHistory(): ExplorationResult[] {
+    return this.getItem<ExplorationResult[]>(
+      LocalStorageKey.explorationHistory,
+      []
+    )
+  }
+
+  static set explorationHistory(explorationHistory: ExplorationResult[]) {
+    this.setItem(LocalStorageKey.explorationHistory, explorationHistory)
   }
 
   static get explorations(): boolean {
@@ -73,10 +85,27 @@ export class LocalStorage {
     this.setItem(LocalStorageKey.sales, sale)
   }
 
+  static get version(): string {
+    return this.getItem<string>(LocalStorageKey.version, "")
+  }
+
+  static set version(version: string) {
+    this.setItem(LocalStorageKey.version, version)
+  }
+
+  static get wishlist(): WishedItem[] {
+    return this.getItem<WishedItem[]>(LocalStorageKey.wishlist, [])
+  }
+
+  static set wishlist(locations: WishedItem[]) {
+    this.setItem(LocalStorageKey.wishlist, locations)
+  }
+
   static async getSettings(): Promise<Settings> {
     return {
       autoExploreLocations: this.autoExploreLocations,
       debug: this.debug,
+      explorationHistory: this.explorationHistory,
       explorations: this.explorations,
       favourites: await Promise.all(
         (
@@ -97,6 +126,7 @@ export class LocalStorage {
   static async setSettings(settings: Settings): Promise<void> {
     this.autoExploreLocations = settings.autoExploreLocations
     this.debug = settings.debug
+    this.explorationHistory = settings.explorationHistory
     this.explorations = settings.explorations
     this.market = settings.market
     this.minigames = settings.minigames
@@ -113,22 +143,6 @@ export class LocalStorage {
     )) {
       void indexed_db.addFavouriteOutfit(favourite)
     }
-  }
-
-  static get version(): string {
-    return this.getItem<string>(LocalStorageKey.version, "")
-  }
-
-  static set version(version: string) {
-    this.setItem(LocalStorageKey.version, version)
-  }
-
-  static get wishlist(): WishedItem[] {
-    return this.getItem<WishedItem[]>(LocalStorageKey.wishlist, [])
-  }
-
-  static set wishlist(locations: WishedItem[]) {
-    this.setItem(LocalStorageKey.wishlist, locations)
   }
 
   private static getItem<T>(key: LocalStorageKey, fallback: T): T {

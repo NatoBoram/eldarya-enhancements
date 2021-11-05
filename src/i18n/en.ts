@@ -133,6 +133,16 @@ export const en: Translation = {
   },
   pet: {
     auto_explore: "Highlight",
+    date_time_format: new Intl.DateTimeFormat("en-GB", {
+      minute: "2-digit",
+      hour: "2-digit",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    delete_history: "Delete history",
+    empty_history: "Your exploration history is empty. Go explore to fill it!",
+    history: "History",
   },
   profile: {
     export_outfit: "Export outfit",

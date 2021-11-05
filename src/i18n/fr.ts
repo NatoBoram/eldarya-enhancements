@@ -133,6 +133,17 @@ export const fr: Translation = {
   },
   pet: {
     auto_explore: "Marquer",
+    date_time_format: new Intl.DateTimeFormat("fr-CA", {
+      minute: "2-digit",
+      hour: "2-digit",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }),
+    delete_history: "Nettoyer l'historique",
+    empty_history:
+      "Votre historique d'exploration est vide. Explorez pour le remplir!",
+    history: "Historique",
   },
   profile: {
     export_outfit: "Exporter la tenue",

@@ -12,13 +12,15 @@ Enhances the user experience of Eldarya.
 ## Installation
 
 1. Install [one of these](https://github.com/OpenUserJS/OpenUserJS.org/wiki/Userscript-Beginners-HOWTO#how-do-i-get-going)
-2. Download the latest release [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.min.user.js?job=deploy)
-3. Open the downloaded file in your browser
+2. Click [here](https://natoboram.gitlab.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
 
-I'm still figuring out an easier installation method, but for now this will do.
-The script updates automatically.
+<!--
+[![Install Eldarya Enhancements](https://img.shields.io/badge/Install-Eldarya%20Enhancements-23E5FB)](https://natoboram.gitlab.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
+-->
 
 The latest development version can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.min.user.js?job=deploy).
+
+The script updates automatically.
 
 ## Features
 
@@ -34,6 +36,7 @@ The latest development version can be downloaded [here](https://gitlab.com/NatoB
 - Translated in French
 - Unlimited amount of free favourite outfits
 - Load the entire wardrobe in the background
+- Exploration history
 
 ## Development
 
