@@ -32,7 +32,7 @@ export function loadWishlist(): void {
 function insertWishlist(button: HTMLAnchorElement): void {
   // Assistance
   const assistance = document.querySelector(".marketplace-assistance")
-  if (assistance) assistance.textContent = translate.market.wishlist.assistance
+  if (assistance) assistance.innerHTML = translate.market.wishlist.assistance
 
   // Menu
   document

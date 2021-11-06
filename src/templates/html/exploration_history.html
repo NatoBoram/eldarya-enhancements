@@ -4,9 +4,28 @@
       margin-bottom: 1em;
     }
 
-    .empty_history {
-      background-color: white;
+    #delete-history {
+      margin-right: 1em;
+    }
+
+    .help-icon {
+      background-color: #0291f6;
+      border-radius: 50%;
+      box-shadow: none;
+      color: #fff;
+      font-size: 26px;
+      font-weight: bold;
+      height: 23px;
+      line-height: 20px;
+      padding: 0;
+      text-align: center;
+      width: 23px;
+    }
+
+    .history-message {
+      background-color: rgba(255, 255, 255, 0.7);
       border-radius: 1em;
+      margin: 1em;
       padding: 1em;
     }
 
@@ -113,10 +132,18 @@
     <button id="delete-history" class="nl-button">
       {{translate.pet.delete_history}}
     </button>
+
+    <span class="tooltip">
+      <span class="nl-button help-icon">?</span>
+      <div class="tooltip-content">
+        <p>{{{translate.pet.saved_locally}}}</p>
+        <p>{{{translate.pet.goto_account}}}</p>
+      </div>
+    </span>
   </div>
 
   {{^history}}
-  <p class="empty_history">{{translate.pet.empty_history}}</p>
+  <p class="history-message">{{translate.pet.empty_history}}</p>
   {{/history}}
 
   <div class="history-row">
