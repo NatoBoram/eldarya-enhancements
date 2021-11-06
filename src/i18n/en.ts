@@ -52,12 +52,12 @@ export const en: Translation = {
       importing: "Importing outfit. Please wait...",
       click_outfit: {
         delete: "Delete",
-        goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourites to another browser, export them in the <a href="/user/account" style="text-decoration: underline;">my account</a> page.`,
+        goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourites to another browser, export them in the <a href="/user/account" style="text-decoration: underline;">my&nbsp;account</a> page.`,
         saved_locally: `Take note that this outfit was saved in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
         wear: "Wear",
       },
       save_outfit: {
-        goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourites to another browser, export them in the <a href="/user/account" style="text-decoration: underline;">my account</a> page.`,
+        goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourites to another browser, export them in the <a href="/user/account" style="text-decoration: underline;">my&nbsp;account</a> page.`,
         placeholder: "Name...",
         save: "Save",
         saved_locally: `Take note that this outfit will only be saved within <strong>${GM.info.script.name}</strong>' settings and will not be sent to Eldarya's servers.`,
@@ -105,8 +105,7 @@ export const en: Translation = {
       title: "Change price",
     },
     wishlist: {
-      assistance:
-        "On this page, you can organize your wishlist and check the status of your wished items.",
+      assistance: `On this page, you can organize your wishlist and check the status of your wished items. Please note that your wishlist is saved locally in <strong>${GM.info.script.name}</strong>' settings and is not sent to Eldarya's servers. To transfer your wishlist to another browser, export your settings in the <a href="/user/account" style="text-decoration: underline;">my&nbsp;account</a> page.`,
       actions: "Actions",
       change_price: "Change price",
       delete_tooltip: "Remove from wishlist",
@@ -143,7 +142,7 @@ export const en: Translation = {
     delete_history: "Delete history",
     empty_history:
       "Your exploration history is empty. It will automatically fill up as your familiar finds items while exploring.",
-    goto_account: `To transfer your exploration history to another browser, export your settings from the <em>my account</em> page.`,
+    goto_account: `To transfer your exploration history to another browser, export your settings from the <em>my&nbsp;account</em> page.`,
     history: "History",
     saved_locally: `Please note that your exploration history was saved locally in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
   },

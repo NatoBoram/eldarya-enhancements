@@ -52,12 +52,12 @@ export const fr: Translation = {
       importing: "Importation en cours...",
       click_outfit: {
         delete: "Supprimer",
-        goto_account: `Pour transférer tes favoris d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte-les à partir de la page <a href="/user/account" style="text-decoration: underline;">mon compte</a>.`,
+        goto_account: `Pour transférer tes favoris d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte-les à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
         saved_locally: `Prends note que cette tenue a été sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyée aux serveurs d'Eldarya.`,
         wear: "Porter",
       },
       save_outfit: {
-        goto_account: `Pour transférer tes favoris d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte-les à partir de la page <a href="/user/account" style="text-decoration: underline;">mon compte</a>.`,
+        goto_account: `Pour transférer tes favoris d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte-les à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
         placeholder: "Nom...",
         save: "Sauvegarder",
         saved_locally: `Prends note que cette tenue sera sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et ne sera pas envoyée aux serveurs d'Eldarya.`,
@@ -105,8 +105,7 @@ export const fr: Translation = {
       title: "Changer le prix",
     },
     wishlist: {
-      assistance:
-        "Sur cette page, tu peux organiser ta liste de souhaits et vérifier le statut de tes articles souhaités.",
+      assistance: `Sur cette page, tu peux organiser ta liste de souhaits et vérifier le statut de tes articles souhaités. Prends note que ta liste de souhaits est sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'est pas envoyée aux serveurs d'Eldarya. Pour transférer ta liste de souhaits vers un autre navigateur, exporte-la à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
       actions: "Actions",
       change_price: "Changer le prix",
       delete_tooltip: "Retirer de la liste de souhaits",
