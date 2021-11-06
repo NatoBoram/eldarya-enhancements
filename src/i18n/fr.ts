@@ -143,7 +143,10 @@ export const fr: Translation = {
     delete_history: "Nettoyer l'historique",
     empty_history:
       "Ton historique d'exploration est vide. Il se remplira automatiquement à mesure que ton familier trouvera des items en exploration.",
+    goto_account:
+      "Pour transférer ton historique d'explorations vers un autre navigateur, exporte tes paramètres à partir de la page <em>mon compte</em>.",
     history: "Historique",
+    saved_locally: `Prends note que ton historique d'explorations a été sauvegardé localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyé aux serveurs d'Eldarya.`,
   },
   profile: {
     export_outfit: "Exporter la tenue",

@@ -143,7 +143,9 @@ export const en: Translation = {
     delete_history: "Delete history",
     empty_history:
       "Your exploration history is empty. It will automatically fill up as your pet finds items while exploring.",
+    goto_account: `To transfer your exploration history to another browser, export your settings from the <em>my account</em> page.`,
     history: "History",
+    saved_locally: `Please note that your exploration history was saved locally in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
   },
   profile: {
     export_outfit: "Export outfit",
