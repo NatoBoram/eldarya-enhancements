@@ -7,16 +7,12 @@
 
 Enhances the user experience of Eldarya.
 
-![Eldarya Enhancements Banner](https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/carousel_eldarya_enhancements.png)
+![Banner](https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/carousel_eldarya_enhancements.png)
 
 ## Installation
 
 1. Install [one of these](https://github.com/OpenUserJS/OpenUserJS.org/wiki/Userscript-Beginners-HOWTO#how-do-i-get-going)
 2. Click [here](https://natoboram.gitlab.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
-
-<!--
-[![Install Eldarya Enhancements](https://img.shields.io/badge/Install-Eldarya%20Enhancements-23E5FB)](https://natoboram.gitlab.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
--->
 
 The latest development version can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.min.user.js?job=deploy).
 
