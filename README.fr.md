@@ -11,8 +11,8 @@ Améliore l'expérience utilisateur d'Eldarya.
 
 ## Installation
 
-1. Installez [un d'entre eux](https://github.com/OpenUserJS/OpenUserJS.org/wiki/Userscript-Beginners-HOWTO#how-do-i-get-going)
-2. Cliquez [ici](https://natoboram.gitlab.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
+1. Installer [un d'entre eux](https://github.com/OpenUserJS/OpenUserJS.org/wiki/Userscript-Beginners-HOWTO#how-do-i-get-going)
+2. Cliquer [ici](https://natoboram.gitlab.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
 
 La dernière version de développement peut être téléchargée [ici](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.min.user.js?job=deploy).
 
