@@ -29,6 +29,7 @@ The script updates automatically.
 - Mark favourite exploration points
 - Wishlist for the market
 - Overhaul of the dresser so you can see all items in a category at once
+- Background image is clear
 - Translated in French
 - Unlimited amount of free favourite outfits
 - Load the entire wardrobe in the background

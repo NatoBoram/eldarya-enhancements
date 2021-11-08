@@ -29,6 +29,7 @@ Le script se met à jour automatiquement.
 - Marque les points d'exploration préférés
 - Ajoute une liste de souhaits pour le marché
 - Refonte de la garde-robe afin de voir tous les items d'une catégorie à la fois
+- Défloute le fond de la garde-robe
 - Est traduit en français
 - Ajoute un nombre illimité de tenues préférées gratuitement
 - Charge toute la garde-robe en arrière-plan
