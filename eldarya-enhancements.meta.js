@@ -5,6 +5,15 @@
 // @version         1.2.8
 // @author          Nato Boram
 // @description     Enhances the user experience of Eldarya.
+// @description:pt  Aprimora a experiência do usuário de Eldarya.
+// @description:de  Verbessert die Benutzererfahrung von Eldarya.
+// @description:es  Mejora la experiencia del usuario de Eldarya.
+// @description:hu  Javítja az Eldarya felhasználói élményét.
+// @description:it  Migliora l'esperienza utente di Eldarya.
+// @description:pl  Zwiększa wrażenia użytkownika Eldaryi.
+// @description:ru  Повышает удобство использования Эльдарьи.
+// @description:en  Enhances the user experience of Eldarya.
+// @description:fr  Améliore l'expérience utilisateur d'Eldarya.
 // @icon            https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/avatar.png
 // @updateURL       https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.meta.js?job=deploy
 // @downloadURL     https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.min.user.js?job=deploy
