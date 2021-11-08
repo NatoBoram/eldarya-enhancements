@@ -157,11 +157,12 @@
         <div class="result-date">{{date}}</div>
 
         <div class="result-icons">
-          {{#tradable}}
-          <span class="result-count">{{count}}</span>
+          {{#count}}<span class="result-count">{{count}}</span>{{/count}}
+          {{#count}}{{#tradable}}
           <div class="icon-spacer"></div>
-          <span class="history-tradable"></span>
-          {{/tradable}}
+          {{/tradable}}{{/count}} {{#tradable}}<span class="history-tradable"
+            ></span
+          >{{/tradable}}
         </div>
       </div>
     </div>
