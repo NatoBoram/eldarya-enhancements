@@ -5,6 +5,8 @@ import type { MarketEntryDataSet } from "./interfaces/market_entry_data_set"
 
 export function getItemDetails(li: HTMLLIElement): MarketEntry | null {
   const name = li.querySelector<HTMLDivElement>(".abstract-name")?.innerText
+  const abstractType =
+    li.querySelector<HTMLDivElement>(".abstract-type")?.innerText
   const src = li.querySelector<HTMLImageElement>(".abstract-icon img")?.src
 
   const currentPrice = li.querySelector<HTMLImageElement>(
@@ -21,6 +23,7 @@ export function getItemDetails(li: HTMLLIElement): MarketEntry | null {
     ...(li.dataset as unknown as MarketEntryDataSet),
     icon: src,
     name,
+    abstractType,
     buyNowPrice,
     currentPrice,
     date: new Date(),
