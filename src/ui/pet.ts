@@ -7,8 +7,6 @@ function loadExplorations(): void {
   petObserver?.disconnect()
   petObserver = null
 
-  if (location.pathname !== "/pet") return
-
   /** `.page-main-container` changes background depending on the currently selected region. */
   const mainContainer = document.querySelector<HTMLDivElement>(
     ".page-main-container"
@@ -24,6 +22,7 @@ function loadExplorations(): void {
 }
 
 export function loadPet(): void {
+  if (location.pathname !== "/pet") return
   loadExplorations()
   loadExplorationHistory()
 }

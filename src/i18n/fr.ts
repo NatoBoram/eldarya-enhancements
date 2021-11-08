@@ -3,7 +3,6 @@ import type { Translation } from "./translation"
 export const fr: Translation = {
   home: {
     forum: "Forum",
-    script_loaded: `${GM.info.script.name} v${GM.info.script.version} chargé.`,
     takeover: "Takeover",
   },
   takeover: {

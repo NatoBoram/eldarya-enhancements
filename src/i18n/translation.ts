@@ -1,7 +1,6 @@
 export interface Translation {
   readonly home: {
     readonly forum: string
-    readonly script_loaded: string
     readonly takeover: string
   }
   readonly takeover: {

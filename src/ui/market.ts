@@ -114,6 +114,20 @@ function save(marketEntry: MarketEntry): boolean {
   )
   const wished: WishedItem = { ...marketEntry, price }
   wishlist.push(wished)
+
+  wishlist.sort((a, b) => {
+    const typeCompare = a.type.localeCompare(b.type)
+    if (typeCompare !== 0) return typeCompare
+
+    const abstractTypeCompare = (a.abstractType ?? "").localeCompare(
+      b.abstractType ?? ""
+    )
+    if (abstractTypeCompare !== 0) return abstractTypeCompare
+
+    const nameCompare = a.name.localeCompare(b.name)
+    return nameCompare
+  })
+
   LocalStorage.wishlist = wishlist
 
   const template: Template = require("../templates/html/flavr_notif/icon_message.html")

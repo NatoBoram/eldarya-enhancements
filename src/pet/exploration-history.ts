@@ -5,7 +5,6 @@ import { LocalStorage } from "../local_storage/local_storage"
 import { listenTreasureHunt } from "./exploration-watcher"
 
 export function loadExplorationHistory(): void {
-  Console.log("Loading exploration history...")
   loadHistoryButton()
   listenTreasureHunt()
 }
