@@ -127,9 +127,6 @@ export class LocalStorage {
     this.autoExploreLocations = settings.autoExploreLocations
     this.debug = settings.debug
     this.explorationHistory = settings.explorationHistory
-      .concat(this.explorationHistory)
-      .map(e => ({ ...e, date: new Date(e.date) }))
-      .sort((a, b) => b.date.getTime() - a.date.getTime())
     this.explorations = settings.explorations
     this.market = settings.market
     this.minigames = settings.minigames

@@ -2,6 +2,7 @@ import type { Template } from "hogan.js"
 import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { WishedItem } from "../local_storage/wished_item"
+import { Rarity } from "../marketplace/enums/rarity.enum"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import { getItemDetails } from "../marketplace/marketplace_handlers"
 
@@ -124,8 +125,12 @@ function save(marketEntry: MarketEntry): boolean {
     )
     if (abstractTypeCompare !== 0) return abstractTypeCompare
 
-    const nameCompare = a.name.localeCompare(b.name)
-    return nameCompare
+    const rarityCompare =
+      Object.keys(Rarity).indexOf(a.rarity ?? "") -
+      Object.keys(Rarity).indexOf(b.rarity ?? "")
+    if (rarityCompare !== 0) return rarityCompare
+
+    return a.name.localeCompare(b.name)
   })
 
   LocalStorage.wishlist = wishlist
@@ -144,12 +149,6 @@ function save(marketEntry: MarketEntry): boolean {
 }
 
 function hijackBuyButtons(marketEntry: MarketEntry): void {
-  document
-    .querySelector(".marketplace-itemDetail-bid-prepare")
-    ?.addEventListener("click", () => {
-      addPurchase(marketEntry)
-    })
-
   document
     .querySelector(".marketplace-itemDetail-buy")
     ?.addEventListener("click", () => {

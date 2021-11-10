@@ -9,7 +9,6 @@ import { loadMarket } from "./ui/market"
 import { loadMenu } from "./ui/menu"
 import { loadPet } from "./ui/pet"
 import { loadProfile } from "./ui/profile"
-import { loadSell } from "./ui/sell"
 import { loadSettings } from "./ui/settings"
 import { loadTopBar } from "./ui/top_bar"
 import { loadWishlist } from "./ui/wishlist"
@@ -32,7 +31,6 @@ function loadUI(): void {
   loadWishlist()
   loadTopBar()
   loadAuctions()
-  loadSell()
   void loadDressingExperience()
 
   if (document.readyState === "complete") void loadIndexedDb()
