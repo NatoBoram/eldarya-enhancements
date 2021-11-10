@@ -150,12 +150,6 @@ function save(marketEntry: MarketEntry): boolean {
 
 function hijackBuyButtons(marketEntry: MarketEntry): void {
   document
-    .querySelector(".marketplace-itemDetail-bid-prepare")
-    ?.addEventListener("click", () => {
-      addPurchase(marketEntry)
-    })
-
-  document
     .querySelector(".marketplace-itemDetail-buy")
     ?.addEventListener("click", () => {
       addPurchase(marketEntry)
