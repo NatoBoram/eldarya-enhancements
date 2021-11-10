@@ -2,7 +2,7 @@
 // @name            Eldarya Enhancements
 // @namespace       https://gitlab.com/NatoBoram/eldarya-enhancements
 // @license         GPL-3.0-or-later
-// @version         1.2.9
+// @version         1.2.10
 // @author          Nato Boram
 // @description     Enhances the user experience of Eldarya.
 // @description:pt  Aprimora a experiência do usuário de Eldarya.
