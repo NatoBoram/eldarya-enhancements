@@ -24,6 +24,11 @@
     filter: grayscale(1);
   }
 
+  .item-icon-container {
+    display: inline-block;
+    position: relative;
+  }
+
   .item-icon {
     width: 100px;
     height: 100px;
@@ -45,7 +50,10 @@
     <tr class="marketplace-abstract" data-wearableitemid="{{wearableitemid}}">
       <!-- Icon -->
       <td>
-        <img class="item-icon" src="{{icon}}" alt="{{name}}" />
+        <div class="item-icon-container">
+          <img class="item-icon" src="{{icon}}" alt="{{name}}" />
+          <div class="rarity-marker-{{rarity}}"></div>
+        </div>
       </td>
 
       <!-- Name -->
