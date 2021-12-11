@@ -1,5 +1,5 @@
 import type { Packet } from "../api/packet"
-import { SessionStorage } from "../session_storage/session_storage"
+import { LocalStorage } from "../local_storage/local_storage"
 
 export async function newBid(
   itemId: number,
@@ -10,7 +10,7 @@ export async function newBid(
       "/marketplace/newBid",
       { id: itemId, bidPrice: bidPrice },
       (json: Packet<string>): void => {
-        SessionStorage.meta = json.meta
+        LocalStorage.meta = json.meta
         resolve(json)
 
         if (json.result !== "success") {

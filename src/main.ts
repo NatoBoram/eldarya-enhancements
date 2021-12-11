@@ -9,6 +9,7 @@ import { loadMarket } from "./ui/market"
 import { loadMenu } from "./ui/menu"
 import { loadPet } from "./ui/pet"
 import { loadProfile } from "./ui/profile"
+import { loadPurroShop } from "./ui/purro_shop"
 import { loadSettings } from "./ui/settings"
 import { loadTopBar } from "./ui/top_bar"
 import { loadWishlist } from "./ui/wishlist"
@@ -31,6 +32,7 @@ function loadUI(): void {
   loadWishlist()
   loadTopBar()
   loadAuctions()
+  loadPurroShop()
   void loadDressingExperience()
 
   if (document.readyState === "complete") void loadIndexedDb()

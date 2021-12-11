@@ -4,6 +4,7 @@ export enum LocalStorageKey {
   explorationHistory = "explorationHistory",
   explorations = "explorations",
   market = "market",
+  meta = "meta",
   minigames = "minigames",
   purchases = "purchases",
   sales = "sales",

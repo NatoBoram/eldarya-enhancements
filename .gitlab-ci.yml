@@ -40,8 +40,6 @@ tsc:
   stage: test
   script:
     - pnpx tsc --noEmit
-  # https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/56858
-  allow_failure: true
 
 deploy:
   stage: deploy

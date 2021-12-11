@@ -1,6 +1,15 @@
+import { Console } from "./console"
+import { translate } from "./i18n/translate"
+
 function downloadCanvas(canvas: HTMLCanvasElement, name: string): void {
   canvas.toBlob(
     blob => {
+      if (!blob) {
+        Console.error("Canvas is empty")
+        $.flavrNotif(translate.error.downloadCanvas)
+        return
+      }
+
       const url = URL.createObjectURL(blob)
 
       const a = document.createElement("a")
