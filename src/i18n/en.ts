@@ -149,6 +149,9 @@ export const en: Translation = {
     export_outfit: "Export outfit",
     download_outfit: "Download PNG",
   },
+  error: {
+    downloadCanvas: "There was an error while creating the image.",
+  },
 }
 
 Object.freeze(en)

@@ -150,6 +150,10 @@ export const fr: Translation = {
     export_outfit: "Exporter la tenue",
     download_outfit: "Télécharger le PNG",
   },
+  error: {
+    downloadCanvas:
+      "Une erreur est survenue lors du téléchargement de l'image.",
+  },
 }
 
 Object.freeze(fr)

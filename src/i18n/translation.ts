@@ -118,6 +118,9 @@ export interface Translation {
     readonly export_outfit: string
     readonly download_outfit: string
   }
+  readonly error: {
+    readonly downloadCanvas: string
+  }
 }
 
 interface I18nCarousel {
