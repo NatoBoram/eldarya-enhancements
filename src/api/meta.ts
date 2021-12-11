@@ -62,6 +62,7 @@ interface Notifications {
   type: string
 }
 
-enum PurroshopStatus {
+export enum PurroshopStatus {
   disabled = "disabled",
+  enabled = "enabled",
 }

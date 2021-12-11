@@ -1,9 +1,9 @@
 import type { AjaxSalesData } from "../api/ajax_sales_data"
 import type { Packet } from "../api/packet"
+import { LocalStorage } from "../local_storage/local_storage"
 import { BodyLocation } from "../marketplace/enums/body_location.enum"
 import { CategoryString } from "../marketplace/enums/category.enum"
 import { Type } from "../marketplace/enums/type.enum"
-import { SessionStorage } from "../session_storage/session_storage"
 
 /**
  * Load a page of one type of object
@@ -31,7 +31,7 @@ export async function ajaxSales(
       },
       dataType: "json",
       success: (json: Packet<AjaxSalesData>): void => {
-        SessionStorage.meta = json.meta
+        LocalStorage.meta = json.meta
         resolve(json)
 
         if (json.result !== "success") {
