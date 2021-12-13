@@ -19,7 +19,7 @@ export function loadMarkers(): void {
 
     loadPictoMap(autoExploreLocations, div)
 
-    div.addEventListener("click", () => {
+    div.addEventListener("click", () =>
       new MutationObserver(
         (_: MutationRecord[], observer: MutationObserver): void => {
           addAutoExploreButton(locationId, observer)
@@ -27,7 +27,7 @@ export function loadMarkers(): void {
       ).observe(document.getElementById("map-location-preview") as Node, {
         attributes: true,
       })
-    })
+    )
   }
 }
 

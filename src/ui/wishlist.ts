@@ -9,9 +9,9 @@ export function loadWishlist(): void {
 
   if (!marketplaceMenu.querySelector("#wishlist-button")) {
     for (const a of marketplaceMenu.querySelectorAll("a")) {
-      a.addEventListener("click", () => {
+      a.addEventListener("click", () =>
         pageLoad(a.href, undefined, undefined, undefined, true)
-      })
+      )
     }
   }
 
@@ -24,9 +24,9 @@ export function loadWishlist(): void {
 
   const wishlistButton =
     marketplaceMenu.querySelector<HTMLAnchorElement>("#wishlist-button")
-  wishlistButton?.addEventListener("click", () => {
+  wishlistButton?.addEventListener("click", () =>
     insertWishlist(wishlistButton)
-  })
+  )
 }
 
 function insertWishlist(button: HTMLAnchorElement): void {
@@ -84,11 +84,11 @@ function insertWishlist(button: HTMLAnchorElement): void {
     // Change price
     const editPrice = tr.querySelector(".edit-price")
     if (editPrice)
-      editPrice.addEventListener("click", () => {
-        void changePrice(wearableitemid).then(() => {
-          insertWishlist(button)
-        })
-      })
+      editPrice.addEventListener(
+        "click",
+        () =>
+          void changePrice(wearableitemid).then(() => insertWishlist(button))
+      )
   }
 }
 

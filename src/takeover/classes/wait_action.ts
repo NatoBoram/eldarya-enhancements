@@ -13,9 +13,7 @@ class WaitAction extends Action {
     Console.log(`Waiting for 10 minutes...`)
 
     return new Promise<boolean>(resolve =>
-      setTimeout(() => {
-        resolve(false)
-      }, 10 * 60 * 1000)
+      setTimeout(() => resolve(false), 10 * 60 * 1000)
     )
   }
 }
