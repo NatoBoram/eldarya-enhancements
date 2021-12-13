@@ -89,8 +89,7 @@ class BuyAction extends Action {
 
   private async buy(result: MarketEntry): Promise<boolean> {
     const json = await buy(Number(result.itemid))
-    if (json.result !== "success")
-      this.setError(result.wearableitemid, json.data)
+    if (json.result !== "success") this.setError(result.icon, json.data)
     return json.result === "success"
   }
 
@@ -119,11 +118,9 @@ class BuyAction extends Action {
   }
 
   /** Set the `WishedItem.error` property without reordering the wishlist. */
-  private setError(wearableitemid: string, error: string): void {
+  private setError(icon: string, error: string): void {
     const wishlist = LocalStorage.wishlist
-    const index = wishlist.findIndex(
-      item => item.wearableitemid === wearableitemid
-    )
+    const index = wishlist.findIndex(item => item.icon === icon)
     const entry = wishlist[index]
     if (!entry) return
 
