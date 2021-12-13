@@ -1,3 +1,4 @@
+import { trimIcon } from "../eldarya_util"
 import { Rarity } from "./enums/rarity.enum"
 import type { BuyNowPrice } from "./interfaces/buy_now_price"
 import type { CurrentPrice } from "./interfaces/current_price"
@@ -27,11 +28,11 @@ export function getItemDetails(li: HTMLLIElement): MarketEntry | null {
     ".price-item:not([data-bids])"
   )?.dataset as unknown as BuyNowPrice
 
-  if (!src || !name) return null
+  if (!src || !name || !abstractType) return null
 
   return {
     ...(li.dataset as unknown as MarketEntryDataSet),
-    icon: src,
+    icon: trimIcon(src),
     rarity,
     name,
     abstractType,

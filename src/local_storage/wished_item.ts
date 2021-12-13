@@ -1,13 +1,18 @@
+import type { Rarity } from "../marketplace/enums/rarity.enum"
 import type { Type } from "../marketplace/enums/type.enum"
-import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 
-export interface WishedItem extends Partial<MarketEntry> {
+export interface WishedItem {
   icon: string
   name: string
   price: number
   type: Type
-  /** ID of this item+color combo. Eggs are unique though. */
-  wearableitemid: string
+  rarity?: Rarity
+
+  /**
+   * Subtitle of a market item under its name or tooltip content of a mall item
+   * in the mall menu
+   */
+  abstractType?: string
 
   /** Latest error received from Eldarya. */
   error?: string

@@ -1,4 +1,5 @@
 import { Console } from "../console"
+import { trimIcon } from "../eldarya_util"
 import type { ExplorationResult } from "../local_storage/exploration_result"
 import { LocalStorage } from "../local_storage/local_storage"
 
@@ -30,12 +31,16 @@ function getResults(): ExplorationResult[] {
     ?.textContent?.trim()
   const now = new Date()
 
-  return Array.from(document.querySelectorAll(".th-result")).map(result => ({
-    count: result.querySelector(".resource-count")?.textContent?.trim(),
-    date: now,
-    icon: result.querySelector<HTMLImageElement>("img.th-result-img")?.src,
-    locationName,
-    name: result.querySelector(".tooltip-content h3")?.textContent?.trim(),
-    tradable: Boolean(result.querySelector(".tradable")),
-  }))
+  return Array.from(document.querySelectorAll(".th-result")).map(result => {
+    const img = result.querySelector<HTMLImageElement>("img.th-result-img")
+
+    return {
+      count: result.querySelector(".resource-count")?.textContent?.trim(),
+      date: now,
+      icon: img ? trimIcon(img.src) : undefined,
+      locationName,
+      name: result.querySelector(".tooltip-content h3")?.textContent?.trim(),
+      tradable: Boolean(result.querySelector(".tradable")),
+    }
+  })
 }

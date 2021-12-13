@@ -8,7 +8,7 @@ export interface MarketEntry extends MarketEntryDataSet {
   rarity: Rarity
   name: string
   /** Subtitle of a market item under its name */
-  abstractType?: string
+  abstractType: string
   currentPrice: CurrentPrice
   buyNowPrice?: BuyNowPrice
   date: Date | string

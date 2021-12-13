@@ -1,4 +1,3 @@
-import type { Meta } from "../api/meta"
 import type { AutoExploreLocation } from "../local_storage/auto_explore_location"
 import type { WishedItem } from "../local_storage/wished_item"
 import { SessionStorageKey } from "./session_storage.enum"
@@ -23,14 +22,6 @@ export class SessionStorage {
 
   static set explorationsDone(done: boolean) {
     this.setItem(SessionStorageKey.explorationsDone, done)
-  }
-
-  static get meta(): Meta | null {
-    return this.getItem(SessionStorageKey.meta, null)
-  }
-
-  static set meta(meta: Meta | null) {
-    this.setItem(SessionStorageKey.meta, meta)
   }
 
   static get minigamesDone(): boolean {

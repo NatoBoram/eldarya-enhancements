@@ -118,6 +118,16 @@ export interface Translation {
     readonly export_outfit: string
     readonly download_outfit: string
   }
+  readonly error: {
+    readonly downloadCanvas: string
+  }
+  readonly mall: {
+    readonly add_to_wishlist: {
+      readonly text: string
+      readonly title: string
+      readonly note: string
+    }
+  }
 }
 
 interface I18nCarousel {

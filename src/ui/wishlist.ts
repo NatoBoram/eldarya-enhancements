@@ -9,9 +9,9 @@ export function loadWishlist(): void {
 
   if (!marketplaceMenu.querySelector("#wishlist-button")) {
     for (const a of marketplaceMenu.querySelectorAll("a")) {
-      a.addEventListener("click", () => {
+      a.addEventListener("click", () =>
         pageLoad(a.href, undefined, undefined, undefined, true)
-      })
+      )
     }
   }
 
@@ -24,9 +24,9 @@ export function loadWishlist(): void {
 
   const wishlistButton =
     marketplaceMenu.querySelector<HTMLAnchorElement>("#wishlist-button")
-  wishlistButton?.addEventListener("click", () => {
+  wishlistButton?.addEventListener("click", () =>
     insertWishlist(wishlistButton)
-  })
+  )
 }
 
 function insertWishlist(button: HTMLAnchorElement): void {
@@ -62,14 +62,14 @@ function insertWishlist(button: HTMLAnchorElement): void {
 
   // Buttons
   for (const tr of container.querySelectorAll("tr")) {
-    const wearableitemid = tr.dataset.wearableitemid
-    if (!wearableitemid) continue
+    const icon = tr.dataset.icon
+    if (!icon) continue
 
     // Reset status
     const reset = tr.querySelector(".reset-item-status")
     if (reset)
       reset.addEventListener("click", () => {
-        resetStatus(wearableitemid)
+        resetStatus(icon)
         insertWishlist(button)
       })
 
@@ -77,26 +77,23 @@ function insertWishlist(button: HTMLAnchorElement): void {
     const deleteButton = tr.querySelector(".delete-wishlist-item")
     if (deleteButton)
       deleteButton.addEventListener("click", () => {
-        deleteItem(wearableitemid)
+        deleteItem(icon)
         insertWishlist(button)
       })
 
     // Change price
     const editPrice = tr.querySelector(".edit-price")
     if (editPrice)
-      editPrice.addEventListener("click", () => {
-        void changePrice(wearableitemid).then(() => {
-          insertWishlist(button)
-        })
-      })
+      editPrice.addEventListener(
+        "click",
+        () => void changePrice(icon).then(() => insertWishlist(button))
+      )
   }
 }
 
-function resetStatus(wearableitemid: string): void {
+function resetStatus(icon: string): void {
   const wishlist = LocalStorage.wishlist
-  const index = wishlist.findIndex(
-    item => item.wearableitemid === wearableitemid
-  )
+  const index = wishlist.findIndex(item => item.icon === icon)
   const entry = wishlist[index]
   if (!entry) return
 
@@ -108,19 +105,17 @@ function resetStatus(wearableitemid: string): void {
   ]
 }
 
-function deleteItem(wearableitemid: string): void {
+function deleteItem(icon: string): void {
   LocalStorage.wishlist = LocalStorage.wishlist.filter(
-    item => item.wearableitemid !== wearableitemid
+    item => item.icon !== icon
   )
 }
 
-async function changePrice(wearableitemid: string): Promise<void> {
+async function changePrice(icon: string): Promise<void> {
   const template: Template = require("../templates/html/change_price_flavr.html")
 
   const wishlist = LocalStorage.wishlist
-  const index = wishlist.findIndex(
-    item => item.wearableitemid === wearableitemid
-  )
+  const index = wishlist.findIndex(item => item.icon === icon)
   const entry = wishlist[index]
   if (!entry) return
 
@@ -140,7 +135,7 @@ async function changePrice(wearableitemid: string): Promise<void> {
           },
         },
         save: {
-          action: () => save(wearableitemid, resolve),
+          action: () => save(icon, resolve),
         },
       },
       onBuild: $container => {
@@ -150,18 +145,16 @@ async function changePrice(wearableitemid: string): Promise<void> {
           .querySelector<HTMLInputElement>(".flavr-prompt")
           ?.addEventListener("keyup", ({ key }) => {
             if (key !== "Enter") return
-            save(wearableitemid, resolve)
+            save(icon, resolve)
           })
       },
     })
   })
 }
 
-function save(wearableitemid: string, resolve: () => void): boolean {
+function save(icon: string, resolve: () => void): boolean {
   const wishlist = LocalStorage.wishlist
-  const index = wishlist.findIndex(
-    item => item.wearableitemid === wearableitemid
-  )
+  const index = wishlist.findIndex(item => item.icon === icon)
   const entry = wishlist[index]
   if (!entry) return false
 

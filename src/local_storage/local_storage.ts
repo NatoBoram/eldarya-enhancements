@@ -1,4 +1,5 @@
 import { base64StringToBlob, blobToBase64String } from "blob-util"
+import type { Meta } from "../api/meta"
 import type { FavouriteOutfit } from "../appearance/interfaces/favourite_outfit"
 import indexed_db from "../indexed_db/indexed_db"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
@@ -59,6 +60,14 @@ export class LocalStorage {
 
   static set market(enabled: boolean) {
     this.setItem(LocalStorageKey.market, enabled)
+  }
+
+  static get meta(): Meta | null {
+    return this.getItem<Meta | null>(LocalStorageKey.meta, null)
+  }
+
+  static set meta(meta: Meta | null) {
+    this.setItem(LocalStorageKey.meta, meta)
   }
 
   static get minigames(): boolean {
