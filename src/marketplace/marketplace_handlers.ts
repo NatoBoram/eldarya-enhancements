@@ -27,7 +27,7 @@ export function getItemDetails(li: HTMLLIElement): MarketEntry | null {
     ".price-item:not([data-bids])"
   )?.dataset as unknown as BuyNowPrice
 
-  if (!src || !name) return null
+  if (!src || !name || !abstractType) return null
 
   return {
     ...(li.dataset as unknown as MarketEntryDataSet),

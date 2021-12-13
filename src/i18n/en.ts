@@ -152,6 +152,13 @@ export const en: Translation = {
   error: {
     downloadCanvas: "There was an error while creating the image.",
   },
+  mall: {
+    add_to_wishlist: {
+      title: "Add to market wishlist",
+      text: "How many maanas do you wish to offer to acquire this item?",
+      note: "Please note that the items added from the mall are not necessarily available at the market.",
+    },
+  },
 }
 
 Object.freeze(en)

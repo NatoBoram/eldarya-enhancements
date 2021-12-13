@@ -71,7 +71,7 @@ function addWishistButton(
     ?.addEventListener("click", () => addToWishlistFlavr(marketEntry))
 }
 
-export function addToWishlistFlavr(marketEntry: MarketEntry): void {
+function addToWishlistFlavr(marketEntry: MarketEntry): void {
   const template: Template = require("../templates/html/auto_buy_flavr.html")
 
   $.flavr({

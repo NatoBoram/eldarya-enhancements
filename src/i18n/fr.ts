@@ -154,6 +154,13 @@ export const fr: Translation = {
     downloadCanvas:
       "Une erreur est survenue lors du téléchargement de l'image.",
   },
+  mall: {
+    add_to_wishlist: {
+      title: "Ajouter à la liste de souhait du marché",
+      text: "Combien de maanas souhaites-tu offrir pour acquérir cet item?",
+      note: "Prends note que les items ajoutés à partir de la boutique ne sont pas nécessairement disponibles au marché.",
+    },
+  },
 }
 
 Object.freeze(fr)
