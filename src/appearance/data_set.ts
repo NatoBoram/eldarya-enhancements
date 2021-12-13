@@ -1,3 +1,4 @@
+import { trimIcon } from "../eldarya_util"
 import type { AppearanceCategory } from "../templates/interfaces/appearance_category"
 import type { AppearanceGroup } from "../templates/interfaces/appearance_group"
 import type { AppearanceItem } from "../templates/interfaces/appearance_item"
@@ -45,6 +46,6 @@ export function itemDataSet(
     name,
     rarity,
     rarityname,
-    icon,
+    icon: trimIcon(icon),
   }
 }

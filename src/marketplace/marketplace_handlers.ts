@@ -1,3 +1,4 @@
+import { trimIcon } from "../eldarya_util"
 import { Rarity } from "./enums/rarity.enum"
 import type { BuyNowPrice } from "./interfaces/buy_now_price"
 import type { CurrentPrice } from "./interfaces/current_price"
@@ -31,7 +32,7 @@ export function getItemDetails(li: HTMLLIElement): MarketEntry | null {
 
   return {
     ...(li.dataset as unknown as MarketEntryDataSet),
-    icon: src,
+    icon: trimIcon(src),
     rarity,
     name,
     abstractType,
