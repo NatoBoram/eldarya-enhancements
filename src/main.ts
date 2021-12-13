@@ -5,6 +5,7 @@ import { loadAuctions } from "./ui/auctions"
 import { loadCarousel } from "./ui/carousel"
 import { loadFavourites } from "./ui/favourites"
 import { loadHomeContent } from "./ui/home_content"
+import { loadMall } from "./ui/mall"
 import { loadMarket } from "./ui/market"
 import { loadMenu } from "./ui/menu"
 import { loadPet } from "./ui/pet"
@@ -33,6 +34,7 @@ function loadUI(): void {
   loadTopBar()
   loadAuctions()
   loadPurroShop()
+  loadMall()
   void loadDressingExperience()
 
   if (document.readyState === "complete") void loadIndexedDb()
