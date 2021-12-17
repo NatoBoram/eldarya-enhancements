@@ -8,7 +8,6 @@ import type { WishedItem } from "../../local_storage/wished_item"
 import type { MarketEntry } from "../../marketplace/interfaces/market_entry"
 import { getItemDetails } from "../../marketplace/marketplace_handlers"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
-import { click } from "../click"
 import { Action } from "./action"
 
 class BuyAction extends Action {
@@ -27,7 +26,7 @@ class BuyAction extends Action {
 
   async perform(): Promise<boolean> {
     if (location.pathname !== "/marketplace") {
-      await click<HTMLAnchorElement>(".main-menu-marketplace a")
+      pageLoad("/marketplace")
       return true
     }
 

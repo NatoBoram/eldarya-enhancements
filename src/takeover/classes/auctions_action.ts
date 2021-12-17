@@ -1,7 +1,6 @@
 import { LocalStorage } from "../../local_storage/local_storage"
 import { SessionStorage } from "../../session_storage/session_storage"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
-import { click } from "../click"
 import { Action } from "./action"
 
 class AuctionsAction extends Action {
@@ -13,8 +12,8 @@ class AuctionsAction extends Action {
 
   async perform(): Promise<boolean> {
     if (!location.pathname.startsWith("/marketplace")) {
-      await click<HTMLAnchorElement>(".main-menu-marketplace a")
-      return true
+      pageLoad("/marketplace")
+      return Promise.resolve(true)
     }
 
     if (!SessionStorage.wishlist.length)
@@ -22,7 +21,7 @@ class AuctionsAction extends Action {
 
     // const purchases = await ajaxPurchases()
 
-    return false
+    return Promise.resolve(false)
   }
 }
 

@@ -7,7 +7,6 @@ import { peggle } from "../../minigames/peggle"
 import { SessionStorage } from "../../session_storage/session_storage"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
 import type { Action } from "./action"
-import { click } from "../click"
 
 class MinigameAction implements Action {
   readonly key = TakeoverAction.minigames
@@ -52,11 +51,11 @@ class MinigameAction implements Action {
         break
 
       default:
-        await click<HTMLAnchorElement>(".main-menu-minigames a")
+        pageLoad("/minigames")
         return true
     }
 
-    await click<HTMLAnchorElement>(".main-menu-minigames a")
+    pageLoad("/minigames")
     return true
   }
 
