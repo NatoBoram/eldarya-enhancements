@@ -8,7 +8,6 @@ import type { WishedItem } from "../../local_storage/wished_item"
 import type { MarketEntry } from "../../marketplace/interfaces/market_entry"
 import { getItemDetails } from "../../marketplace/marketplace_handlers"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
-import { click } from "../click"
 import { Action } from "./action"
 
 class BuyAction extends Action {
@@ -27,7 +26,7 @@ class BuyAction extends Action {
 
   async perform(): Promise<boolean> {
     if (location.pathname !== "/marketplace") {
-      await click<HTMLAnchorElement>(".main-menu-marketplace a")
+      pageLoad("/marketplace")
       return true
     }
 
@@ -41,9 +40,19 @@ class BuyAction extends Action {
       }
       Console.info(`Searching for "${wished.name}"`, wished)
 
+      /** Search in each pages until the amount of items is less than 8 */
       let amount = 8
       forpage: for (let page = 1; amount === 8; page++) {
-        const results = await this.search(wished, page)
+        let results: MarketEntry[] = []
+        try {
+          results = await this.search(wished, page)
+        } catch (e: unknown) {
+          const error = e as JQueryXHR
+          Console.error(`Failed to search for "${wished.name}"`, error)
+          this.setError(wished.icon, `${error.statusText}`)
+          break forpage
+        }
+
         amount = results.length
         Console.log(`Found ${amount} results`, results)
 
@@ -87,6 +96,10 @@ class BuyAction extends Action {
     return false
   }
 
+  /**
+   * Purchase an item from the market.
+   * @returns whether the item was successfully purchased.
+   */
   private async buy(result: MarketEntry): Promise<boolean> {
     const json = await buy(Number(result.itemid))
     if (json.result !== "success") this.setError(result.icon, json.data)
@@ -95,11 +108,13 @@ class BuyAction extends Action {
 
   /** Search for a wished item on a specific page using the item's name. */
   private async search(wished: WishedItem, page = 1): Promise<MarketEntry[]> {
+    // Put the name of the item in the filter
     const filterItemName =
       document.querySelector<HTMLInputElement>("#filter-itemName")
     if (filterItemName) filterItemName.value = wished.name
 
-    const marketplaceSearchItems = document.querySelector<HTMLUListElement>(
+    // Show the results of the search
+    const marketplaceSearchItems = document.querySelector(
       ".marketplace-search-items"
     )
     if (!marketplaceSearchItems) return []
