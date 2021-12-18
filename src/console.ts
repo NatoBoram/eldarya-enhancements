@@ -9,28 +9,51 @@ export class Console {
     return LocalStorage.debug
   }
 
+  private static get time(): string {
+    return new Date().toLocaleTimeString()
+  }
+
+  static assert(
+    value: unknown,
+    message: string,
+    ...optionalParams: unknown[]
+  ): void {
+    if (!this.debugging) return
+    this.console.assert(value, ...this.format(message), ...optionalParams)
+  }
+
   static debug(message: string, ...optionalParams: unknown[]): void {
     if (!this.debugging) return
-    this.console.debug(message, ...optionalParams)
+    this.console.debug(...this.format(message), ...optionalParams)
   }
 
   static error(message: string, ...optionalParams: unknown[]): void {
     if (!this.debugging) return
-    this.console.error(message, ...optionalParams)
+    this.console.error(...this.format(message), ...optionalParams)
   }
 
   static info(message: string, ...optionalParams: unknown[]): void {
     if (!this.debugging) return
-    this.console.info(message, ...optionalParams)
+    this.console.info(...this.format(message), ...optionalParams)
   }
 
   static log(message: string, ...optionalParams: unknown[]): void {
     if (!this.debugging) return
-    this.console.log(message, ...optionalParams)
+    this.console.log(...this.format(message), ...optionalParams)
   }
 
   static warn(message: string, ...optionalParams: unknown[]): void {
     if (!this.debugging) return
-    this.console.warn(message, ...optionalParams)
+    this.console.warn(...this.format(message), ...optionalParams)
+  }
+
+  private static format(message: string): string[] {
+    return [
+      `%c[%c${this.time}%c]`,
+      "color:#9742c2",
+      "color:none",
+      "color:#9742c2",
+      message,
+    ]
   }
 }
