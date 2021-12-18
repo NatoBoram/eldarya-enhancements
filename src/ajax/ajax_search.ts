@@ -30,16 +30,9 @@ export async function ajaxSearch(data: {
   }
 
   const ITEMS_PER_PAGE = 8
-
-  return new Promise<string>((resolve): void => {
-    void $.get(
-      "/marketplace/ajax_search",
-      {
-        ...data,
-        from: (data.page - 1) * ITEMS_PER_PAGE,
-        to: ITEMS_PER_PAGE,
-      },
-      resolve
-    )
-  })
+  return (await $.get("/marketplace/ajax_search", {
+    ...data,
+    from: (data.page - 1) * ITEMS_PER_PAGE,
+    to: ITEMS_PER_PAGE,
+  })) as string
 }
