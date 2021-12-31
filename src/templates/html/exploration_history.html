@@ -80,7 +80,8 @@
       overflow: hidden;
     }
 
-    .result-location {}
+    .result-location {
+    }
 
     .result-date {
       color: #fb8900;
@@ -144,28 +145,29 @@
   </div>
 
   {{^history}}
-    <p class="history-message">{{translate.pet.empty_history}}</p>
+  <p class="history-message">{{translate.pet.empty_history}}</p>
   {{/history}}
 
   <div class="history-row">
     {{#history}}
-      <div class="result-card">
-        <img class="result-image" src="{{icon}}" />
+    <div class="result-card">
+      <img class="result-image" src="{{icon}}" />
 
-        <div class="result-content-column">
-          <div class="result-name">{{name}}</div>
-          <div class="result-location">{{locationName}}</div>
-          <div class="result-date">{{date}}</div>
+      <div class="result-content-column">
+        <div class="result-name">{{name}}</div>
+        <div class="result-location">{{locationName}}</div>
+        <div class="result-date">{{date}}</div>
 
-          <div class="result-icons">
-            {{#count}}<span class="result-count">{{count}}</span>{{/count}}
-            {{#count}}{{#tradable}}
-                <div class="icon-spacer"></div>
-              {{/tradable}}{{/count}} {{#tradable}}<span
-                class="history-tradable"></span>{{/tradable}}
-          </div>
+        <div class="result-icons">
+          {{#count}}<span class="result-count">{{count}}</span>{{/count}}
+          {{#count}}{{#tradable}}
+          <div class="icon-spacer"></div>
+          {{/tradable}}{{/count}} {{#tradable}}<span class="history-tradable"
+            ></span
+          >{{/tradable}}
         </div>
       </div>
+    </div>
     {{/history}}
   </div>
 </div>
