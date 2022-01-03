@@ -51,12 +51,12 @@ export const en: Translation = {
       importing: "Importing outfit. Please wait...",
       click_outfit: {
         delete: "Delete",
-        goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourites to another browser, export them in the <a href="/user/account" style="text-decoration: underline;">my&nbsp;account</a> page.`,
-        saved_locally: `Take note that this outfit was saved in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
+        goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourite outfits to another browser, export your settings in the <a href="/user/account" style="text-decoration: underline;">my&nbsp;account</a> page.`,
+        saved_locally: `Take note that this outfit is saved in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
         wear: "Wear",
       },
       save_outfit: {
-        goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourites to another browser, export them in the <a href="/user/account" style="text-decoration: underline;">my&nbsp;account</a> page.`,
+        goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourite outfits to another browser, export your settings in the <a href="/user/account" style="text-decoration: underline;">my&nbsp;account</a> page.`,
         placeholder: "Name...",
         save: "Save",
         saved_locally: `Take note that this outfit will only be saved within <strong>${GM.info.script.name}</strong>' settings and will not be sent to Eldarya's servers.`,
@@ -143,7 +143,7 @@ export const en: Translation = {
       "Your exploration history is empty. It will automatically fill up as your familiar finds items while exploring.",
     goto_account: `To transfer your exploration history to another browser, export your settings from the <em>my&nbsp;account</em> page.`,
     history: "History",
-    saved_locally: `Please note that your exploration history was saved locally in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
+    saved_locally: `Please note that your exploration history is saved locally in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
   },
   profile: {
     export_outfit: "Export outfit",
@@ -156,7 +156,7 @@ export const en: Translation = {
     add_to_wishlist: {
       title: "Add to market wishlist",
       text: "How many maanas do you wish to offer to acquire this item?",
-      note: "Please note that the items added from the mall are not necessarily available at the market.",
+      note: "Please note that the items added from the mall will not necessarily be available at the market.",
     },
   },
 }

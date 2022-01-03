@@ -23,6 +23,10 @@ export function migrate(): void {
           v1_2_10()
           break
 
+        case "1.2.13":
+          v1_2_13()
+          break
+
         default:
           installed()
           break
@@ -58,5 +62,11 @@ function v1_2_9(): void {
 function v1_2_10(): void {
   $.flavrNotif(
     `Updated to ${version()}. The wishlist has been improved to sort by category/type/rarity/name, but your wished items do not have a rarity. You can add rarities by re-adding the items via the market.`
+  )
+}
+
+function v1_2_13(): void {
+  $.flavrNotif(
+    `Updated to ${version()}. The enhanced dressing experience was disabled.`
   )
 }

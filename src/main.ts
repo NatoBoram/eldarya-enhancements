@@ -35,6 +35,10 @@ function loadUI(): void {
   loadAuctions()
   loadPurroShop()
   loadMall()
+
+  // Eldarya is crashing when opening groups.
+  // TODO: decode the worn outfit and send them to the server.
+  // TODO: Handle errors and stop the loading process.
   void loadDressingExperience()
 
   if (document.readyState === "complete") void loadIndexedDb()

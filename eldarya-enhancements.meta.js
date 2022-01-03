@@ -2,7 +2,7 @@
 // @name            Eldarya Enhancements
 // @namespace       https://gitlab.com/NatoBoram/eldarya-enhancements
 // @license         GPL-3.0-or-later
-// @version         1.2.12
+// @version         1.2.13
 // @author          Nato Boram
 // @description     Enhances the user experience of Eldarya.
 // @description:pt  Aprimora a experiência do usuário de Eldarya.
@@ -17,7 +17,7 @@
 // @icon            https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/images/avatar.png
 // @updateURL       https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.meta.js?job=deploy
 // @downloadURL     https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/master/raw/dist/eldarya-enhancements.min.user.js?job=deploy
-// @supportURL      https://gitlab.com/NatoBoram/Eldarya-Face-Downloader/issues
+// @supportURL      https://gitlab.com/NatoBoram/eldarya-enhancements/-/issues
 // @contributionURL https://paypal.me/NatoBoram/5
 //
 // @match https://www.eldarya.com.br/*

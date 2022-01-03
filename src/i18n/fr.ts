@@ -51,12 +51,12 @@ export const fr: Translation = {
       importing: "Importation en cours...",
       click_outfit: {
         delete: "Supprimer",
-        goto_account: `Pour transférer tes favoris d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte-les à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
-        saved_locally: `Prends note que cette tenue a été sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyée aux serveurs d'Eldarya.`,
+        goto_account: `Pour transférer tes tenues favorites d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte tes paramètres à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
+        saved_locally: `Prends note que cette tenue est sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyée aux serveurs d'Eldarya.`,
         wear: "Porter",
       },
       save_outfit: {
-        goto_account: `Pour transférer tes favoris d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte-les à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
+        goto_account: `Pour transférer tes tenues favorites d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte tes paramètres à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
         placeholder: "Nom...",
         save: "Sauvegarder",
         saved_locally: `Prends note que cette tenue sera sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et ne sera pas envoyée aux serveurs d'Eldarya.`,
@@ -144,7 +144,7 @@ export const fr: Translation = {
     goto_account:
       "Pour transférer ton historique d'explorations vers un autre navigateur, exporte tes paramètres à partir de la page <em>mon compte</em>.",
     history: "Historique",
-    saved_locally: `Prends note que ton historique d'explorations a été sauvegardé localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyé aux serveurs d'Eldarya.`,
+    saved_locally: `Prends note que ton historique d'explorations est sauvegardé localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyé aux serveurs d'Eldarya.`,
   },
   profile: {
     export_outfit: "Exporter la tenue",
@@ -158,7 +158,7 @@ export const fr: Translation = {
     add_to_wishlist: {
       title: "Ajouter à la liste de souhait du marché",
       text: "Combien de maanas souhaites-tu offrir pour acquérir cet item?",
-      note: "Prends note que les items ajoutés à partir de la boutique ne sont pas nécessairement disponibles au marché.",
+      note: "Prends note que les items ajoutés à partir de la boutique ne seront pas nécessairement disponibles au marché.",
     },
   },
 }
