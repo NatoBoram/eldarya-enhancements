@@ -1,4 +1,4 @@
-import { loadAppearanceUI } from "./appearance/appearance_ui"
+import { loadDressingExperience } from "./appearance/dressing_experience"
 import { migrate } from "./migrate"
 import { loadTakeover } from "./takeover/brain"
 import { loadAuctions } from "./ui/auctions"
@@ -39,8 +39,7 @@ function loadUI(): void {
   // Eldarya is crashing when opening groups.
   // TODO: decode the worn outfit and send them to the server.
   // TODO: Handle errors and stop the loading process.
-  //void loadDressingExperience()
-  loadAppearanceUI()
+  void loadDressingExperience()
 
   if (document.readyState === "complete") void loadIndexedDb()
   else window.addEventListener("load", () => loadIndexedDb())
