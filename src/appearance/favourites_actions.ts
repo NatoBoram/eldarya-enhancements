@@ -54,14 +54,21 @@ export async function openGroup(group: number): Promise<HTMLDivElement | null> {
     )
     if (groupContainer) return void resolve(groupContainer)
 
-    void $.get(`/player/openGroup/${group}`, (view: string): void => {
-      $(view).hide().appendTo("#appearance-items")
-      resolve(
-        document.querySelector<HTMLDivElement>(
-          `#appearance-items-group-${group}`
+    const avatar = Sacha.Avatar.avatars["#appearance-preview"]
+    if (!avatar) return void resolve(null)
+
+    void $.get(
+      `/player/openGroup/${group}`,
+      { wornItems: avatar.getItemsToSave() },
+      (view: string): void => {
+        $(view).hide().appendTo("#appearance-items")
+        resolve(
+          document.querySelector<HTMLDivElement>(
+            `#appearance-items-group-${group}`
+          )
         )
-      )
-    })
+      }
+    )
   })
 }
 
