@@ -1,5 +1,6 @@
 import type { Template } from "hogan.js"
 import { translate } from "../i18n/translate"
+import { LocalStorage } from "../local_storage/local_storage"
 import { SessionStorage } from "../session_storage/session_storage"
 import { toggleTakeover } from "../takeover/brain"
 
@@ -11,15 +12,22 @@ export function loadTopBar(): void {
   if (headerTakeover) headerTakeover.remove()
   else loadLinks()
 
-  const template: Template = require("../templates/html/header_takeover.html")
-  headerRight.insertAdjacentHTML(
-    "afterbegin",
-    template.render({ takeover: SessionStorage.takeover, translate })
-  )
+  if (
+    (LocalStorage.minigames ||
+      LocalStorage.explorations ||
+      LocalStorage.market) &&
+    LocalStorage.unlocked
+  ) {
+    const template: Template = require("../templates/html/header_takeover.html")
+    headerRight.insertAdjacentHTML(
+      "afterbegin",
+      template.render({ takeover: SessionStorage.takeover, translate })
+    )
 
-  headerRight
-    .querySelector("#header-takeover")
-    ?.addEventListener("click", toggleTakeover)
+    headerRight
+      .querySelector("#header-takeover")
+      ?.addEventListener("click", toggleTakeover)
+  }
 }
 
 function loadLinks(): void {

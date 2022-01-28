@@ -12,5 +12,6 @@ export interface Settings extends Context {
   readonly favourites: ExportableFavourite[]
   readonly market: boolean
   readonly minigames: boolean
+  readonly unlocked: boolean
   readonly wishlist: WishedItem[]
 }

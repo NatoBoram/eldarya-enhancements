@@ -24,9 +24,10 @@ export function loadCarousel(): void {
     carouselEE,
 
     // Features
-    ...(LocalStorage.minigames ||
-    LocalStorage.explorations ||
-    LocalStorage.market
+    ...((LocalStorage.minigames ||
+      LocalStorage.explorations ||
+      LocalStorage.market) &&
+    LocalStorage.unlocked
       ? [carouselTakeover]
       : []),
     carouselDownloadGuardian,
