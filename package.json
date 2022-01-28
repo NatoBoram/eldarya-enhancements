@@ -1,7 +1,7 @@
 {
   "name": "eldarya-enhancements",
   "description": "Enhances the user experience of Eldarya",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "scripts": {
     "build:linux": "./scripts/build.sh",
     "build:windows": "pwsh ./scripts/build.ps1",
