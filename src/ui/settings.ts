@@ -23,26 +23,28 @@ export async function loadSettings(): Promise<void> {
     reloadSettings()
   })
 
-  document
-    .getElementById("ee-minigames-enabled")
-    ?.addEventListener("click", () => {
-      LocalStorage.minigames = !LocalStorage.minigames
-      reloadSettings()
-    })
+  if (LocalStorage.unlocked) {
+    document
+      .getElementById("ee-minigames-enabled")
+      ?.addEventListener("click", () => {
+        LocalStorage.minigames = !LocalStorage.minigames
+        reloadSettings()
+      })
 
-  document
-    .getElementById("ee-explorations-enabled")
-    ?.addEventListener("click", () => {
-      LocalStorage.explorations = !LocalStorage.explorations
-      reloadSettings()
-    })
+    document
+      .getElementById("ee-explorations-enabled")
+      ?.addEventListener("click", () => {
+        LocalStorage.explorations = !LocalStorage.explorations
+        reloadSettings()
+      })
 
-  document
-    .getElementById("ee-market-enabled")
-    ?.addEventListener("click", () => {
-      LocalStorage.market = !LocalStorage.market
-      reloadSettings()
-    })
+    document
+      .getElementById("ee-market-enabled")
+      ?.addEventListener("click", () => {
+        LocalStorage.market = !LocalStorage.market
+        reloadSettings()
+      })
+  }
 
   document
     .getElementById("ee-import")

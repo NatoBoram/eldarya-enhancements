@@ -1,4 +1,5 @@
 import { loadDressingExperience } from "./appearance/dressing_experience"
+import { loadCheatCodes } from "./cheat_codes"
 import { migrate } from "./migrate"
 import { loadTakeover } from "./takeover/brain"
 import { loadAuctions } from "./ui/auctions"
@@ -35,6 +36,7 @@ function loadUI(): void {
   loadAuctions()
   loadPurroShop()
   loadMall()
+  loadCheatCodes()
 
   // Eldarya is crashing when opening groups.
   // TODO: Handle errors and stop the loading process.

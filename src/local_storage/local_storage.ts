@@ -94,6 +94,14 @@ export class LocalStorage {
     this.setItem(LocalStorageKey.sales, sale)
   }
 
+  static get unlocked(): boolean {
+    return this.getItem<boolean>(LocalStorageKey.unlocked, false)
+  }
+
+  static set unlocked(unlocked: boolean) {
+    this.setItem(LocalStorageKey.unlocked, unlocked)
+  }
+
   static get version(): string {
     return this.getItem<string>(LocalStorageKey.version, "")
   }
@@ -127,6 +135,7 @@ export class LocalStorage {
       ),
       market: this.market,
       minigames: this.minigames,
+      unlocked: this.unlocked,
       version: this.version,
       wishlist: this.wishlist,
     }
@@ -139,6 +148,7 @@ export class LocalStorage {
     this.explorations = settings.explorations
     this.market = settings.market
     this.minigames = settings.minigames
+    this.unlocked = settings.unlocked
     this.version = settings.version
     this.wishlist = settings.wishlist
 

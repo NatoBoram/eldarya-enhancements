@@ -1,5 +1,6 @@
 import { Console } from "../console"
 import { translate } from "../i18n/translate"
+import { LocalStorage } from "../local_storage/local_storage"
 import { SessionStorage } from "../session_storage/session_storage"
 import type { TakeoverAction } from "../session_storage/takeover_action.enum"
 import { loadTopBar } from "../ui/top_bar"
@@ -13,13 +14,18 @@ import waitAction from "./classes/wait_action"
 
 /** Automated entry point of the takeover. */
 export function loadTakeover(): void {
-  if (SessionStorage.takeover) void takeover()
+  if (SessionStorage.takeover && LocalStorage.unlocked) void takeover()
 }
 
 /** Manual entry point of the takeover. */
 export function toggleTakeover(): void {
   resetTakeover()
   SessionStorage.takeover = !SessionStorage.takeover
+
+  if (!LocalStorage.unlocked) {
+    SessionStorage.takeover = false
+    return
+  }
 
   loadTopBar()
   if (SessionStorage.takeover) $.flavrNotif(translate.takeover.enabled)

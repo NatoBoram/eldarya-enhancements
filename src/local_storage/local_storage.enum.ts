@@ -8,6 +8,7 @@ export enum LocalStorageKey {
   minigames = "minigames",
   purchases = "purchases",
   sales = "sales",
+  unlocked = "unlocked",
   version = "version",
   wishlist = "wishlist",
 }

@@ -22,6 +22,7 @@
     >
       {{translate.account.debug}}
     </li>
+    {{#unlocked}}
     <li
       id="ee-minigames-enabled"
       class="nl-button nl-button-sm {{#minigames}}active{{/minigames}}"
@@ -40,6 +41,7 @@
     >
       {{translate.account.market}}
     </li>
+    {{/unlocked}}
     <li id="ee-import" class="nl-button nl-button-sm">
       {{translate.account.import}}
     </li>

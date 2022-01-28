@@ -28,7 +28,6 @@ export class Console {
   }
 
   static error(message: string, ...optionalParams: unknown[]): void {
-    if (!this.debugging) return
     this.console.error(...this.format(message), ...optionalParams)
   }
 
@@ -43,7 +42,6 @@ export class Console {
   }
 
   static warn(message: string, ...optionalParams: unknown[]): void {
-    if (!this.debugging) return
     this.console.warn(...this.format(message), ...optionalParams)
   }
 
