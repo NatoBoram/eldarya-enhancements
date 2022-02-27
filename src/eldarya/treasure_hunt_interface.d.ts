@@ -1,6 +1,6 @@
 import type { MapRegion } from "./current_region"
 
-export declare class TreasureHuntInterface {
+declare class TreasureHuntInterface {
   constructor(
     petEnergy: number,
     petRaceEnergy: number,
@@ -9,3 +9,5 @@ export declare class TreasureHuntInterface {
 
   timeFormat(seconds: number): string
 }
+
+export {}
