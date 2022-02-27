@@ -91,8 +91,12 @@ pages:
   only:
     - master
   script:
-    - ./scripts/build.sh
-    - mv dist public
+    - pnpm run build &
+    - pnpm run typedoc &
+    - rm -rf public && mkdir public
+    - wait
+    - mv dist/* public
+    - mv docs/* public
   artifacts:
     paths:
       - public
