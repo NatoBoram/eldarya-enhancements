@@ -20,7 +20,8 @@ The script updates automatically.
 
 ## Features
 
-![Download your guardian](readme/download-guardian.png)![Save outfit](readme/save-outfit.png)
+![Download your guardian](https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/readme/download-guardian.png)
+![Save outfit](https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/readme/save-outfit.png)
 
 - Adds carousel entries with useful features like download your guardian /
   download your face
