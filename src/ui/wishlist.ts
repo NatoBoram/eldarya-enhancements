@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { Console } from "../console"
 import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { WishlistSettings } from "../templates/interfaces/wishlist_settings"
@@ -22,17 +23,18 @@ export function loadWishlist(): void {
     wishlistButtonTemplate.render({ translate })
   )
 
-  const wishlistButton =
-    marketplaceMenu.querySelector<HTMLAnchorElement>("#wishlist-button")
-  wishlistButton?.addEventListener("click", () =>
-    insertWishlist(wishlistButton)
-  )
+  marketplaceMenu
+    .querySelector<HTMLAnchorElement>("#wishlist-button")
+    ?.addEventListener("click", insertWishlist)
 }
 
-function insertWishlist(button: HTMLAnchorElement): void {
+function insertWishlist(): void {
   // Assistance
   const assistance = document.querySelector(".marketplace-assistance")
   if (assistance) assistance.innerHTML = translate.market.wishlist.assistance
+
+  const button = document.querySelector<HTMLAnchorElement>("#wishlist-button")
+  if (!button) return void Console.error("Wishlist button not found", button)
 
   // Menu
   document
@@ -50,7 +52,8 @@ function insertWishlist(button: HTMLAnchorElement): void {
     document.querySelector(".marketplace-container") ??
     document.getElementById("marketplace-active-auctions") ??
     document.getElementById("marketplace-itemsForSale")
-  if (!container) return
+  if (!container)
+    return void Console.error("The wishlist cannot be placed", container)
 
   const wishlistContext: WishlistSettings = {
     wishlist: LocalStorage.wishlist,
@@ -70,7 +73,7 @@ function insertWishlist(button: HTMLAnchorElement): void {
     if (reset)
       reset.addEventListener("click", () => {
         resetStatus(icon)
-        insertWishlist(button)
+        insertWishlist()
       })
 
     // Delete item from wishlist
@@ -78,7 +81,7 @@ function insertWishlist(button: HTMLAnchorElement): void {
     if (deleteButton)
       deleteButton.addEventListener("click", () => {
         deleteItem(icon)
-        insertWishlist(button)
+        insertWishlist()
       })
 
     // Change price
@@ -86,9 +89,12 @@ function insertWishlist(button: HTMLAnchorElement): void {
     if (editPrice)
       editPrice.addEventListener(
         "click",
-        () => void changePrice(icon).then(() => insertWishlist(button))
+        () => void changePrice(icon).then(insertWishlist)
       )
   }
+
+  // Reset statuses
+  document.querySelector(".reset-all")?.addEventListener("click", resetStatuses)
 }
 
 function resetStatus(icon: string): void {
@@ -186,4 +192,13 @@ function save(icon: string, resolve: () => void): boolean {
 
   resolve()
   return true
+}
+
+function resetStatuses(): void {
+  LocalStorage.wishlist = LocalStorage.wishlist.map(item => {
+    delete item.error
+    return item
+  })
+
+  insertWishlist()
 }

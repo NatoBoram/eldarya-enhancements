@@ -142,8 +142,6 @@ async function getRegion(id: number): Promise<MapRegion | null> {
   return null
 }
 
-// Picto map
-
 function loadPictoMaps(): void {
   const autoExploreLocations = LocalStorage.autoExploreLocations
   for (const div of document.querySelectorAll<HTMLDivElement>(

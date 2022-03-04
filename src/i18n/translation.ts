@@ -88,6 +88,7 @@ export interface Translation {
       readonly icon: string
       readonly name: string
       readonly price: string
+      readonly reset_all: string
       readonly reset_tooltip: string
       readonly reset: string
       readonly status: string
