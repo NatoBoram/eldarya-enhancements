@@ -4,19 +4,21 @@ import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { Settings } from "../templates/interfaces/settings"
 
-export async function loadSettings(): Promise<void> {
+/** Creates the UI for the settings in the account page. */
+export function loadSettings(): void {
   const accountRight = document.querySelector("#account-right div")
   if (!accountRight || accountRight.querySelector(".account-ee-bloc")) return
 
+  const settings: Partial<Settings> = {
+    debug: LocalStorage.debug,
+    explorations: LocalStorage.explorations,
+    market: LocalStorage.market,
+    minigames: LocalStorage.minigames,
+    unlocked: LocalStorage.unlocked,
+  }
   const settingsTemplate: Template = require("../templates/html/settings.html")
-
-  accountRight.insertAdjacentHTML(
-    "beforeend",
-    settingsTemplate.render({
-      ...(await LocalStorage.getSettings()),
-      translate,
-    })
-  )
+  const rendered = settingsTemplate.render({ ...settings, translate })
+  accountRight.insertAdjacentHTML("beforeend", rendered)
 
   document.getElementById("ee-debug-enabled")?.addEventListener("click", () => {
     LocalStorage.debug = !LocalStorage.debug
@@ -57,7 +59,7 @@ export async function loadSettings(): Promise<void> {
 
 function reloadSettings(): void {
   document.querySelector<HTMLDivElement>(".account-ee-bloc")?.remove()
-  void loadSettings()
+  loadSettings()
 }
 
 function importSettings(): void {

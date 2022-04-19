@@ -121,6 +121,7 @@ export interface Translation {
   }
   readonly error: {
     readonly downloadCanvas: string
+    readonly longLoading: string
   }
   readonly mall: {
     readonly add_to_wishlist: {

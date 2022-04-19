@@ -1,5 +1,7 @@
 import { loadDressingExperience } from "./appearance/dressing_experience"
 import { loadCheatCodes } from "./cheat_codes"
+import { Console } from "./console"
+import { translate } from "./i18n/translate"
 import { migrate } from "./migrate"
 import { loadTakeover } from "./takeover/brain"
 import { loadAuctions } from "./ui/auctions"
@@ -19,7 +21,18 @@ import { loadWishlist } from "./ui/wishlist"
 // loadJS("https://unpkg.com/hogan.js/dist/template-3.0.2.min.js", true);
 
 function load(): void {
+  const container = document.getElementById("container")
+  if (!container) {
+    $.flavrNotif(translate.error.longLoading)
+    Console.error("#container couldn't be found:", container)
+    return void setTimeout(load, 10_000)
+  }
+
+  migrate()
   loadUI()
+  observe()
+
+  console.log(`${GM.info.script.name} v${GM.info.script.version} loaded.`)
   loadTakeover()
 }
 
@@ -37,28 +50,22 @@ function loadUI(): void {
   loadPurroShop()
   loadMall()
   loadCheatCodes()
+  loadSettings()
 
   // Eldarya is crashing when opening groups.
   // TODO: Handle errors and stop the loading process.
   void loadDressingExperience()
-
-  if (document.readyState === "complete") void loadIndexedDb()
-  else window.addEventListener("load", () => loadIndexedDb())
 }
 
-function loadIndexedDb(): void {
-  void loadSettings()
+function observe(): void {
+  const container = document.getElementById("container")
+  new MutationObserver(reload).observe(container as Node, { childList: true })
 }
 
-new MutationObserver(load).observe(
-  document.getElementById("container") as Node,
-  {
-    childList: true,
-  }
-)
+function reload(): void {
+  loadUI()
+  loadTakeover()
+}
 
-migrate()
-
-loadUI()
-console.log(`${GM.info.script.name} v${GM.info.script.version} loaded.`)
-loadTakeover()
+if (document.readyState === "complete") load()
+else window.addEventListener("load", () => load())

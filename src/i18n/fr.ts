@@ -154,6 +154,8 @@ export const fr: Translation = {
   error: {
     downloadCanvas:
       "Une erreur est survenue lors du téléchargement de l'image.",
+    longLoading:
+      "Eldarya prend trop de temps à charger. Nouvelle tentative dans 10 secondes...",
   },
   mall: {
     add_to_wishlist: {
