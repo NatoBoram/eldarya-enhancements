@@ -1,13 +1,15 @@
 import type { FavouriteOutfit } from "../appearance/interfaces/favourite_outfit"
+import { Console } from "../console"
 import { Databases } from "./databases.enum"
 import { Fields } from "./fields.enum"
 import { Tables } from "./tables.enum"
 
 class IndexedDB {
   private db?: IDBDatabase
+  private readonly version = 1
 
   constructor() {
-    const request = indexedDB.open(Databases.eldarya_enhancements, 1)
+    const request = indexedDB.open(Databases.eldarya_enhancements, this.version)
     request.onsuccess = (): IDBDatabase => (this.db = request.result)
     request.onupgradeneeded = function (this: IDBOpenDBRequest): void {
       const db: IDBDatabase = this.result
@@ -21,6 +23,10 @@ class IndexedDB {
       objectStore.createIndex(Fields.items, "items", { unique: false })
       objectStore.createIndex(Fields.name, "name", { unique: false })
     }
+    request.onerror = (): void =>
+      Console.error("Error when opening the indexedDB", request.error)
+    request.onblocked = (): void =>
+      Console.error("Blocked from opening the indexedDB", request.error)
   }
 
   /** @returns a new `FavouriteOutfit` with the `key` property set. */
@@ -91,7 +97,7 @@ class IndexedDB {
 
   async getFavouriteOutfits(): Promise<FavouriteOutfit[]> {
     return new Promise((resolve, reject): void => {
-      if (!this.db) return void reject()
+      if (!this.db) return void reject("No database")
 
       const request = this.db
         .transaction([Tables.favourite_outfits], "readonly")
