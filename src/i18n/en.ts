@@ -144,7 +144,9 @@ export const en: Translation = {
       "Your exploration history is empty. It will automatically fill up as your familiar finds items while exploring.",
     goto_account: `To transfer your exploration history to another browser, export your settings from the <em>my&nbsp;account</em> page.`,
     history: "History",
+    mark_all: "Mark all",
     saved_locally: `Please note that your exploration history is saved locally in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
+    unmark_all: "Unmark all",
   },
   profile: {
     export_outfit: "Export outfit",

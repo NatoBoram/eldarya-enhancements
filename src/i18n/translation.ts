@@ -102,7 +102,9 @@ export interface Translation {
     readonly empty_history: string
     readonly goto_account: string
     readonly history: string
+    readonly mark_all: string
     readonly saved_locally: string
+    readonly unmark_all: string
   }
   readonly account: {
     readonly debug_tooltip: string

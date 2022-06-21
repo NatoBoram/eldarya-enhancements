@@ -1,5 +1,7 @@
+import { Console } from "../console"
 import { loadMarkers } from "../pet/exploration"
-import { loadExplorationHistory } from "../pet/exploration-history"
+import { loadExplorationHistory, onClickPet } from "../pet/exploration-history"
+import { loadMassMark } from "../pet/mass-mark"
 
 let petObserver: MutationObserver | null
 
@@ -23,6 +25,31 @@ function loadExplorations(): void {
 
 export function loadPet(): void {
   if (location.pathname !== "/pet") return
+  createButtonRow()
+
   loadExplorations()
   loadExplorationHistory()
+  void loadMassMark()
+}
+
+function createButtonRow(): void {
+  const closeExplorationButton = document.querySelector<HTMLAnchorElement>(
+    "#close-treasure-hunt-interface"
+  )
+  if (!closeExplorationButton)
+    return void Console.error("Couldn't find #close-treasure-hunt-interface.")
+
+  closeExplorationButton.style.display = "inline-block"
+  closeExplorationButton.style.position = "relative"
+  closeExplorationButton.style.right = "0"
+  closeExplorationButton.style.top = "0"
+  closeExplorationButton.addEventListener("click", onClickPet)
+
+  const row = document.createElement("div")
+  row.id = "buttons-container"
+  row.insertAdjacentElement("beforeend", closeExplorationButton)
+
+  document
+    .querySelector<HTMLDivElement>("#right-container-inner")
+    ?.insertAdjacentElement("afterbegin", row)
 }

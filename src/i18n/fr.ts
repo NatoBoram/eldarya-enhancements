@@ -145,7 +145,9 @@ export const fr: Translation = {
     goto_account:
       "Pour transférer ton historique d'explorations vers un autre navigateur, exporte tes paramètres à partir de la page <em>mon compte</em>.",
     history: "Historique",
+    mark_all: "Marquer tout",
     saved_locally: `Prends note que ton historique d'explorations est sauvegardé localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyé aux serveurs d'Eldarya.`,
+    unmark_all: "Démarquer tout",
   },
   profile: {
     export_outfit: "Exporter la tenue",

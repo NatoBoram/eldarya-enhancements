@@ -28,13 +28,9 @@ function loadHistoryButton(): void {
   historyButton.textContent = translate.pet.history
   historyButton.addEventListener("click", onClickHistory)
 
-  const row = document.createElement("div")
-  row.insertAdjacentElement("beforeend", historyButton)
-  row.insertAdjacentElement("beforeend", closeExplorationButton)
-
   document
-    .querySelector<HTMLDivElement>("#right-container-inner")
-    ?.insertAdjacentElement("afterbegin", row)
+    .getElementById("buttons-container")
+    ?.insertAdjacentElement("beforeend", historyButton)
 }
 
 function onClickHistory(): void {
@@ -44,7 +40,7 @@ function onClickHistory(): void {
   showHistory()
 }
 
-function onClickPet(): void {
+export function onClickPet(): void {
   hideHistory()
   showPet()
 }
