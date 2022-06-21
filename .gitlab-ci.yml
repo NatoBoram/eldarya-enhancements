@@ -19,7 +19,7 @@ variables:
 build:
   stage: build
   script:
-    - pnpx webpack
+    - pnpm run webpack
   except:
     - develop
     - master
