@@ -101,7 +101,7 @@ class ExplorationAction extends Action {
     )
     if (!div) {
       // Clearing invalid regions is useful to remove finished events.
-      const template: Template = require("../templates/html/flavr_notif/icon_message.html")
+      const template: Template = require("../../templates/html/flavr_notif/icon_message.html")
       $.flavrNotif(
         template.render({
           icon: "/static/img/new-layout/pet/icons/picto_map.png",
