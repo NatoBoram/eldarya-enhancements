@@ -47,13 +47,13 @@ export async function loadDressingExperience(): Promise<void> {
           document
             .getElementById("appearance-items-category-favorites")
             ?.remove()
-          void handleCategory(category)
+          // void handleCategory(category)
         })
     }
   }
 
   await new Promise(resolve => setTimeout(resolve, 1000))
-  await loadBackground()
+  // await loadBackground()
 }
 
 /**

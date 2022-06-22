@@ -1,12 +1,16 @@
 import type { Template } from "hogan.js"
 import { saveFavourite, showFavourite } from "../appearance/fake_favourites"
 import { exportPreview, importOutfit } from "../appearance/favourites_actions"
+import { Console } from "../console"
 import { downloadAppearance } from "../download-canvas"
 import { translate } from "../i18n/translate"
 import indexed_db from "../indexed_db/indexed_db"
+import { waitObserve } from "../takeover/click"
 import type { FavouritesAction } from "../templates/interfaces/favourites_action"
 
 export function loadFavourites(): void {
+  if (!location.pathname.startsWith("/player/appearance/favorites")) return
+
   loadFavouritesActions()
   void loadFakeFavourites()
 }
@@ -51,8 +55,21 @@ function loadFavouritesActions(): void {
 }
 
 export async function loadFakeFavourites(): Promise<void> {
-  const thumbs = document.querySelector("#all-outfit-thumbs .mCSB_container")
-  if (!thumbs) return
+  const appearanceItems = document.querySelector("#appearance-items")
+  if (!appearanceItems) {
+    Console.error("Couldn't access #appearance-items", appearanceItems)
+    return
+  }
+
+  const thumbs = await waitObserve(
+    appearanceItems,
+    "#all-outfit-thumbs .mCSB_container",
+    3000
+  )
+  if (!thumbs) {
+    Console.error("Couldn't access #all-outfit-thumbs", thumbs)
+    return
+  }
 
   const template: Template = require("../templates/html/outfit_thumbs.html")
 

@@ -34,3 +34,40 @@ export async function wait<T extends HTMLElement>(
     }, 800)
   })
 }
+
+/**
+ * Uses a `MutationObserver` to wait for an `HTMLElement` inside another
+ * `HTMLElement`. Timeouts after 2s by default, at which point there's probably
+ * a deeper problem going on.
+ * @param container The container to observe and find the `HTMLElement` in
+ * @param selector The argument for `container.querySelector<T>(selector)`
+ * @returns The first element that is a descendant of `container` that matches
+ * `selector` or `null` after the `timeout` delay.
+ */
+export async function waitObserve<T extends HTMLElement>(
+  container: Element,
+  selector: string,
+  ms = 2000
+): Promise<T | null> {
+  const promise = new Promise<T | null>(resolve => {
+    const observer = new MutationObserver(
+      (_mutations: MutationRecord[], observer: MutationObserver) =>
+        setTimeout(() => {
+          const element = container.querySelector<T>(selector)
+          if (element) {
+            observer.disconnect()
+            resolve(element)
+          }
+        }, 1)
+    )
+
+    observer.observe(container, { childList: true })
+
+    setTimeout(() => {
+      observer.disconnect()
+      resolve(container.querySelector<T>(selector))
+    }, ms)
+  })
+
+  return promise
+}
