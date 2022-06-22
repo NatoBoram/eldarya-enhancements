@@ -39,7 +39,7 @@ prettier:
 tsc:
   stage: test
   script:
-    - pnpx tsc --noEmit
+    - pnpm run tsc
 
 deploy:
   stage: deploy
