@@ -140,6 +140,7 @@ export const en: Translation = {
       year: "numeric",
     }),
     delete_history: "Delete history",
+    deleting_markers: "Deleting markers...",
     empty_history:
       "Your exploration history is empty. It will automatically fill up as your familiar finds items while exploring.",
     goto_account: `To transfer your exploration history to another browser, export your settings from the <em>my&nbsp;account</em> page.`,

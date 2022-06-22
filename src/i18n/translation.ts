@@ -99,6 +99,7 @@ export interface Translation {
     readonly auto_explore: string
     readonly date_time_format: Intl.DateTimeFormat
     readonly delete_history: string
+    readonly deleting_markers: string
     readonly empty_history: string
     readonly goto_account: string
     readonly history: string

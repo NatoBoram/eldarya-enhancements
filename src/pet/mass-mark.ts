@@ -40,7 +40,7 @@ async function waitForCurrentRegion(): Promise<MapRegion> {
           clearInterval(interval)
           resolve(currentRegion)
         } else {
-          Console.debug("currentRegion is undefined")
+          Console.debug("currentRegion is undefined:", currentRegion)
         }
       } catch (error: unknown) {
         Console.error("Couldn't access currentRegion", error)

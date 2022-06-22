@@ -140,6 +140,7 @@ export const fr: Translation = {
       year: "numeric",
     }),
     delete_history: "Nettoyer l'historique",
+    deleting_markers: "Suppression des marqueurs...",
     empty_history:
       "Ton historique d'exploration est vide. Il se remplira automatiquement à mesure que ton familier trouvera des items en exploration.",
     goto_account:
