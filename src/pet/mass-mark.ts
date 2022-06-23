@@ -2,15 +2,18 @@ import { Console } from "../console"
 import type { MapRegion } from "../eldarya/current_region"
 import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
+import { getMapLocationDataset } from "./map_location_dataset"
+import { getMinimapDataset } from "./minimap_dataset"
 
-export async function loadMassMark(): Promise<void> {
-  Console.debug("loadMassMark")
+export function loadMassMark(): void {
+  setupMassMarkButton()
+  handleClickMinimaps()
+}
 
+function setupMassMarkButton(): void {
   document.getElementById("mass-mark")?.remove()
 
-  const marked = isAllMarked(await waitForCurrentRegion())
-
-  Console.debug("marked", marked)
+  const marked = isAllMarked()
 
   const markAllButton = document.createElement("a")
   markAllButton.id = "mass-mark"
@@ -25,43 +28,56 @@ export async function loadMassMark(): Promise<void> {
     markAllButton.addEventListener("click", () => markRegion(currentRegion))
   }
 
-  Console.debug("markAllButton", markAllButton)
-
   document
     .getElementById("buttons-container")
     ?.insertAdjacentElement("beforeend", markAllButton)
 }
 
-async function waitForCurrentRegion(): Promise<MapRegion> {
-  return new Promise<MapRegion>(resolve => {
-    const interval = setInterval(() => {
-      try {
-        if (typeof currentRegion !== "undefined") {
-          clearInterval(interval)
-          resolve(currentRegion)
-        } else {
-          Console.debug("currentRegion is undefined:", currentRegion)
-        }
-      } catch (error: unknown) {
-        Console.error("Couldn't access currentRegion", error)
-      }
-    }, 1_000)
+function handleClickMinimaps(): void {
+  for (const minimap of document.querySelectorAll<HTMLDivElement>(".minimap"))
+    minimap.addEventListener("click", () => handleClickMinimap(minimap))
+}
+
+/** Wait for the minimap to change then reload the mass mark button */
+function handleClickMinimap(div: HTMLDivElement): void {
+  const dataset = getMinimapDataset(div)
+  const container = document.querySelector("#minimaps-container")
+  if (!container)
+    return void Console.error("Couldn't get #minimaps-container", container)
+
+  new MutationObserver((mutations, observer) => {
+    const found = mutations.find(
+      mutation =>
+        mutation.target instanceof HTMLDivElement &&
+        mutation.target.classList.contains("minimap") &&
+        mutation.target.classList.contains("current") &&
+        getMinimapDataset(mutation.target).mapid === dataset.mapid
+    )
+
+    if (found) {
+      observer.disconnect()
+      setupMassMarkButton()
+    }
+  }).observe(container, {
+    attributes: true,
+    subtree: true,
   })
 }
 
-function isAllMarked(region: MapRegion): boolean {
-  Console.debug("isAllMarked")
-
+function isAllMarked(): boolean {
   const autoExploreLocations = LocalStorage.autoExploreLocations
 
-  Console.debug("autoExploreLocations", autoExploreLocations)
+  return Array.from(
+    document.querySelectorAll<HTMLDivElement>(
+      "#map-locations-container .map-location"
+    )
+  ).every(location => {
+    const dataset = getMapLocationDataset(location)
 
-  return !region.locations.find(
-    location =>
-      !autoExploreLocations.find(
-        autoLocation => location.id === autoLocation.location.id
-      )
-  )
+    return autoExploreLocations.find(
+      autoLocation => dataset.id === autoLocation.location.id
+    )
+  })
 }
 
 function markRegion(region: MapRegion): void {
@@ -78,7 +94,7 @@ function markRegion(region: MapRegion): void {
   )
 
   LocalStorage.autoExploreLocations = autoExploreLocations
-  void loadMassMark()
+  setupMassMarkButton()
 }
 
 function unmarkRegion(region: MapRegion): void {
@@ -88,5 +104,5 @@ function unmarkRegion(region: MapRegion): void {
         location => location.id === autoLocation.location.id
       )
   )
-  void loadMassMark()
+  setupMassMarkButton()
 }
