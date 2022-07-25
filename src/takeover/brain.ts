@@ -9,7 +9,6 @@ import buyAction from "./classes/buy_action"
 import dailyAction from "./classes/daily_action"
 import explorationAction from "./classes/exploration_action"
 import minigameAction from "./classes/minigame_action"
-import { summerGameAction } from "./classes/summer_game_action"
 import waitAction from "./classes/wait_action"
 
 /** Automated entry point of the takeover. */
@@ -62,7 +61,6 @@ const actions: Action[] = [
   explorationAction,
   buyAction,
   minigameAction,
-  summerGameAction,
   waitAction,
 ]
 
