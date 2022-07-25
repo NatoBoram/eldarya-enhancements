@@ -1,6 +1,6 @@
 #Requires -PSEdition Core
 
-pnpx webpack
+pnpm run webpack
 
 Copy-Item eldarya-enhancements.meta.js dist/eldarya-enhancements.meta.js
 

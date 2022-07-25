@@ -1,3 +1,4 @@
+import { Console } from "../../console"
 import { LocalStorage } from "../../local_storage/local_storage"
 import { playFlappy, playHatchlings, playPeggle } from "../../minigames/emile"
 import { flappy } from "../../minigames/flappy"
@@ -21,6 +22,7 @@ class MinigameAction implements Action {
   async perform(): Promise<boolean> {
     switch (location.pathname) {
       case "/minigames": {
+        await new Promise(resolve => setTimeout(resolve, 750))
         const playing =
           this.openMinigame(peggle) ||
           this.openMinigame(flappy) ||
@@ -64,9 +66,9 @@ class MinigameAction implements Action {
     const start = document.querySelector<HTMLSpanElement>(
       minigame.buttonSelector
     )
-    if (!start) {
-      return false
-    }
+
+    Console.debug(`${minigame.name}'s button:`, start)
+    if (!start) return false
 
     start.click()
     return true

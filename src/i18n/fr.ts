@@ -104,14 +104,15 @@ export const fr: Translation = {
       title: "Changer le prix",
     },
     wishlist: {
-      assistance: `Sur cette page, tu peux organiser ta liste de souhaits et vérifier le statut de tes articles souhaités. Prends note que ta liste de souhaits est sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'est pas envoyée aux serveurs d'Eldarya. Pour transférer ta liste de souhaits vers un autre navigateur, exporte-la à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
       actions: "Actions",
+      assistance: `Sur cette page, tu peux organiser ta liste de souhaits et vérifier le statut de tes articles souhaités. Prends note que ta liste de souhaits est sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'est pas envoyée aux serveurs d'Eldarya. Pour transférer ta liste de souhaits vers un autre navigateur, exporte-la à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
       change_price: "Changer le prix",
       delete_tooltip: "Retirer de la liste de souhaits",
       delete: "Supprimer",
       icon: "Icône",
       name: "Nom",
       price: "Prix",
+      reset_all: "Réinitialiser tout les statuts",
       reset_tooltip: "Réinitialiser l'état d'erreur",
       reset: "Réinitialiser",
       status: "Statut",
@@ -153,6 +154,8 @@ export const fr: Translation = {
   error: {
     downloadCanvas:
       "Une erreur est survenue lors du téléchargement de l'image.",
+    longLoading:
+      "Eldarya prend trop de temps à charger. Nouvelle tentative dans 10 secondes...",
   },
   mall: {
     add_to_wishlist: {

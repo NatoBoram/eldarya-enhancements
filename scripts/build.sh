@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pnpx webpack
+pnpm run webpack
 
 cp eldarya-enhancements.meta.js dist/eldarya-enhancements.meta.js
 

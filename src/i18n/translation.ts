@@ -88,6 +88,7 @@ export interface Translation {
       readonly icon: string
       readonly name: string
       readonly price: string
+      readonly reset_all: string
       readonly reset_tooltip: string
       readonly reset: string
       readonly status: string
@@ -120,6 +121,7 @@ export interface Translation {
   }
   readonly error: {
     readonly downloadCanvas: string
+    readonly longLoading: string
   }
   readonly mall: {
     readonly add_to_wishlist: {
