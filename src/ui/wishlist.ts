@@ -34,7 +34,7 @@ function insertWishlist(): void {
   if (assistance) assistance.innerHTML = translate.market.wishlist.assistance
 
   const button = document.querySelector<HTMLAnchorElement>("#wishlist-button")
-  if (!button) return void Console.error("Wishlist button not found", button)
+  if (!button) return Console.error("Wishlist button not found", button)
 
   // Menu
   document
@@ -53,7 +53,7 @@ function insertWishlist(): void {
     document.getElementById("marketplace-active-auctions") ??
     document.getElementById("marketplace-itemsForSale")
   if (!container)
-    return void Console.error("The wishlist cannot be placed", container)
+    return Console.error("The wishlist cannot be placed", container)
 
   const wishlistContext: WishlistSettings = {
     wishlist: LocalStorage.wishlist,

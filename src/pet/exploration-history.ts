@@ -14,7 +14,7 @@ function loadHistoryButton(): void {
     "#close-treasure-hunt-interface"
   )
   if (!closeExplorationButton)
-    return void Console.error("Couldn't find #close-treasure-hunt-interface.")
+    return Console.error("Couldn't find #close-treasure-hunt-interface.")
 
   closeExplorationButton.style.display = "inline-block"
   closeExplorationButton.style.position = "relative"
@@ -55,7 +55,7 @@ function hidePet(): void {
   const petImageContainer = document.getElementById("pet-image-container")
 
   if (!nameContainer || !infoContainer || !petImageContainer)
-    return void Console.error("The pet display was damaged.", {
+    return Console.error("The pet display was damaged.", {
       nameContainer,
       infoContainer,
       petImageContainer,
@@ -72,7 +72,7 @@ function showPet(): void {
   const petImageContainer = document.getElementById("pet-image-container")
 
   if (!nameContainer || !infoContainer || !petImageContainer)
-    return void Console.error("The pet display was damaged.", {
+    return Console.error("The pet display was damaged.", {
       nameContainer,
       infoContainer,
       petImageContainer,
