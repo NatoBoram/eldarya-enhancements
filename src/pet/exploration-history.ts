@@ -112,6 +112,7 @@ function makeHistory(): void {
       history: LocalStorage.explorationHistory.map(history => ({
         ...history,
         date: translate.pet.date_time_format.format(new Date(history.date)),
+        web_hd: history.icon && toWebHd(history.icon),
       })),
     })
   )
@@ -120,4 +121,8 @@ function makeHistory(): void {
     LocalStorage.explorationHistory = []
     makeHistory()
   })
+}
+
+function toWebHd(icon: string): string {
+  return icon.replace("icon", "web_hd")
 }
