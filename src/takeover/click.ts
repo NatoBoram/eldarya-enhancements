@@ -1,3 +1,6 @@
+/** Click on an element after waiting for its selector, hovering it and waiting
+ * for its potential animations.
+ */
 export async function click<T extends HTMLElement>(
   selector: string
 ): Promise<T> {
@@ -6,17 +9,25 @@ export async function click<T extends HTMLElement>(
       const element = document.querySelector<T>(selector)
       if (!element) return
       clearInterval(interval)
+      void clickElement(element).then(() => resolve(element))
+    }, 800)
+  })
+}
 
-      // Some elements don't have their click handlers ready until they're
-      // hovered.
-      const mouseEvent = document.createEvent("MouseEvent")
-      mouseEvent.initEvent("mouseover")
-      element.dispatchEvent(mouseEvent)
+/** Click on an element after hovering it and waiting for possible
+ * animations.
+ */
+export async function clickElement(element: HTMLElement): Promise<void> {
+  return new Promise<void>(resolve => {
+    // Some elements don't have their click handlers ready until they're
+    // hovered.
+    const mouseEvent = document.createEvent("MouseEvent")
+    mouseEvent.initEvent("mouseover")
+    element.dispatchEvent(mouseEvent)
 
-      setTimeout(() => {
-        element.click()
-        resolve(element)
-      }, 800)
+    setTimeout(() => {
+      element.click()
+      resolve()
     }, 800)
   })
 }
