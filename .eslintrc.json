@@ -2,14 +2,14 @@
   "root": true,
   "env": {
     "browser": true,
-    "es2021": true,
+    "es6": true,
     "greasemonkey": true,
     "jquery": true
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": { "impliedStrict": true },
-    "ecmaVersion": 2021,
+    "ecmaVersion": "latest",
     "project": "./tsconfig.eslint.json"
   },
   "ignorePatterns": ["snippets", "webpack.config.ts"],
