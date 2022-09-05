@@ -29,7 +29,7 @@ export function loadPet(): void {
 
   loadExplorations()
   loadExplorationHistory()
-  void loadMassMark()
+  loadMassMark()
 }
 
 function createButtonRow(): void {
@@ -37,7 +37,7 @@ function createButtonRow(): void {
     "#close-treasure-hunt-interface"
   )
   if (!closeExplorationButton)
-    return void Console.error("Couldn't find #close-treasure-hunt-interface.")
+    return Console.error("Couldn't find #close-treasure-hunt-interface.")
 
   closeExplorationButton.style.display = "inline-block"
   closeExplorationButton.style.position = "relative"

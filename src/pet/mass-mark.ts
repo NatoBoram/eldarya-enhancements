@@ -43,7 +43,7 @@ function handleClickMinimap(div: HTMLDivElement): void {
   const dataset = getMinimapDataset(div)
   const container = document.querySelector("#minimaps-container")
   if (!container)
-    return void Console.error("Couldn't get #minimaps-container", container)
+    return Console.error("Couldn't get #minimaps-container", container)
 
   new MutationObserver((mutations, observer) => {
     const found = mutations.find(
