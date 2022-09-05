@@ -1,7 +1,7 @@
 import { Console } from "../console"
 import { loadMarkers } from "../pet/exploration"
 import { loadExplorationHistory, onClickPet } from "../pet/exploration-history"
-import { loadMassMark } from "../pet/mass-mark"
+import { loadMassMark } from "../pet/mass_mark"
 
 let petObserver: MutationObserver | null
 

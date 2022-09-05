@@ -1,36 +1,37 @@
+import type { Template } from "hogan.js"
 import { Console } from "../console"
 import type { MapRegion } from "../eldarya/current_region"
-import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
+import { getRegion, reloadMarkers } from "./exploration"
 import { getMapLocationDataset } from "./map_location_dataset"
+import { markAllContext, unmarkAllContext } from "./mark_context"
 import { getMinimapDataset } from "./minimap_dataset"
 
 export function loadMassMark(): void {
-  setupMassMarkButton()
+  void setupMassMarkButton()
   handleClickMinimaps()
 }
 
-function setupMassMarkButton(): void {
+async function setupMassMarkButton(): Promise<void> {
   document.getElementById("mass-mark")?.remove()
 
   const marked = isAllMarked()
-
-  const markAllButton = document.createElement("a")
-  markAllButton.id = "mass-mark"
-  markAllButton.classList.add("nl-button")
-  markAllButton.style.marginRight = "0.6em"
-
-  if (marked) {
-    markAllButton.textContent = translate.pet.unmark_all
-    markAllButton.addEventListener("click", () => unmarkRegion(currentRegion))
-  } else {
-    markAllButton.textContent = translate.pet.mark_all
-    markAllButton.addEventListener("click", () => markRegion(currentRegion))
-  }
+  const template: Template = require("../templates/html/mass_mark_button.html")
+  const rendered = template.render(marked ? unmarkAllContext : markAllContext)
 
   document
     .getElementById("buttons-container")
-    ?.insertAdjacentElement("beforeend", markAllButton)
+    ?.insertAdjacentHTML("beforeend", rendered)
+
+  const id = getCurrentRegionId()
+  if (!id) return
+  const region = await getRegion(id)
+  if (!region) return
+
+  const inserted = document.getElementById("mass-mark")
+  inserted?.addEventListener("click", () =>
+    marked ? void unmarkRegion(region) : void markRegion(region)
+  )
 }
 
 function handleClickMinimaps(): void {
@@ -56,7 +57,7 @@ function handleClickMinimap(div: HTMLDivElement): void {
 
     if (found) {
       observer.disconnect()
-      setupMassMarkButton()
+      void setupMassMarkButton()
     }
   }).observe(container, {
     attributes: true,
@@ -74,13 +75,13 @@ function isAllMarked(): boolean {
   ).every(location => {
     const dataset = getMapLocationDataset(location)
 
-    return autoExploreLocations.find(
+    return autoExploreLocations.some(
       autoLocation => dataset.id === autoLocation.location.id
     )
   })
 }
 
-function markRegion(region: MapRegion): void {
+async function markRegion(region: MapRegion): Promise<void> {
   const autoExploreLocations = LocalStorage.autoExploreLocations
   autoExploreLocations.push(
     ...region.locations
@@ -94,15 +95,24 @@ function markRegion(region: MapRegion): void {
   )
 
   LocalStorage.autoExploreLocations = autoExploreLocations
-  setupMassMarkButton()
+  await setupMassMarkButton()
+  reloadMarkers()
 }
 
-function unmarkRegion(region: MapRegion): void {
+async function unmarkRegion(region: MapRegion): Promise<void> {
   LocalStorage.autoExploreLocations = LocalStorage.autoExploreLocations.filter(
     autoLocation =>
       !region.locations.find(
         location => location.id === autoLocation.location.id
       )
   )
-  setupMassMarkButton()
+
+  await setupMassMarkButton()
+  reloadMarkers()
+}
+
+function getCurrentRegionId(): number | null {
+  const div = document.querySelector<HTMLDivElement>(".minimap.current")
+  if (!div) return Number(currentRegion.id)
+  return Number(getMinimapDataset(div).mapid)
 }
