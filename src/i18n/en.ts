@@ -140,11 +140,14 @@ export const en: Translation = {
       year: "numeric",
     }),
     delete_history: "Delete history",
+    deleting_markers: "Deleting markers...",
     empty_history:
       "Your exploration history is empty. It will automatically fill up as your familiar finds items while exploring.",
     goto_account: `To transfer your exploration history to another browser, export your settings from the <em>my&nbsp;account</em> page.`,
     history: "History",
+    mark_all: "Mark this region",
     saved_locally: `Please note that your exploration history is saved locally in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
+    unmark_all: "Unmark this region",
   },
   profile: {
     export_outfit: "Export outfit",

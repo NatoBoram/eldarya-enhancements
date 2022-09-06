@@ -10,31 +10,15 @@ export function loadExplorationHistory(): void {
 }
 
 function loadHistoryButton(): void {
-  const closeExplorationButton = document.querySelector<HTMLAnchorElement>(
-    "#close-treasure-hunt-interface"
-  )
-  if (!closeExplorationButton)
-    return Console.error("Couldn't find #close-treasure-hunt-interface.")
-
-  closeExplorationButton.style.display = "inline-block"
-  closeExplorationButton.style.position = "relative"
-  closeExplorationButton.style.right = "0"
-  closeExplorationButton.style.top = "0"
-  closeExplorationButton.addEventListener("click", onClickPet)
-
   const historyButton = document.createElement("a")
   historyButton.classList.add("nl-button", "nl-button-back")
   historyButton.style.marginRight = "0.6em"
   historyButton.textContent = translate.pet.history
   historyButton.addEventListener("click", onClickHistory)
 
-  const row = document.createElement("div")
-  row.insertAdjacentElement("beforeend", historyButton)
-  row.insertAdjacentElement("beforeend", closeExplorationButton)
-
   document
-    .querySelector<HTMLDivElement>("#right-container-inner")
-    ?.insertAdjacentElement("afterbegin", row)
+    .getElementById("buttons-container")
+    ?.insertAdjacentElement("beforeend", historyButton)
 }
 
 function onClickHistory(): void {
@@ -44,7 +28,7 @@ function onClickHistory(): void {
   showHistory()
 }
 
-function onClickPet(): void {
+export function onClickPet(): void {
   hideHistory()
   showPet()
 }

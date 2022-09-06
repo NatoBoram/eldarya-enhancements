@@ -31,6 +31,19 @@ export function loadMarkers(): void {
   }
 }
 
+export function reloadMarkers(): void {
+  const autoExploreLocations = LocalStorage.autoExploreLocations
+
+  for (const div of document.querySelectorAll<HTMLDivElement>(
+    ".map-location[data-id]"
+  )) {
+    const locationId = Number(div.getAttribute("data-id"))
+    if (!locationId) continue
+
+    loadPictoMap(autoExploreLocations, div)
+  }
+}
+
 function addAutoExploreButton(
   locationId: number,
   observer?: MutationObserver
@@ -133,7 +146,7 @@ async function getAutoExploreEntry(
   }
 }
 
-async function getRegion(id: number): Promise<MapRegion | null> {
+export async function getRegion(id: number): Promise<MapRegion | null> {
   if (id.toString() === currentRegion.id) return currentRegion
 
   const json = await changeRegion(id)

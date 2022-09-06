@@ -67,5 +67,6 @@ function reload(): void {
   loadTakeover()
 }
 
+Console.log("Loading...")
 if (document.readyState === "complete") load()
 else window.addEventListener("load", () => load())
