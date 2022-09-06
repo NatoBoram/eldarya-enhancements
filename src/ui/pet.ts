@@ -47,7 +47,7 @@ function createButtonRow(): void {
   closeExplorationButton.addEventListener("click", onClickPet)
 
   const row = document.createElement("div")
-  row.id = "buttons-container"
+  row.id = "ee-buttons-row"
   row.insertAdjacentElement("beforeend", closeExplorationButton)
 
   document

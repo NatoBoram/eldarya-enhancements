@@ -20,7 +20,7 @@ async function setupMassMarkButton(): Promise<void> {
   const rendered = template.render(marked ? unmarkAllContext : markAllContext)
 
   document
-    .getElementById("buttons-container")
+    .getElementById("ee-buttons-row")
     ?.insertAdjacentHTML("beforeend", rendered)
 
   const id = getCurrentRegionId()

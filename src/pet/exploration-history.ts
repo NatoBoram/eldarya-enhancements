@@ -17,7 +17,7 @@ function loadHistoryButton(): void {
   historyButton.addEventListener("click", onClickHistory)
 
   document
-    .getElementById("buttons-container")
+    .getElementById("ee-buttons-row")
     ?.insertAdjacentElement("beforeend", historyButton)
 }
 
