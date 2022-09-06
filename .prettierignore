@@ -1,10 +1,8 @@
 .pnpm-store
-dist/*
+dist
 docs
 node_modules
 package-lock.json
 pnpm-lock.yaml
 public
 src/templates/js
-
-!dist/eldarya-enhancements.user.js
