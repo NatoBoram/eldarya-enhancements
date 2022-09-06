@@ -46,6 +46,12 @@ export function loadSettings(): void {
         LocalStorage.market = !LocalStorage.market
         reloadSettings()
       })
+
+    document
+      .getElementById("ee-delete-explorations")
+      ?.addEventListener("click", () => {
+        LocalStorage.autoExploreLocations = []
+      })
   }
 
   document
@@ -55,6 +61,10 @@ export function loadSettings(): void {
   document
     .getElementById("ee-export")
     ?.addEventListener("click", () => void exportSettings())
+
+  document
+    .getElementById("ee-reset")
+    ?.addEventListener("click", confirmResetSettings)
 }
 
 function reloadSettings(): void {
@@ -100,4 +110,36 @@ async function exportSettings(): Promise<void> {
     `${getName() ?? "eldarya-enhancements"}-settings.json`
   )
   a.click()
+}
+
+function confirmResetSettings(): void {
+  const template: Template = require("../templates/html/confirm_reset_settings.html")
+  const rendered = template.render({ translate })
+
+  $.flavr({
+    content: rendered,
+    dialog: "confirm",
+    buttons: {
+      close: { style: "close" },
+      cancel: {
+        text: translate.account.cancel,
+        action: () => true,
+      },
+      confirm: {
+        text: translate.account.confirm,
+        action: () => {
+          void resetSettings()
+          return true
+        },
+      },
+    },
+    onBuild: $container => {
+      $container.addClass("new-layout-popup vacation")
+    },
+  })
+}
+
+async function resetSettings(): Promise<void> {
+  await LocalStorage.resetSettings()
+  pageLoad(location.pathname)
 }

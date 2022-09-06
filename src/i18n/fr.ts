@@ -120,8 +120,13 @@ export const fr: Translation = {
     },
   },
   account: {
+    cancel: "Annuler",
+    confirm_reset_content: `Veux-tu vraiment réinitialiser tes paramètres d'<strong>${GM.info.script.name}</strong>? Tes tenues favorites enregistrées gratuitement, ta liste de souhait, ton historique d'exploration et du marché ainsi que tes points d'explorations marqués seront effacés. Tu devras également réactiver tous les paramètres désirés.`,
+    confirm_reset_title: "Supprimer les paramètres",
+    confirm: "Réinitialiser",
     debug_tooltip: "Active ou désactive la journalisation.",
     debug: "Débogage",
+    delete_explorations: "Supprimer tous les points d'exploration",
     enhancements: "Améliorations",
     explorations: "Explorations",
     export: "Exporter les paramètres",
@@ -129,6 +134,7 @@ export const fr: Translation = {
     imported: "Paramètres importés",
     market: "Marché",
     minigames: "Mini-jeux",
+    reset: "Réinitialiser",
   },
   pet: {
     auto_explore: "Marquer",

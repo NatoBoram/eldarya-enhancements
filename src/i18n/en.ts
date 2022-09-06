@@ -120,8 +120,13 @@ export const en: Translation = {
     },
   },
   account: {
+    cancel: "Cancel",
+    confirm_reset_content: `Are you sure you want to reset your <strong>${GM.info.script.name}</strong> settings? Your free saved favorite outfits, wishlist, exploration and market history, and marked exploration points will be erased. You will also need to re-enable all the desired settings.`,
+    confirm_reset_title: "Erase settings",
+    confirm: "Reset",
     debug_tooltip: "Enables or disables logging.",
     debug: "Debug",
+    delete_explorations: "Delete all exploration points",
     enhancements: "Enhancements",
     explorations: "Explorations",
     export: "Export settings",
@@ -129,6 +134,7 @@ export const en: Translation = {
     imported: "Imported settings!",
     market: "Market",
     minigames: "Minigames",
+    reset: "Reset",
   },
   pet: {
     auto_explore: "Highlight",

@@ -108,8 +108,13 @@ export interface Translation {
     readonly unmark_all: string
   }
   readonly account: {
+    readonly cancel: string
+    readonly confirm_reset_content: string
+    readonly confirm_reset_title: string
+    readonly confirm: string
     readonly debug_tooltip: string
     readonly debug: string
+    readonly delete_explorations: string
     readonly enhancements: string
     readonly explorations: string
     readonly export: string
@@ -117,6 +122,7 @@ export interface Translation {
     readonly imported: string
     readonly market: string
     readonly minigames: string
+    readonly reset: string
   }
   readonly profile: {
     readonly export_outfit: string
