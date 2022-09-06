@@ -40,6 +40,7 @@ function createButtonRow(): void {
     return Console.error("Couldn't find #close-treasure-hunt-interface.")
 
   closeExplorationButton.style.display = "inline-block"
+  closeExplorationButton.style.marginRight = "0.6em"
   closeExplorationButton.style.position = "relative"
   closeExplorationButton.style.right = "0"
   closeExplorationButton.style.top = "0"
