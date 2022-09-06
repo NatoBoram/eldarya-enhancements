@@ -99,14 +99,22 @@ export interface Translation {
     readonly auto_explore: string
     readonly date_time_format: Intl.DateTimeFormat
     readonly delete_history: string
+    readonly deleting_markers: string
     readonly empty_history: string
     readonly goto_account: string
     readonly history: string
+    readonly mark_all: string
     readonly saved_locally: string
+    readonly unmark_all: string
   }
   readonly account: {
+    readonly cancel: string
+    readonly confirm_reset_content: string
+    readonly confirm_reset_title: string
+    readonly confirm: string
     readonly debug_tooltip: string
     readonly debug: string
+    readonly delete_explorations: string
     readonly enhancements: string
     readonly explorations: string
     readonly export: string
@@ -114,6 +122,7 @@ export interface Translation {
     readonly imported: string
     readonly market: string
     readonly minigames: string
+    readonly reset: string
   }
   readonly profile: {
     readonly export_outfit: string

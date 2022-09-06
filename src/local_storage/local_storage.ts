@@ -164,6 +164,19 @@ export class LocalStorage {
     }
   }
 
+  static async resetSettings(): Promise<void> {
+    this.autoExploreLocations = []
+    this.debug = false
+    this.explorationHistory = []
+    this.explorations = false
+    this.market = false
+    this.minigames = false
+    this.unlocked = false
+    this.version = ""
+    this.wishlist = []
+    await indexed_db.clearFavouriteOutfits()
+  }
+
   private static getItem<T>(key: LocalStorageKey, fallback: T): T {
     return (JSON.parse(
       this.localStorage.getItem(key) ?? JSON.stringify(fallback)

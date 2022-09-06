@@ -120,8 +120,13 @@ export const fr: Translation = {
     },
   },
   account: {
+    cancel: "Annuler",
+    confirm_reset_content: `Veux-tu vraiment réinitialiser tes paramètres d'<strong>${GM.info.script.name}</strong>? Tes tenues favorites enregistrées gratuitement, ta liste de souhait, ton historique d'exploration et du marché ainsi que tes points d'explorations marqués seront effacés. Tu devras également réactiver tous les paramètres désirés.`,
+    confirm_reset_title: "Supprimer les paramètres",
+    confirm: "Réinitialiser",
     debug_tooltip: "Active ou désactive la journalisation.",
     debug: "Débogage",
+    delete_explorations: "Supprimer tous les points d'exploration",
     enhancements: "Améliorations",
     explorations: "Explorations",
     export: "Exporter les paramètres",
@@ -129,6 +134,7 @@ export const fr: Translation = {
     imported: "Paramètres importés",
     market: "Marché",
     minigames: "Mini-jeux",
+    reset: "Réinitialiser",
   },
   pet: {
     auto_explore: "Marquer",
@@ -140,12 +146,15 @@ export const fr: Translation = {
       year: "numeric",
     }),
     delete_history: "Nettoyer l'historique",
+    deleting_markers: "Suppression des marqueurs...",
     empty_history:
       "Ton historique d'exploration est vide. Il se remplira automatiquement à mesure que ton familier trouvera des items en exploration.",
     goto_account:
       "Pour transférer ton historique d'explorations vers un autre navigateur, exporte tes paramètres à partir de la page <em>mon compte</em>.",
     history: "Historique",
+    mark_all: "Marquer cette carte",
     saved_locally: `Prends note que ton historique d'explorations est sauvegardé localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyé aux serveurs d'Eldarya.`,
+    unmark_all: "Dé-marquer cette carte",
   },
   profile: {
     export_outfit: "Exporter la tenue",

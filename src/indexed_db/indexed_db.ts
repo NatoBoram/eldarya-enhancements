@@ -34,7 +34,7 @@ class IndexedDB {
     favourite: FavouriteOutfit
   ): Promise<FavouriteOutfit> {
     return new Promise((resolve, reject): void => {
-      if (!this.db) return void reject()
+      if (!this.db) return reject()
 
       const request = this.db
         .transaction([Tables.favourite_outfits], "readwrite")
@@ -52,7 +52,7 @@ class IndexedDB {
 
   async clearFavouriteOutfits(): Promise<void> {
     return new Promise((resolve, reject): void => {
-      if (!this.db) return void reject()
+      if (!this.db) return reject()
 
       const request = this.db
         .transaction([Tables.favourite_outfits], "readwrite")
@@ -65,7 +65,7 @@ class IndexedDB {
 
   async deleteFavouriteOutfit(favourite: FavouriteOutfit): Promise<void> {
     return new Promise((resolve, reject): void => {
-      if (!this.db) return void reject()
+      if (!this.db) return reject()
 
       const request = this.db
         .transaction([Tables.favourite_outfits], "readwrite")
@@ -81,7 +81,7 @@ class IndexedDB {
 
   async getFavouriteOutfit(id: number): Promise<FavouriteOutfit> {
     return new Promise((resolve, reject): void => {
-      if (!this.db) return void reject()
+      if (!this.db) return reject()
 
       const request = this.db
         .transaction([Tables.favourite_outfits], "readonly")
@@ -97,7 +97,7 @@ class IndexedDB {
 
   async getFavouriteOutfits(): Promise<FavouriteOutfit[]> {
     return new Promise((resolve, reject): void => {
-      if (!this.db) return void reject("No database")
+      if (!this.db) return reject("No database")
 
       const request = this.db
         .transaction([Tables.favourite_outfits], "readonly")

@@ -1,3 +1,4 @@
+import type { Template } from "hogan.js"
 import { captureEnd } from "../../ajax/capture_end"
 import { changeRegion } from "../../ajax/change_region"
 import { explorationResults } from "../../ajax/exploration_results"
@@ -6,11 +7,12 @@ import { Console } from "../../console"
 import { DurationUnit } from "../../duration"
 import type { MapRegion, Season } from "../../eldarya/current_region"
 import type { PendingTreasureHuntLocation } from "../../eldarya/treasure"
+import { translate } from "../../i18n/translate"
 import type { AutoExploreLocation } from "../../local_storage/auto_explore_location"
 import { LocalStorage } from "../../local_storage/local_storage"
 import { SessionStorage } from "../../session_storage/session_storage"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
-import { click } from "../click"
+import { click, clickElement, waitObserve } from "../click"
 import { ExplorationStatus } from "../exploration_status.enum"
 import type { StartExploration } from "../start_exploration"
 import { Action } from "./action"
@@ -40,6 +42,7 @@ class ExplorationAction extends Action {
       return true
     }
 
+    await this.openCurrentRegion()
     const status = this.getExplorationStatus()
     Console.log("Exploration status:", ExplorationStatus[status])
     switch (status) {
@@ -64,6 +67,13 @@ class ExplorationAction extends Action {
     }
   }
 
+  private async openCurrentRegion(): Promise<HTMLDivElement | null> {
+    if (!pendingTreasureHuntLocation) return null
+    return click<HTMLDivElement>(
+      `.minimap[data-mapid="${pendingTreasureHuntLocation.MapRegion_id}"]`
+    )
+  }
+
   private async clickExplore(): Promise<HTMLButtonElement> {
     return click("#explore-button")
   }
@@ -76,24 +86,41 @@ class ExplorationAction extends Action {
     )
   }
 
-  private clickRegion(selected: AutoExploreLocation): HTMLDivElement | null {
-    const div = document.querySelector<HTMLDivElement>(
+  private async clickRegion(
+    selected: AutoExploreLocation
+  ): Promise<HTMLDivElement | null> {
+    const container = document.querySelector("#minimaps-container")
+    if (!container) {
+      Console.log("Couldn't find #minimaps-container:", container)
+      return null
+    }
+
+    const div = await waitObserve<HTMLDivElement>(
+      container,
       `.minimap[data-mapid="${selected.region.id}"]`
     )
-
     if (!div) {
       // Clearing invalid regions is useful to remove finished events.
+      const template: Template = require("../../templates/html/flavr_notif/icon_message.html")
+      $.flavrNotif(
+        template.render({
+          icon: "/static/img/new-layout/pet/icons/picto_map.png",
+          message: translate.pet.deleting_markers,
+        })
+      )
+
       LocalStorage.autoExploreLocations =
         LocalStorage.autoExploreLocations.filter(
           saved => saved.region.id !== selected.region.id
         )
 
-      SessionStorage.selectedLocation = null
+      Console.warn("Could not find region", selected.region)
       pageLoad("/pet")
       return null
     }
 
-    div.click()
+    Console.debug("Clicking on region", div)
+    await clickElement(div)
     return div
   }
 
@@ -119,10 +146,17 @@ class ExplorationAction extends Action {
     return click("#close-result")
   }
 
-  private getCurrentSeason(): Season {
-    return (Array.from(document.querySelector("body")?.classList ?? [])
+  private getCurrentSeason(): Season | null {
+    const season = Array.from(document.querySelector("body")?.classList ?? [])
       .find(c => c.startsWith("season-"))
-      ?.replace("season-", "") ?? null) as Season
+      ?.replace("season-", "")
+
+    if (this.isSeason(season)) return season
+    else return null
+  }
+
+  private isSeason(season: unknown): season is Season {
+    return ["s1", "s2"].some(s => s === season)
   }
 
   private getExplorationStatus(): ExplorationStatus {
@@ -200,7 +234,7 @@ class ExplorationAction extends Action {
     }
 
     // Go to region
-    this.clickRegion(selected)
+    await this.clickRegion(selected)
 
     // Go to location
     await this.clickLocation(selected)
