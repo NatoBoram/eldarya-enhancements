@@ -4,6 +4,7 @@
 [![OpenUserJS](https://img.shields.io/badge/dynamic/json?color=%232c3e50&label=OpenUserJS&query=%24.OpenUserJS.installs%5B0%5D.value&suffix=%20installs&url=https%3A%2F%2Fopenuserjs.org%2Fmeta%2FNatoBoram%2FEldarya_Enhancements.meta.json)](https://openuserjs.org/scripts/NatoBoram/Eldarya_Enhancements)
 [![pipeline status](https://gitlab.com/NatoBoram/eldarya-enhancements/badges/master/pipeline.svg)](https://gitlab.com/NatoBoram/eldarya-enhancements/-/commits/master)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/NatoBoram/eldarya-enhancements)
+[![Maintainability](https://api.codeclimate.com/v1/badges/abc2f98e04deb9452726/maintainability)](https://codeclimate.com/github/NatoBoram/eldarya-enhancements/maintainability)
 
 Enhances the user experience of Eldarya.
 
@@ -11,7 +12,7 @@ Enhances the user experience of Eldarya.
 
 ## Installation
 
-1. Install [one of these](https://github.com/OpenUserJS/OpenUserJS.org/wiki/Userscript-Beginners-HOWTO#how-do-i-get-going)
+1. Install [Tampermonkey](https://tampermonkey.net)
 2. Click [here](https://natoboram.gitlab.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
 
 The latest development version can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.min.user.js?job=deploy).
@@ -23,8 +24,7 @@ The script updates automatically.
 ![Download your guardian](https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/readme/download-guardian.png)
 ![Save outfit](https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/readme/save-outfit.png)
 
-- Adds carousel entries with useful features like download your guardian /
-  download your face
+- Adds carousel entries with useful features like download your guardian / download your face
 - Replaces a few bank buttons with a link to the forum
 - Import and export your outfit
 - Export other guardians' outfits from their profile
