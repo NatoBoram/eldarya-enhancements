@@ -123,6 +123,7 @@ export interface Translation {
     readonly market: string
     readonly minigames: string
     readonly reset: string
+    readonly explorations_deleted: string
   }
   readonly profile: {
     readonly export_outfit: string

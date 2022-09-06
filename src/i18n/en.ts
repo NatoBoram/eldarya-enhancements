@@ -128,6 +128,7 @@ export const en: Translation = {
     debug: "Debug",
     delete_explorations: "Delete all exploration points",
     enhancements: "Enhancements",
+    explorations_deleted: "Your marked exploration points were deleted.",
     explorations: "Explorations",
     export: "Export settings",
     import: "Import settings",

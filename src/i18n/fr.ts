@@ -128,6 +128,7 @@ export const fr: Translation = {
     debug: "Débogage",
     delete_explorations: "Supprimer tous les points d'exploration",
     enhancements: "Améliorations",
+    explorations_deleted: "Tes points d'exploration marqués ont été supprimés.",
     explorations: "Explorations",
     export: "Exporter les paramètres",
     import: "Importer les paramètres",
