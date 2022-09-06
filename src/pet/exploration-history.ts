@@ -10,18 +10,6 @@ export function loadExplorationHistory(): void {
 }
 
 function loadHistoryButton(): void {
-  const closeExplorationButton = document.querySelector<HTMLAnchorElement>(
-    "#close-treasure-hunt-interface"
-  )
-  if (!closeExplorationButton)
-    return Console.error("Couldn't find #close-treasure-hunt-interface.")
-
-  closeExplorationButton.style.display = "inline-block"
-  closeExplorationButton.style.position = "relative"
-  closeExplorationButton.style.right = "0"
-  closeExplorationButton.style.top = "0"
-  closeExplorationButton.addEventListener("click", onClickPet)
-
   const historyButton = document.createElement("a")
   historyButton.classList.add("nl-button", "nl-button-back")
   historyButton.style.marginRight = "0.6em"
