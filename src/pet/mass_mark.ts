@@ -15,7 +15,7 @@ export function loadMassMark(): void {
 async function setupMassMarkButton(): Promise<void> {
   document.getElementById("mass-mark")?.remove()
 
-  const marked = isAllMarked()
+  const marked = hasSomeMarked()
   const template: Template = require("../templates/html/mass_mark_button.html")
   const rendered = template.render(marked ? unmarkAllContext : markAllContext)
 
@@ -65,14 +65,14 @@ function handleClickMinimap(div: HTMLDivElement): void {
   })
 }
 
-function isAllMarked(): boolean {
+function hasSomeMarked(): boolean {
   const autoExploreLocations = LocalStorage.autoExploreLocations
 
   return Array.from(
     document.querySelectorAll<HTMLDivElement>(
       "#map-locations-container .map-location"
     )
-  ).every(location => {
+  ).some(location => {
     const dataset = getMapLocationDataset(location)
 
     return autoExploreLocations.some(
