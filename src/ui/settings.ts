@@ -51,6 +51,13 @@ export function loadSettings(): void {
       .getElementById("ee-delete-explorations")
       ?.addEventListener("click", () => {
         LocalStorage.autoExploreLocations = []
+
+        const template: Template = require("../templates/html/flavr_notif/icon_message.html")
+        const rendered = template.render({
+          icon: "/static/img/new-layout/pet/icons/picto_map.png",
+          message: translate.account.explorations_deleted,
+        })
+        $.flavrNotif(rendered)
       })
   }
 

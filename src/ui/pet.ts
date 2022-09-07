@@ -25,6 +25,7 @@ function loadExplorations(): void {
 
 export function loadPet(): void {
   if (location.pathname !== "/pet") return
+  extendRightContainer()
   createButtonRow()
 
   loadExplorations()
@@ -40,16 +41,25 @@ function createButtonRow(): void {
     return Console.error("Couldn't find #close-treasure-hunt-interface.")
 
   closeExplorationButton.style.display = "inline-block"
+  closeExplorationButton.style.marginRight = "0.6em"
   closeExplorationButton.style.position = "relative"
   closeExplorationButton.style.right = "0"
   closeExplorationButton.style.top = "0"
   closeExplorationButton.addEventListener("click", onClickPet)
 
   const row = document.createElement("div")
-  row.id = "buttons-container"
+  row.id = "ee-buttons-row"
   row.insertAdjacentElement("beforeend", closeExplorationButton)
 
   document
     .querySelector<HTMLDivElement>("#right-container-inner")
     ?.insertAdjacentElement("afterbegin", row)
+}
+
+function extendRightContainer(): void {
+  const rightContainer = document.getElementById("right-container")
+  if (!rightContainer)
+    return Console.warn("Couldn't find #right-container", rightContainer)
+
+  rightContainer.style.height = "40em"
 }

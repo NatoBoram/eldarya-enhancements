@@ -4,6 +4,7 @@
 [![OpenUserJS](https://img.shields.io/badge/dynamic/json?color=%232c3e50&label=OpenUserJS&query=%24.OpenUserJS.installs%5B0%5D.value&suffix=%20installs&url=https%3A%2F%2Fopenuserjs.org%2Fmeta%2FNatoBoram%2FEldarya_Enhancements.meta.json)](https://openuserjs.org/scripts/NatoBoram/Eldarya_Enhancements)
 [![pipeline status](https://gitlab.com/NatoBoram/eldarya-enhancements/badges/master/pipeline.svg)](https://gitlab.com/NatoBoram/eldarya-enhancements/-/commits/master)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/NatoBoram/eldarya-enhancements)
+[![Maintainability](https://api.codeclimate.com/v1/badges/abc2f98e04deb9452726/maintainability)](https://codeclimate.com/github/NatoBoram/eldarya-enhancements/maintainability)
 
 Améliore l'expérience utilisateur d'Eldarya.
 
@@ -11,7 +12,7 @@ Améliore l'expérience utilisateur d'Eldarya.
 
 ## Installation
 
-1. Installer [un d'entre eux](https://github.com/OpenUserJS/OpenUserJS.org/wiki/Userscript-Beginners-HOWTO#how-do-i-get-going)
+1. Installer [Tampermonkey](https://tampermonkey.net)
 2. Cliquer [ici](https://natoboram.gitlab.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
 
 La dernière version de développement peut être téléchargée [ici](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.min.user.js?job=deploy).
@@ -20,8 +21,10 @@ Le script se met à jour automatiquement.
 
 ## Fonctionnalités
 
-- Ajoute des entrées de carrousel avec des fonctionnalités utiles comme
-  télécharger votre gardienne / télécharger le visage de votre gardienne
+![Téléchargee ta gardienne](https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/readme/download-guardian.png)
+![Sauvegarder des tenues](https://gitlab.com/NatoBoram/eldarya-enhancements/-/raw/master/readme/save-outfit.png)
+
+- Ajoute des entrées de carrousel avec des fonctionnalités utiles comme télécharger votre gardienne / télécharger le visage de votre gardienne
 - Remplace quelques boutons de banque par un lien vers le forum
 - Importe et exporte votre tenue
 - Exporte les tenues des autres gardiennes depuis leur profil
