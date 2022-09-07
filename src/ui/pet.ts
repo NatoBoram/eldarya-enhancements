@@ -25,6 +25,7 @@ function loadExplorations(): void {
 
 export function loadPet(): void {
   if (location.pathname !== "/pet") return
+  extendRightContainer()
   createButtonRow()
 
   loadExplorations()
@@ -53,4 +54,12 @@ function createButtonRow(): void {
   document
     .querySelector<HTMLDivElement>("#right-container-inner")
     ?.insertAdjacentElement("afterbegin", row)
+}
+
+function extendRightContainer(): void {
+  const rightContainer = document.getElementById("right-container")
+  if (!rightContainer)
+    return Console.warn("Couldn't find #right-container", rightContainer)
+
+  rightContainer.style.height = "40em"
 }
