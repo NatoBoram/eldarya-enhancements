@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import { Console } from "./console"
 import { LocalStorage } from "./local_storage/local_storage"
 
 export function loadCheatCodes(): void {
@@ -10,19 +11,19 @@ export function loadCheatCodes(): void {
 
 async function unlockEnhancements(): Promise<void> {
   LocalStorage.unlocked = true
-  console.info("Unlocked enhancements.")
+  Console.info("Unlocked enhancements.")
   await reload()
 }
 
 async function lockEnhancements(): Promise<void> {
   LocalStorage.unlocked = false
-  console.info("Locked enhancements.")
+  Console.info("Locked enhancements.")
   await reload()
 }
 
 async function reload(): Promise<void> {
   await new Promise(resolve => setTimeout(resolve, 1000))
-  console.log("Reloading...")
+  Console.log("Reloading...")
   await new Promise(resolve => setTimeout(resolve, 1000))
   location.reload()
 }
