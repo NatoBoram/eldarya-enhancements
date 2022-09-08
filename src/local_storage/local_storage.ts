@@ -1,6 +1,6 @@
 import { base64StringToBlob, blobToBase64String } from "blob-util"
 import type { Meta } from "../api/meta"
-import type { FavouriteOutfit } from "../appearance/interfaces/favourite_outfit"
+import type { NewFavouriteOutfit } from "../appearance/interfaces/favourite_outfit"
 import indexed_db from "../indexed_db/indexed_db"
 import type { MarketEntry } from "../marketplace/interfaces/market_entry"
 import type { Settings } from "../templates/interfaces/settings"
@@ -128,6 +128,7 @@ export class LocalStorage {
         (
           await indexed_db.getFavouriteOutfits()
         ).map<Promise<ExportableFavourite>>(async favourite => ({
+          id: favourite.id,
           name: favourite.name,
           items: favourite.items,
           base64: await blobToBase64String(favourite.blob),
@@ -153,11 +154,11 @@ export class LocalStorage {
     this.wishlist = settings.wishlist
 
     await indexed_db.clearFavouriteOutfits()
-    for (const favourite of settings.favourites.map<FavouriteOutfit>(
+    for (const favourite of settings.favourites.map<NewFavouriteOutfit>(
       favourite => ({
-        blob: base64StringToBlob(favourite.base64),
-        items: favourite.items,
         name: favourite.name,
+        items: favourite.items,
+        blob: base64StringToBlob(favourite.base64),
       })
     )) {
       void indexed_db.addFavouriteOutfit(favourite)
