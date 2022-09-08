@@ -102,6 +102,7 @@ class BuyAction extends Action {
    */
   private async buy(result: MarketEntry): Promise<boolean> {
     const json = await buy(Number(result.itemid))
+    Console.error(`Failed to buy "${result.name}"`, result, json)
     if (json.result !== "success") this.setError(result.icon, json.data)
     return json.result === "success"
   }
