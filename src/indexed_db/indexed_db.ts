@@ -1,4 +1,7 @@
-import type { FavouriteOutfit } from "../appearance/interfaces/favourite_outfit"
+import type {
+  FavouriteOutfit,
+  NewFavouriteOutfit,
+} from "../appearance/interfaces/favourite_outfit"
 import { Console } from "../console"
 import { Databases } from "./databases.enum"
 import { Fields } from "./fields.enum"
@@ -31,7 +34,7 @@ class IndexedDB {
 
   /** @returns a new `FavouriteOutfit` with the `key` property set. */
   async addFavouriteOutfit(
-    favourite: FavouriteOutfit
+    favourite: NewFavouriteOutfit
   ): Promise<FavouriteOutfit> {
     return new Promise((resolve, reject): void => {
       if (!this.db) return reject()
@@ -41,12 +44,33 @@ class IndexedDB {
         .objectStore(Tables.favourite_outfits)
         .add(favourite)
 
-      request.onsuccess = (): void =>
+      request.onsuccess = (): void => {
         resolve({
           ...favourite,
-          url: favourite.url ?? URL.createObjectURL(favourite.blob),
+          url: URL.createObjectURL(favourite.blob),
           id: Number(request.result),
         })
+      }
+    })
+  }
+
+  async updateFavouriteOutfit(
+    favourite: FavouriteOutfit
+  ): Promise<FavouriteOutfit> {
+    return new Promise((resolve, reject): void => {
+      if (!this.db) return reject()
+
+      const request = this.db
+        .transaction([Tables.favourite_outfits], "readwrite")
+        .objectStore(Tables.favourite_outfits)
+        .put(favourite)
+
+      request.onsuccess = (): void => {
+        resolve({
+          ...favourite,
+          id: Number(request.result),
+        })
+      }
     })
   }
 
@@ -70,7 +94,7 @@ class IndexedDB {
       const request = this.db
         .transaction([Tables.favourite_outfits], "readwrite")
         .objectStore(Tables.favourite_outfits)
-        .delete(favourite.id!)
+        .delete(favourite.id)
 
       request.onsuccess = (): void => {
         resolve()

@@ -33,7 +33,7 @@ export function downloadFace(): void {
     "#avatar-menu-container canvas"
   )
   if (!canvas) {
-    console.warn("Couldn't find the guardian's face.")
+    Console.warn("Couldn't find the guardian's face.")
     return
   }
 
@@ -45,7 +45,7 @@ export function downloadGuardian(): void {
     "#home-avatar-player canvas"
   )
   if (!canvas) {
-    console.warn("Couldn't find the guardian.")
+    Console.warn("Couldn't find the guardian.")
     return
   }
 
@@ -57,7 +57,7 @@ export function downloadAppearance(): void {
     "#appearance-preview canvas"
   )
   if (!canvas) {
-    console.warn("Couldn't find the guardian.")
+    Console.warn("Couldn't find the guardian.")
     return
   }
 

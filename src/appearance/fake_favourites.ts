@@ -65,7 +65,7 @@ async function showOutfit(): Promise<FavouriteOutfit | null> {
             if (!avatar) return false
             const items = parseAvatar(avatar)
 
-            void saveAction(name, items, resolve)
+            void saveAction(name, items).then(resolve)
             return true
           },
         },
@@ -110,27 +110,104 @@ export function showFavourite(favourite: FavouriteOutfit): void {
           return true
         },
       },
+      rename: {
+        text: translate.appearance.favourites.rename_outfit.button,
+        style: "default",
+        action: () => {
+          setTimeout(
+            () =>
+              void showRenameFavourite(favourite).then(favourite => {
+                if (favourite) void loadFakeFavourites()
+              }),
+            800
+          )
+
+          return true
+        },
+      },
     },
   })
 }
 
 async function saveAction(
   name: string,
-  items: ParsableItem[],
-  resolve: (value: FavouriteOutfit) => void
-): Promise<void> {
-  const blob = await new Promise<Blob>(resolve => {
+  items: ParsableItem[]
+): Promise<FavouriteOutfit> {
+  const blob = await new Promise<Blob>((resolve, reject) => {
     document
       .querySelector<HTMLCanvasElement>("#appearance-preview canvas")
-      ?.toBlob(blob => resolve(blob!), "image/png", 1)
+      ?.toBlob(
+        blob => {
+          if (blob) resolve(blob)
+          else reject("Blob doesn't exist.")
+        },
+        "image/png",
+        1
+      )
   })
 
-  resolve({
-    ...(await indexed_db.addFavouriteOutfit({
-      items,
-      name,
-      blob,
-    })),
-    url: URL.createObjectURL(blob),
+  const favourite = await indexed_db.addFavouriteOutfit({ items, name, blob })
+  return { ...favourite, url: URL.createObjectURL(blob) }
+}
+
+export async function showRenameFavourite(
+  favourite: FavouriteOutfit
+): Promise<FavouriteOutfit | null> {
+  const template: Template = require("../templates/html/rename_favourite_outfit_flavr.html")
+  const rendered = template.render({
+    ...favourite,
+    title: translate.appearance.favourites.rename_outfit.title(favourite.name),
+    translate,
+  })
+
+  return new Promise<FavouriteOutfit | null>(resolve => {
+    $.flavr({
+      content: rendered,
+      onBuild: $container => {
+        $container.addClass("new-layout-popup")
+        $container.addClass("created-outfit-popup")
+
+        const renameButton =
+          document.querySelector<HTMLButtonElement>('[rel="btn-rename"]')
+        if (!renameButton) return
+
+        document
+          .querySelector<HTMLInputElement>("#choose-name")
+          ?.addEventListener("keyup", event => {
+            if (event.key === "Enter") renameButton.click()
+
+            if (document.querySelector<HTMLInputElement>("#choose-name")?.value)
+              renameButton.classList.remove("disabled")
+            else renameButton.classList.add("disabled")
+          })
+
+        renameButton.classList.add("nl-button", "nl-button-lg", "disabled")
+      },
+      buttons: {
+        close: {
+          text: "",
+          style: "close",
+          action: () => {
+            resolve(null)
+            return true
+          },
+        },
+        rename: {
+          text: translate.appearance.favourites.rename_outfit.button,
+          style: "default",
+          action: () => {
+            const name =
+              document.querySelector<HTMLInputElement>("#choose-name")?.value
+            if (!name) return false
+
+            void indexed_db
+              .updateFavouriteOutfit({ ...favourite, name })
+              .then(resolve)
+
+            return true
+          },
+        },
+      },
+    })
   })
 }

@@ -32,7 +32,7 @@ function load(): void {
   loadUI()
   observe()
 
-  console.log(`${GM.info.script.name} v${GM.info.script.version} loaded.`)
+  Console.log(`${GM.info.script.name} v${GM.info.script.version} loaded.`)
   loadTakeover()
 }
 

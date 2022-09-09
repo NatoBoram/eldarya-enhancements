@@ -78,9 +78,7 @@ export async function loadFakeFavourites(): Promise<void> {
   document.querySelector("#ee-outfit-thumbs")?.remove()
   thumbs.insertAdjacentHTML(
     "beforeend",
-    template.render({
-      outfits: favourites,
-    })
+    template.render({ outfits: favourites })
   )
 
   document

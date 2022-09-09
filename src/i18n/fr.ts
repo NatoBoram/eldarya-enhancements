@@ -47,13 +47,22 @@ export const fr: Translation = {
       forward: "Vers l'avant",
     },
     favourites: {
-      imported: "Importation réussie!",
-      importing: "Importation en cours...",
+      buttons: {
+        download: "Télécharger le PNG",
+        export: "Exporter",
+        import: "Importer",
+      },
       click_outfit: {
         delete: "Supprimer",
         goto_account: `Pour transférer tes tenues favorites d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte tes paramètres à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
         saved_locally: `Prends note que cette tenue est sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et n'a pas été envoyée aux serveurs d'Eldarya.`,
         wear: "Porter",
+      },
+      imported: "Importation réussie!",
+      importing: "Importation en cours...",
+      rename_outfit: {
+        button: "Renommer",
+        title: (name: string) => `Renommer <strong>${name}</strong>`,
       },
       save_outfit: {
         goto_account: `Pour transférer tes tenues favorites d'<strong>${GM.info.script.name}</strong> vers un autre navigateur, exporte tes paramètres à partir de la page <a href="/user/account" style="text-decoration: underline;">mon&nbsp;compte</a>.`,
@@ -61,11 +70,6 @@ export const fr: Translation = {
         save: "Sauvegarder",
         saved_locally: `Prends note que cette tenue sera sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et ne sera pas envoyée aux serveurs d'Eldarya.`,
         title: "Sauvegarder cette tenue",
-      },
-      buttons: {
-        download: "Télécharger le PNG",
-        export: "Exporter",
-        import: "Importer",
       },
     },
     loaded: "Le chargement de la garde-robe est terminé.",

@@ -42,6 +42,10 @@ export interface Translation {
         readonly saved_locally: string
         readonly wear: string
       }
+      readonly rename_outfit: {
+        readonly title: (name: string) => string
+        readonly button: string
+      }
       readonly buttons: {
         readonly download: string
         readonly export: string

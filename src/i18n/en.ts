@@ -47,13 +47,22 @@ export const en: Translation = {
       forward: "Bring forward",
     },
     favourites: {
-      imported: "Imported outfit!",
-      importing: "Importing outfit. Please wait...",
+      buttons: {
+        download: "Download PNG",
+        export: "Export",
+        import: "Import",
+      },
       click_outfit: {
         delete: "Delete",
         goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourite outfits to another browser, export your settings in the <a href="/user/account" style="text-decoration: underline;">my&nbsp;account</a> page.`,
         saved_locally: `Take note that this outfit is saved in <strong>${GM.info.script.name}</strong>' settings and was not sent to Eldarya's servers.`,
         wear: "Wear",
+      },
+      imported: "Imported outfit!",
+      importing: "Importing outfit. Please wait...",
+      rename_outfit: {
+        title: (name: string) => `Rename <strong>${name}</strong>`,
+        button: "Rename",
       },
       save_outfit: {
         goto_account: `To transfer your <strong>${GM.info.script.name}</strong> favourite outfits to another browser, export your settings in the <a href="/user/account" style="text-decoration: underline;">my&nbsp;account</a> page.`,
@@ -61,11 +70,6 @@ export const en: Translation = {
         save: "Save",
         saved_locally: `Take note that this outfit will only be saved within <strong>${GM.info.script.name}</strong>' settings and will not be sent to Eldarya's servers.`,
         title: "Save outfit",
-      },
-      buttons: {
-        download: "Download PNG",
-        export: "Export",
-        import: "Import",
       },
     },
     loaded: "The wardrobe is loaded.",
