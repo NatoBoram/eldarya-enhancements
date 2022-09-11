@@ -1,72 +1,19 @@
 import { translate } from "../i18n/translate"
+import type { RGBA } from "./rgba"
 
 export class Colour {
-  private constructor(
-    readonly hexadecimal: string,
-    readonly name: string,
-    readonly rgba: RGBA
-  ) {}
-
-  static readonly black = new Colour(
-    "#000000",
-    translate.colour.black,
-    toRgba("#000000")
-  )
-  static readonly blue = new Colour(
-    "#0000FF",
-    translate.colour.blue,
-    toRgba("#0000FF")
-  )
-  static readonly cyan = new Colour(
-    "#00FFFF",
-    translate.colour.cyan,
-    toRgba("#00FFFF")
-  )
-  static readonly green = new Colour(
-    "#00FF00",
-    translate.colour.green,
-    toRgba("#00FF00")
-  )
-  static readonly grey = new Colour(
-    "#808080",
-    translate.colour.grey,
-    toRgba("#808080")
-  )
-  static readonly magenta = new Colour(
-    "#FF00FF",
-    translate.colour.magenta,
-    toRgba("#FF00FF")
-  )
-  static readonly orange = new Colour(
-    "#FF8000",
-    translate.colour.orange,
-    toRgba("#FF8000")
-  )
-  static readonly red = new Colour(
-    "#FF0000",
-    translate.colour.red,
-    toRgba("#FF0000")
-  )
-  static readonly rose = new Colour(
-    "#FF0080",
-    translate.colour.rose,
-    toRgba("#FF0080")
-  )
-  static readonly violet = new Colour(
-    "#8000FF",
-    translate.colour.violet,
-    toRgba("#8000FF")
-  )
-  static readonly white = new Colour(
-    "#FFFFFF",
-    translate.colour.white,
-    toRgba("#FFFFFF")
-  )
-  static readonly yellow = new Colour(
-    "#FFFF00",
-    translate.colour.yellow,
-    toRgba("#FFFF00")
-  )
+  static readonly black = new Colour("#000000", translate.colour.black)
+  static readonly blue = new Colour("#0000FF", translate.colour.blue)
+  static readonly cyan = new Colour("#00FFFF", translate.colour.cyan)
+  static readonly green = new Colour("#00FF00", translate.colour.green)
+  static readonly grey = new Colour("#808080", translate.colour.grey)
+  static readonly magenta = new Colour("#FF00FF", translate.colour.magenta)
+  static readonly orange = new Colour("#FF8000", translate.colour.orange)
+  static readonly red = new Colour("#FF0000", translate.colour.red)
+  static readonly rose = new Colour("#FF0080", translate.colour.rose)
+  static readonly violet = new Colour("#8000FF", translate.colour.violet)
+  static readonly white = new Colour("#FFFFFF", translate.colour.white)
+  static readonly yellow = new Colour("#FFFF00", translate.colour.yellow)
 
   private static readonly list = [
     Colour.black,
@@ -82,8 +29,14 @@ export class Colour {
     Colour.white,
     Colour.yellow,
   ]
-  static getList(): Colour[] {
-    return [...Colour.list]
+
+  readonly rgba: RGBA
+
+  private constructor(
+    public readonly hexadecimal: string,
+    public readonly name: string
+  ) {
+    this.rgba = toRgba(hexadecimal)
   }
 
   static findClosestRgb(rgba: RGBA): Colour {
@@ -92,10 +45,8 @@ export class Colour {
       .find(Boolean)!
   }
 
-  static findClosestRgba(rgba: RGBA): Colour {
-    return Colour.getList()
-      .sort((a, b) => rgbaDistance(a.rgba, rgba) - rgbaDistance(b.rgba, rgba))
-      .find(Boolean)!
+  static getList(): Colour[] {
+    return [...Colour.list]
   }
 }
 
@@ -123,15 +74,4 @@ function rgbDistance(first: RGBA, second: RGBA): number {
     Math.abs(first.green - second.green) +
     Math.abs(first.blue - second.blue)
   )
-}
-
-function rgbaDistance(first: RGBA, second: RGBA): number {
-  return rgbDistance(first, second) + Math.abs(first.alpha - second.alpha)
-}
-
-interface RGBA {
-  red: number
-  green: number
-  blue: number
-  alpha: number
 }

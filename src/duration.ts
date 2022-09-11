@@ -24,7 +24,10 @@ export enum DurationUnit {
 }
 
 export class Duration {
-  constructor(readonly value: number, readonly unit: DurationUnit) {}
+  constructor(
+    public readonly value: number,
+    public readonly unit: DurationUnit
+  ) {}
 
   divide(duration: Duration): Duration {
     return new Duration(this.value / duration.to(this.unit).value, this.unit)
