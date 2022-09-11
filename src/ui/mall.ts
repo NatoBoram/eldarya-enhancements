@@ -1,5 +1,5 @@
 import type { Template } from "hogan.js"
-import { trimIcon } from "../eldarya_util"
+import { trimImageUrl } from "../eldarya_util"
 import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import type { WishedItem } from "../local_storage/wished_item"
@@ -28,7 +28,7 @@ function addWishlistButton(li: HTMLLIElement): void {
 
   const mallEntry: MallEntry = {
     product: JSON.parse(li.dataset.product!) as DataProduct,
-    icon: trimIcon(
+    icon: trimImageUrl(
       li.querySelector<HTMLImageElement>("img.mall-product-icon")!.src
     ),
     rarity:

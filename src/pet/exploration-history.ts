@@ -1,5 +1,6 @@
 import type { Template } from "hogan.js"
 import { Console } from "../console"
+import { toWebHd } from "../eldarya_util"
 import { translate } from "../i18n/translate"
 import { LocalStorage } from "../local_storage/local_storage"
 import { listenTreasureHunt } from "./exploration-watcher"
@@ -105,8 +106,4 @@ function makeHistory(): void {
     LocalStorage.explorationHistory = []
     makeHistory()
   })
-}
-
-function toWebHd(icon: string): string {
-  return icon.replace("icon", "web_hd")
 }

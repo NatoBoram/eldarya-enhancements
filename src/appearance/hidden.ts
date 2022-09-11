@@ -21,8 +21,9 @@ export function loadHiddenCategory(code: string): AppearanceCategory | null {
   if (!category) return null
 
   const groups = wardrobe.getCategoryGroups(category.categoryid)
-  const itemTemplate: Template = require("../templates/html/appearance_item.html")
   const groupTemplate: Template = require("../templates/html/appearance_items_group.html")
+  const itemTemplate: Template = require("../templates/html/appearance_item.html")
+
   document
     .querySelector<HTMLDivElement>("#appearance-items")
     ?.insertAdjacentHTML(
@@ -39,6 +40,7 @@ export function loadHiddenCategory(code: string): AppearanceCategory | null {
         )
         .join("\n")
     )
+
   return category
 }
 
@@ -50,8 +52,9 @@ export function loadHiddenGroup(id: number): AppearanceGroup | null {
   const group = wardrobe.getGroup(id)
   if (!group) return null
 
-  const itemTemplate: Template = require("../templates/html/appearance_item.html")
   const groupTemplate: Template = require("../templates/html/appearance_items_group.html")
+  const itemTemplate: Template = require("../templates/html/appearance_item.html")
+
   document
     .querySelector<HTMLDivElement>("#appearance-items")
     ?.insertAdjacentHTML(
@@ -64,5 +67,6 @@ export function loadHiddenGroup(id: number): AppearanceGroup | null {
           .join("\n"),
       })
     )
+
   return group
 }

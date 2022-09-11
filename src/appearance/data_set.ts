@@ -1,4 +1,5 @@
-import { trimIcon } from "../eldarya_util"
+import { Console } from "../console"
+import { trimImageUrl } from "../eldarya_util"
 import type { AppearanceCategory } from "../templates/interfaces/appearance_category"
 import type { AppearanceGroup } from "../templates/interfaces/appearance_group"
 import type { AppearanceItem } from "../templates/interfaces/appearance_item"
@@ -8,7 +9,14 @@ export function categoryContainerDataSet(
   categoryContainer: HTMLDivElement
 ): AppearanceCategory | undefined {
   const { categoryid, category, categoryname } = categoryContainer.dataset
-  if (!categoryid || !category || !categoryname) return
+  if (!categoryid || !category || !categoryname) {
+    Console.error(
+      "Couldn't find a category container's dataset",
+      categoryContainer
+    )
+    return
+  }
+
   return {
     categoryid: Number(categoryid),
     category: category as AppearanceCategoryCode,
@@ -46,6 +54,6 @@ export function itemDataSet(
     name,
     rarity,
     rarityname,
-    icon: trimIcon(icon),
+    icon: trimImageUrl(icon),
   }
 }

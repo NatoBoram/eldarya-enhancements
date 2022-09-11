@@ -1,5 +1,5 @@
 import { Console } from "../console"
-import { trimIcon } from "../eldarya_util"
+import { trimImageUrl } from "../eldarya_util"
 import type { ExplorationResult } from "../local_storage/exploration_result"
 import { LocalStorage } from "../local_storage/local_storage"
 
@@ -37,7 +37,7 @@ function getResults(): ExplorationResult[] {
     return {
       count: result.querySelector(".resource-count")?.textContent?.trim(),
       date: now,
-      icon: img ? trimIcon(img.src) : undefined,
+      icon: img ? trimImageUrl(img.src) : undefined,
       locationName,
       name: result.querySelector(".tooltip-content h3")?.textContent?.trim(),
       tradable: Boolean(result.querySelector(".tradable")),

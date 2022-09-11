@@ -55,4 +55,7 @@ class Wardrobe {
   }
 }
 
+/** Holds a copy of the global `availableItems` with utility functions for usage
+ * with the new dressing experience.
+ */
 export default new Wardrobe()

@@ -1,4 +1,5 @@
 import type { Template } from "hogan.js"
+import { Console } from "../console"
 import { translate } from "../i18n/translate"
 import { isEnum } from "../ts_util"
 import { loadFavourites } from "../ui/favourites"
@@ -13,6 +14,9 @@ import { openCategory, openGroup } from "./favourites_actions"
 import { loadHiddenCategory, unloadHiddenCategories } from "./hidden"
 import wardrobe from "./wardrobe"
 
+/** Loads the new dressing experience and allows item groups to be loaded in the
+ * background
+ */
 export async function loadDressingExperience(): Promise<void> {
   if (!location.pathname.startsWith("/player/appearance")) return
 
@@ -20,40 +24,51 @@ export async function loadDressingExperience(): Promise<void> {
   loading = false
 
   loadAppearanceUI()
-
-  // Setup categories
-  for (const li of document.querySelectorAll<HTMLLIElement>(
-    "#wardrobe-menu>li, #appearance-items-categories li"
-  )) {
-    const { category } = li.dataset
-    if (!isEnum(category, AppearanceCategoryCode)) continue
-
-    switch (category) {
-      case AppearanceCategoryCode.background:
-        li.addEventListener("click", () =>
-          document.getElementById("ee-category")?.remove()
-        )
-        continue
-      case AppearanceCategoryCode.favorites:
-        li.addEventListener("click", () => {
-          document.getElementById("ee-category")?.remove()
-          void handleCategory(category)
-        })
-        continue
-      case AppearanceCategoryCode.attic:
-        continue
-      default:
-        li.addEventListener("click", () => {
-          document
-            .getElementById("appearance-items-category-favorites")
-            ?.remove()
-          // void handleCategory(category)
-        })
-    }
-  }
+  setupCategoryEvents()
 
   await new Promise(resolve => setTimeout(resolve, 1000))
   // await loadBackground()
+}
+
+function setupCategoryEvents(): void {
+  const categories = document.querySelectorAll<HTMLLIElement>(
+    "#wardrobe-menu>li, #appearance-items-categories li"
+  )
+
+  for (const li of categories) {
+    const { category } = li.dataset
+    if (!isEnum(category, AppearanceCategoryCode)) {
+      Console.warn("Unsupported category", li)
+      continue
+    }
+
+    switch (category) {
+      case AppearanceCategoryCode.background:
+        li.addEventListener("click", () => {
+          document.getElementById("ee-category")?.remove()
+          removeSearchCategory()
+        })
+        continue
+
+      case AppearanceCategoryCode.favorites:
+        li.addEventListener("click", () => {
+          document.getElementById("ee-category")?.remove()
+          removeSearchCategory()
+          void handleCategory(category)
+        })
+        continue
+
+      case AppearanceCategoryCode.attic:
+        continue
+
+      default:
+        li.addEventListener("click", () => {
+          removeFavouriteCategory()
+          removeSearchCategory()
+          void handleCategory(category)
+        })
+    }
+  }
 }
 
 /**
@@ -65,7 +80,10 @@ async function handleCategory(
 ): Promise<HTMLDivElement | null> {
   const appearanceItems =
     document.querySelector<HTMLDivElement>("#appearance-items")
-  if (!appearanceItems) return null
+  if (!appearanceItems) {
+    Console.error("Couldn't find #appearance-items", appearanceItems)
+    return null
+  }
 
   const oldCatContainer = document.querySelector<HTMLDivElement>(
     `#appearance-items-category-${category}`
@@ -109,6 +127,7 @@ async function onAppearanceItemsCategory(
   }
 }
 
+/** Load items that have already been put into  */
 function loadEeItems(
   appearanceItems: HTMLDivElement,
   categoryContainer: HTMLDivElement
@@ -120,22 +139,16 @@ function loadEeItems(
   categoryContainer.classList.remove("active")
   categoryContainer.style.display = "none"
 
-  // Setup appearance_items_category
+  // Setup empty custom category container
   const template: Template = require("../templates/html/appearance_items_category.html")
+  const rendered = template.render({ ...appearanceCategory, translate })
   document.getElementById("ee-category")?.remove()
-  appearanceItems.insertAdjacentHTML(
-    "beforeend",
-    template.render({ ...appearanceCategory, translate })
-  )
+  appearanceItems.insertAdjacentHTML("beforeend", rendered)
 
-  const eeItems = document.querySelector<HTMLDivElement>("#ee-items")
-  if (!eeItems) return null
-  eeItems.dataset.categoryid = appearanceCategory.categoryid.toString()
-  eeItems.dataset.category = appearanceCategory.category
-  eeItems.dataset.categoryname = appearanceCategory.categoryname
-  return eeItems
+  return document.querySelector<HTMLDivElement>("#ee-items")
 }
 
+/** Set of categories that have been loaded in the background already. */
 const handledCategories = new Set<AppearanceCategoryCode>()
 
 /** Load each groups synchronously and add them to a custom container. */
@@ -150,11 +163,14 @@ async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
   handledCategories.add(appearanceCategory.category)
 
   loadHiddenCategory(appearanceCategory.category)
-  for (const li of categoryContainer.querySelectorAll<HTMLLIElement>(
-    "li.appearance-item-group"
-  )) {
+
+  const appearanceItemGroups = getAppearanceItemGroups(categoryContainer)
+  for (const li of appearanceItemGroups) {
     const appearanceGroup = categoryGroupDataSet(li, appearanceCategory)
-    if (!appearanceGroup?.group) break
+    if (!appearanceGroup?.group) {
+      Console.warn("Couldn't find a group's group", li)
+      continue
+    }
     wardrobe.setGroup(appearanceGroup)
 
     if (
@@ -166,17 +182,22 @@ async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
     )
       await openGroup(appearanceGroup.group)
 
-    const div = document.querySelector<HTMLDivElement>(
+    const appearanceItemsGroup = document.querySelector<HTMLDivElement>(
       `#appearance-items-group-${appearanceGroup.group}`
     )
-    if (!div) break
-    div.classList.remove("active")
+    if (!appearanceItemsGroup) continue
+    appearanceItemsGroup.classList.remove("active")
 
-    const script = div.querySelector("script") // eslint-disable-next-line @typescript-eslint/no-implied-eval
-    if (script) setTimeout(script.innerHTML, 0)
+    // Evaluate Eldarya's script to add to the `availableItems`.
+    const script = appearanceItemsGroup.querySelector("script")
+    if (script) {
+      // eslint-disable-next-line @typescript-eslint/no-implied-eval
+      setTimeout(script.innerHTML, 0)
+      await new Promise(resolve => setTimeout(resolve, 1))
+    }
 
     const outerHTML = Array.from(
-      div.querySelectorAll<HTMLLIElement>("li.appearance-item")
+      appearanceItemsGroup.querySelectorAll<HTMLLIElement>("li.appearance-item")
     )
       .map(li => {
         const appearanceItem = itemDataSet(li, appearanceGroup)
@@ -191,9 +212,9 @@ async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
         return li.outerHTML
       })
       .join("\n")
-    wardrobe.availableItems = availableItems
 
-    div.remove()
+    wardrobe.availableItems = availableItems
+    appearanceItemsGroup.remove()
 
     const active = document.querySelector(
       `#wardrobe-menu li[data-category="${appearanceGroup.category}"].active`
@@ -211,6 +232,15 @@ async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
 
   if (!handled) handledCategories.delete(appearanceCategory.category)
   unloadHiddenCategories()
+}
+
+/** Get all the groups in a category */
+function getAppearanceItemGroups(
+  categoryContainer: HTMLDivElement
+): NodeListOf<HTMLLIElement> {
+  return categoryContainer.querySelectorAll<HTMLLIElement>(
+    "li.appearance-item-group"
+  )
 }
 
 let loading = false
@@ -282,4 +312,12 @@ export async function loadBackground(): Promise<void> {
 
   if (success) $.flavrNotif(translate.appearance.loaded)
   loading = false
+}
+
+function removeSearchCategory(): void {
+  return document.getElementById("appearance-items-category-search")?.remove()
+}
+
+function removeFavouriteCategory(): void {
+  document.getElementById("appearance-items-category-favorites")?.remove()
 }

@@ -1,5 +1,6 @@
 import wardrobe from "./wardrobe"
 
+/** Applies a few UI fixes to the dresser and setups the wardrobe */
 export function loadAppearanceUI(): void {
   setupBackground()
   setupLeftPanel()
@@ -9,6 +10,7 @@ export function loadAppearanceUI(): void {
   else wardrobe.availableItems = availableItems
 }
 
+/** Unblurs the background image and pins it under the guardian */
 function setupBackground(): void {
   const background = document.querySelector<HTMLImageElement>(
     "#avatar-background img"
@@ -26,11 +28,15 @@ function setupBackground(): void {
   }
 }
 
+/** Shifts the right UI a bit above to give more space for the item picker */
 function setupRightPanel(): void {
   const rightPanel = document.getElementById("appearance-right")
   if (rightPanel) rightPanel.style.paddingTop = "80px"
 }
 
+/** Stretches the guardian's box and pins her to the screen so she's always in
+ * sight when scrolling
+ */
 function setupLeftPanel(): void {
   const previewOuter = document.getElementById("appearance-preview-outer")
   if (previewOuter) {
