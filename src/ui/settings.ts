@@ -142,6 +142,14 @@ function confirmResetSettings(): void {
     },
     onBuild: $container => {
       $container.addClass("new-layout-popup vacation")
+      const btnConfirm = $container.find("[rel='btn-confirm']").get(0)
+      if (btnConfirm) {
+        btnConfirm.style.background =
+          "linear-gradient(211deg, #FA3341 0%, #FCBABA 100%)"
+        btnConfirm.style.boxShadow =
+          "inset 0 0 27px rgba(198, 9, 9, 0.55), 0 5px 4px 1px rgba(0, 0, 0, 0.1)"
+        btnConfirm.style.border = "2px solid #fff"
+      }
     },
   })
 }
