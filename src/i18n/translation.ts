@@ -144,6 +144,20 @@ export interface Translation {
       readonly note: string
     }
   }
+  readonly colour: {
+    readonly black: string
+    readonly blue: string
+    readonly cyan: string
+    readonly green: string
+    readonly grey: string
+    readonly magenta: string
+    readonly orange: string
+    readonly red: string
+    readonly rose: string
+    readonly violet: string
+    readonly white: string
+    readonly yellow: string
+  }
 }
 
 interface I18nCarousel {

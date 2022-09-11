@@ -176,6 +176,20 @@ export const en: Translation = {
       note: "Please note that the items added from the mall will not necessarily be available at the market.",
     },
   },
+  colour: {
+    black: "black",
+    blue: "blue",
+    cyan: "cyan",
+    green: "green",
+    grey: "grey",
+    magenta: "magenta",
+    orange: "orange",
+    red: "red",
+    rose: "rose",
+    violet: "violet",
+    white: "white",
+    yellow: "yellow",
+  },
 }
 
 Object.freeze(en)

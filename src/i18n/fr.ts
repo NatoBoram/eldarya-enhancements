@@ -178,6 +178,20 @@ export const fr: Translation = {
       note: "Prends note que les items ajoutés à partir de la boutique ne seront pas nécessairement disponibles au marché.",
     },
   },
+  colour: {
+    black: "noir",
+    blue: "bleu",
+    cyan: "cyan",
+    green: "vert",
+    grey: "gris",
+    magenta: "magenta",
+    orange: "orange",
+    red: "rouge",
+    rose: "rose",
+    violet: "violet",
+    white: "blanc",
+    yellow: "jaune",
+  },
 }
 
 Object.freeze(fr)
