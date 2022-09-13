@@ -4,7 +4,9 @@ import type {
 } from "../appearance/interfaces/favourite_outfit"
 import { Console } from "../console"
 import { Databases } from "./databases.enum"
-import { Fields } from "./fields.enum"
+import { FavouriteOutfitFields } from "./fields.enum"
+import type { ItemPalette } from "./item_palette"
+import { ItemPalettesFields } from "./item_palette"
 import { Tables } from "./tables.enum"
 
 class IndexedDB {
@@ -17,14 +19,33 @@ class IndexedDB {
     request.onupgradeneeded = function (this: IDBOpenDBRequest): void {
       const db: IDBDatabase = this.result
 
-      const objectStore = db.createObjectStore(Tables.favourite_outfits, {
+      // Favourite outfits
+
+      const favouriteStore = db.createObjectStore(Tables.favourite_outfits, {
         keyPath: "id",
         autoIncrement: true,
       })
 
-      objectStore.createIndex(Fields.blob, "blob", { unique: false })
-      objectStore.createIndex(Fields.items, "items", { unique: false })
-      objectStore.createIndex(Fields.name, "name", { unique: false })
+      favouriteStore.createIndex(FavouriteOutfitFields.blob, "blob", {
+        unique: false,
+      })
+      favouriteStore.createIndex(FavouriteOutfitFields.items, "items", {
+        unique: false,
+      })
+      favouriteStore.createIndex(FavouriteOutfitFields.name, "name", {
+        unique: false,
+      })
+
+      // Item palettes
+
+      const colorStore = db.createObjectStore(Tables.item_palettes, {
+        keyPath: "url",
+        autoIncrement: false,
+      })
+
+      colorStore.createIndex(ItemPalettesFields.palette, "palette", {
+        unique: false,
+      })
     }
     request.onerror = (): void =>
       Console.error("Error when opening the indexedDB", request.error)
@@ -135,6 +156,19 @@ class IndexedDB {
             url: URL.createObjectURL(favourite.blob),
           }))
         )
+    })
+  }
+
+  async addItemPalette(itemPalette: ItemPalette): Promise<ItemPalette> {
+    return new Promise((resolve, reject): void => {
+      if (!this.db) return reject()
+
+      const request = this.db
+        .transaction([Tables.item_palettes], "readwrite")
+        .objectStore(Tables.item_palettes)
+        .add(itemPalette)
+
+      request.onsuccess = (): void => resolve(itemPalette)
     })
   }
 }

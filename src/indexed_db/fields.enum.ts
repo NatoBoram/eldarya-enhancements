@@ -1,4 +1,4 @@
-export enum Fields {
+export enum FavouriteOutfitFields {
   blob = "blob",
   id = "id",
   items = "items",

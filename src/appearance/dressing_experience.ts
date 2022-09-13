@@ -1,9 +1,12 @@
 import type { Template } from "hogan.js"
 import { Console } from "../console"
+import { toWebFull } from "../eldarya_util"
 import { translate } from "../i18n/translate"
+import { quantizeUrl } from "../mcq/quantization"
 import { isEnum } from "../ts_util"
 import { loadFavourites } from "../ui/favourites"
 import { loadAppearanceUI } from "./appearance_ui"
+import { arrayToHsl, Colour } from "./colour"
 import {
   categoryContainerDataSet,
   categoryGroupDataSet,
@@ -194,6 +197,44 @@ async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
       // eslint-disable-next-line @typescript-eslint/no-implied-eval
       setTimeout(script.innerHTML, 0)
       await new Promise(resolve => setTimeout(resolve, 1))
+    }
+
+    const appearenceItems = Array.from(
+      appearanceItemsGroup.querySelectorAll<HTMLLIElement>("li.appearance-item")
+    )
+    for (let c = 0; c < appearenceItems.length; c++) {
+      const li = appearenceItems[c]
+      if (!li) continue
+
+      const appearanceItem = itemDataSet(li, appearanceGroup)
+      if (!appearanceItem?.icon) continue
+
+      const webFull = toWebFull(appearanceItem.icon)
+      const colours = await quantizeUrl(webFull, 1)
+      if (!colours) continue
+
+      const hsls = colours.map(arrayToHsl)
+      const set = new Set(hsls.map(hsl => Colour.findClosestHsl(hsl)))
+
+      const palHtml = [...set]
+        .slice(0, 2)
+        .map(swatch => {
+          const span = document.createElement("span")
+          span.textContent = "⬤"
+          // span.style.color = swatch
+          span.style.color = swatch.hexadecimal
+          span.title = swatch.name
+          return span.outerHTML
+        })
+        .join("\n")
+
+      const div = document.createElement("div")
+      div.innerHTML = palHtml
+      div.style.left = "2em"
+      div.style.position = "absolute"
+
+      li.insertAdjacentHTML("afterbegin", div.outerHTML)
+      appearenceItems[c] = li
     }
 
     const outerHTML = Array.from(

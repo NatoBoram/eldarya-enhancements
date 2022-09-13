@@ -1,5 +1,16 @@
+import { createCanvas, getCanvasColours } from "./canvas"
+import { createImage } from "./image"
+
 export type Colours = Uint8ClampedArray[]
 export type Colour = Uint8ClampedArray
+
+export async function getColoursFromUrl(
+  url: string
+): Promise<Colours | undefined> {
+  const image = await createImage(url)
+  const canvas = createCanvas(image)
+  return getCanvasColours(canvas, image)
+}
 
 export function getAverageColour(colours: Colours): Colour {
   let red = 0

@@ -2,7 +2,7 @@ import type { Colours } from "./colour"
 
 export function medianCut(colours: Colours): [Colours, Colours] | undefined {
   const index = findMaxRangeIndex(colours)
-  if (!index) return
+  if (index === undefined) return
 
   const first = sortByIndex(colours, index)
   const median = Math.round(first.length / 2)

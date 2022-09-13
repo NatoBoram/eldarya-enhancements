@@ -1,5 +1,4 @@
 import type { Colours } from "./colour"
-import { createImage } from "./image"
 
 export function createCanvas(image: HTMLImageElement): HTMLCanvasElement {
   const canvas = document.createElement("canvas")
@@ -7,13 +6,6 @@ export function createCanvas(image: HTMLImageElement): HTMLCanvasElement {
   canvas.height = image.height
   canvas.getContext("2d")?.drawImage(image, 0, 0)
   return canvas
-}
-
-export async function createCanvasFromUrl(
-  url: string
-): Promise<HTMLCanvasElement> {
-  const image = await createImage(url)
-  return createCanvas(image)
 }
 
 export function getCanvasData(
@@ -24,7 +16,17 @@ export function getCanvasData(
     .data
 }
 
-export function getCanvasColours(data: Uint8ClampedArray): Colours {
+export function getCanvasColours(
+  canvas: HTMLCanvasElement,
+  image: HTMLImageElement
+): Colours | undefined {
+  const data = getCanvasData(canvas, image)
+  if (!data) return
+
+  return getColoursFromData(data)
+}
+
+export function getColoursFromData(data: Uint8ClampedArray): Colours {
   const colours: Colours = []
 
   for (let c = 0; c < data.length; c += 4) {

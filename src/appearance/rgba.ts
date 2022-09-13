@@ -1,6 +1,6 @@
 export interface RGBA {
-  red: number
-  green: number
-  blue: number
-  alpha: number
+  readonly red: number
+  readonly green: number
+  readonly blue: number
+  readonly alpha: number
 }
