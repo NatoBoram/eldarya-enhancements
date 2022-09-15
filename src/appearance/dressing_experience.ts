@@ -6,7 +6,7 @@ import { quantizeUrl } from "../mcq/quantization"
 import { isEnum } from "../ts_util"
 import { loadFavourites } from "../ui/favourites"
 import { loadAppearanceUI } from "./appearance_ui"
-import { arrayToHsl, Colour } from "./colour"
+import { arrayToColorJsIo, Swatch } from "./colour"
 import {
   categoryContainerDataSet,
   categoryGroupDataSet,
@@ -213,15 +213,18 @@ async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
       const colours = await quantizeUrl(webFull, 1)
       if (!colours) continue
 
-      const hsls = colours.map(arrayToHsl)
-      const set = new Set(hsls.map(hsl => Colour.findClosestHsl(hsl)))
+      const calculable = colours.map(arrayToColorJsIo)
+      const set = new Set(calculable.map(c => Swatch.findClosestDelta(c)))
+
+      // const rgb = colours.map(arrayToRgb)
+      // const set = new Set(rgb)
 
       const palHtml = [...set]
         .slice(0, 2)
         .map(swatch => {
           const span = document.createElement("span")
           span.textContent = "⬤"
-          // span.style.color = swatch
+          // span.style.color = rgbaToHex(swatch)
           span.style.color = swatch.hexadecimal
           span.title = swatch.name
           return span.outerHTML

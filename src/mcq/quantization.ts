@@ -1,6 +1,6 @@
 import { createCanvas, getCanvasColours } from "./canvas"
+import type { Colours } from "./colour"
 import {
-  Colours,
   getAverageColour,
   getColoursFromUrl,
   removeTransparentColours,
