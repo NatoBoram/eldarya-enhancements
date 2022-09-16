@@ -216,18 +216,14 @@ async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
       const calculable = colours.map(arrayToColorJsIo)
       const set = new Set(calculable.map(c => Swatch.findClosestDelta(c)))
 
-      // const rgb = colours.map(arrayToRgb)
-      // const set = new Set(rgb)
-
       const palHtml = [...set]
         .slice(0, 2)
         .map(swatch => {
-          const span = document.createElement("span")
-          span.textContent = "⬤"
-          // span.style.color = rgbaToHex(swatch)
-          span.style.color = swatch.hexadecimal
-          span.title = swatch.name
-          return span.outerHTML
+          const swatchSpan = document.createElement("span")
+          swatchSpan.textContent = "⬤"
+          swatchSpan.style.color = swatch.hexadecimal
+          swatchSpan.title = swatch.name
+          return swatchSpan.outerHTML
         })
         .join("\n")
 

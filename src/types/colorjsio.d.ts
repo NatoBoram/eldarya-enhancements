@@ -38,18 +38,18 @@ declare module "colorjs.io" {
     deltaE(c2: Color, o?: string): number
     deltaE2000(
       color: Color,
-      sample: any,
+      sample?: any,
       { kL, kC, kH }?: { kL?: number; kC?: number; kH?: number }
     ): number
-    deltaE76(color: Color, sample: any): number
+    deltaE76(color: Color, sample?: any): number
     deltaECMC(
       color: Color,
-      sample: any,
+      sample?: any,
       { l, c }?: { l?: number; c?: number }
     ): number
-    deltaEITP(color: Color, sample: any): number
-    deltaEJz(color: Color, sample: any): number
-    deltaEOK(color: Color, sample: any): number
+    deltaEITP(color: Color, sample?: any): number
+    deltaEJz(color: Color, sample?: any): number
+    deltaEOK(color: Color, sample?: any): number
     display(...args: any[]): string
 
     /**

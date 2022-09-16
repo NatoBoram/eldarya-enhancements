@@ -1,47 +1,88 @@
 import Color from "colorjs.io"
 import { translate } from "../i18n/translate"
-import type { HSL } from "./hsl"
 import type { RGBA } from "./rgba"
 
 export class Swatch {
-  private static readonly black360 = new Swatch(
-    "#000000",
-    translate.colour.black,
-    1,
-    360
-  )
-  private static readonly grey360 = new Swatch(
-    "#808080",
-    translate.colour.grey,
-    1,
-    360
-  )
-  private static readonly red360 = new Swatch(
-    "#FF0000",
-    translate.colour.red,
-    1,
-    360
-  )
-  private static readonly white360 = new Swatch(
-    "#FFFFFF",
-    translate.colour.white,
-    1,
-    360
-  )
-
-  static readonly black = new Swatch("#000000", translate.colour.black, 2.7)
-  static readonly blue = new Swatch("#0000FF", translate.colour.blue)
-  static readonly brown = new Swatch("#804000", translate.colour.brown, 1.8)
-  static readonly cyan = new Swatch("#00FFFF", translate.colour.cyan, 1.1)
-  static readonly green = new Swatch("#00FF00", translate.colour.green, 0.7)
-  static readonly grey = new Swatch("#808080", translate.colour.grey, 3.4)
-  static readonly magenta = new Swatch("#FF00FF", translate.colour.magenta)
-  static readonly orange = new Swatch("#FF8000", translate.colour.orange)
-  static readonly red = new Swatch("#FF0000", translate.colour.red, 0.9)
-  static readonly rose = new Swatch("#FF0080", translate.colour.rose, 1.3)
-  static readonly violet = new Swatch("#8000FF", translate.colour.violet, 0.9)
-  static readonly white = new Swatch("#FFFFFF", translate.colour.white, 1.5)
-  static readonly yellow = new Swatch("#FFFF00", translate.colour.yellow)
+  static readonly black = new Swatch("#000000", translate.colour.black, [
+    "#18182A",
+    "#363433",
+    "#222A32",
+  ])
+  static readonly blue = new Swatch("#0000FF", translate.colour.blue, [
+    "#354466",
+    "#1A2656",
+  ])
+  static readonly brown = new Swatch("#804000", translate.colour.brown, [
+    "#87675D",
+    "#94797B",
+    "#562C27",
+    "#A19180",
+  ])
+  static readonly cyan = new Swatch("#00FFFF", translate.colour.cyan, [
+    "#20383E",
+    "#2D8D9D",
+    "#6E8797",
+    "#A3C1D2",
+  ])
+  static readonly green = new Swatch("#00FF00", translate.colour.green, [
+    "#1E6048",
+    "#284433",
+    "#538B5F",
+    "#648B76",
+    "#87A186",
+    "#DFF0B5",
+  ])
+  static readonly grey = new Swatch("#808080", translate.colour.grey, [
+    "#534E4C",
+    "#BBA8AC",
+    "#63697F",
+    "#979CBB",
+    "#89939E",
+    "#AFB3B2",
+    "#D8D2C9",
+    "#C1B8BC",
+    "#CBBDB5",
+    "#4D5062",
+    "#786C76",
+  ])
+  static readonly magenta = new Swatch("#FF00FF", translate.colour.magenta, [])
+  static readonly orange = new Swatch("#FF8000", translate.colour.orange, [
+    "#C69F8A",
+    "#C46857",
+  ])
+  static readonly red = new Swatch("#FF0000", translate.colour.red, ["#7C1515"])
+  static readonly rose = new Swatch("#FF0080", translate.colour.rose, [
+    "#9A6C79",
+    "#9B7D8F",
+    "#AB8398",
+    "#D3ADBA",
+    "#E1B9CC",
+    "#D4C2CA",
+    "#70264C",
+  ])
+  static readonly violet = new Swatch("#8000FF", translate.colour.violet, [
+    "#9685A7",
+    "#271A4F",
+    "#441151",
+    "#462850",
+    "#492C71",
+    "#846D9E",
+    "#E7D3FA",
+    "#B38AF9",
+    "#4800AE",
+    "#343054",
+  ])
+  static readonly white = new Swatch("#FFFFFF", translate.colour.white, [
+    "#C8D0DE",
+    "#D3D0EA",
+    "#C9C3CD",
+    "#F8E3E0",
+  ])
+  static readonly yellow = new Swatch("#FFFF00", translate.colour.yellow, [
+    "#F9ECD2",
+    "#F1E5A4",
+    "#8A8562",
+  ])
 
   private static readonly list = [
     Swatch.black,
@@ -59,67 +100,52 @@ export class Swatch {
     Swatch.yellow,
   ]
 
-  private static readonly listHsl = [
-    ...this.list,
-    Swatch.black360,
-    Swatch.grey360,
-    Swatch.red360,
-    Swatch.white360,
-  ]
-
   readonly colorjsio: Color
-  readonly hsl: HSL
+  readonly intermediaries: Color[]
   readonly rgba: RGBA
 
   private constructor(
     public readonly hexadecimal: string,
     public readonly name: string,
-    public readonly multiplier = 1,
-    hue?: number
+    intermediaries: string[]
   ) {
-    this.rgba = hexToRgba(hexadecimal)
-    const hsl = rgbaToHsl(this.rgba)
-    this.hsl = hue ? { ...hsl, hue } : hsl
     this.colorjsio = new Color(hexadecimal)
-  }
-
-  static findClosestHsl(hsl: HSL): Swatch {
-    return Swatch.getListHsl()
-      .sort((a, b) => hslDistance(a.hsl, hsl) - hslDistance(b.hsl, hsl))
-      .find(Boolean)!
+    this.intermediaries = intermediaries.map(i => new Color(i))
+    this.rgba = hexToRgba(hexadecimal)
   }
 
   static findClosestRgb(rgba: RGBA): Swatch {
     return Swatch.getList()
-      .sort(
-        (a, b) =>
-          rgbDistance(a.rgba, rgba) * a.multiplier -
-          rgbDistance(b.rgba, rgba) * b.multiplier
-      )
+      .sort((a, b) => rgbDistance(a.rgba, rgba) - rgbDistance(b.rgba, rgba))
       .find(Boolean)!
+  }
+
+  deltaE2000(colour: Color): number {
+    return [...this.intermediaries, this.colorjsio]
+      .sort((a, b) => colour.deltaE2000(a) - colour.deltaE2000(b))
+      .find(Boolean)!
+      .deltaE2000(colour)
   }
 
   static findClosestDelta(colour: Color): Swatch {
     return Swatch.getList()
-      .sort(
-        (a, b) =>
-          colour.deltaE(a.colorjsio) * a.multiplier -
-          colour.deltaE(b.colorjsio) * b.multiplier
-      )
+      .sort((a, b) => a.deltaE2000(colour) - b.deltaE2000(colour))
       .find(Boolean)!
   }
 
   static getList(): Swatch[] {
     return [...Swatch.list]
   }
-
-  static getListHsl(): Swatch[] {
-    return [...Swatch.listHsl]
-  }
 }
 
 export function rgbaToHex(rgba: RGBA): string {
   return `#${[rgba.red, rgba.green, rgba.blue, rgba.alpha]
+    .map(c => c.toString(16).padStart(2, "0"))
+    .join("")}`
+}
+
+export function rgbToHex(rgba: RGBA): string {
+  return `#${[rgba.red, rgba.green, rgba.blue]
     .map(c => c.toString(16).padStart(2, "0"))
     .join("")}`
 }
@@ -156,42 +182,6 @@ export function rgbDistance(first: RGBA, second: RGBA): number {
   }
 }
 
-function hslDistance(first: HSL, second: HSL): number {
-  return (
-    Math.pow(first.hue / 360 - second.hue / 360, 2) +
-    Math.pow(first.saturation - second.saturation, 2) +
-    Math.pow(first.light - second.light, 2)
-  )
-}
-
-/**
- * @see https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB
- * @see https://stackoverflow.com/a/54071699/5083247
- * @see https://jsfiddle.net/Lamik/ypqm2xdt/3
- */
-function rgbaToHsl(rgba: RGBA): HSL {
-  const red = rgba.red / 255
-  const green = rgba.green / 255
-  const blue = rgba.blue / 255
-
-  const max = Math.max(red, green, blue)
-  const min = Math.min(red, green, blue)
-  const range = max - min
-
-  let hue = 0
-  if (range) {
-    if (max === red) hue = 60 * (0 + (green - blue) / range)
-    if (max === green) hue = 60 * (2 + (blue - red) / range)
-    if (max === blue) hue = 60 * (4 + (red - green) / range)
-  }
-
-  const f = 1 - Math.abs(max + min - 1)
-  const saturation = f ? range / f : 0
-
-  const light = (max + min) / 2
-  return { hue: (hue < 0 ? hue + 360 : hue) % 360, saturation, light }
-}
-
 export function arrayToRgba(colour: Uint8ClampedArray): RGBA {
   return {
     red: colour[0] ?? 0,
@@ -208,14 +198,6 @@ export function arrayToRgb(colour: Uint8ClampedArray): RGBA {
     blue: colour[2] ?? 0,
     alpha: 255,
   }
-}
-
-export function arrayToHsl(colour: Uint8ClampedArray): HSL {
-  return rgbaToHsl(arrayToRgb(colour))
-}
-
-export function hslToString(hsl: HSL): string {
-  return `hsl(${hsl.hue}, ${hsl.saturation * 100}%, ${hsl.light * 100}%)`
 }
 
 export function arrayToColorJsIo(colour: Uint8ClampedArray): Color {
