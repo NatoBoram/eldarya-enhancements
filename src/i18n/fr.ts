@@ -179,6 +179,7 @@ export const fr: Translation = {
     },
   },
   colour: {
+    beige: "beige",
     black: "noir",
     blue: "bleu",
     brown: "brown",

@@ -145,6 +145,7 @@ export interface Translation {
     }
   }
   readonly colour: {
+    readonly beige: string
     readonly black: string
     readonly blue: string
     readonly brown: string

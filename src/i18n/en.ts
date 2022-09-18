@@ -177,6 +177,7 @@ export const en: Translation = {
     },
   },
   colour: {
+    beige: "beige",
     black: "black",
     blue: "blue",
     brown: "brown",
