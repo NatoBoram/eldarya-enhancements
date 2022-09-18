@@ -6,7 +6,7 @@ import { quantizeUrl } from "../mcq/quantization"
 import { isEnum } from "../ts_util"
 import { loadFavourites } from "../ui/favourites"
 import { loadAppearanceUI } from "./appearance_ui"
-import { arrayToColorJsIo, Swatch } from "./colour"
+import { arrayToColorJsIo, arrayToRgb, rgbToHex, Swatch } from "./colour"
 import {
   categoryContainerDataSet,
   categoryGroupDataSet,
@@ -213,17 +213,33 @@ async function handleGroups(categoryContainer: HTMLDivElement): Promise<void> {
       const colours = await quantizeUrl(webFull, 1)
       if (!colours) continue
 
-      const calculable = colours.map(arrayToColorJsIo)
-      const set = new Set(calculable.map(c => Swatch.findClosestDelta(c)))
+      const calculable = colours.map(c => ({
+        colorjsio: arrayToColorJsIo(c),
+        hex: rgbToHex(arrayToRgb(c)),
+      }))
+
+      const set = new Set(
+        calculable.map(c => ({
+          swatch: Swatch.findClosestDelta(c.colorjsio),
+          dominant: c.hex,
+        }))
+      )
 
       const palHtml = [...set]
         .slice(0, 2)
         .map(swatch => {
           const swatchSpan = document.createElement("span")
           swatchSpan.textContent = "⬤"
-          swatchSpan.style.color = swatch.hexadecimal
-          swatchSpan.title = swatch.name
-          return swatchSpan.outerHTML
+          swatchSpan.style.color = swatch.swatch.hexadecimal
+          swatchSpan.title = swatch.swatch.name
+
+          const dominantSpan = document.createElement("span")
+          dominantSpan.textContent = "■"
+          dominantSpan.style.color = swatch.dominant
+          dominantSpan.title = swatch.dominant
+          dominantSpan.style.fontSize = "1.5em"
+
+          return [swatchSpan.outerHTML, dominantSpan.outerHTML].join("\n")
         })
         .join("\n")
 
