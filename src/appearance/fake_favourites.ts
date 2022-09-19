@@ -32,15 +32,17 @@ async function showOutfit(): Promise<FavouriteOutfit | null> {
           document.querySelector<HTMLButtonElement>('[rel="btn-save"]')
         if (!saveButton) return
 
-        document
-          .querySelector<HTMLInputElement>("#choose-name")
-          ?.addEventListener("keyup", event => {
-            if (event.key === "Enter") saveButton.click()
+        const input = document.querySelector<HTMLInputElement>("#choose-name")
+        if (!input) return
 
-            if (document.querySelector<HTMLInputElement>("#choose-name")?.value)
-              saveButton.classList.remove("disabled")
-            else saveButton.classList.add("disabled")
-          })
+        // Disable button when invalid input
+        input.addEventListener("keyup", event => {
+          if (event.key === "Enter") saveButton.click()
+
+          if (document.querySelector<HTMLInputElement>("#choose-name")?.value)
+            saveButton.classList.remove("disabled")
+          else saveButton.classList.add("disabled")
+        })
 
         saveButton.classList.add("nl-button", "nl-button-lg", "disabled")
       },

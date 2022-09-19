@@ -69,7 +69,7 @@ export const fr: Translation = {
         placeholder: "Nom...",
         save: "Sauvegarder",
         saved_locally: `Prends note que cette tenue sera sauvegardée localement dans les paramètres d'<strong>${GM.info.script.name}</strong> et ne sera pas envoyée aux serveurs d'Eldarya.`,
-        title: "Sauvegarder cette tenue",
+        title: "Sauvegarder cette&nbsp;tenue",
       },
     },
     loaded: "Le chargement de la garde-robe est terminé.",
