@@ -37,7 +37,8 @@ export function downloadFace(): void {
     return
   }
 
-  downloadCanvas(canvas, "face")
+  const name = getName() ?? "guardian"
+  downloadCanvas(canvas, `${name}-face`)
 }
 
 export function downloadGuardian(): void {
@@ -61,7 +62,7 @@ export function downloadAppearance(): void {
     return
   }
 
-  downloadCanvas(canvas, getName() ?? "guardian")
+  downloadCanvas(canvas, "outfit")
 }
 
 export function downloadProfile(): void {
