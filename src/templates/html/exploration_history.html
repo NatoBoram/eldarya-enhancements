@@ -1,175 +1,175 @@
 <div id="history-container" style="width: 100%">
-  <style>
-    .history-actions {
-      margin-bottom: 1em;
-    }
+	<style>
+		.history-actions {
+			margin-bottom: 1em;
+		}
 
-    #delete-history {
-      margin-right: 1em;
-    }
+		#delete-history {
+			margin-right: 1em;
+		}
 
-    .help-icon {
-      background-color: #0291f6;
-      border-radius: 50%;
-      box-shadow: none;
-      color: #fff;
-      font-size: 26px;
-      font-weight: bold;
-      height: 23px;
-      line-height: 20px;
-      padding: 0;
-      text-align: center;
-      width: 23px;
-    }
+		.help-icon {
+			background-color: #0291f6;
+			border-radius: 50%;
+			box-shadow: none;
+			color: #fff;
+			font-size: 26px;
+			font-weight: bold;
+			height: 23px;
+			line-height: 20px;
+			padding: 0;
+			text-align: center;
+			width: 23px;
+		}
 
-    .history-message {
-      background-color: rgba(255, 255, 255, 0.7);
-      border-radius: 1em;
-      margin: 1em;
-      padding: 1em;
-    }
+		.history-message {
+			background-color: rgba(255, 255, 255, 0.7);
+			border-radius: 1em;
+			margin: 1em;
+			padding: 1em;
+		}
 
-    .history-row {
-      display: flex;
-      flex-wrap: wrap;
-      height: 465px;
-      margin-right: 1em;
-      overflow-y: auto;
-      scrollbar-color: dark;
-      scrollbar-width: thin;
-    }
+		.history-row {
+			display: flex;
+			flex-wrap: wrap;
+			height: 465px;
+			margin-right: 1em;
+			overflow-y: auto;
+			scrollbar-color: dark;
+			scrollbar-width: thin;
+		}
 
-    .result-card {
-      background-color: white;
-      border-radius: 1em;
-      box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
-      height: 205px;
-      margin: 0.5em;
-      padding: 0.5em;
-      text-align: center;
-      width: 128px;
-    }
+		.result-card {
+			background-color: white;
+			border-radius: 1em;
+			box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+			height: 205px;
+			margin: 0.5em;
+			padding: 0.5em;
+			text-align: center;
+			width: 128px;
+		}
 
-    .result-image {
-      background-color: white;
-      border-radius: 1em;
-      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.12),
-        0 2px 4px 2px rgba(0, 0, 0, 0.08);
-      height: 100px;
-      position: relative;
-      top: -0.8em;
-      width: 100px;
-    }
+		.result-image {
+			background-color: white;
+			border-radius: 1em;
+			box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.12),
+				0 2px 4px 2px rgba(0, 0, 0, 0.08);
+			height: 100px;
+			position: relative;
+			top: -0.8em;
+			width: 100px;
+		}
 
-    .result-content-column {
-      display: flex;
-      flex-direction: column;
-      height: 103px;
-      justify-content: space-between;
-    }
+		.result-content-column {
+			display: flex;
+			flex-direction: column;
+			height: 103px;
+			justify-content: space-between;
+		}
 
-    .result-name {
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
-      color: rgb(52, 56, 111);
-      display: -webkit-box;
-      flex-grow: 1;
-      font-size: 16px;
-      font-weight: bold;
-      margin-top: -0.2em;
-      overflow: hidden;
-    }
+		.result-name {
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 3;
+			color: rgb(52, 56, 111);
+			display: -webkit-box;
+			flex-grow: 1;
+			font-size: 16px;
+			font-weight: bold;
+			margin-top: -0.2em;
+			overflow: hidden;
+		}
 
-    .result-location {
-    }
+		.result-location {
+		}
 
-    .result-date {
-      color: #fb8900;
-      font-size: 13px;
-      font-weight: bold;
-    }
+		.result-date {
+			color: #fb8900;
+			font-size: 13px;
+			font-weight: bold;
+		}
 
-    .result-icons {
-      margin-top: 0.5em;
-    }
+		.result-icons {
+			margin-top: 0.5em;
+		}
 
-    .result-count {
-      background: #ffffff;
-      border-radius: 100%;
-      border: 1px solid #00cdfb;
-      box-sizing: border-box;
-      color: #3ec0d7;
-      display: inline-block;
-      font-family: "Alegreya Sans SC", sans-serif;
-      font-size: 18px;
-      font-weight: 800;
-      height: 29px;
-      line-height: 27px;
-      text-align: center;
-      user-select: none;
-      width: 29px;
-    }
+		.result-count {
+			background: #ffffff;
+			border-radius: 100%;
+			border: 1px solid #00cdfb;
+			box-sizing: border-box;
+			color: #3ec0d7;
+			display: inline-block;
+			font-family: "Alegreya Sans SC", sans-serif;
+			font-size: 18px;
+			font-weight: 800;
+			height: 29px;
+			line-height: 27px;
+			text-align: center;
+			user-select: none;
+			width: 29px;
+		}
 
-    .history-tradable {
-      background-color: #666;
-      border-radius: 25px;
-      border: 1px solid #b9b9b9;
-      color: #ffffff;
-      display: inline-block;
-      font-family: "Temp Menu", serif;
-      font-size: 13px;
-      height: 15px;
-      line-height: 15px;
-      text-align: center;
-      width: 15px;
-    }
+		.history-tradable {
+			background-color: #666;
+			border-radius: 25px;
+			border: 1px solid #b9b9b9;
+			color: #ffffff;
+			display: inline-block;
+			font-family: "Temp Menu", serif;
+			font-size: 13px;
+			height: 15px;
+			line-height: 15px;
+			text-align: center;
+			width: 15px;
+		}
 
-    .icon-spacer {
-      display: inline-block;
-      width: 0.1em;
-    }
-  </style>
+		.icon-spacer {
+			display: inline-block;
+			width: 0.1em;
+		}
+	</style>
 
-  <div class="history-actions">
-    <button id="delete-history" class="nl-button">
-      {{translate.pet.delete_history}}
-    </button>
+	<div class="history-actions">
+		<button id="delete-history" class="nl-button">
+			{{translate.pet.delete_history}}
+		</button>
 
-    <span class="tooltip">
-      <span class="nl-button help-icon">?</span>
-      <div class="tooltip-content">
-        <p>{{{translate.pet.saved_locally}}}</p>
-        <p>{{{translate.pet.goto_account}}}</p>
-      </div>
-    </span>
-  </div>
+		<span class="tooltip">
+			<span class="nl-button help-icon">?</span>
+			<div class="tooltip-content">
+				<p>{{{translate.pet.saved_locally}}}</p>
+				<p>{{{translate.pet.goto_account}}}</p>
+			</div>
+		</span>
+	</div>
 
-  {{^history}}
-  <p class="history-message">{{translate.pet.empty_history}}</p>
-  {{/history}}
+	{{^history}}
+	<p class="history-message">{{translate.pet.empty_history}}</p>
+	{{/history}}
 
-  <div class="history-row">
-    {{#history}}
-    <div class="result-card">
-      <a href="{{web_hd}}" target="_blank">
-        <img class="result-image" src="{{icon}}" />
-      </a>
+	<div class="history-row">
+		{{#history}}
+		<div class="result-card">
+			<a href="{{web_hd}}" target="_blank">
+				<img class="result-image" src="{{icon}}" />
+			</a>
 
-      <div class="result-content-column">
-        <div class="result-name">{{name}}</div>
-        <div class="result-location">{{locationName}}</div>
-        <div class="result-date">{{date}}</div>
+			<div class="result-content-column">
+				<div class="result-name">{{name}}</div>
+				<div class="result-location">{{locationName}}</div>
+				<div class="result-date">{{date}}</div>
 
-        <div class="result-icons">
-          {{#count}}<span class="result-count">{{count}}</span>{{/count}}
-          {{#count}}{{#tradable}}
-          <div class="icon-spacer"></div>
-          {{/tradable}}{{/count}} {{#tradable}}<span class="history-tradable"
-            ></span
-          >{{/tradable}}
-        </div>
-      </div>
-    </div>
-    {{/history}}
-  </div>
+				<div class="result-icons">
+					{{#count}}<span class="result-count">{{count}}</span>{{/count}}
+					{{#count}}{{#tradable}}
+					<div class="icon-spacer"></div>
+					{{/tradable}}{{/count}} {{#tradable}}<span class="history-tradable"
+						></span
+					>{{/tradable}}
+				</div>
+			</div>
+		</div>
+		{{/history}}
+	</div>
 </div>

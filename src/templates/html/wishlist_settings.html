@@ -1,119 +1,119 @@
 <style>
-  .reset-all {
-    margin-bottom: 1em;
-  }
+	.reset-all {
+		margin-bottom: 1em;
+	}
 
-  table {
-    text-align: center;
-    width: 100%;
-  }
+	table {
+		text-align: center;
+		width: 100%;
+	}
 
-  .text-padding {
-    padding: 0.25em;
-  }
+	.text-padding {
+		padding: 0.25em;
+	}
 
-  .action-picto {
-    height: 50px;
-    width: 50px;
-    cursor: pointer;
-  }
+	.action-picto {
+		height: 50px;
+		width: 50px;
+		cursor: pointer;
+	}
 
-  .action-picto:hover:not(.disabled),
-  .edit-price:hover {
-    animation: button-bounce 300ms linear forwards;
-    filter: brightness(1.05) contrast(1.1);
-  }
+	.action-picto:hover:not(.disabled),
+	.edit-price:hover {
+		animation: button-bounce 300ms linear forwards;
+		filter: brightness(1.05) contrast(1.1);
+	}
 
-  .row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+	.row {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
-  .edit-price {
-    cursor: pointer;
-  }
+	.edit-price {
+		cursor: pointer;
+	}
 
-  img.disabled {
-    filter: grayscale(1);
-  }
+	img.disabled {
+		filter: grayscale(1);
+	}
 
-  .item-icon-container {
-    display: inline-block;
-    position: relative;
-  }
+	.item-icon-container {
+		display: inline-block;
+		position: relative;
+	}
 
-  .item-icon {
-    width: 100px;
-    height: 100px;
-  }
+	.item-icon {
+		width: 100px;
+		height: 100px;
+	}
 </style>
 
 <button class="nl-button reset-all">
-  {{translate.market.wishlist.reset_all}}
+	{{translate.market.wishlist.reset_all}}
 </button>
 
 <table>
-  <thead>
-    <tr>
-      <th>{{translate.market.wishlist.icon}}</th>
-      <th>{{translate.market.wishlist.name}}</th>
-      <th>{{translate.market.wishlist.price}}</th>
-      <th>{{translate.market.wishlist.status}}</th>
-      <th>{{translate.market.wishlist.actions}}</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#wishlist}}
-    <tr class="marketplace-abstract" data-icon="{{icon}}">
-      <!-- Icon -->
-      <td>
-        <div class="item-icon-container">
-          <img class="item-icon" src="{{icon}}" alt="{{name}}" />
-          <div class="rarity-marker-{{rarity}}"></div>
-        </div>
-      </td>
+	<thead>
+		<tr>
+			<th>{{translate.market.wishlist.icon}}</th>
+			<th>{{translate.market.wishlist.name}}</th>
+			<th>{{translate.market.wishlist.price}}</th>
+			<th>{{translate.market.wishlist.status}}</th>
+			<th>{{translate.market.wishlist.actions}}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#wishlist}}
+		<tr class="marketplace-abstract" data-icon="{{icon}}">
+			<!-- Icon -->
+			<td>
+				<div class="item-icon-container">
+					<img class="item-icon" src="{{icon}}" alt="{{name}}" />
+					<div class="rarity-marker-{{rarity}}"></div>
+				</div>
+			</td>
 
-      <!-- Name -->
-      <td class="text-padding">
-        <div class="abstract-name">{{name}}</div>
-        <div class="abstract-type">{{abstractType}}</div>
-      </td>
+			<!-- Name -->
+			<td class="text-padding">
+				<div class="abstract-name">{{name}}</div>
+				<div class="abstract-type">{{abstractType}}</div>
+			</td>
 
-      <!-- Price -->
-      <td class="text-padding">
-        <div
-          class="edit-price row"
-          title="{{translate.market.wishlist.change_price}}"
-        >
-          <span class="price-item">{{price}}</span>
-          <span class="maana-icon" alt="maanas"></span>
-        </div>
-      </td>
+			<!-- Price -->
+			<td class="text-padding">
+				<div
+					class="edit-price row"
+					title="{{translate.market.wishlist.change_price}}"
+				>
+					<span class="price-item">{{price}}</span>
+					<span class="maana-icon" alt="maanas"></span>
+				</div>
+			</td>
 
-      <!-- Error -->
-      <td class="text-padding">
-        <p class="error">{{error}}</p>
-      </td>
+			<!-- Error -->
+			<td class="text-padding">
+				<p class="error">{{error}}</p>
+			</td>
 
-      <!-- Actions -->
-      <td>
-        <div class="row">
-          <img
-            class="action-picto reset-item-status {{^error}}disabled{{/error}}"
-            src="/static/img/new-layout/wardrobe/reset-btn.png"
-            title="{{translate.market.wishlist.reset_tooltip}}"
-            alt="{{translate.market.wishlist.reset}}"
-          />
-          <img
-            class="action-picto delete-wishlist-item"
-            src="/static/img/new-layout/wardrobe/delete.png"
-            title="{{translate.market.wishlist.delete_tooltip}}"
-            alt="{{translate.market.wishlist.delete}}"
-          />
-        </div>
-      </td>
-    </tr>
-    {{/wishlist}}
-  </tbody>
+			<!-- Actions -->
+			<td>
+				<div class="row">
+					<img
+						class="action-picto reset-item-status {{^error}}disabled{{/error}}"
+						src="/static/img/new-layout/wardrobe/reset-btn.png"
+						title="{{translate.market.wishlist.reset_tooltip}}"
+						alt="{{translate.market.wishlist.reset}}"
+					/>
+					<img
+						class="action-picto delete-wishlist-item"
+						src="/static/img/new-layout/wardrobe/delete.png"
+						title="{{translate.market.wishlist.delete_tooltip}}"
+						alt="{{translate.market.wishlist.delete}}"
+					/>
+				</div>
+			</td>
+		</tr>
+		{{/wishlist}}
+	</tbody>
 </table>

@@ -1,3 +1,3 @@
 export interface BuyNowPrice {
-  price: string
+	price: string
 }

@@ -11,34 +11,34 @@ import { Type } from "../marketplace/enums/type.enum"
  * @param page Page of the object to be displayed
  */
 export async function ajaxPurchases(
-  type = Type.All,
-  bodyLocation = BodyLocation.All,
-  category = CategoryString.all,
-  page = 1
+	type = Type.All,
+	bodyLocation = BodyLocation.All,
+	category = CategoryString.all,
+	page = 1,
 ): Promise<Packet<AjaxPurchasesData>> {
-  const ITEMS_PER_PAGE = 4
+	const ITEMS_PER_PAGE = 4
 
-  return new Promise<Packet<AjaxPurchasesData>>(resolve => {
-    void $.ajax({
-      url: "/marketplace/ajax_purchases",
-      type: "post",
-      data: {
-        type: type,
-        bodyLocation: bodyLocation,
-        category: category,
-        from: (page - 1) * ITEMS_PER_PAGE,
-        to: page * ITEMS_PER_PAGE - 1,
-      },
-      dataType: "json",
-      success: (json: Packet<AjaxPurchasesData>): void => {
-        LocalStorage.meta = json.meta
-        resolve(json)
+	return new Promise<Packet<AjaxPurchasesData>>(resolve => {
+		void $.ajax({
+			url: "/marketplace/ajax_purchases",
+			type: "post",
+			data: {
+				type: type,
+				bodyLocation: bodyLocation,
+				category: category,
+				from: (page - 1) * ITEMS_PER_PAGE,
+				to: page * ITEMS_PER_PAGE - 1,
+			},
+			dataType: "json",
+			success: (json: Packet<AjaxPurchasesData>): void => {
+				LocalStorage.meta = json.meta
+				resolve(json)
 
-        if (json.result !== "success") {
-          $.flavrNotif(json.data)
-          return
-        }
-      },
-    })
-  })
+				if (json.result !== "success") {
+					$.flavrNotif(json.data)
+					return
+				}
+			},
+		})
+	})
 }

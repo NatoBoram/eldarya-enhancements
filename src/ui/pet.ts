@@ -6,60 +6,60 @@ import { loadMassMark } from "../pet/mass_mark"
 let petObserver: MutationObserver | null
 
 function loadExplorations(): void {
-  petObserver?.disconnect()
-  petObserver = null
+	petObserver?.disconnect()
+	petObserver = null
 
-  /** `.page-main-container` changes background depending on the currently selected region. */
-  const mainContainer = document.querySelector<HTMLDivElement>(
-    ".page-main-container"
-  )
-  if (!mainContainer) return
+	/** `.page-main-container` changes background depending on the currently selected region. */
+	const mainContainer = document.querySelector<HTMLDivElement>(
+		".page-main-container",
+	)
+	if (!mainContainer) return
 
-  petObserver = new MutationObserver(loadExplorations)
-  petObserver.observe(mainContainer, {
-    attributes: true,
-  })
+	petObserver = new MutationObserver(loadExplorations)
+	petObserver.observe(mainContainer, {
+		attributes: true,
+	})
 
-  loadMarkers()
+	loadMarkers()
 }
 
 export function loadPet(): void {
-  if (location.pathname !== "/pet") return
-  extendRightContainer()
-  createButtonRow()
+	if (location.pathname !== "/pet") return
+	extendRightContainer()
+	createButtonRow()
 
-  loadExplorations()
-  loadExplorationHistory()
-  loadMassMark()
+	loadExplorations()
+	loadExplorationHistory()
+	loadMassMark()
 }
 
 function createButtonRow(): void {
-  const closeExplorationButton = document.querySelector<HTMLAnchorElement>(
-    "#close-treasure-hunt-interface"
-  )
-  if (!closeExplorationButton)
-    return Console.error("Couldn't find #close-treasure-hunt-interface.")
+	const closeExplorationButton = document.querySelector<HTMLAnchorElement>(
+		"#close-treasure-hunt-interface",
+	)
+	if (!closeExplorationButton)
+		return Console.error("Couldn't find #close-treasure-hunt-interface.")
 
-  closeExplorationButton.style.display = "inline-block"
-  closeExplorationButton.style.marginRight = "0.6em"
-  closeExplorationButton.style.position = "relative"
-  closeExplorationButton.style.right = "0"
-  closeExplorationButton.style.top = "0"
-  closeExplorationButton.addEventListener("click", onClickPet)
+	closeExplorationButton.style.display = "inline-block"
+	closeExplorationButton.style.marginRight = "0.6em"
+	closeExplorationButton.style.position = "relative"
+	closeExplorationButton.style.right = "0"
+	closeExplorationButton.style.top = "0"
+	closeExplorationButton.addEventListener("click", onClickPet)
 
-  const row = document.createElement("div")
-  row.id = "ee-buttons-row"
-  row.insertAdjacentElement("beforeend", closeExplorationButton)
+	const row = document.createElement("div")
+	row.id = "ee-buttons-row"
+	row.insertAdjacentElement("beforeend", closeExplorationButton)
 
-  document
-    .querySelector<HTMLDivElement>("#right-container-inner")
-    ?.insertAdjacentElement("afterbegin", row)
+	document
+		.querySelector<HTMLDivElement>("#right-container-inner")
+		?.insertAdjacentElement("afterbegin", row)
 }
 
 function extendRightContainer(): void {
-  const rightContainer = document.getElementById("right-container")
-  if (!rightContainer)
-    return Console.warn("Couldn't find #right-container", rightContainer)
+	const rightContainer = document.getElementById("right-container")
+	if (!rightContainer)
+		return Console.warn("Couldn't find #right-container", rightContainer)
 
-  rightContainer.style.height = "40em"
+	rightContainer.style.height = "40em"
 }

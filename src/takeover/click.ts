@@ -2,48 +2,48 @@
  * for its potential animations.
  */
 export async function click<T extends HTMLElement>(
-  selector: string
+	selector: string,
 ): Promise<T> {
-  return new Promise<T>(resolve => {
-    const interval = setInterval(() => {
-      const element = document.querySelector<T>(selector)
-      if (!element) return
-      clearInterval(interval)
-      void clickElement(element).then(() => resolve(element))
-    }, 800)
-  })
+	return new Promise<T>(resolve => {
+		const interval = setInterval(() => {
+			const element = document.querySelector<T>(selector)
+			if (!element) return
+			clearInterval(interval)
+			void clickElement(element).then(() => resolve(element))
+		}, 800)
+	})
 }
 
 /** Click on an element after hovering it and waiting for possible
  * animations.
  */
 export async function clickElement(element: HTMLElement): Promise<void> {
-  return new Promise<void>(resolve => {
-    // Some elements don't have their click handlers ready until they're
-    // hovered.
-    const mouseEvent = document.createEvent("MouseEvent")
-    mouseEvent.initEvent("mouseover")
-    element.dispatchEvent(mouseEvent)
+	return new Promise<void>(resolve => {
+		// Some elements don't have their click handlers ready until they're
+		// hovered.
+		const mouseEvent = document.createEvent("MouseEvent")
+		mouseEvent.initEvent("mouseover")
+		element.dispatchEvent(mouseEvent)
 
-    setTimeout(() => {
-      element.click()
-      resolve()
-    }, 800)
-  })
+		setTimeout(() => {
+			element.click()
+			resolve()
+		}, 800)
+	})
 }
 
 export async function wait<T extends HTMLElement>(
-  selector: string
+	selector: string,
 ): Promise<T> {
-  return new Promise<T>(resolve => {
-    const interval = setInterval(() => {
-      const element = document.querySelector<T>(selector)
-      if (!element) return
+	return new Promise<T>(resolve => {
+		const interval = setInterval(() => {
+			const element = document.querySelector<T>(selector)
+			if (!element) return
 
-      clearInterval(interval)
-      resolve(element)
-    }, 800)
-  })
+			clearInterval(interval)
+			resolve(element)
+		}, 800)
+	})
 }
 
 /**
@@ -56,29 +56,29 @@ export async function wait<T extends HTMLElement>(
  * `selector` or `null` after the `timeout` delay.
  */
 export async function waitObserve<T extends HTMLElement>(
-  container: Element,
-  selector: string,
-  ms = 2000
+	container: Element,
+	selector: string,
+	ms = 2000,
 ): Promise<T | null> {
-  const promise = new Promise<T | null>(resolve => {
-    const observer = new MutationObserver(
-      (_mutations: MutationRecord[], observer: MutationObserver) =>
-        setTimeout(() => {
-          const element = container.querySelector<T>(selector)
-          if (element) {
-            observer.disconnect()
-            resolve(element)
-          }
-        }, 1)
-    )
+	const promise = new Promise<T | null>(resolve => {
+		const observer = new MutationObserver(
+			(_mutations: MutationRecord[], observer: MutationObserver) =>
+				setTimeout(() => {
+					const element = container.querySelector<T>(selector)
+					if (element) {
+						observer.disconnect()
+						resolve(element)
+					}
+				}, 1),
+		)
 
-    observer.observe(container, { childList: true })
+		observer.observe(container, { childList: true })
 
-    setTimeout(() => {
-      observer.disconnect()
-      resolve(container.querySelector<T>(selector))
-    }, ms)
-  })
+		setTimeout(() => {
+			observer.disconnect()
+			resolve(container.querySelector<T>(selector))
+		}, ms)
+	})
 
-  return promise
+	return promise
 }
