@@ -1,147 +1,147 @@
 <style>
-  /* #marketplace-abstract-purchases and #marketplace-abstract-sales were
+	/* #marketplace-abstract-purchases and #marketplace-abstract-sales were
   re-written to target #purchase-history and #sale-history. */
 
-  #purchase-history,
-  #sale-history {
-    height: 600px;
-    position: relative;
-    width: 360px;
-    display: inline-block;
-    vertical-align: top;
-  }
+	#purchase-history,
+	#sale-history {
+		height: 600px;
+		position: relative;
+		width: 360px;
+		display: inline-block;
+		vertical-align: top;
+	}
 
-  #sale-history .abstract-actions,
-  #purchase-history .abstract-actions {
-    position: relative;
-    top: -40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: 80px;
-  }
+	#sale-history .abstract-actions,
+	#purchase-history .abstract-actions {
+		position: relative;
+		top: -40px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-evenly;
+		height: 80px;
+	}
 
-  #sale-history .abstract-time,
-  #purchase-history .abstract-time {
-    position: static;
-    display: inline;
-    height: auto;
-    color: #fb8900;
-    font-weight: bold;
-    font-size: 13px;
-  }
+	#sale-history .abstract-time,
+	#purchase-history .abstract-time {
+		position: static;
+		display: inline;
+		height: auto;
+		color: #fb8900;
+		font-weight: bold;
+		font-size: 13px;
+	}
 
-  #purchase-history {
-    margin-right: 80px;
-  }
+	#purchase-history {
+		margin-right: 80px;
+	}
 
-  #purchase-history:before {
-    content: "";
-    position: absolute;
-    top: 120px;
-    right: -42px;
-    border-right: solid 2px #aaa;
-    height: 320px;
-  }
+	#purchase-history:before {
+		content: "";
+		position: absolute;
+		top: 120px;
+		right: -42px;
+		border-right: solid 2px #aaa;
+		height: 320px;
+	}
 
-  /* Custom fixes to the layout */
+	/* Custom fixes to the layout */
 
-  #purchase-history li {
-    margin-left: 4px;
-    margin-right: 4px;
-  }
+	#purchase-history li {
+		margin-left: 4px;
+		margin-right: 4px;
+	}
 </style>
 
 <!-- Purchases -->
 <div class="marketplace-abstract" id="purchase-history">
-  <h2 class="section-subtitle">
-    {{translate.market.auctions.purchase_history}}
-  </h2>
+	<h2 class="section-subtitle">
+		{{translate.market.auctions.purchase_history}}
+	</h2>
 
-  <ul>
-    {{#purchases}}
-    <li
-      data-itemid="{{itemid}}"
-      class="marketplace-abstract marketplace-auctions-item marketplace-sales-item"
-    >
-      <!-- Icon -->
-      <div class="abstract-icon">
-        <img src="{{icon}}" />
-      </div>
+	<ul>
+		{{#purchases}}
+		<li
+			data-itemid="{{itemid}}"
+			class="marketplace-abstract marketplace-auctions-item marketplace-sales-item"
+		>
+			<!-- Icon -->
+			<div class="abstract-icon">
+				<img src="{{icon}}" />
+			</div>
 
-      <!-- Prices -->
-      <div class="abstract-container">
-        <div class="abstract-name">{{name}}</div>
-        <div class="abstract-content">
-          <div class="abstract-currentPrice">
-            {{#currentPrice}} {{translate.market.auctions.current_price}}
-            <span class="price-item">{{currentPrice.price}}</span>
-            <span class="maana-icon"></span>
-            {{/currentPrice}}
-            <br />
-            {{#buyNowPrice}} {{translate.market.auctions.buy_now_price}}
-            <span class="price-item">{{buyNowPrice.price}}</span>
-            <span class="maana-icon"></span>
-            {{/buyNowPrice}}
-          </div>
-        </div>
-      </div>
+			<!-- Prices -->
+			<div class="abstract-container">
+				<div class="abstract-name">{{name}}</div>
+				<div class="abstract-content">
+					<div class="abstract-currentPrice">
+						{{#currentPrice}} {{translate.market.auctions.current_price}}
+						<span class="price-item">{{currentPrice.price}}</span>
+						<span class="maana-icon"></span>
+						{{/currentPrice}}
+						<br />
+						{{#buyNowPrice}} {{translate.market.auctions.buy_now_price}}
+						<span class="price-item">{{buyNowPrice.price}}</span>
+						<span class="maana-icon"></span>
+						{{/buyNowPrice}}
+					</div>
+				</div>
+			</div>
 
-      <!-- Actions -->
-      <div class="abstract-actions">
-        <div class="abstract-time">{{date}}</div>
-        <div
-          class="nl-button nl-button-sm marketplace-itemDetail-cancel delete-button"
-          data-itemid="{{itemid}}"
-        >
-          {{translate.market.auctions.delete}}
-        </div>
-      </div>
-    </li>
-    {{/purchases}}
-  </ul>
+			<!-- Actions -->
+			<div class="abstract-actions">
+				<div class="abstract-time">{{date}}</div>
+				<div
+					class="nl-button nl-button-sm marketplace-itemDetail-cancel delete-button"
+					data-itemid="{{itemid}}"
+				>
+					{{translate.market.auctions.delete}}
+				</div>
+			</div>
+		</li>
+		{{/purchases}}
+	</ul>
 </div>
 
 <!-- Sales -->
 <div class="marketplace-abstract" id="sale-history">
-  <h2 class="section-subtitle">{{translate.market.auctions.sales_history}}</h2>
+	<h2 class="section-subtitle">{{translate.market.auctions.sales_history}}</h2>
 
-  <ul>
-    {{#sales}}
-    <li class="marketplace-abstract marketplace-sales-item">
-      <!-- Icon -->
-      <div class="abstract-icon">
-        <img src="{{icon}}" />
-      </div>
+	<ul>
+		{{#sales}}
+		<li class="marketplace-abstract marketplace-sales-item">
+			<!-- Icon -->
+			<div class="abstract-icon">
+				<img src="{{icon}}" />
+			</div>
 
-      <!-- Prices -->
-      <div class="abstract-container">
-        <div class="abstract-name">{{name}}</div>
-        <div class="abstract-content">
-          <div class="abstract-currentPrice">
-            {{#currentPrice}} {{translate.market.auctions.current_price}}
-            <span class="price-item">{{currentPrice}}</span>
-            <span class="maana-icon"></span>
-            {{/currentPrice}}
-            <br />
-            {{#buyNowPrice}} {{translate.market.auctions.buy_now_price}}
-            <span class="price-item">{{buyNowPrice}}</span>
-            <span class="maana-icon"></span>
-            {{/buyNowPrice}}
-          </div>
-        </div>
-      </div>
+			<!-- Prices -->
+			<div class="abstract-container">
+				<div class="abstract-name">{{name}}</div>
+				<div class="abstract-content">
+					<div class="abstract-currentPrice">
+						{{#currentPrice}} {{translate.market.auctions.current_price}}
+						<span class="price-item">{{currentPrice}}</span>
+						<span class="maana-icon"></span>
+						{{/currentPrice}}
+						<br />
+						{{#buyNowPrice}} {{translate.market.auctions.buy_now_price}}
+						<span class="price-item">{{buyNowPrice}}</span>
+						<span class="maana-icon"></span>
+						{{/buyNowPrice}}
+					</div>
+				</div>
+			</div>
 
-      <!-- Actions -->
-      <div class="abstract-actions">
-        <div class="abstract-time">{{date}}</div>
-        <div
-          class="nl-button nl-button-sm marketplace-itemDetail-cancel delete-button"
-        >
-          {{translate.market.auctions.delete}}
-        </div>
-      </div>
-    </li>
-    {{/sales}}
-  </ul>
+			<!-- Actions -->
+			<div class="abstract-actions">
+				<div class="abstract-time">{{date}}</div>
+				<div
+					class="nl-button nl-button-sm marketplace-itemDetail-cancel delete-button"
+				>
+					{{translate.market.auctions.delete}}
+				</div>
+			</div>
+		</li>
+		{{/sales}}
+	</ul>
 </div>

@@ -13,61 +13,61 @@ import waitAction from "./classes/wait_action"
 
 /** Automated entry point of the takeover. */
 export function loadTakeover(): void {
-  if (SessionStorage.takeover && LocalStorage.unlocked) void takeover()
+	if (SessionStorage.takeover && LocalStorage.unlocked) void takeover()
 }
 
 /** Manual entry point of the takeover. */
 export function toggleTakeover(): void {
-  resetTakeover()
-  SessionStorage.takeover = !SessionStorage.takeover
+	resetTakeover()
+	SessionStorage.takeover = !SessionStorage.takeover
 
-  if (!LocalStorage.unlocked) {
-    SessionStorage.takeover = false
-    return
-  }
+	if (!LocalStorage.unlocked) {
+		SessionStorage.takeover = false
+		return
+	}
 
-  loadTopBar()
-  if (SessionStorage.takeover) $.flavrNotif(translate.takeover.enabled)
-  else $.flavrNotif(translate.takeover.disabled)
+	loadTopBar()
+	if (SessionStorage.takeover) $.flavrNotif(translate.takeover.enabled)
+	else $.flavrNotif(translate.takeover.disabled)
 
-  void takeover()
+	void takeover()
 }
 
 export function resetTakeover(): void {
-  SessionStorage.action = null
-  SessionStorage.explorationsDone = false
-  SessionStorage.minigamesDone = false
-  SessionStorage.selectedLocation = null
-  SessionStorage.summerGameDone = false
-  SessionStorage.wishlist = []
+	SessionStorage.action = null
+	SessionStorage.explorationsDone = false
+	SessionStorage.minigamesDone = false
+	SessionStorage.selectedLocation = null
+	SessionStorage.summerGameDone = false
+	SessionStorage.wishlist = []
 }
 
 async function takeover(): Promise<void> {
-  if (!SessionStorage.takeover) return
-  if (dailyAction.condition()) await dailyAction.perform()
+	if (!SessionStorage.takeover) return
+	if (dailyAction.condition()) await dailyAction.perform()
 
-  const action = actions.find(action => action.key === SessionStorage.action)
-  if (action?.condition()) {
-    Console.info("Action:", action.key)
+	const action = actions.find(action => action.key === SessionStorage.action)
+	if (action?.condition()) {
+		Console.info("Action:", action.key)
 
-    if (await action.perform()) return
-  }
+		if (await action.perform()) return
+	}
 
-  changeAction()
-  void takeover()
+	changeAction()
+	void takeover()
 }
 
 const actions: Action[] = [
-  explorationAction,
-  buyAction,
-  minigameAction,
-  waitAction,
+	explorationAction,
+	buyAction,
+	minigameAction,
+	waitAction,
 ]
 
 function changeAction(): TakeoverAction {
-  const next =
-    actions.findIndex(action => action.key === SessionStorage.action) + 1
+	const next =
+		actions.findIndex(action => action.key === SessionStorage.action) + 1
 
-  return (SessionStorage.action =
-    actions[next >= actions.length ? 0 : next]!.key)
+	return (SessionStorage.action =
+		actions[next >= actions.length ? 0 : next]!.key)
 }

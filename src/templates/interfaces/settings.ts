@@ -5,13 +5,13 @@ import type { ExportableFavourite } from "../../local_storage/exportable_favouri
 import type { WishedItem } from "../../local_storage/wished_item"
 
 export interface Settings extends Context {
-  readonly autoExploreLocations: AutoExploreLocation[]
-  readonly debug: boolean
-  readonly explorationHistory: ExplorationResult[]
-  readonly explorations: boolean
-  readonly favourites: ExportableFavourite[]
-  readonly market: boolean
-  readonly minigames: boolean
-  readonly unlocked: boolean
-  readonly wishlist: WishedItem[]
+	readonly autoExploreLocations: AutoExploreLocation[]
+	readonly debug: boolean
+	readonly explorationHistory: ExplorationResult[]
+	readonly explorations: boolean
+	readonly favourites: ExportableFavourite[]
+	readonly market: boolean
+	readonly minigames: boolean
+	readonly unlocked: boolean
+	readonly wishlist: WishedItem[]
 }

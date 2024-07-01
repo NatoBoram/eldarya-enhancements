@@ -10,69 +10,69 @@ import { TakeoverAction } from "../../session_storage/takeover_action.enum"
 import type { Action } from "./action"
 
 class MinigameAction implements Action {
-  readonly key = TakeoverAction.minigames
+	readonly key = TakeoverAction.minigames
 
-  condition(): boolean {
-    return LocalStorage.minigames && !SessionStorage.minigamesDone
-  }
+	condition(): boolean {
+		return LocalStorage.minigames && !SessionStorage.minigamesDone
+	}
 
-  /** Determines if the minigames should be played right now.
-   * @returns whether the minigames are currently being played.
-   */
-  async perform(): Promise<boolean> {
-    switch (location.pathname) {
-      case "/minigames": {
-        await new Promise(resolve => setTimeout(resolve, 750))
-        const playing =
-          this.openMinigame(peggle) ||
-          this.openMinigame(flappy) ||
-          this.openMinigame(hatchlings)
+	/** Determines if the minigames should be played right now.
+	 * @returns whether the minigames are currently being played.
+	 */
+	async perform(): Promise<boolean> {
+		switch (location.pathname) {
+			case "/minigames": {
+				await new Promise(resolve => setTimeout(resolve, 750))
+				const playing =
+					this.openMinigame(peggle) ||
+					this.openMinigame(flappy) ||
+					this.openMinigame(hatchlings)
 
-        if (!playing) {
-          SessionStorage.minigamesDone = true
-          document
-            .querySelector<HTMLButtonElement>(
-              '.minigames-rules [rel="btn-cancel"]'
-            )
-            ?.click()
-        }
+				if (!playing) {
+					SessionStorage.minigamesDone = true
+					document
+						.querySelector<HTMLButtonElement>(
+							'.minigames-rules [rel="btn-cancel"]',
+						)
+						?.click()
+				}
 
-        return playing
-      }
+				return playing
+			}
 
-      case "/minigames/gembomb":
-        await playPeggle()
-        break
+			case "/minigames/gembomb":
+				await playPeggle()
+				break
 
-      case "/minigames/bubbltemple":
-        await playFlappy()
-        break
+			case "/minigames/bubbltemple":
+				await playFlappy()
+				break
 
-      case "/minigames/cocooninpick":
-        await playHatchlings()
-        break
+			case "/minigames/cocooninpick":
+				await playHatchlings()
+				break
 
-      default:
-        pageLoad("/minigames")
-        return true
-    }
+			default:
+				pageLoad("/minigames")
+				return true
+		}
 
-    pageLoad("/minigames")
-    return true
-  }
+		pageLoad("/minigames")
+		return true
+	}
 
-  /** Click on a minigame's link. @returns whether the minigame was opened. */
-  private openMinigame(minigame: Minigame): boolean {
-    const start = document.querySelector<HTMLSpanElement>(
-      minigame.buttonSelector
-    )
+	/** Click on a minigame's link. @returns whether the minigame was opened. */
+	private openMinigame(minigame: Minigame): boolean {
+		const start = document.querySelector<HTMLSpanElement>(
+			minigame.buttonSelector,
+		)
 
-    Console.debug(`${minigame.name}'s button:`, start)
-    if (!start) return false
+		Console.debug(`${minigame.name}'s button:`, start)
+		if (!start) return false
 
-    start.click()
-    return true
-  }
+		start.click()
+		return true
+	}
 }
 
 export default new MinigameAction()

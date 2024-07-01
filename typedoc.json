@@ -1,5 +1,5 @@
 {
-  "name": "Eldarya Enhancements",
-  "includeVersion": true,
-  "entryPoints": ["src/typedoc.ts"]
+	"name": "Eldarya Enhancements",
+	"includeVersion": true,
+	"entryPoints": ["src/typedoc.ts"]
 }

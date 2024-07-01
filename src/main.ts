@@ -21,50 +21,50 @@ import { loadWishlist } from "./ui/wishlist"
 // loadJS("https://unpkg.com/hogan.js/dist/template-3.0.2.min.js", true);
 
 function load(): void {
-  const container = document.getElementById("container")
-  if (!container) {
-    $.flavrNotif(translate.error.longLoading)
-    Console.error("#container couldn't be found:", container)
-    return void setTimeout(load, 10_000)
-  }
+	const container = document.getElementById("container")
+	if (!container) {
+		$.flavrNotif(translate.error.longLoading)
+		Console.error("#container couldn't be found:", container)
+		return void setTimeout(load, 10_000)
+	}
 
-  migrate()
-  loadUI()
-  observe()
+	migrate()
+	loadUI()
+	observe()
 
-  Console.log(`${GM.info.script.name} v${GM.info.script.version} loaded.`)
-  loadTakeover()
+	Console.log(`${GM.info.script.name} v${GM.info.script.version} loaded.`)
+	loadTakeover()
 }
 
 function loadUI(): void {
-  loadMenu()
-  loadCarousel()
-  loadHomeContent()
-  loadFavourites()
-  loadProfile()
-  loadPet()
-  loadMarket()
-  loadWishlist()
-  loadTopBar()
-  loadAuctions()
-  loadPurroShop()
-  loadMall()
-  loadCheatCodes()
-  loadSettings()
+	loadMenu()
+	loadCarousel()
+	loadHomeContent()
+	loadFavourites()
+	loadProfile()
+	loadPet()
+	loadMarket()
+	loadWishlist()
+	loadTopBar()
+	loadAuctions()
+	loadPurroShop()
+	loadMall()
+	loadCheatCodes()
+	loadSettings()
 
-  // Eldarya is crashing when opening groups.
-  // TODO: Handle errors and stop the loading process.
-  void loadDressingExperience()
+	// Eldarya is crashing when opening groups.
+	// TODO: Handle errors and stop the loading process.
+	void loadDressingExperience()
 }
 
 function observe(): void {
-  const container = document.getElementById("container")
-  new MutationObserver(reload).observe(container as Node, { childList: true })
+	const container = document.getElementById("container")
+	new MutationObserver(reload).observe(container as Node, { childList: true })
 }
 
 function reload(): void {
-  loadUI()
-  loadTakeover()
+	loadUI()
+	loadTakeover()
 }
 
 Console.log("Loading...")

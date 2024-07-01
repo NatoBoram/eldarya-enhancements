@@ -1,7 +1,7 @@
 export interface CurrentPrice {
-  /** Amount of bids */
-  bids: string
+	/** Amount of bids */
+	bids: string
 
-  /** Price of the latest bid */
-  price: string
+	/** Price of the latest bid */
+	price: string
 }

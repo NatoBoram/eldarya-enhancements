@@ -1,36 +1,36 @@
 {
-  "[handlebars][html][javascript][json][jsonc][typescript][yaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[ignore]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
-  "[powershell]": {
-    "editor.defaultFormatter": "ms-vscode.powershell"
-  },
-  "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "always",
-    "source.organizeImports": "always",
-    "source.sortMembers": "always"
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
-  "editor.formatOnType": true,
-  "editor.rulers": [80],
-  "files.associations": {
-    "*.html": "handlebars"
-  },
-  "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
-  "files.trimTrailingWhitespace": true,
-  "html.format.indentHandlebars": true,
-  "html.format.maxPreserveNewLines": 1,
-  "html.format.wrapLineLength": 80,
-  "jshint.packageManager": "pnpm",
-  "npm.packageManager": "pnpm",
-  "prettier.prettierPath": "./node_modules/.bin/prettier",
-  "tslint.packageManager": "pnpm"
+	"[handlebars][html][javascript][json][jsonc][typescript][yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[ignore]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"[powershell]": {
+		"editor.defaultFormatter": "ms-vscode.powershell"
+	},
+	"[shellscript]": {
+		"editor.defaultFormatter": "foxundermoon.shell-format"
+	},
+	"editor.codeActionsOnSave": {
+		"source.fixAll": "always",
+		"source.organizeImports": "always",
+		"source.sortMembers": "always"
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.formatOnType": true,
+	"editor.rulers": [80],
+	"files.associations": {
+		"*.html": "handlebars"
+	},
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"files.trimTrailingWhitespace": true,
+	"html.format.indentHandlebars": true,
+	"html.format.maxPreserveNewLines": 1,
+	"html.format.wrapLineLength": 80,
+	"jshint.packageManager": "pnpm",
+	"npm.packageManager": "pnpm",
+	"prettier.prettierPath": "./node_modules/.bin/prettier",
+	"tslint.packageManager": "pnpm"
 }

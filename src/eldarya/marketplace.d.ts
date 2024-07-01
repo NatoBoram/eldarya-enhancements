@@ -1,5 +1,5 @@
 declare global {
-  const buyingMarketItem: boolean
+	const buyingMarketItem: boolean
 }
 
 export {}
