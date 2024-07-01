@@ -13,7 +13,7 @@ Enhances the user experience of Eldarya.
 ## Installation
 
 1. Install [Tampermonkey](https://tampermonkey.net)
-2. Click [here](https://natoboram.gitlab.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
+2. Click [here](https://natoboram.github.io/eldarya-enhancements/eldarya-enhancements.min.user.js)
 
 The latest development version can be downloaded [here](https://gitlab.com/NatoBoram/eldarya-enhancements/-/jobs/artifacts/develop/raw/dist/eldarya-enhancements.min.user.js?job=deploy).
 
