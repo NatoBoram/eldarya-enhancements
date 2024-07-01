@@ -1,0 +1,46 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+      timezone: America/Toronto
+    commit-message:
+      prefix: "⬆️ "
+    groups:
+      patch:
+        update-types:
+          - patch
+      minor-development:
+        update-types:
+          - minor
+        dependency-type: development
+      minor-production:
+        update-types:
+          - minor
+        dependency-type: production
+      eslint:
+        patterns:
+          - "*eslint*"
+      prettier:
+        patterns:
+          - "*prettier*"
+      webpack:
+        patterns:
+          - "*-loader"
+          - "*webpack*"
+      typescript:
+        patterns:
+          - "*typescript*"
+          - ts-*
+          - tslib
+          - tsx
+          - typedoc
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+      timezone: America/Toronto
+    commit-message:
+      prefix: "⬆️ "
