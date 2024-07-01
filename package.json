@@ -1,23 +1,23 @@
 {
-  "name": "eldarya-enhancements",
+  "name": "@natoboram/eldarya-enhancements",
   "description": "Enhances the user experience of Eldarya",
   "version": "1.2.19",
   "scripts": {
+    "build": "./scripts/build.sh",
     "build:linux": "./scripts/build.sh",
     "build:windows": "pwsh ./scripts/build.ps1",
-    "build": "./scripts/build.sh",
-    "eslint": "eslint --fix .",
+    "clean": "rm -rf dist docs node_modules tsconfig.tsbuildinfo",
+    "format": "prettier --write .",
     "hulk": "hulk --wrapper common --outputdir src/templates/js src/templates/html/*.html",
-    "prettier": "prettier --write .",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint --fix --quiet .; prettier --list-different --write .",
+    "test": "vitest",
     "tsc": "tsc --noEmit",
     "typedoc": "./scripts/typedoc.sh",
-    "watch": "webpack watch --progress",
-    "webpack": "webpack"
+    "webpack": "webpack",
+    "webpack:watch": "webpack watch --progress"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@gitlab.com/NatoBoram/eldarya-enhancements.git"
-  },
+  "repository": "github:NatoBoram/eldarya-enhancements",
   "keywords": [
     "Eldarya",
     "UserScript"
@@ -64,6 +64,7 @@
     "tslib": "^2.4.0",
     "typedoc": "^0.23.15",
     "typescript": "^4.8.3",
+    "vitest": "^1.6.0",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   }

@@ -1,10 +1,10 @@
 # Eldarya Enhancements
 
+[![Node.js CI](https://github.com/NatoBoram/eldarya-enhancements/actions/workflows/node.js.yaml/badge.svg)](https://github.com/NatoBoram/eldarya-enhancements/actions/workflows/node.js.yaml)
+[![GitHub Pages](https://github.com/NatoBoram/eldarya-enhancements/actions/workflows/github-pages.yaml/badge.svg)](https://github.com/NatoBoram/eldarya-enhancements/actions/workflows/github-pages.yaml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/abc2f98e04deb9452726/maintainability)](https://codeclimate.com/github/NatoBoram/eldarya-enhancements/maintainability)
 [![GreasyFork](https://img.shields.io/badge/dynamic/json?color=%23990000&label=GreasyFork&query=total_installs&suffix=%20installs&url=https%3A%2F%2Fgreasyfork.org%2Fscripts%2F426533.json)](https://greasyfork.org/scripts/426533)
 [![OpenUserJS](https://img.shields.io/badge/dynamic/json?color=%232c3e50&label=OpenUserJS&query=%24.OpenUserJS.installs%5B0%5D.value&suffix=%20installs&url=https%3A%2F%2Fopenuserjs.org%2Fmeta%2FNatoBoram%2FEldarya_Enhancements.meta.json)](https://openuserjs.org/scripts/NatoBoram/Eldarya_Enhancements)
-[![pipeline status](https://gitlab.com/NatoBoram/eldarya-enhancements/badges/master/pipeline.svg)](https://gitlab.com/NatoBoram/eldarya-enhancements/-/commits/master)
-[![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/NatoBoram/eldarya-enhancements)
-[![Maintainability](https://api.codeclimate.com/v1/badges/abc2f98e04deb9452726/maintainability)](https://codeclimate.com/github/NatoBoram/eldarya-enhancements/maintainability)
 
 Enhances the user experience of Eldarya.
 
