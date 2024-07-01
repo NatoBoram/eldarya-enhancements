@@ -19,15 +19,12 @@
 		"plugin:@typescript-eslint/recommended",
 		"plugin:@typescript-eslint/recommended-requiring-type-checking",
 		"plugin:@typescript-eslint/strict",
-		"prettier",
-		"plugin:prettier/recommended"
+		"prettier"
 	],
 	"rules": {
 		// ESLint
 		"eqeqeq": "error",
 		"semi": "off",
-		// Prettier
-		"prettier/prettier": "off",
 		// TypeScript ESLint
 		//"@typescript-eslint/member-ordering": "warn",
 		//"@typescript-eslint/no-use-before-define": "warn",
