@@ -16,11 +16,11 @@ importers:
         version: 3.0.2
     devDependencies:
       '@types/box2d':
-        specifier: ^0.0.35
-        version: 0.0.35
+        specifier: ^0.0.39
+        version: 0.0.39
       '@types/createjs':
-        specifier: ^0.0.29
-        version: 0.0.29
+        specifier: ^0.0.32
+        version: 0.0.32
       '@types/greasemonkey':
         specifier: ^4.0.4
         version: 4.0.7
@@ -28,11 +28,11 @@ importers:
         specifier: ^3.0.1
         version: 3.0.5
       '@types/jquery':
-        specifier: ^3.5.14
-        version: 3.5.29
+        specifier: ^3.5.30
+        version: 3.5.30
       '@types/jqueryui':
-        specifier: ^1.12.16
-        version: 1.12.22
+        specifier: ^1.12.23
+        version: 1.12.23
       '@types/mcustomscrollbar':
         specifier: ^2.8.33
         version: 2.8.37
@@ -85,8 +85,8 @@ importers:
         specifier: ^10.9.1
         version: 10.9.2(@types/node@18.19.31)(typescript@4.9.5)
       tslib:
-        specifier: ^2.4.0
-        version: 2.6.2
+        specifier: ^2.6.3
+        version: 2.6.3
       typedoc:
         specifier: ^0.23.15
         version: 0.23.28(typescript@4.9.5)
@@ -276,6 +276,7 @@ packages:
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
+    deprecated: Use @eslint/config-array instead
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -283,6 +284,7 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
+    deprecated: Use @eslint/object-schema instead
 
   '@jest/schemas@29.6.3':
     resolution: {integrity: sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==}
@@ -419,14 +421,14 @@ packages:
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  '@types/box2d@0.0.35':
-    resolution: {integrity: sha512-x02dWo2WYV+TjyyCDfmqYzO5ItyBnc+5QJoGCvk+Dx4cj6BRjrJVa94shVRtfMYPYg015DhDNCpC6DWRSNmn4Q==}
+  '@types/box2d@0.0.39':
+    resolution: {integrity: sha512-WQrNL8mgG2WV4Vl2MY+4x32sZGwMQfvydd+j6zJ/kIwKr6E/vxjiMnu+1lbdENB6SB47K/RvkcRBTELvrAMUbQ==}
 
   '@types/createjs-lib@0.0.33':
     resolution: {integrity: sha512-mvK1sn2qSyGPwctg/MsjAP5m3/TBx83eB0hcEdZ6UqpuzQqCUWpVyyQddqkbAsKRpMECK0s7JosYXoTtIuNbhw==}
 
-  '@types/createjs@0.0.29':
-    resolution: {integrity: sha512-bDZJTAEoGZw12zjXHLrcQHz0tuyv+MMlFh9tLm7DWZfF33biqWaXQgk4g7pMvploRu42sbH4XkXVJ7Wz9O1sCg==}
+  '@types/createjs@0.0.32':
+    resolution: {integrity: sha512-MxZH+aP1XLqL5BpPmKmqAUzGaDP6HeMCAPAZpEaF2LbJi8Tm7FnHZ2beOnqLBsPafuq0EFj2mYfKOoaApAAeGA==}
 
   '@types/easeljs@1.0.5':
     resolution: {integrity: sha512-YRWGkZdq4trhJhieE0NdLTbOp5zT5yunPJKNqQJWq/X8y7qlmGeQB8hPnQHzMbW9iY38ZV91oXgW7V3U5VY2uw==}
@@ -446,11 +448,11 @@ packages:
   '@types/hogan.js@3.0.5':
     resolution: {integrity: sha512-/uRaY3HGPWyLqOyhgvW9Aa43BNnLZrNeQxl2p8wqId4UHMfPKolSB+U7BlZyO1ng7MkLnyEAItsBzCG0SDhqrA==}
 
-  '@types/jquery@3.5.29':
-    resolution: {integrity: sha512-oXQQC9X9MOPRrMhPHHOsXqeQDnWeCDT3PelUIg/Oy8FAbzSZtFHRjc7IpbfFVmpLtJ+UOoywpRsuO5Jxjybyeg==}
+  '@types/jquery@3.5.30':
+    resolution: {integrity: sha512-nbWKkkyb919DOUxjmRVk8vwtDb0/k8FKncmUKFi+NY+QXqWltooxTrswvz4LspQwxvLdvzBN1TImr6cw3aQx2A==}
 
-  '@types/jqueryui@1.12.22':
-    resolution: {integrity: sha512-4r7ROoUJ5gaIWvQa2qAHyrhskJcUNM62Md8M9+4DtabEiIQ9Y0pVlW88ojyXvn4M1HNUc/47KpFJaXhrk8P/rg==}
+  '@types/jqueryui@1.12.23':
+    resolution: {integrity: sha512-pm1yVNVI29B9IGw41anCEzA5eR2r1pYc7flqD471ZT7B0yUXIY7YNe/zq7LGpihIGXNzWyG+Q4YQSzv2AF3fNA==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -1050,6 +1052,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   globals@13.24.0:
     resolution: {integrity: sha512-AhO5QUcj8llrbG09iWhPU2B204J1xnPeL8kQmVorSsy+Sjj1sk8gIyh6cUocGmH4L0UuhAJy+hJMRA4mgA4mFQ==}
@@ -1117,6 +1120,7 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
+    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -1497,6 +1501,7 @@ packages:
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rollup@4.18.0:
@@ -1671,8 +1676,8 @@ packages:
   tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
 
-  tslib@2.6.2:
-    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+  tslib@2.6.3:
+    resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
 
   tsutils@3.21.0:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
@@ -2088,11 +2093,11 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@types/box2d@0.0.35': {}
+  '@types/box2d@0.0.39': {}
 
   '@types/createjs-lib@0.0.33': {}
 
-  '@types/createjs@0.0.29':
+  '@types/createjs@0.0.32':
     dependencies:
       '@types/createjs-lib': 0.0.33
       '@types/easeljs': 1.0.5
@@ -2121,19 +2126,19 @@ snapshots:
 
   '@types/hogan.js@3.0.5': {}
 
-  '@types/jquery@3.5.29':
+  '@types/jquery@3.5.30':
     dependencies:
       '@types/sizzle': 2.3.8
 
-  '@types/jqueryui@1.12.22':
+  '@types/jqueryui@1.12.23':
     dependencies:
-      '@types/jquery': 3.5.29
+      '@types/jquery': 3.5.30
 
   '@types/json-schema@7.0.15': {}
 
   '@types/mcustomscrollbar@2.8.37':
     dependencies:
-      '@types/jquery': 3.5.29
+      '@types/jquery': 3.5.30
 
   '@types/node@18.19.31':
     dependencies:
@@ -3389,7 +3394,7 @@ snapshots:
 
   tslib@1.14.1: {}
 
-  tslib@2.6.2: {}
+  tslib@2.6.3: {}
 
   tsutils@3.21.0(typescript@4.9.5):
     dependencies:
