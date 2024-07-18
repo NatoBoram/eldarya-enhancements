@@ -45,7 +45,7 @@
 		"@types/jquery": "^3.5.30",
 		"@types/jqueryui": "^1.12.23",
 		"@types/mcustomscrollbar": "^2.8.37",
-		"@types/node": "^18.19.39",
+		"@types/node": "^20.14.11",
 		"@types/raphael": "^2.3.9",
 		"@types/sax": "^1.2.7",
 		"@types/suncalc": "^1.9.2",
