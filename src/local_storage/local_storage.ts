@@ -125,9 +125,9 @@ export class LocalStorage {
 			explorationHistory: this.explorationHistory,
 			explorations: this.explorations,
 			favourites: await Promise.all(
-				(
-					await indexed_db.getFavouriteOutfits()
-				).map<Promise<ExportableFavourite>>(async favourite => ({
+				(await indexed_db.getFavouriteOutfits()).map<
+					Promise<ExportableFavourite>
+				>(async favourite => ({
 					id: favourite.id,
 					name: favourite.name,
 					items: favourite.items,
