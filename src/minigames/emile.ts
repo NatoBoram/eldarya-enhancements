@@ -4,6 +4,7 @@ import type { Packet } from "../api/packet"
 import type { StartGameData } from "../api/start_game_data"
 import "../eldarya/jquery"
 import { translate } from "../i18n/translate"
+import { Result } from "../typedoc"
 import { flappy } from "./flappy"
 import { hatchlings } from "./hatchlings"
 import type { Minigame } from "./minigame"
@@ -75,9 +76,11 @@ async function execute(minigame: Minigame): Promise<Packet<StartGameData>> {
 			Recaptcha.execute(
 				`minigameStart${minigame.name}`,
 				(token): void =>
+					// eslint-disable-next-line @typescript-eslint/use-unknown-in-catch-callback-variable
 					void startGame(minigame, token).then(resolve).catch(reject),
 			)
 		} else {
+			// eslint-disable-next-line @typescript-eslint/use-unknown-in-catch-callback-variable
 			void startGame(minigame).then(resolve).catch(reject)
 		}
 	})
@@ -105,7 +108,7 @@ async function startGame(
 					resolve(json)
 				},
 				error: (): void => {
-					reject()
+					reject(new Error("Failed to start the game."))
 				},
 			}),
 	)
@@ -124,7 +127,7 @@ async function getPrizes(
 				(json: Packet<GetPrizesData>): void => {
 					resolve(json)
 
-					if (json.result === "success") {
+					if (json.result === Result.success) {
 						const template: Template = require("../templates/html/flavr_notif/icon_message.html")
 
 						$.flavrNotif(
@@ -169,7 +172,7 @@ function xorEncode(str: string, key: string): string {
 		for (let j = 0; j < key.length; ++j) {
 			tmp = String.fromCharCode(tmp!.charCodeAt(0) ^ key.charCodeAt(j))
 		}
-		xor += tmp
+		xor += tmp ?? ""
 	}
 
 	// Renvoie le résultat en encodant les caractères spéciaux pouvant poser problème (\n par exemple)

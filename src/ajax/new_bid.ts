@@ -1,5 +1,6 @@
 import type { Packet } from "../api/packet"
 import { LocalStorage } from "../local_storage/local_storage"
+import { Result } from "../typedoc"
 
 export async function newBid(
 	itemId: number,
@@ -13,7 +14,7 @@ export async function newBid(
 				LocalStorage.meta = json.meta
 				resolve(json)
 
-				if (json.result !== "success") {
+				if (json.result !== Result.success) {
 					$.flavrNotif(json.data)
 					return
 				}

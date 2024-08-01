@@ -11,6 +11,7 @@ updates:
       patch:
         update-types:
           - patch
+
       minor-development:
         update-types:
           - minor
@@ -19,12 +20,13 @@ updates:
         update-types:
           - minor
         dependency-type: production
-      eslint:
-        patterns:
-          - "*eslint*"
+
       prettier:
         patterns:
           - "*prettier*"
+      eslint:
+        patterns:
+          - "*eslint*"
       webpack:
         patterns:
           - "*-loader"

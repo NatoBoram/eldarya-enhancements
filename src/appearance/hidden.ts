@@ -17,6 +17,7 @@ export function unloadHiddenCategories(): void {
  * @returns the associated `AppearanceCategory` if it's found in the wardrobe.
  */
 export function loadHiddenCategory(code: string): AppearanceCategory | null {
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
 	const category = wardrobe.getCategories().find(c => c.category === code)
 	if (!category) return null
 

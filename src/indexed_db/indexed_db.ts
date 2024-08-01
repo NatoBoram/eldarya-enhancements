@@ -26,10 +26,12 @@ class IndexedDB {
 			objectStore.createIndex(Fields.items, "items", { unique: false })
 			objectStore.createIndex(Fields.name, "name", { unique: false })
 		}
-		request.onerror = (): void =>
+		request.onerror = (): void => {
 			Console.error("Error when opening the indexedDB", request.error)
-		request.onblocked = (): void =>
+		}
+		request.onblocked = (): void => {
 			Console.error("Blocked from opening the indexedDB", request.error)
+		}
 	}
 
 	/** @returns a new `FavouriteOutfit` with the `key` property set. */
@@ -37,7 +39,10 @@ class IndexedDB {
 		favourite: NewFavouriteOutfit,
 	): Promise<FavouriteOutfit> {
 		return new Promise((resolve, reject): void => {
-			if (!this.db) return reject()
+			if (!this.db) {
+				reject(new Error("No database"))
+				return
+			}
 
 			const request = this.db
 				.transaction([Tables.favourite_outfits], "readwrite")
@@ -58,7 +63,10 @@ class IndexedDB {
 		favourite: FavouriteOutfit,
 	): Promise<FavouriteOutfit> {
 		return new Promise((resolve, reject): void => {
-			if (!this.db) return reject()
+			if (!this.db) {
+				reject(new Error("No database"))
+				return
+			}
 
 			const request = this.db
 				.transaction([Tables.favourite_outfits], "readwrite")
@@ -76,20 +84,28 @@ class IndexedDB {
 
 	async clearFavouriteOutfits(): Promise<void> {
 		return new Promise((resolve, reject): void => {
-			if (!this.db) return reject()
+			if (!this.db) {
+				reject(new Error("No database"))
+				return
+			}
 
 			const request = this.db
 				.transaction([Tables.favourite_outfits], "readwrite")
 				.objectStore(Tables.favourite_outfits)
 				.clear()
 
-			request.onsuccess = (): void => resolve()
+			request.onsuccess = (): void => {
+				resolve()
+			}
 		})
 	}
 
 	async deleteFavouriteOutfit(favourite: FavouriteOutfit): Promise<void> {
 		return new Promise((resolve, reject): void => {
-			if (!this.db) return reject()
+			if (!this.db) {
+				reject(new Error("No database"))
+				return
+			}
 
 			const request = this.db
 				.transaction([Tables.favourite_outfits], "readwrite")
@@ -105,7 +121,10 @@ class IndexedDB {
 
 	async getFavouriteOutfit(id: number): Promise<FavouriteOutfit> {
 		return new Promise((resolve, reject): void => {
-			if (!this.db) return reject()
+			if (!this.db) {
+				reject(new Error("No database"))
+				return
+			}
 
 			const request = this.db
 				.transaction([Tables.favourite_outfits], "readonly")
@@ -114,27 +133,32 @@ class IndexedDB {
 
 			const favourite: FavouriteOutfit = request.result
 
-			request.onsuccess = (): void =>
+			request.onsuccess = (): void => {
 				resolve({ ...favourite, url: URL.createObjectURL(favourite.blob) })
+			}
 		})
 	}
 
 	async getFavouriteOutfits(): Promise<FavouriteOutfit[]> {
 		return new Promise((resolve, reject): void => {
-			if (!this.db) return reject("No database")
+			if (!this.db) {
+				reject(new Error("No database"))
+				return
+			}
 
 			const request = this.db
 				.transaction([Tables.favourite_outfits], "readonly")
 				.objectStore(Tables.favourite_outfits)
 				.getAll()
 
-			request.onsuccess = (): void =>
+			request.onsuccess = (): void => {
 				resolve(
 					request.result.map<FavouriteOutfit>((favourite: FavouriteOutfit) => ({
 						...favourite,
 						url: URL.createObjectURL(favourite.blob),
 					})),
 				)
+			}
 		})
 	}
 }

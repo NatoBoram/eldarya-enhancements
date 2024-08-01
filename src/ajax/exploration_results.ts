@@ -1,6 +1,7 @@
 import type { ExplorationResultsData } from "../api/exploration_results_data"
 import type { Packet } from "../api/packet"
 import { LocalStorage } from "../local_storage/local_storage"
+import { Result } from "../typedoc"
 
 export async function explorationResults(): Promise<
 	Packet<ExplorationResultsData>
@@ -12,7 +13,7 @@ export async function explorationResults(): Promise<
 				LocalStorage.meta = json.meta
 				resolve(json)
 
-				if (json.result !== "success") {
+				if (json.result !== Result.success) {
 					$.flavrNotif(json.data)
 					return
 				}

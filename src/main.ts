@@ -69,4 +69,7 @@ function reload(): void {
 
 Console.log("Loading...")
 if (document.readyState === "complete") load()
-else window.addEventListener("load", () => load())
+else
+	window.addEventListener("load", () => {
+		load()
+	})

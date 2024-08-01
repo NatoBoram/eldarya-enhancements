@@ -1,9 +1,9 @@
 import { LocalStorage } from "../../local_storage/local_storage"
 import { SessionStorage } from "../../session_storage/session_storage"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
-import { Action } from "./action"
+import type { Action } from "./action"
 
-class AuctionsAction extends Action {
+class AuctionsAction implements Action {
 	readonly key = TakeoverAction.auctions
 
 	condition(): boolean {

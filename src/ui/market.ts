@@ -33,7 +33,7 @@ function loadWishlist(): void {
 	for (const li of document.querySelectorAll<HTMLLIElement>(
 		".marketplace-abstract",
 	)) {
-		li.addEventListener("click", () =>
+		li.addEventListener("click", () => {
 			new MutationObserver(
 				(_: MutationRecord[], observer: MutationObserver): void => {
 					const marketEntry = getItemDetails(li)
@@ -43,8 +43,8 @@ function loadWishlist(): void {
 				},
 			).observe(document.getElementById("marketplace-zoom") as Node, {
 				childList: true,
-			}),
-		)
+			})
+		})
 	}
 }
 
@@ -68,7 +68,9 @@ function addWishistButton(
 
 	buttonsContainer
 		.querySelector<HTMLDivElement>("#marketplace-itemDetail-info-autobuy")
-		?.addEventListener("click", () => addToWishlistFlavr(marketEntry))
+		?.addEventListener("click", () => {
+			addToWishlistFlavr(marketEntry)
+		})
 }
 
 function addToWishlistFlavr(marketEntry: MarketEntry): void {

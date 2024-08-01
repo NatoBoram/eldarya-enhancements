@@ -11,7 +11,9 @@ export function loadMall(): void {
 	if (!location.pathname.startsWith("/mall")) return
 
 	for (const li of document.querySelectorAll<HTMLLIElement>("[data-product]"))
-		li.addEventListener("click", () => addWishlistButton(li))
+		li.addEventListener("click", () => {
+			addWishlistButton(li)
+		})
 }
 
 function addWishlistButton(li: HTMLLIElement): void {
@@ -46,9 +48,9 @@ function addWishlistButton(li: HTMLLIElement): void {
 			)?.innerText ?? "",
 	}
 
-	document
-		.querySelector("#add-to-wishlist")
-		?.addEventListener("click", () => addToWishlistFlavr(mallEntry))
+	document.querySelector("#add-to-wishlist")?.addEventListener("click", () => {
+		addToWishlistFlavr(mallEntry)
+	})
 }
 
 export function addToWishlistFlavr(mallEntry: MallEntry): void {

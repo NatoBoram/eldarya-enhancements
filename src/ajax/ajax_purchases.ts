@@ -4,6 +4,7 @@ import { LocalStorage } from "../local_storage/local_storage"
 import { BodyLocation } from "../marketplace/enums/body_location.enum"
 import { CategoryString } from "../marketplace/enums/category.enum"
 import { Type } from "../marketplace/enums/type.enum"
+import { Result } from "../typedoc"
 
 /**
  * Loads a page of one type of object
@@ -34,7 +35,7 @@ export async function ajaxPurchases(
 				LocalStorage.meta = json.meta
 				resolve(json)
 
-				if (json.result !== "success") {
+				if (json.result !== Result.success) {
 					$.flavrNotif(json.data)
 					return
 				}

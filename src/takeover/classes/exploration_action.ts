@@ -15,9 +15,9 @@ import { TakeoverAction } from "../../session_storage/takeover_action.enum"
 import { click, clickElement, waitObserve } from "../click"
 import { ExplorationStatus } from "../exploration_status.enum"
 import type { StartExploration } from "../start_exploration"
-import { Action } from "./action"
+import type { Action } from "./action"
 
-class ExplorationAction extends Action {
+class ExplorationAction implements Action {
 	readonly key = TakeoverAction.explorations
 
 	private get globals(): {
@@ -134,7 +134,7 @@ class ExplorationAction extends Action {
 				"/static/event/2021/music/sounds/mission-complete.mp3",
 			).play()
 		} catch (e: unknown) {
-			// eslint-disable-next-line no-empty
+			Console.log("Failed to play mission complete sound:", e)
 		}
 
 		await click<HTMLButtonElement>("#open-capture-interface")

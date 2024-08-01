@@ -52,5 +52,7 @@ function loadLinks(): void {
 
 	document
 		.querySelector("#avatar-menu-container>canvas")
-		?.addEventListener("click", () => pageLoad("/player/appearance"))
+		?.addEventListener("click", () => {
+			pageLoad("/player/appearance")
+		})
 }

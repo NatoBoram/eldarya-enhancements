@@ -52,10 +52,16 @@ export async function openGroup(group: number): Promise<HTMLDivElement | null> {
 		const groupContainer = document.querySelector<HTMLDivElement>(
 			`#appearance-items-group-${group}`,
 		)
-		if (groupContainer) return resolve(groupContainer)
+		if (groupContainer) {
+			resolve(groupContainer)
+			return
+		}
 
 		const avatar = Sacha.Avatar.avatars["#appearance-preview"]
-		if (!avatar) return resolve(null)
+		if (!avatar) {
+			resolve(null)
+			return
+		}
 
 		void $.get(
 			`/player/openGroup/${group}`,
@@ -79,7 +85,10 @@ export async function openCategory(
 		const categoryContainer = document.querySelector<HTMLDivElement>(
 			`#appearance-items-category-${category}`,
 		)
-		if (categoryContainer) return resolve(categoryContainer)
+		if (categoryContainer) {
+			resolve(categoryContainer)
+			return
+		}
 
 		void $.post(`/player/openCategory/${category}`, (view: string): void => {
 			$(view).hide().appendTo("#appearance-items")

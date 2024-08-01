@@ -6,9 +6,10 @@ import { LocalStorage } from "../../local_storage/local_storage"
 import { MathUtil } from "../../math_util"
 import { SessionStorage } from "../../session_storage/session_storage"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
-import { Action } from "./action"
+import { Result } from "../../typedoc"
+import type { Action } from "./action"
 
-class SummerGameAction extends Action {
+class SummerGameAction implements Action {
 	readonly key: TakeoverAction = TakeoverAction.summerGame
 
 	condition(): boolean {
@@ -37,7 +38,7 @@ class SummerGameAction extends Action {
 		}
 
 		const started = await summerGameStart()
-		if (started.result !== "success") {
+		if (started.result !== Result.success) {
 			SessionStorage.summerGameDone = true
 			return false
 		}
@@ -55,13 +56,15 @@ class SummerGameAction extends Action {
 
 		await new Promise<boolean>(resolve =>
 			setTimeout(
-				() => resolve(true),
+				() => {
+					resolve(true)
+				},
 				MathUtil.randomBetween(60_000 * 0.8, 60_000),
 			),
 		)
 
 		const saved = await summerGameSave()
-		if (saved.result !== "success") {
+		if (saved.result !== Result.success) {
 			SessionStorage.summerGameDone = true
 			return false
 		}
@@ -86,7 +89,7 @@ async function summerGameStart(): Promise<Packet<"">> {
 			"/event/summer/game/start",
 			{ currency: currency },
 			function (json: Packet<"">) {
-				if (json.result !== "success") $.flavrNotif(json.data)
+				if (json.result !== Result.success) $.flavrNotif(json.data)
 
 				resolve(json)
 			},
@@ -102,7 +105,7 @@ async function summerGameSave(): Promise<Packet<SummerGameSaveData>> {
 			"/event/summer/game/save",
 			{ win: win },
 			function (json: Packet<SummerGameSaveData>) {
-				if (json.result !== "success") $.flavrNotif(json.data)
+				if (json.result !== Result.success) $.flavrNotif(json.data)
 
 				resolve(json)
 			},

@@ -1,6 +1,7 @@
 import { readFileSync } from "fs"
 import { resolve } from "path"
-import { BannerPlugin, Configuration } from "webpack"
+import type { Configuration } from "webpack"
+import { BannerPlugin } from "webpack"
 
 const base: Configuration = {
 	entry: "./src/main.ts",
@@ -17,7 +18,7 @@ const development: Configuration = {
 	...base,
 	module: {
 		rules: [
-			...(base?.module?.rules ?? []),
+			...(base.module?.rules ?? []),
 			{
 				test: /\.html$/,
 				loader: "mustache-loader",
@@ -43,7 +44,7 @@ const production: Configuration = {
 	...base,
 	module: {
 		rules: [
-			...(base?.module?.rules ?? []),
+			...(base.module?.rules ?? []),
 			{
 				test: /\.html$/,
 				loader: "mustache-loader",
@@ -58,5 +59,7 @@ const production: Configuration = {
 	mode: "production",
 }
 
-export default (env: { WEBPACK_WATCH: boolean }) =>
+export default (env: {
+	WEBPACK_WATCH: boolean
+}): Configuration | Configuration[] =>
 	env.WEBPACK_WATCH ? development : [development, production]

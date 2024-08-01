@@ -1,4 +1,9 @@
 {
 	"extends": "./tsconfig.json",
-	"include": [".eslintrc.json", "eldarya-enhancements.meta.js", "src"]
+	"include": [
+		"eldarya-enhancements.meta.js",
+		"eslint.config.mjs",
+		"src",
+		"webpack.config.ts"
+	]
 }

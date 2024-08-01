@@ -21,7 +21,7 @@ async function deleteFavourite(favourite: FavouriteOutfit): Promise<void> {
 async function showOutfit(): Promise<FavouriteOutfit | null> {
 	const template: Template = require("../templates/html/created_outfit_flavr.html")
 
-	return new Promise(resolve =>
+	return new Promise(resolve => {
 		$.flavr({
 			content: template.render({ translate }),
 			onBuild: $container => {
@@ -72,8 +72,8 @@ async function showOutfit(): Promise<FavouriteOutfit | null> {
 					},
 				},
 			},
-		}),
-	)
+		})
+	})
 }
 
 export function showFavourite(favourite: FavouriteOutfit): void {
@@ -141,7 +141,7 @@ async function saveAction(
 			?.toBlob(
 				blob => {
 					if (blob) resolve(blob)
-					else reject("Blob doesn't exist.")
+					else reject(new Error("Blob doesn't exist."))
 				},
 				"image/png",
 				1,
