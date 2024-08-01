@@ -97,10 +97,10 @@ async function startGame(
 					? {
 							game: minigame.name.toLowerCase(),
 							recaptchaToken: recaptchaToken,
-					  }
+						}
 					: {
 							game: minigame.name.toLowerCase(),
-					  },
+						},
 				success: (json: Packet<StartGameData>): void => {
 					resolve(json)
 				},
@@ -140,9 +140,12 @@ async function getPrizes(
 				},
 				"json",
 			).fail(() =>
-				setTimeout((): void => {
-					resolve(getPrizes(minigame, gameToken, score))
-				}, randomInt(1000, 3000)),
+				setTimeout(
+					(): void => {
+						resolve(getPrizes(minigame, gameToken, score))
+					},
+					randomInt(1000, 3000),
+				),
 			),
 	)
 }
@@ -209,19 +212,22 @@ async function saveScore(
 						score: score,
 						game: game,
 						recaptchaToken: recaptchaToken,
-				  }
+					}
 				: {
 						token: token,
 						score: score,
 						game: game,
-				  },
+					},
 			success: (): void => {
 				resolve()
 			},
 			error: () =>
-				setTimeout((): void => {
-					resolve(saveScore(enc_token, score, game))
-				}, randomInt(1000, 3000)),
+				setTimeout(
+					(): void => {
+						resolve(saveScore(enc_token, score, game))
+					},
+					randomInt(1000, 3000),
+				),
 		})
 	})
 }
