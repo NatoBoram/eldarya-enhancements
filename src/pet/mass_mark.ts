@@ -36,15 +36,19 @@ async function setupMassMarkButton(): Promise<void> {
 
 function handleClickMinimaps(): void {
 	for (const minimap of document.querySelectorAll<HTMLDivElement>(".minimap"))
-		minimap.addEventListener("click", () => handleClickMinimap(minimap))
+		minimap.addEventListener("click", () => {
+			handleClickMinimap(minimap)
+		})
 }
 
 /** Wait for the minimap to change then reload the mass mark button */
 function handleClickMinimap(div: HTMLDivElement): void {
 	const dataset = getMinimapDataset(div)
 	const container = document.querySelector("#minimaps-container")
-	if (!container)
-		return Console.error("Couldn't get #minimaps-container", container)
+	if (!container) {
+		Console.error("Couldn't get #minimaps-container", container)
+		return
+	}
 
 	new MutationObserver((mutations, observer) => {
 		const found = mutations.find(

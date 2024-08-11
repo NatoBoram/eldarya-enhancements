@@ -38,12 +38,14 @@ function hidePet(): void {
 	const infoContainer = document.getElementById("infos-container")
 	const petImageContainer = document.getElementById("pet-image-container")
 
-	if (!nameContainer || !infoContainer || !petImageContainer)
-		return Console.error("The pet display was damaged.", {
+	if (!nameContainer || !infoContainer || !petImageContainer) {
+		Console.error("The pet display was damaged.", {
 			nameContainer,
 			infoContainer,
 			petImageContainer,
 		})
+		return
+	}
 
 	nameContainer.style.display = "none"
 	infoContainer.style.display = "none"
@@ -55,12 +57,14 @@ function showPet(): void {
 	const infoContainer = document.getElementById("infos-container")
 	const petImageContainer = document.getElementById("pet-image-container")
 
-	if (!nameContainer || !infoContainer || !petImageContainer)
-		return Console.error("The pet display was damaged.", {
+	if (!nameContainer || !infoContainer || !petImageContainer) {
+		Console.error("The pet display was damaged.", {
 			nameContainer,
 			infoContainer,
 			petImageContainer,
 		})
+		return
+	}
 
 	nameContainer.style.display = ""
 	infoContainer.style.display = ""

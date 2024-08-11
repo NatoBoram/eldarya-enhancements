@@ -1,5 +1,6 @@
 import type { ChangeRegionData } from "../api/change_region_data"
 import type { Packet } from "../api/packet"
+import { Result } from "../api/result.enum"
 import { LocalStorage } from "../local_storage/local_storage"
 
 export async function changeRegion(
@@ -13,7 +14,7 @@ export async function changeRegion(
 				LocalStorage.meta = json.meta
 				resolve(json)
 
-				if (json.result !== "success") {
+				if (json.result !== Result.success) {
 					$.flavrNotif(json.data)
 					return
 				}

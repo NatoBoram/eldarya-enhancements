@@ -9,7 +9,9 @@ export async function click<T extends HTMLElement>(
 			const element = document.querySelector<T>(selector)
 			if (!element) return
 			clearInterval(interval)
-			void clickElement(element).then(() => resolve(element))
+			void clickElement(element).then(() => {
+				resolve(element)
+			})
 		}, 800)
 	})
 }

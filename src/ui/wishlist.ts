@@ -10,9 +10,9 @@ export function loadWishlist(): void {
 
 	if (!marketplaceMenu.querySelector("#wishlist-button")) {
 		for (const a of marketplaceMenu.querySelectorAll("a")) {
-			a.addEventListener("click", () =>
-				pageLoad(a.href, undefined, undefined, undefined, true),
-			)
+			a.addEventListener("click", () => {
+				pageLoad(a.href, undefined, undefined, undefined, true)
+			})
 		}
 	}
 
@@ -34,7 +34,10 @@ function insertWishlist(): void {
 	if (assistance) assistance.innerHTML = translate.market.wishlist.assistance
 
 	const button = document.querySelector<HTMLAnchorElement>("#wishlist-button")
-	if (!button) return Console.error("Wishlist button not found", button)
+	if (!button) {
+		Console.error("Wishlist button not found", button)
+		return
+	}
 
 	// Menu
 	document
@@ -52,8 +55,10 @@ function insertWishlist(): void {
 		document.querySelector(".marketplace-container") ??
 		document.getElementById("marketplace-active-auctions") ??
 		document.getElementById("marketplace-itemsForSale")
-	if (!container)
-		return Console.error("The wishlist cannot be placed", container)
+	if (!container) {
+		Console.error("The wishlist cannot be placed", container)
+		return
+	}
 
 	const wishlistContext: WishlistSettings = {
 		wishlist: LocalStorage.wishlist,

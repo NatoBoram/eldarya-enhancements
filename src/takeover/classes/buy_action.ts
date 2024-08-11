@@ -1,6 +1,7 @@
 import type { Template } from "hogan.js"
 import { ajaxSearch } from "../../ajax/ajax_search"
 import { buy } from "../../ajax/buy"
+import { Result } from "../../api/result.enum"
 import { Console } from "../../console"
 import { translate } from "../../i18n/translate"
 import { LocalStorage } from "../../local_storage/local_storage"
@@ -8,9 +9,9 @@ import type { WishedItem } from "../../local_storage/wished_item"
 import type { MarketEntry } from "../../marketplace/interfaces/market_entry"
 import { getItemDetails } from "../../marketplace/marketplace_handlers"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
-import { Action } from "./action"
+import type { Action } from "./action"
 
-class BuyAction extends Action {
+class BuyAction implements Action {
 	readonly key = TakeoverAction.buy
 
 	private get currentMaana(): number {
@@ -49,7 +50,7 @@ class BuyAction extends Action {
 				} catch (e: unknown) {
 					const error = e as JQueryXHR
 					Console.error(`Failed to search for "${wished.name}"`, error)
-					this.setError(wished.icon, `${error.statusText}`)
+					this.setError(wished.icon, error.statusText)
 					break forpage
 				}
 
@@ -103,8 +104,8 @@ class BuyAction extends Action {
 	private async buy(result: MarketEntry): Promise<boolean> {
 		const json = await buy(Number(result.itemid))
 		Console.error(`Failed to buy "${result.name}"`, result, json)
-		if (json.result !== "success") this.setError(result.icon, json.data)
-		return json.result === "success"
+		if (json.result !== Result.success) this.setError(result.icon, json.data)
+		return json.result === Result.success
 	}
 
 	/** Search for a wished item on a specific page using the item's name. */

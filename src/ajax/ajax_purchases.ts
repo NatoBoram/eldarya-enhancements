@@ -1,5 +1,6 @@
 import type { AjaxPurchasesData } from "../api/ajax_purchases_data"
 import type { Packet } from "../api/packet"
+import { Result } from "../api/result.enum"
 import { LocalStorage } from "../local_storage/local_storage"
 import { BodyLocation } from "../marketplace/enums/body_location.enum"
 import { CategoryString } from "../marketplace/enums/category.enum"
@@ -34,7 +35,7 @@ export async function ajaxPurchases(
 				LocalStorage.meta = json.meta
 				resolve(json)
 
-				if (json.result !== "success") {
+				if (json.result !== Result.success) {
 					$.flavrNotif(json.data)
 					return
 				}

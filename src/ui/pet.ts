@@ -37,8 +37,10 @@ function createButtonRow(): void {
 	const closeExplorationButton = document.querySelector<HTMLAnchorElement>(
 		"#close-treasure-hunt-interface",
 	)
-	if (!closeExplorationButton)
-		return Console.error("Couldn't find #close-treasure-hunt-interface.")
+	if (!closeExplorationButton) {
+		Console.error("Couldn't find #close-treasure-hunt-interface.")
+		return
+	}
 
 	closeExplorationButton.style.display = "inline-block"
 	closeExplorationButton.style.marginRight = "0.6em"
@@ -58,8 +60,10 @@ function createButtonRow(): void {
 
 function extendRightContainer(): void {
 	const rightContainer = document.getElementById("right-container")
-	if (!rightContainer)
-		return Console.warn("Couldn't find #right-container", rightContainer)
+	if (!rightContainer) {
+		Console.warn("Couldn't find #right-container", rightContainer)
+		return
+	}
 
 	rightContainer.style.height = "40em"
 }

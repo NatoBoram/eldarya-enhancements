@@ -5,8 +5,10 @@ import { LocalStorage } from "../local_storage/local_storage"
 
 export function listenTreasureHunt(): void {
 	const resultOverlay = document.querySelector("#treasure-hunt-result-overlay")
-	if (!resultOverlay)
-		return Console.error("There is no result overlay.", resultOverlay)
+	if (!resultOverlay) {
+		Console.error("There is no result overlay.", resultOverlay)
+		return
+	}
 
 	new MutationObserver(() => {
 		Console.log("Mutation in", resultOverlay)
