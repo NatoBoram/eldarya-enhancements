@@ -52,8 +52,8 @@ importers:
         specifier: ^1.9.2
         version: 1.9.2
       '@types/tampermonkey':
-        specifier: ^4.20.4
-        version: 4.20.4
+        specifier: ^5.0.3
+        version: 5.0.3
       '@types/webpack':
         specifier: ^5.28.5
         version: 5.28.5(webpack-cli@5.1.4(webpack@5.93.0))
@@ -489,8 +489,8 @@ packages:
   '@types/suncalc@1.9.2':
     resolution: {integrity: sha512-ATAGBHHfA1TlE2tjfidLyTcysjoT2JHHEAmWRULh73SU9UTn++j5fqHEW16X6Y/2Li87jEQXzgu4R/OOdlDqzw==}
 
-  '@types/tampermonkey@4.20.4':
-    resolution: {integrity: sha512-8w9QsNyZ2RDzmNA8UPbGvEx2Czwjg6/dEQ7Oqi5SqdNlmjJvBz+eg8bY6nt33BOsLKJERD6Kk3RGBVr5ZhcEWA==}
+  '@types/tampermonkey@5.0.3':
+    resolution: {integrity: sha512-i8+x8ipoib8xAfho25oNTbILgrO665oxq5tNr3LvH5DaW5UOPsc88Fe1mTVTDwsux5LYOcd8Syb6q+s95x878Q==}
 
   '@types/tweenjs@1.0.8':
     resolution: {integrity: sha512-/HTVWu8c+AUJFK9P6b3LRzfodAYwDogtQKoH3ovZmnOY4aNJf+k3VqPx+D+AsLZP06AmoSLzqu9n/E5XCglCZw==}
@@ -2088,7 +2088,7 @@ snapshots:
 
   '@types/suncalc@1.9.2': {}
 
-  '@types/tampermonkey@4.20.4': {}
+  '@types/tampermonkey@5.0.3': {}
 
   '@types/tweenjs@1.0.8':
     dependencies:
