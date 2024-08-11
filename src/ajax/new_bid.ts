@@ -1,6 +1,6 @@
 import type { Packet } from "../api/packet"
+import { Result } from "../api/result.enum"
 import { LocalStorage } from "../local_storage/local_storage"
-import { Result } from "../typedoc"
 
 export async function newBid(
 	itemId: number,

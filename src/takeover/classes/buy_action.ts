@@ -1,6 +1,7 @@
 import type { Template } from "hogan.js"
 import { ajaxSearch } from "../../ajax/ajax_search"
 import { buy } from "../../ajax/buy"
+import { Result } from "../../api/result.enum"
 import { Console } from "../../console"
 import { translate } from "../../i18n/translate"
 import { LocalStorage } from "../../local_storage/local_storage"
@@ -8,7 +9,6 @@ import type { WishedItem } from "../../local_storage/wished_item"
 import type { MarketEntry } from "../../marketplace/interfaces/market_entry"
 import { getItemDetails } from "../../marketplace/marketplace_handlers"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
-import { Result } from "../../typedoc"
 import type { Action } from "./action"
 
 class BuyAction implements Action {

@@ -1,12 +1,12 @@
 import type { Template } from "hogan.js"
 import type { Packet } from "../../api/packet"
+import { Result } from "../../api/result.enum"
 import { Console } from "../../console"
 import { translate } from "../../i18n/translate"
 import { LocalStorage } from "../../local_storage/local_storage"
 import { MathUtil } from "../../math_util"
 import { SessionStorage } from "../../session_storage/session_storage"
 import { TakeoverAction } from "../../session_storage/takeover_action.enum"
-import { Result } from "../../typedoc"
 import type { Action } from "./action"
 
 class SummerGameAction implements Action {
